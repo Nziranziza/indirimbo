@@ -5,27 +5,100 @@
 
 import { Platform } from 'react-native';
 
-const tintColorLight = '#0a7ea4';
-const tintColorDark = '#fff';
+// Predefined tint color options that work well in both light and dark modes
+export const TintColorOptions = {
+  blue: {
+    name: 'Blue',
+    light: '#0a7ea4',
+    dark: '#4A9EFF',
+  },
+  purple: {
+    name: 'Purple',
+    light: '#7C3AED',
+    dark: '#A78BFA',
+  },
+  green: {
+    name: 'Green',
+    light: '#059669',
+    dark: '#10B981',
+  },
+  teal: {
+    name: 'Teal',
+    light: '#0D9488',
+    dark: '#14B8A6',
+  },
+  orange: {
+    name: 'Orange',
+    light: '#EA580C',
+    dark: '#FB923C',
+  },
+  pink: {
+    name: 'Pink',
+    light: '#DB2777',
+    dark: '#F472B6',
+  },
+  indigo: {
+    name: 'Indigo',
+    light: '#4F46E5',
+    dark: '#818CF8',
+  },
+  emerald: {
+    name: 'Emerald',
+    light: '#047857',
+    dark: '#34D399',
+  },
+  red: {
+    name: 'Red',
+    light: '#DC2626',
+    dark: '#F87171',
+  },
+  yellow: {
+    name: 'Gold',
+    light: '#CA8A04',
+    dark: '#FCD34D',
+  },
+  cyan: {
+    name: 'Cyan',
+    light: '#0891B2',
+    dark: '#22D3EE',
+  },
+  rose: {
+    name: 'Rose',
+    light: '#E11D48',
+    dark: '#FB7185',
+  },
+} as const;
 
-export const Colors = {
-  light: {
-    text: '#11181C',
-    background: '#fff',
-    tint: tintColorLight,
-    icon: '#687076',
-    tabIconDefault: '#687076',
-    tabIconSelected: tintColorLight,
-  },
-  dark: {
-    text: '#ECEDEE',
-    background: '#151718',
-    tint: tintColorDark,
-    icon: '#9BA1A6',
-    tabIconDefault: '#9BA1A6',
-    tabIconSelected: tintColorDark,
-  },
+export type TintColorKey = keyof typeof TintColorOptions;
+
+// Helper function to get colors with custom tint
+export const getColors = (tintColorKey: TintColorKey = 'blue') => {
+  const tintColors = TintColorOptions[tintColorKey];
+  
+  return {
+    light: {
+      text: '#11181C',
+      background: '#ffffff',
+      bottomTabBackground: '#F5F5F7',
+      tint: tintColors.light,
+      icon: '#687076',
+      tabIconDefault: '#687076',
+      tabIconSelected: tintColors.light,
+    },
+    dark: {
+      text: '#ECEDEE',
+      background: '#151718',
+      bottomTabBackground: '#0F1112',
+      tint: tintColors.dark,
+      icon: '#9BA1A6',
+      tabIconDefault: '#9BA1A6',
+      tabIconSelected: tintColors.dark,
+    },
+  };
 };
+
+// Default colors (for backward compatibility)
+export const Colors = getColors('blue');
 
 export const Fonts = Platform.select({
   ios: {

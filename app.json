@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "indirimbo",
+    "name": "Indirimbo",
     "slug": "indirimbo",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -9,9 +9,12 @@
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.indirimbo.app",
+      "appleTeamId": "4BAH4R2JJQ"
     },
     "android": {
+      "package": "com.indirimbo.app",
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
         "foregroundImage": "./assets/images/android-icon-foreground.png",
@@ -19,7 +22,8 @@
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
       "edgeToEdgeEnabled": true,
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "softwareKeyboardLayoutMode": "pan"
     },
     "web": {
       "output": "static",
@@ -43,6 +47,12 @@
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "42352c61-6285-46aa-9faa-ee33c490e5c7"
+      }
     }
   }
 }
