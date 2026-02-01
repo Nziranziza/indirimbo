@@ -36,6 +36,9 @@ jobs:
       - name: Build web
         run: npm run build:web
 
+      - name: Fix asset paths for subdirectory deployment
+        run: node scripts/fix-web-paths.js
+
       - name: Add .nojekyll file
         run: touch dist/.nojekyll
 

@@ -23,7 +23,13 @@ To manually build and test the web version locally:
 npm run build:web
 ```
 
-This will create a `dist` folder with the static web build.
+To build for GitHub Pages deployment (with correct paths):
+
+```bash
+npm run build:web:gh-pages
+```
+
+This will create a `dist` folder with the static web build and fix asset paths for subdirectory deployment.
 
 ## URLs
 
