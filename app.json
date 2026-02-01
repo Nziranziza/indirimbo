@@ -31,7 +31,8 @@
     "web": {
       "output": "single",
       "favicon": "./assets/images/favicon.png",
-      "bundler": "metro"
+      "bundler": "metro",
+      "baseUrl": "/indirimbo"
     },
     "plugins": [
       "expo-router",
