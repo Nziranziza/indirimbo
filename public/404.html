@@ -4,9 +4,27 @@
     <meta charset="utf-8" />
     <title>Indirimbo</title>
     <script>
-      // Redirect all 404s to index.html
-      // Expo Router will handle the routing client-side
-      window.location.replace('/indirimbo/');
+      // Preserve the original path for SPA routing on GitHub Pages.
+      (function () {
+        var basePath = '/indirimbo';
+        var path = window.location.pathname + window.location.search + window.location.hash;
+
+        if (path.indexOf(basePath) === 0) {
+          path = path.slice(basePath.length);
+        }
+
+        if (path === '') {
+          path = '/';
+        }
+
+        try {
+          sessionStorage.setItem('spa-redirect', path);
+        } catch (e) {
+          // Ignore storage errors and just redirect to base.
+        }
+
+        window.location.replace(basePath + '/');
+      })();
     </script>
   </head>
   <body>
