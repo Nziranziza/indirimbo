@@ -52,6 +52,7 @@ const MAPPING = {
   'hand.raised': 'pan-tool',
   'arrow.clockwise': 'refresh',
   'figure.2.and.child.holdinghands': 'family-restroom',
+  'sparkles': 'auto-awesome',
 } as IconMapping;
 
 // Fallback icon for unmapped icons

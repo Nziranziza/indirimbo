@@ -9,7 +9,7 @@ const MAX_RECENT_SONGS = 20;
 
 export interface FavoriteSong {
   playlist: string;
-  songNumber: number;
+  songNumber: number | string;
   songName: string;
   likedAt?: number; // Timestamp when the song was liked
 }

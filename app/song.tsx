@@ -350,7 +350,7 @@ export default function SongScreen() {
       } else {
         await addFavorite({
           playlist,
-          songNumber: typeof currentSong.number === 'number' ? currentSong.number : Number(currentSong.number) || 0,
+          songNumber: currentSong.number,
           songName: currentSong.name,
         });
         setIsFav(true);

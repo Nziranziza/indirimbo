@@ -9,7 +9,7 @@ import { getFontSize, setFontSize, type FontSize, type ThemePreference, type Tin
 import * as Haptics from 'expo-haptics';
 import { router, useFocusEffect } from 'expo-router';
 import { useCallback, useMemo, useState } from 'react';
-import { Dimensions, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Dimensions, Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export default function SettingsScreen() {
@@ -22,13 +22,16 @@ export default function SettingsScreen() {
   // Using useMemo to avoid recalculating on every render
   const colorOptionWidth = useMemo(() => {
     const screenWidth = Dimensions.get('window').width;
+    const effectiveWidth = Platform.OS === 'web' ? Math.min(screenWidth, 428) : screenWidth;
     // scrollContent padding: 20px each side = 40px total
     // groupContainer padding: 20px each side = 40px total  
     // Total horizontal padding: 80px
     // Gap between 4 items: 3 gaps * 12px = 36px
     const totalHorizontalPadding = 80; // 20*2 + 20*2
-    const totalGaps = 36; // 3 * 12
-    const availableWidth = screenWidth - totalHorizontalPadding - totalGaps;
+    const totalGaps = 0; // spacing handled by layout
+    const wrapperBorder = 6; // borderWidth 3 on each side
+    const totalBorders = wrapperBorder * 4;
+    const availableWidth = effectiveWidth - totalHorizontalPadding - totalGaps - totalBorders;
     // Calculate width per item, ensuring we fit exactly 4 per row
     // Use floor to ensure we don't exceed available space
     const itemWidth = Math.floor(availableWidth / 4);
@@ -398,8 +401,7 @@ const styles = StyleSheet.create({
   colorGrid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    gap: 12,
-    justifyContent: 'flex-start',
+    justifyContent: 'space-between',
     width: '100%',
   },
   colorOptionWrapper: {
@@ -408,8 +410,8 @@ const styles = StyleSheet.create({
     borderWidth: 3,
     flexShrink: 0,
     flexGrow: 0,
-    // Ensure items don't wrap incorrectly
-    marginRight: 0,
+    // vertical spacing between rows
+    marginBottom: 12,
   },
   colorOption: {
     minHeight: 85,
