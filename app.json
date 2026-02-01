@@ -29,8 +29,9 @@
       "softwareKeyboardLayoutMode": "pan"
     },
     "web": {
-      "output": "static",
-      "favicon": "./assets/images/favicon.png"
+      "output": "single",
+      "favicon": "./assets/images/favicon.png",
+      "bundler": "metro"
     },
     "plugins": [
       "expo-router",
@@ -56,6 +57,8 @@
       "eas": {
         "projectId": "42352c61-6285-46aa-9faa-ee33c490e5c7"
       }
-    }
+    },
+    "privacyPolicyUrl": "https://nziranziza.github.io/indirimbo/privacy-policy",
+    "termsOfServiceUrl": "https://nziranziza.github.io/indirimbo/terms-of-service"
   }
 }

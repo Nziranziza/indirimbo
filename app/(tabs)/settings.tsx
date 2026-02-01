@@ -7,7 +7,7 @@ import { useTheme } from '@/contexts/theme-context';
 import { useColors } from '@/hooks/use-colors';
 import { getFontSize, setFontSize, type FontSize, type ThemePreference, type TintColorKey } from '@/utils/storage';
 import * as Haptics from 'expo-haptics';
-import { useFocusEffect } from 'expo-router';
+import { router, useFocusEffect } from 'expo-router';
 import { useCallback, useMemo, useState } from 'react';
 import { Dimensions, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -205,8 +205,7 @@ export default function SettingsScreen() {
 
         {/* Accent Color Group */}
         <ThemedView style={[
-          styles.groupContainer, 
-          styles.lastGroupContainer,
+          styles.groupContainer,
           { backgroundColor: colors.background, borderColor: colors.icon + '15' }
         ]}>
           <ThemedView style={[styles.groupHeader, { borderBottomColor: colors.icon + '10' }]}>
@@ -260,6 +259,52 @@ export default function SettingsScreen() {
                 </View>
               );
             })}
+          </ThemedView>
+        </ThemedView>
+
+        {/* Legal & Info Group */}
+        <ThemedView style={[
+          styles.groupContainer,
+          styles.lastGroupContainer,
+          { backgroundColor: colors.background, borderColor: colors.icon + '15' }
+        ]}>
+          <ThemedView style={[styles.groupHeader, { borderBottomColor: colors.icon + '10' }]}>
+            <IconSymbol name="info.circle.fill" size={20} color={colors.tint} />
+            <ThemedText type="subtitle" style={styles.groupTitle}>
+              Legal & Information
+            </ThemedText>
+          </ThemedView>
+
+          <ThemedText style={[styles.groupDescription, { opacity: 0.7 }]}>
+            Privacy policy and terms of service
+          </ThemedText>
+
+          <ThemedView style={styles.legalLinksContainer}>
+            <TouchableOpacity
+              onPress={() => router.push('/privacy-policy')}
+              style={[styles.legalLink, { borderBottomColor: colors.icon + '10' }]}
+              activeOpacity={0.7}>
+              <View style={styles.legalLinkContent}>
+                <IconSymbol name="lock.shield.fill" size={20} color={colors.icon} />
+                <ThemedText type="defaultSemiBold" style={styles.legalLinkText}>
+                  Privacy Policy
+                </ThemedText>
+              </View>
+              <IconSymbol name="arrow.right" size={20} color={colors.icon} />
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              onPress={() => router.push('/terms-of-service')}
+              style={[styles.legalLink, { borderBottomWidth: 0 }]}
+              activeOpacity={0.7}>
+              <View style={styles.legalLinkContent}>
+                <IconSymbol name="doc.text.fill" size={20} color={colors.icon} />
+                <ThemedText type="defaultSemiBold" style={styles.legalLinkText}>
+                  Terms of Service
+                </ThemedText>
+              </View>
+              <IconSymbol name="arrow.right" size={20} color={colors.icon} />
+            </TouchableOpacity>
           </ThemedView>
         </ThemedView>
       </TabScrollView>
@@ -395,6 +440,24 @@ const styles = StyleSheet.create({
     fontSize: 11,
     textAlign: 'center',
     marginTop: 2,
+  },
+  legalLinksContainer: {
+    gap: 0,
+  },
+  legalLink: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingVertical: 16,
+    borderBottomWidth: 1,
+  },
+  legalLinkContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+  },
+  legalLinkText: {
+    fontSize: 16,
   },
 });
 

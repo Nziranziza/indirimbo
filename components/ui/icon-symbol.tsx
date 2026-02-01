@@ -25,6 +25,7 @@ const MAPPING = {
   'music.mic': 'mic',
   'magnifyingglass': 'search',
   'xmark.circle.fill': 'cancel',
+  'xmark.circle': 'cancel',
   'heart': 'favorite-border',
   'heart.fill': 'favorite',
   'textformat.size': 'format-size',
@@ -37,6 +38,20 @@ const MAPPING = {
   'circle.lefthalf.filled': 'brightness-6',
   'paintbrush.fill': 'format-paint',
   'paintpalette.fill': 'palette',
+  'info.circle.fill': 'info',
+  'lock.shield.fill': 'verified-user',
+  'lock.shield': 'security',
+  'doc.text.fill': 'description',
+  'doc.text': 'description',
+  'doc.plaintext': 'article',
+  'envelope': 'mail',
+  'gearshape': 'settings',
+  'checkmark.seal': 'verified',
+  'person.2': 'people',
+  'hand.thumbsup': 'thumb-up',
+  'hand.raised': 'pan-tool',
+  'arrow.clockwise': 'refresh',
+  'figure.2.and.child.holdinghands': 'family-restroom',
 } as IconMapping;
 
 // Fallback icon for unmapped icons
