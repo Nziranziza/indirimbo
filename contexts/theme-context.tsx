@@ -1,6 +1,6 @@
 import { getThemePreference, getTintColor, setThemePreference, setTintColor, type ThemePreference, type TintColorKey } from '@/utils/storage';
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { Appearance, AppState, useColorScheme as useSystemColorScheme } from 'react-native';
+import { Appearance, AppState, Platform, useColorScheme as useSystemColorScheme } from 'react-native';
 
 
 interface ThemeContextType {
@@ -22,7 +22,15 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    Appearance.setColorScheme(effectiveScheme === "dark" ? "dark" : "light");
+    if (Platform.OS === 'web') {
+      // On web, update document root color-scheme for proper scrollbar theming
+      if (typeof document !== 'undefined' && effectiveScheme) {
+        document.documentElement.style.colorScheme = effectiveScheme;
+      }
+    } else {
+      // On native platforms, sync with system UI
+      Appearance.setColorScheme(effectiveScheme === "dark" ? "dark" : "light");
+    }
   }, [effectiveScheme]);
 
   // Load preferences immediately on mount
