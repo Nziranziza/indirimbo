@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.indirimbo.app",
+      "sha256_cert_fingerprints": [
+        "3F:0B:2F:8C:FD:30:8B:3B:EE:39:7C:AA:F2:3F:CD:01:4F:31:BC:42:2C:34:82:B4:FE:B1:0C:C6:FB:0C:59:25"
+      ]
+    }
+  }
+]

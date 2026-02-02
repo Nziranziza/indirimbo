@@ -12,6 +12,7 @@
       "supportsTablet": true,
       "bundleIdentifier": "com.indirimbo.app",
       "appleTeamId": "4BAH4R2JJQ",
+      "associatedDomains": ["applinks:indirimbo.rw"],
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false
       }
@@ -26,7 +27,30 @@
       },
       "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false,
-      "softwareKeyboardLayoutMode": "pan"
+      "softwareKeyboardLayoutMode": "pan",
+      "intentFilters": [
+        {
+          "action": "VIEW",
+          "autoVerify": true,
+          "category": ["BROWSABLE", "DEFAULT"],
+          "data": [
+            {
+              "scheme": "https",
+              "host": "indirimbo.rw",
+              "pathPrefix": "/"
+            }
+          ]
+        },
+        {
+          "action": "VIEW",
+          "category": ["BROWSABLE", "DEFAULT"],
+          "data": [
+            {
+              "scheme": "indirimbo"
+            }
+          ]
+        }
+      ]
     },
     "web": {
       "output": "static",

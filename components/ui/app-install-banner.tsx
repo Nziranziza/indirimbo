@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Linking, Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-import { APP_STORE_URL, PLAY_STORE_URL } from '@/constants/app-links';
+import { APP_STORE_URL, APP_UNIVERSAL_LINK_URL, PLAY_STORE_URL } from '@/constants/app-links';
 import { useColors } from '@/hooks/use-colors';
 
 const APP_SCHEME = 'indirimbo://';
@@ -72,7 +72,28 @@ export function AppInstallBanner() {
   }, [platform]);
 
   const handleOpenApp = async () => {
-    await Linking.openURL(APP_SCHEME);
+    const openUrl = platform ? APP_UNIVERSAL_LINK_URL : APP_SCHEME;
+
+    if (Platform.OS === 'web' && typeof window !== 'undefined' && platform === 'ios') {
+      // iOS Safari is picky; use a direct location change with a fallback.
+      const fallback = storeUrl;
+      const timeout = fallback
+        ? window.setTimeout(() => {
+            window.location.href = fallback;
+          }, 1400)
+        : null;
+
+      window.location.href = openUrl;
+
+      window.setTimeout(() => {
+        if (timeout) {
+          window.clearTimeout(timeout);
+        }
+      }, 2000);
+      return;
+    }
+
+    await Linking.openURL(openUrl);
   };
 
   const handleInstall = async () => {
