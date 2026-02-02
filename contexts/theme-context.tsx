@@ -18,7 +18,13 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const systemColorScheme = useSystemColorScheme();
   const [userPreference, setUserPreference] = useState<ThemePreference | null>(null);
   const [tintColor, setTintColorState] = useState<TintColorKey | null>(null);
-  const [effectiveScheme, setEffectiveScheme] = useState<'light' | 'dark' | null>(systemColorScheme ?? null);
+  const [effectiveScheme, setEffectiveScheme] = useState<'light' | 'dark' | null>(() => {
+    // Ensure static export HTML matches the first client render on web.
+    if (Platform.OS === 'web') {
+      return 'light';
+    }
+    return systemColorScheme ?? null;
+  });
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
