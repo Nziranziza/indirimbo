@@ -6,10 +6,10 @@
     <script>
       // Preserve the original path for SPA routing on GitHub Pages.
       (function () {
-        var basePath = '/indirimbo';
+        var basePath = '';
         var path = window.location.pathname + window.location.search + window.location.hash;
 
-        if (path.indexOf(basePath) === 0) {
+        if (basePath && path.indexOf(basePath) === 0) {
           path = path.slice(basePath.length);
         }
 
@@ -23,7 +23,7 @@
           // Ignore storage errors and just redirect to base.
         }
 
-        window.location.replace(basePath + '/');
+        window.location.replace((basePath || '') + '/');
       })();
     </script>
   </head>

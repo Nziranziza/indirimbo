@@ -51,7 +51,7 @@
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true,
-      "baseUrl": "/indirimbo"
+      "baseUrl": "/"
     },
     "extra": {
       "router": {},

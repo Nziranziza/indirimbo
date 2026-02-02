@@ -1,4 +1,3 @@
-import { Alert, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { TabScrollView } from '@/components/tab-scroll-view';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
@@ -6,6 +5,7 @@ import { IconSymbol } from '@/components/ui/icon-symbol';
 import { useColors } from '@/hooks/use-colors';
 import * as Clipboard from 'expo-clipboard';
 import { router } from 'expo-router';
+import { Alert, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export default function PrivacyPolicyScreen() {
