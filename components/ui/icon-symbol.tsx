@@ -23,6 +23,7 @@ const MAPPING = {
   'arrow.right': 'arrow-forward',
   'music.note.list': 'queue-music',
   'music.mic': 'mic',
+  'arrow.up': 'ios-share',
   'magnifyingglass': 'search',
   'xmark.circle.fill': 'cancel',
   'xmark.circle': 'cancel',
@@ -53,6 +54,7 @@ const MAPPING = {
   'arrow.clockwise': 'refresh',
   'figure.2.and.child.holdinghands': 'family-restroom',
   'sparkles': 'auto-awesome',
+  'square.and.arrow.up': 'share',
 } as IconMapping;
 
 // Fallback icon for unmapped icons

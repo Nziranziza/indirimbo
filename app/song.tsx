@@ -3,6 +3,7 @@ import { ThemedView } from "@/components/themed-view";
 import { IconSymbol } from "@/components/ui/icon-symbol";
 import { SongNumberBadge } from "@/components/ui/song-number-badge";
 import agakizaSongs from "@/constants/agakiza-songs";
+import { APP_UNIVERSAL_LINK_URL } from "@/constants/app-links";
 import gushimishaSongs from "@/constants/gushimisha-songs";
 import { getPlaylistName } from "@/constants/playlists";
 import { useColors } from "@/hooks/use-colors";
@@ -19,6 +20,8 @@ import { useLocalSearchParams, useRouter } from "expo-router";
 import { useEffect, useMemo, useRef, useState } from "react";
 import {
   LayoutChangeEvent,
+  Platform,
+  Share,
   StyleSheet,
   TouchableOpacity,
   View,
@@ -363,6 +366,28 @@ export default function SongScreen() {
     }
   };
 
+  const handleShare = async () => {
+    if (!currentSong || !playlist) return;
+
+    const songUrl = `${APP_UNIVERSAL_LINK_URL}/song?playlist=${encodeURIComponent(
+      playlist
+    )}&songNumber=${encodeURIComponent(String(currentSong.number))}`;
+    const shareMessage = `${currentSong.name} • ${playlistTitle} #${currentSong.number}`;
+
+    try {
+      const shareContent = {
+        message: `${shareMessage}\n${songUrl}`,
+        title: shareMessage,
+      };
+
+      await Share.share(shareContent, {
+        dialogTitle: "Share song",
+      });
+    } catch (error) {
+      console.error("Error sharing song:", error);
+    }
+  };
+
   const fontSizeStyles = useMemo(() => {
     const sizes = {
       small: { verse: 15, chorus: 16, lineHeight: 26 },
@@ -426,6 +451,8 @@ export default function SongScreen() {
   const firstSectionIndex = 0;
   const lastSectionIndex = filteredBody.length - 1;
 
+  const shareIconName = Platform.OS === "ios" ? "square.and.arrow.up" : "arrow.up";
+
   return (
     <ThemedView style={styles.container}>
       <ThemedView style={[styles.header, { paddingTop: insets.top + 16 }]}>
@@ -448,17 +475,34 @@ export default function SongScreen() {
             </ThemedText>
           </View>
         </ThemedView>
-        <TouchableOpacity
-          onPress={handleToggleFavorite}
-          style={styles.headerActionButton}
-          activeOpacity={0.7}
-        >
-          <IconSymbol
-            name={isFav ? "heart.fill" : "heart"}
-            size={22}
-            color={isFav ? "#FF3B30" : colors.icon}
-          />
-        </TouchableOpacity>
+        <View style={styles.headerActions}>
+          <TouchableOpacity
+            onPress={handleShare}
+            style={[
+              styles.headerActionButton,
+              { borderColor: colors.icon + "30" },
+            ]}
+            activeOpacity={0.7}
+            hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+          >
+            <IconSymbol name={shareIconName} size={22} color={colors.icon} />
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={handleToggleFavorite}
+            style={[
+              styles.headerActionButton,
+              { borderColor: colors.icon + "30" },
+            ]}
+            activeOpacity={0.7}
+            hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+          >
+            <IconSymbol
+              name={isFav ? "heart.fill" : "heart"}
+              size={22}
+              color={isFav ? "#FF3B30" : colors.icon}
+            />
+          </TouchableOpacity>
+        </View>
       </ThemedView>
 
       <View style={styles.contentContainer}>
@@ -692,6 +736,13 @@ const styles = StyleSheet.create({
   },
   headerActionButton: {
     padding: 8,
+    borderRadius: 999,
+    borderWidth: 1,
+  },
+  headerActions: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 4,
   },
   headerCenter: {
     flex: 1,
