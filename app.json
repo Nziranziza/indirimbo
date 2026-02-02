@@ -11,7 +11,7 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.indirimbo.app",
-      "appleTeamId": "4BAH4R2JJQ",
+      "appleTeamId": "5RCND6P3FM",
       "associatedDomains": ["applinks:indirimbo.rw"],
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false
