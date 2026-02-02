@@ -8,7 +8,7 @@ import { useColors } from '@/hooks/use-colors';
 import { getFontSize, setFontSize, type FontSize, type ThemePreference, type TintColorKey } from '@/utils/storage';
 import * as Haptics from 'expo-haptics';
 import { router, useFocusEffect } from 'expo-router';
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Dimensions, Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -17,26 +17,39 @@ export default function SettingsScreen() {
   const { themePreference, setThemePreference: setThemePreferenceContext, tintColor, setTintColor: setTintColorContext } = useTheme();
   const colors = useColors();
   const insets = useSafeAreaInsets();
-  
-  // Calculate color option width to fit exactly 4 per row
-  // Using useMemo to avoid recalculating on every render
-  const colorOptionWidth = useMemo(() => {
-    const screenWidth = Dimensions.get('window').width;
+
+  const getColorOptionWidth = (screenWidth: number) => {
     const effectiveWidth = Platform.OS === 'web' ? Math.min(screenWidth, 428) : screenWidth;
     // scrollContent padding: 20px each side = 40px total
-    // groupContainer padding: 20px each side = 40px total  
+    // groupContainer padding: 20px each side = 40px total
     // Total horizontal padding: 80px
-    // Gap between 4 items: 3 gaps * 12px = 36px
     const totalHorizontalPadding = 80; // 20*2 + 20*2
     const totalGaps = 0; // spacing handled by layout
     const wrapperBorder = 6; // borderWidth 3 on each side
     const totalBorders = wrapperBorder * 4;
     const availableWidth = effectiveWidth - totalHorizontalPadding - totalGaps - totalBorders;
-    // Calculate width per item, ensuring we fit exactly 4 per row
-    // Use floor to ensure we don't exceed available space
     const itemWidth = Math.floor(availableWidth / 4);
-    // Ensure minimum width but don't exceed calculated width
     return Math.max(65, itemWidth);
+  };
+
+  const [colorOptionWidth, setColorOptionWidth] = useState(() => {
+    if (Platform.OS === 'web') {
+      return getColorOptionWidth(428);
+    }
+    return getColorOptionWidth(Dimensions.get('window').width);
+  });
+
+  useEffect(() => {
+    const updateWidth = ({ window }: { window: { width: number } }) => {
+      setColorOptionWidth(getColorOptionWidth(window.width));
+    };
+
+    const subscription = Dimensions.addEventListener('change', updateWidth);
+    updateWidth({ window: Dimensions.get('window') });
+
+    return () => {
+      subscription.remove();
+    };
   }, []);
 
   useFocusEffect(

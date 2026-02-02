@@ -7,6 +7,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import { ThemedView } from '@/components/themed-view';
 import { ThemeProvider, useColorScheme } from '@/contexts/theme-context';
+import { useHydrated } from '@/hooks/use-hydrated';
 
 export const unstable_settings = {
   anchor: '(tabs)',
@@ -69,7 +70,8 @@ function RootLayoutContent() {
 }
 
 export default function RootLayout() {
-  const content = <RootLayoutContent />;
+  const hasHydrated = useHydrated();
+  const content = hasHydrated ? <RootLayoutContent /> : <ThemedView style={{ flex: 1 }} />;
   
   return (
     <SafeAreaProvider>

@@ -9,6 +9,7 @@ import agakizaSongs from '@/constants/agakiza-songs';
 import gushimishaSongs from '@/constants/gushimisha-songs';
 import { getPlaylistName } from '@/constants/playlists';
 import { useColors } from '@/hooks/use-colors';
+import { useHydrated } from '@/hooks/use-hydrated';
 import { getFavorites, getRecentSongs, type FavoriteSong, type RecentSong } from '@/utils/storage';
 import { useFocusEffect, useRouter } from 'expo-router';
 import moment from 'moment';
@@ -49,6 +50,7 @@ export default function HomeScreen() {
   const router = useRouter();
   const colors = useColors();
   const insets = useSafeAreaInsets();
+  const hasHydrated = useHydrated();
   const [recentSongs, setRecentSongs] = useState<RecentSong[]>([]);
   const [favoriteSongs, setFavoriteSongs] = useState<FavoriteSong[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
@@ -213,7 +215,7 @@ export default function HomeScreen() {
                   }}
                 />
               </ThemedView>
-            {favoriteSongs.length > 0 && (
+            {hasHydrated && favoriteSongs.length > 0 && (
               <ThemedView>
                 <View style={styles.sectionHeader}>
                   <ThemedText type="subtitle" style={styles.sectionTitle}>
@@ -261,7 +263,7 @@ export default function HomeScreen() {
                 </ScrollView>
               </ThemedView>
             )}
-            {recentSongs.length > 0 && (
+            {hasHydrated && recentSongs.length > 0 && (
               <ThemedView>
                 <ThemedText type="subtitle" style={styles.sectionTitleStandalone}>
                   Recent Songs
@@ -284,9 +286,11 @@ export default function HomeScreen() {
                             <ThemedText style={[styles.recentPlaylistLabel, { color: colors.icon, opacity: 0.6 }]} numberOfLines={1}>
                               {playlistTitle}
                             </ThemedText>
-                            <ThemedText style={[styles.recentDate, { color: colors.icon, opacity: 0.4 }]} numberOfLines={1}>
-                              • {getShortTimeAgo(recent.timestamp)}
-                            </ThemedText>
+                            {hasHydrated && (
+                              <ThemedText style={[styles.recentDate, { color: colors.icon, opacity: 0.4 }]} numberOfLines={1}>
+                                • {getShortTimeAgo(recent.timestamp)}
+                              </ThemedText>
+                            )}
                           </View>
                           <ThemedText type="defaultSemiBold" style={styles.recentSongTitle} numberOfLines={2}>
                             {song?.name || recent.songName}

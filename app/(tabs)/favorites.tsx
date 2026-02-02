@@ -7,6 +7,7 @@ import agakizaSongs from '@/constants/agakiza-songs';
 import gushimishaSongs from '@/constants/gushimisha-songs';
 import { getPlaylistName } from '@/constants/playlists';
 import { useColors } from '@/hooks/use-colors';
+import { useHydrated } from '@/hooks/use-hydrated';
 import { getFavorites, removeFavorite, type FavoriteSong } from '@/utils/storage';
 import { useFocusEffect, useRouter } from 'expo-router';
 import { useCallback, useState } from 'react';
@@ -29,6 +30,7 @@ export default function FavoritesTabScreen() {
   const [favorites, setFavorites] = useState<FavoriteSong[]>([]);
   const colors = useColors();
   const insets = useSafeAreaInsets();
+  const hasHydrated = useHydrated();
 
   useFocusEffect(
     useCallback(() => {
@@ -97,7 +99,7 @@ export default function FavoritesTabScreen() {
 
       <TabScrollView 
         contentContainerStyle={styles.scrollContent}>
-        {favorites.length === 0 ? (
+        {!hasHydrated || favorites.length === 0 ? (
           <ThemedView style={styles.emptyState}>
             <IconSymbol name="heart" size={64} color={colors.icon} />
             <ThemedText style={styles.emptyText}>No favorites yet</ThemedText>
@@ -123,7 +125,7 @@ export default function FavoritesTabScreen() {
                     <ThemedText style={[styles.playlistLabel, { color: colors.icon, opacity: 0.7 }]}>
                       {playlistTitle}
                     </ThemedText>
-                    {favorite.likedAt && (
+                    {favorite.likedAt && hasHydrated && (
                       <ThemedText style={[styles.likedDate, { color: colors.icon, opacity: 0.5 }]}>
                         • {formatDate(favorite.likedAt)}
                       </ThemedText>
