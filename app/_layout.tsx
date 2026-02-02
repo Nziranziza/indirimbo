@@ -6,6 +6,7 @@ import 'react-native-reanimated';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import { ThemedView } from '@/components/themed-view';
+import { AppInstallBanner } from '@/components/ui/app-install-banner';
 import { ThemeProvider, useColorScheme } from '@/contexts/theme-context';
 import { useHydrated } from '@/hooks/use-hydrated';
 
@@ -79,6 +80,7 @@ export default function RootLayout() {
         {Platform.OS === 'web' ? (
           <ThemedView style={{ flex: 1}}>
           <View style={styles.webWrapper}>
+            <AppInstallBanner />
             {content}
           </View>
           </ThemedView>
