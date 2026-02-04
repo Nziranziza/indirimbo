@@ -1,6 +1,7 @@
 import { ThemedText } from "@/components/themed-text";
 import { ThemedView } from "@/components/themed-view";
 import { IconSymbol } from "@/components/ui/icon-symbol";
+import { LyricsContent } from "@/components/ui/lyrics-content";
 import { SongNumberBadge } from "@/components/ui/song-number-badge";
 import agakizaSongs from "@/constants/agakiza-songs";
 import { APP_UNIVERSAL_LINK_URL } from "@/constants/app-links";
@@ -446,11 +447,6 @@ export default function SongScreen() {
 
   const playlistTitle = getPlaylistName(playlist);
 
-  // Find first and last section indices (verse or chorus)
-  const filteredBody = currentSong.body?.filter(item => item && item.type) || [];
-  const firstSectionIndex = 0;
-  const lastSectionIndex = filteredBody.length - 1;
-
   const shareIconName = Platform.OS === "ios" ? "square.and.arrow.up" : "arrow.up";
 
   return (
@@ -534,14 +530,6 @@ export default function SongScreen() {
                   item.type === "chorus" && {
                     backgroundColor: colors.tint + "08",
                   },
-                  index === firstSectionIndex && {
-                    borderTopLeftRadius: 10,
-                    borderTopRightRadius: 10,
-                  },
-                  index === lastSectionIndex && {
-                    borderBottomLeftRadius: 10,
-                    borderBottomRightRadius: 10,
-                  },
                 ]}
               >
                 {item.type === "chorus" && (
@@ -570,7 +558,8 @@ export default function SongScreen() {
                     </ThemedText>
                   </View>
                 )}
-                <ThemedText
+                <LyricsContent
+                  content={item.content}
                   style={[
                     item.type === "verse"
                       ? styles.verseContent
@@ -583,9 +572,8 @@ export default function SongScreen() {
                       lineHeight: fontSizeStyles.lineHeight,
                     },
                   ]}
-                >
-                  {item.content}
-                </ThemedText>
+                  tintColor={colors.tint}
+                />
               </ThemedView>
             </View>
           )) || []}

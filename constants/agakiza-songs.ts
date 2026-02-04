@@ -3056,27 +3056,27 @@ export const songs: Song[] = [
       {
         "type": "verse",
         "number": 1,
-        "content": "Abahoze mu mwijima Babony' umucyo w'ukuri.\nHaleluya, haleluya, \numwana yatuvukiye, Uwo Mwana w'umuhungu. \nHaleluya (x5)."
+        "content": "Abahoze mu mwijima Babony' umucyo w'ukuri. Haleluya, haleluya, umwana yatuvukiye, Uwo Mwana w'umuhungu.|:Haleluya:|x5."
       },
       {
         "type": "verse",
         "number": 2,
-        "content": "Kand' azitw' Igitangaza, Azitwa n'Umujyanama. \nHaleluya, haleluya, \nAzitw' Iman'ikomeye, Yitw' Umwami w'amahoro. \nHaleluya (x5)."
+        "content": "Kand' azitw' Igitangaza, Azitwa n'Umujyanama. Haleluya, haleluya, Azitw' Iman'ikomeye, Yitw' Umwami w'amahoro. |:Haleluya:|x5."
       },
       {
         "type": "verse",
         "number": 3,
-        "content": "Izina rizwi ni Yesu Risobanur' Umukiza. \nHaleluya, haleluya, \nAzitwa n'lmanucli, Yukw Iman' iri muri twe. \nHaleluya (x5)."
+        "content": "Izina rizwi ni Yesu Risobanur' Umukiza. Haleluya, haleluya, Azitwa n'lmanucli, Yukw Iman' iri muri twe. |:Haleluya:|x5."
       },
       {
         "type": "verse",
         "number": 4,
-        "content": "Icyubahiro mw ijuru Kib' icy' Iman' ihoraho. \nHaleluya, haleluya. \nNo mw isi hab'amahoro, Abe mubo yishimira. \nHaleluya (x5)."
+        "content": "Icyubahiro mw ijuru Kib' icy' Iman' ihoraho. Haleluya, haleluya. No mw isi hab'amahoro, abe mubo yishimira. |:Haleluya:|x5."
       },
       {
         "type": "verse",
         "number": 5,
-        "content": "Kand' abemey' uwo Mwana Ba kizera n'izina rye, \nHaleluya, haleluya. \nBahaw'ubushobozi pe, bwo kub' abana b'Imana. \nHaleluya (x5)."
+        "content": "Kand' abemey' uwo Mwana Ba kizera n'izina rye, Haleluya, haleluya. Bahaw'ubushobozi pe, bwo kub' abana b'Imana. |:Haleluya:|x5."
       }
     ]
   },
@@ -3141,32 +3141,32 @@ export const songs: Song[] = [
       {
         "type": "verse",
         "number": 1,
-        "content": "Yesu yazutse n'ukuri Ya bonekey' abigishwa. \nHaleluya, haleluya. \nMaria na bagenzi be Bazindukira ku mva ye. \nHaleluya (x5)."
+        "content": "Yesu yazutse n'ukuri Ya bonekey' abigishwa. \nHaleluya, haleluya. \nMaria na bagenzi be Bazindukira ku mva ye. \n|:Haleluya:|x5."
       },
       {
         "type": "verse",
         "number": 2,
-        "content": "Basang' imva y'ikinguwe Harimo ba maraika. \nHaleluya, haleluya. \nNuko babwir' abagore Yuko Yes' ari muzima. \nHaleluya (x5)."
+        "content": "Basang' imva y'ikinguwe Harimo ba maraika. \nHaleluya, haleluya. \nNuko babwir' abagore Yuko Yes' ari muzima. \n|:Haleluya:|x5."
       },
       {
         "type": "verse",
         "number": 3,
-        "content": "Ba bagore barihuta Kubimenye sh' abigishwa \nHaleluya, haleluya, \nNukw abigishwa babiri Birukankira ku mva ye. \nHaleluya (x5)."
+        "content": "Ba bagore barihuta Kubimenye sh' abigishwa \nHaleluya, haleluya, \nNukw abigishwa babiri Birukankira ku mva ye. \n|:Haleluya:|x5."
       },
       {
         "type": "verse",
         "number": 4,
-        "content": "Nuko n'abandi bigishwa Mu nzir' ijya Emausi \nHaleluya, haleluya, \nBa ganirag' ibya Yesu Uko yapfuy' agahambwa. \nHaleluya (x5)."
+        "content": "Nuko n'abandi bigishwa Mu nzir' ijya Emausi \nHaleluya, haleluya, \nBa ganirag' ibya Yesu Uko yapfuy' agahambwa. \n|:Haleluya:|x5."
       },
       {
         "type": "verse",
         "number": 5,
-        "content": "Yes' arababonekera, Ariko ntiba mumenya. \nHaleluya, haleluya. \nYes' ati: Yemwe,mwa bapfu. Kristo yar' uwo kuzuka. \nHaleluya (x5)."
+        "content": "Yes' arababonekera, Ariko ntiba mumenya. \nHaleluya, haleluya. \nYes' ati: Yemwe,mwa bapfu. Kristo yar' uwo kuzuka. \n|:Haleluya:|x5."
       },
       {
         "type": "verse",
         "number": 6,
-        "content": "Bugorobye Yes' araza, Aboneker' abigishwa \nHaleluya, haleluya, \nAti: Mugir'amahoro! Abahumeker' U mwuka. \nHaleluya (x5)."
+        "content": "Bugorobye Yes' araza, Aboneker' abigishwa \nHaleluya, haleluya, \nAti: Mugir'amahoro! Abahumeker' U mwuka. \n|:Haleluya:|x5."
       }
     ]
   },
