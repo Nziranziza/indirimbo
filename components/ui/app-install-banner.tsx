@@ -6,6 +6,22 @@ import { useColors } from '@/hooks/use-colors';
 
 const APP_SCHEME = 'indirimbo://';
 
+function getCurrentWebPath() {
+  if (typeof window === 'undefined') {
+    return '/';
+  }
+
+  // Preserve route + query + hash so the app can open exactly where the user is.
+  const { pathname, search, hash } = window.location;
+  const path = `${pathname || '/'}${search || ''}${hash || ''}`;
+  return path.startsWith('/') ? path : `/${path}`;
+}
+
+function joinBaseAndPath(base: string, path: string) {
+  // Use URL to avoid accidental double slashes, and to keep query/hash intact.
+  return new URL(path, base.endsWith('/') ? base : `${base}/`).toString();
+}
+
 function getMobilePlatform(userAgent: string) {
   if (/iphone|ipad|ipod/i.test(userAgent)) {
     return 'ios';
@@ -72,7 +88,10 @@ export function AppInstallBanner() {
   }, [platform]);
 
   const handleOpenApp = async () => {
-    const openUrl = platform ? APP_UNIVERSAL_LINK_URL : APP_SCHEME;
+    const currentPath = getCurrentWebPath();
+    const openUrl = platform
+      ? joinBaseAndPath(APP_UNIVERSAL_LINK_URL, currentPath)
+      : `${APP_SCHEME.replace(/\/+$/, '')}${currentPath}`;
 
     if (Platform.OS === 'web' && typeof window !== 'undefined' && platform === 'ios') {
       // iOS Safari is picky; use a direct location change with a fallback.

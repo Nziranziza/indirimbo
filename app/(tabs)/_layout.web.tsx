@@ -12,7 +12,12 @@ export default function TabLayout() {
         headerShown: false,
         tabBarActiveTintColor: colors.tint,
         tabBarInactiveTintColor: colors.tabIconDefault,
-        tabBarStyle: { backgroundColor: colors.bottomTabBackground },
+        tabBarStyle: {
+          backgroundColor: colors.bottomTabBackground,
+          paddingBottom: 8,
+          paddingTop: 6,
+          height: 64,
+        },
       }}>
       <Tabs.Screen
         name="home"
