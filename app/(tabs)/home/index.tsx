@@ -12,6 +12,7 @@ import { useColors } from '@/hooks/use-colors';
 import { useHydrated } from '@/hooks/use-hydrated';
 import { getFavorites, getRecentSongs, type FavoriteSong, type RecentSong } from '@/utils/storage';
 import { useFocusEffect, useRouter } from 'expo-router';
+import Fuse from 'fuse.js';
 import moment from 'moment';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
@@ -98,39 +99,36 @@ export default function HomeScreen() {
     setFavoriteSongs(favorites.slice(0, 10)); // Show first 10
   };
 
-  // Memoize search results
+  // Create flat list of songs with playlist info for Fuse
+  const allSongsFlat = useMemo(() => {
+    return Object.entries(allSongs).flatMap(([playlist, songs]) =>
+      songs.map(song => ({ ...song, playlist }))
+    );
+  }, [allSongs]);
+
+  // Configure Fuse instance for fuzzy search
+  const fuse = useMemo(() => new Fuse(allSongsFlat, {
+    keys: [
+      { name: 'number', weight: 0.3 },
+      { name: 'name', weight: 0.5 },
+      { name: 'body.content', weight: 0.2 }
+    ],
+    threshold: 0.4,
+    ignoreLocation: true,
+  }), [allSongsFlat]);
+
+  // Memoize search results using fuzzy search
   const searchResults = useMemo(() => {
     if (!debouncedSearchQuery.trim()) {
       return [];
     }
 
-    const results: { playlist: string; song: Song }[] = [];
-    const lowerQuery = debouncedSearchQuery.toLowerCase().trim();
-
-    Object.entries(allSongs).forEach(([playlist, songs]) => {
-      songs.forEach(song => {
-        // Search by number
-        if (song.number.toString().includes(lowerQuery)) {
-          results.push({ playlist, song });
-          return;
-        }
-        // Search by title
-        if (song.name.toLowerCase().includes(lowerQuery)) {
-          results.push({ playlist, song });
-          return;
-        }
-        // Search by content
-        const contentMatch = song.body.some(item =>
-          item.content.toLowerCase().includes(lowerQuery)
-        );
-        if (contentMatch) {
-          results.push({ playlist, song });
-        }
-      });
-    });
-
-    return results.slice(0, 50); // Limit to 50 results
-  }, [debouncedSearchQuery, allSongs]);
+    const results = fuse.search(debouncedSearchQuery.trim());
+    return results.slice(0, 50).map(r => ({
+      playlist: r.item.playlist,
+      song: r.item
+    }));
+  }, [debouncedSearchQuery, fuse]);
 
   const handleSongPress = useCallback((playlist: string, songNumber: number | string) => {
     router.push({

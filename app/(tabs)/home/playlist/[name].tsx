@@ -8,6 +8,7 @@ import gushimishaSongs from '@/constants/gushimisha-songs';
 import { getPlaylistName } from '@/constants/playlists';
 import { useColors } from '@/hooks/use-colors';
 import { useLocalSearchParams, usePathname, useRouter } from 'expo-router';
+import Fuse from 'fuse.js';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { FlatList, Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -97,27 +98,22 @@ export default function PlaylistScreen() {
     };
   }, [searchQuery]);
 
-  // Memoize filtered songs
+  // Configure Fuse instance for fuzzy search
+  const fuse = useMemo(() => new Fuse(songs, {
+    keys: [
+      { name: 'number', weight: 0.3 },
+      { name: 'name', weight: 0.5 },
+      { name: 'body.content', weight: 0.2 }
+    ],
+    threshold: 0.4,
+    ignoreLocation: true,
+  }), [songs]);
+
+  // Memoize filtered songs using fuzzy search
   const filteredSongs = useMemo(() => {
     if (!debouncedSearchQuery.trim()) return songs;
-
-    const query = debouncedSearchQuery.toLowerCase().trim();
-    return songs.filter(song => {
-      // Search by number
-      if (song.number.toString().includes(query)) return true;
-
-      // Search by title
-      if (song.name.toLowerCase().includes(query)) return true;
-
-      // Search by content (verses) - only check first few verses for performance
-      const contentMatch = song.body.slice(0, 3).some(item =>
-        item.content.toLowerCase().includes(query)
-      );
-      if (contentMatch) return true;
-
-      return false;
-    });
-  }, [songs, debouncedSearchQuery]);
+    return fuse.search(debouncedSearchQuery.trim()).map(r => r.item);
+  }, [songs, debouncedSearchQuery, fuse]);
 
   const handleSongPress = useCallback((songNumber: number | string) => {
     router.push({
