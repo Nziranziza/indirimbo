@@ -3056,27 +3056,27 @@ export const songs: Song[] = [
       {
         "type": "verse",
         "number": 1,
-        "content": "Abahoze mu mwijima Babony' umucyo w'ukuri. Haleluya, haleluya, umwana yatuvukiye, Uwo Mwana w'umuhungu.|:Haleluya:|x5."
+        "content": "Abahoze mu mwijima Babony' umucyo w'ukuri. Haleluya, haleluya, umwana yatuvukiye, Uwo Mwana w'umuhungu.|:Haleluya.:|x5"
       },
       {
         "type": "verse",
         "number": 2,
-        "content": "Kand' azitw' Igitangaza, azitwa n'Umujyanama. Haleluya, haleluya. Azitw' Iman'ikomeye, Yitw' Umwami w'amahoro. |:Haleluya:|x5."
+        "content": "Kand' azitw' Igitangaza, azitwa n'Umujyanama. Haleluya, haleluya. Azitw' Iman'ikomeye, Yitw' Umwami w'amahoro. |:Haleluya.:|x5"
       },
       {
         "type": "verse",
         "number": 3,
-        "content": "Izina rizwi ni Yesu risobanur' Umukiza. Haleluya, haleluya, azitwa n'Imanueli, yukw' Iman' iri muri twe. |:Haleluya:|x5."
+        "content": "Izina rizwi ni Yesu risobanur' Umukiza. Haleluya, haleluya, azitwa n'Imanueli, yukw' Iman' iri muri twe. |:Haleluya.:|x5"
       },
       {
         "type": "verse",
         "number": 4,
-        "content": "Icyubahiro mw' ijuru kib' icy' Iman' ihoraho. Haleluya, haleluya. No mw' isi hab'amahoro, abe mubo yishimira. |:Haleluya:|x5."
+        "content": "Icyubahiro mw' ijuru kib' icy' Iman' ihoraho. Haleluya, haleluya. No mw' isi hab'amahoro, abe mubo yishimira. |:Haleluya.:|x5"
       },
       {
         "type": "verse",
         "number": 5,
-        "content": "Kand' abemey' uwo mwana Ba kizera n'izina rye. Haleluya, haleluya. Bahaw'ubushobozi pe, bwo kub' abana b'Imana. |:Haleluya:|x5."
+        "content": "Kand' abemey' uwo mwana Ba kizera n'izina rye. Haleluya, haleluya. Bahaw'ubushobozi pe, bwo kub' abana b'Imana. |:Haleluya.:|x5"
       }
     ]
   },
