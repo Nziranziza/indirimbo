@@ -32,24 +32,11 @@ function isInlineRepeat(parts: LyricsPart[], index: number): boolean {
   const part = parts[index];
   if (part.type !== 'repeat') return false;
 
-  // Check if the repeat content contains newlines - if so, it's a block repeat
+  // If repeat content contains newlines, it's a block repeat (multi-line)
   if (part.content.includes('\n')) return false;
 
-  const prevPart = parts[index - 1];
-  const nextPart = parts[index + 1];
-
-  // Check if there's text before on the same line (doesn't end with newline)
-  const hasTextBeforeOnSameLine = prevPart?.type === 'text' &&
-    prevPart.content.length > 0 &&
-    !prevPart.content.endsWith('\n');
-
-  // Check if there's text after on the same line (doesn't start with newline)
-  const hasTextAfterOnSameLine = nextPart?.type === 'text' &&
-    nextPart.content.length > 0 &&
-    !nextPart.content.startsWith('\n');
-
-  // It's inline if there's adjacent text on the same line
-  return hasTextBeforeOnSameLine || hasTextAfterOnSameLine;
+  // Single-line repeats are always treated as inline
+  return true;
 }
 
 // Render inline content - split text into words for natural wrapping
@@ -82,8 +69,7 @@ function InlineContent({
       items.push(
         <View key={keyIndex++} style={styles.inlineRepeatWrapper}>
           <LinearGradient
-            colors={['transparent', tintColor + '20', tintColor + '20', 'transparent']}
-            locations={[0, 0.15, 0.85, 1]}
+            colors={['transparent', tintColor + '20']}
             start={{ x: 0, y: 0 }}
             end={{ x: 1, y: 0 }}
             style={StyleSheet.absoluteFill}
@@ -226,6 +212,9 @@ const styles = StyleSheet.create({
   inlineRepeatWrapper: {
     flexDirection: 'row',
     alignItems: 'center',
+    borderTopRightRadius: 9999,
+    borderBottomRightRadius: 9999,
+    overflow: 'hidden',
   },
   inlineRepeatBadge: {
     marginLeft: 4,

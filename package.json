@@ -10,7 +10,10 @@
     "web": "expo start --web",
     "build:web": "expo export -p web",
     "build:web:gh-pages": "npm run build:web && node scripts/fix-web-paths.js",
-    "lint": "expo lint"
+    "lint": "expo lint",
+    "release":"npx eas-cli build --platform all --profile release",
+    "submit:android": "npx eas-cli submit --platform android",
+    "submit:ios":"npx eas-cli submit --platform ios"
   },
   "dependencies": {
     "@expo/vector-icons": "^15.0.3",

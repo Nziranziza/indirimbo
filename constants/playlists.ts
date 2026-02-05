@@ -27,4 +27,10 @@ export enum playlistKeys {
   guhamagara = 'guhamagara',
   gucungurwa = 'gucungurwa',
   guhamya = 'guhamya',
+  urukundo = 'urukundo rw\'Imana',
+  "gushakaAbandi" = 'gushak\'Abandi',
+  "muGitondo" = 'izo mu gitondo',
+  "kugarukaKwayesu" = 'kugaruka kwa Yesu',
+  "ubukwe" = "ubukwe",
+  "kuvukaKwaYesu" = "kuvuka kwa yesu"
 }
