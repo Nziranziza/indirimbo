@@ -45,7 +45,7 @@ const MAPPING = {
   'doc.text.fill': 'description',
   'doc.text': 'description',
   'doc.plaintext': 'article',
-  'envelope': 'mail',
+  'envelope': 'mail-outline',
   'gearshape': 'settings',
   'checkmark.seal': 'verified',
   'person.2': 'people',
@@ -54,7 +54,16 @@ const MAPPING = {
   'arrow.clockwise': 'refresh',
   'figure.2.and.child.holdinghands': 'family-restroom',
   'sparkles': 'auto-awesome',
-  'square.and.arrow.up': 'share',
+  'square.and.arrow.up': 'ios-share',
+  'icloud.slash': 'cloud-off',
+  'book': 'menu-book',
+  'questionmark.circle': 'help-outline',
+  'questionmark.circle.fill': 'help',
+  'exclamationmark.triangle': 'warning-amber',
+  'link': 'link',
+  'play.fill': 'play-arrow',
+  'chart.bar.fill': 'bar-chart',
+  'clock': 'schedule',
 } as IconMapping;
 
 // Fallback icon for unmapped icons

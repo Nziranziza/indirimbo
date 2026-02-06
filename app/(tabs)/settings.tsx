@@ -292,10 +292,36 @@ export default function SettingsScreen() {
           </ThemedView>
 
           <ThemedText style={[styles.groupDescription, { opacity: 0.7 }]}>
-            Privacy policy and terms of service
+            About the app, support, and legal policies
           </ThemedText>
 
           <ThemedView style={styles.legalLinksContainer}>
+            <TouchableOpacity
+              onPress={() => router.push('/about')}
+              style={[styles.legalLink, { borderBottomColor: colors.icon + '10' }]}
+              activeOpacity={0.7}>
+              <View style={styles.legalLinkContent}>
+                <IconSymbol name="music.note.list" size={20} color={colors.icon} />
+                <ThemedText type="defaultSemiBold" style={styles.legalLinkText}>
+                  About Indirimbo
+                </ThemedText>
+              </View>
+              <IconSymbol name="arrow.right" size={20} color={colors.icon} />
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              onPress={() => router.push('/support')}
+              style={[styles.legalLink, { borderBottomColor: colors.icon + '10' }]}
+              activeOpacity={0.7}>
+              <View style={styles.legalLinkContent}>
+                <IconSymbol name="questionmark.circle.fill" size={20} color={colors.icon} />
+                <ThemedText type="defaultSemiBold" style={styles.legalLinkText}>
+                  Help & Support
+                </ThemedText>
+              </View>
+              <IconSymbol name="arrow.right" size={20} color={colors.icon} />
+            </TouchableOpacity>
+
             <TouchableOpacity
               onPress={() => router.push('/privacy-policy')}
               style={[styles.legalLink, { borderBottomColor: colors.icon + '10' }]}
