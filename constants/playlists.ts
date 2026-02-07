@@ -35,5 +35,7 @@ export enum playlistKeys {
   "kuvukaKwaYesu" = "kuvuka kwa yesu",
   "kwitanga" = "kwitanga",
   "ubugingoBushya" = "ubugingo bushya",
-  ijuru = "ijuru"
+  ijuru = "ijuru",
+  abana = "abana",
+  impimbano = "izindi mpimbano"
 }
