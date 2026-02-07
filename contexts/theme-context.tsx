@@ -35,9 +35,10 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       }
     } else {
       // On native platforms, sync with system UI
-      Appearance.setColorScheme(effectiveScheme === "dark" ? "dark" : "light");
+      // When 'auto', reset to null so RN tracks the OS color scheme
+      Appearance.setColorScheme(userPreference === 'auto' ? null : effectiveScheme === "dark" ? "dark" : "light");
     }
-  }, [effectiveScheme]);
+  }, [effectiveScheme, userPreference]);
 
   // Load preferences immediately on mount
   useEffect(() => {

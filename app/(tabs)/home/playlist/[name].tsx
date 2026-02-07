@@ -7,14 +7,22 @@ import agakizaSongs from '@/constants/agakiza-songs';
 import gushimishaSongs from '@/constants/gushimisha-songs';
 import { getPlaylistName } from '@/constants/playlists';
 import { useColors } from '@/hooks/use-colors';
+import { LinearGradient } from 'expo-linear-gradient';
 import { useLocalSearchParams, usePathname, useRouter } from 'expo-router';
 import Fuse from 'fuse.js';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { FlatList, Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import Animated, {
+  Extrapolation,
+  interpolate,
+  useAnimatedScrollHandler,
+  useAnimatedStyle,
+  useSharedValue,
+} from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 interface Song {
-  number: number | string; // Can be number (e.g., 18) or string with suffix (e.g., "18a", "18b")
+  number: number | string;
   name: string;
   url: string;
   body: {
@@ -24,29 +32,40 @@ interface Song {
   }[];
 }
 
+// Header configuration
+const HEADER_MAX_HEIGHT = 280;
+const HEADER_MIN_HEIGHT = 56;
+const HEADER_SCROLL_DISTANCE = HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT;
+
 export default function PlaylistScreen() {
   const router = useRouter();
   const params = useLocalSearchParams<{ name: string | string[] }>();
   const pathname = usePathname();
-  const isOs = Platform.OS === 'ios';
+  const colors = useColors();
+  const insets = useSafeAreaInsets();
+  const bottomPadding = insets.bottom;
+
+  // Scroll tracking with Reanimated
+  const scrollY = useSharedValue(0);
+
+  const scrollHandler = useAnimatedScrollHandler({
+    onScroll: (event) => {
+      scrollY.value = event.contentOffset.y;
+    },
+  });
 
   // Get name from pathname or params
   const name = useMemo(() => {
-    // First, try to extract from pathname (most reliable for dynamic routes)
-    // e.g., "/playlist/agakiza" -> "agakiza"
     if (pathname) {
       const pathParts = pathname.split('/').filter(Boolean);
       const playlistIndex = pathParts.indexOf('playlist');
       if (playlistIndex !== -1 && pathParts[playlistIndex + 1]) {
         const playlistName = pathParts[playlistIndex + 1];
-        // Make sure it's not the literal "[name]" string
         if (playlistName && playlistName !== '[name]' && !playlistName.startsWith('[')) {
           return playlistName;
         }
       }
     }
-
-    // Fallback: try params
     const paramName = params.name;
     if (paramName) {
       if (typeof paramName === 'string' && paramName !== '[name]' && !paramName.startsWith('[')) {
@@ -59,18 +78,13 @@ export default function PlaylistScreen() {
         }
       }
     }
-
-    // Default fallback
     return 'agakiza';
   }, [params.name, pathname]);
+
   const [searchQuery, setSearchQuery] = useState('');
   const [debouncedSearchQuery, setDebouncedSearchQuery] = useState('');
   const debounceTimerRef = useRef<number | null>(null);
-  const colors = useColors();
-  const insets = useSafeAreaInsets();
-  const bottomPadding = insets.bottom;
 
-  // Memoize songs array - only compute once per playlist
   const songs: Song[] = useMemo(() => {
     return name === 'agakiza'
       ? (agakizaSongs as Song[])
@@ -81,16 +95,14 @@ export default function PlaylistScreen() {
     return getPlaylistName(name);
   }, [name]);
 
-  // Debounce search query to avoid filtering on every keystroke
+  // Debounce search
   useEffect(() => {
     if (debounceTimerRef.current) {
       clearTimeout(debounceTimerRef.current);
     }
-
     debounceTimerRef.current = setTimeout(() => {
       setDebouncedSearchQuery(searchQuery);
-    }, 200); // 200ms debounce for better performance
-
+    }, 200);
     return () => {
       if (debounceTimerRef.current) {
         clearTimeout(debounceTimerRef.current);
@@ -98,7 +110,7 @@ export default function PlaylistScreen() {
     };
   }, [searchQuery]);
 
-  // Configure Fuse instance for fuzzy search
+  // Fuzzy search
   const fuse = useMemo(() => new Fuse(songs, {
     keys: [
       { name: 'number', weight: 0.3 },
@@ -109,7 +121,6 @@ export default function PlaylistScreen() {
     ignoreLocation: true,
   }), [songs]);
 
-  // Memoize filtered songs using fuzzy search
   const filteredSongs = useMemo(() => {
     if (!debouncedSearchQuery.trim()) return songs;
     return fuse.search(debouncedSearchQuery.trim()).map(r => r.item);
@@ -122,7 +133,64 @@ export default function PlaylistScreen() {
     });
   }, [router, name]);
 
-  // Memoized song item renderer
+  // Animated styles
+  const headerAnimatedStyle = useAnimatedStyle(() => {
+    'worklet';
+    const height = interpolate(
+      scrollY.value,
+      [0, HEADER_SCROLL_DISTANCE],
+      [HEADER_MAX_HEIGHT + insets.top, HEADER_MIN_HEIGHT + insets.top],
+      Extrapolation.CLAMP
+    );
+    return { height };
+  }, [insets.top]);
+
+  const largeTitleAnimatedStyle = useAnimatedStyle(() => {
+    'worklet';
+    const opacity = interpolate(
+      scrollY.value,
+      [0, HEADER_SCROLL_DISTANCE - 50],
+      [1, 0],
+      Extrapolation.CLAMP
+    );
+    const translateY = interpolate(
+      scrollY.value,
+      [0, HEADER_SCROLL_DISTANCE],
+      [0, -20],
+      Extrapolation.CLAMP
+    );
+    const scale = interpolate(
+      scrollY.value,
+      [0, HEADER_SCROLL_DISTANCE - 50],
+      [1, 0.5],
+      Extrapolation.CLAMP
+    );
+    return { opacity, transform: [{ translateY }, { scale }] };
+  }, []);
+
+  const smallTitleAnimatedStyle = useAnimatedStyle(() => {
+    'worklet';
+    const opacity = interpolate(
+      scrollY.value,
+      [HEADER_SCROLL_DISTANCE - 80, HEADER_SCROLL_DISTANCE],
+      [0, 1],
+      Extrapolation.CLAMP
+    );
+    return { opacity };
+  }, []);
+
+  const navBarAnimatedStyle = useAnimatedStyle(() => {
+    'worklet';
+    const opacity = interpolate(
+      scrollY.value,
+      [HEADER_SCROLL_DISTANCE - 50, HEADER_SCROLL_DISTANCE],
+      [0, 1],
+      Extrapolation.CLAMP
+    );
+    return { opacity };
+  }, []);
+
+  // Song item renderer
   const renderSongItem = useCallback(({ item: song }: { item: Song }) => {
     return (
       <TouchableOpacity
@@ -135,17 +203,15 @@ export default function PlaylistScreen() {
             {song.name}
           </ThemedText>
         </ThemedView>
-        <IconSymbol name="arrow.right" size={20} color={colors.icon} /> 
+        <IconSymbol name="arrow.right" size={20} color={colors.icon} />
       </TouchableOpacity>
     );
   }, [colors, handleSongPress]);
 
-  // Optimize FlatList item key extraction
   const getItemKey = useCallback((item: Song, index: number) => {
     return `${item.number}-${index}`;
   }, []);
 
-  // Empty state component
   const renderEmptyState = useCallback(() => {
     if (filteredSongs.length === 0 && debouncedSearchQuery.trim()) {
       return (
@@ -161,48 +227,84 @@ export default function PlaylistScreen() {
     return null;
   }, [filteredSongs.length, debouncedSearchQuery, colors.icon]);
 
+
+  // Calculate fixed nav height
+  const NAV_HEIGHT = insets.top + 52;
+
   return (
     <ThemedView style={styles.container}>
-      <ThemedView style={[styles.header, { paddingTop: insets.top + 16 }]}>
+      {/* Animated gradient background */}
+      <Animated.View style={[styles.gradientWrapper, headerAnimatedStyle]}>
+        {/* Vertical gradient - background to light tint */}
+        <LinearGradient
+          colors={['transparent', colors.tint]}
+          start={{ x: 0, y: 1 }}
+          end={{ x: 0, y: 0 }}
+          style={StyleSheet.absoluteFill}
+        />
+
+        {/* Large title area - this collapses */}
+        <Animated.View style={[styles.largeTitleContainer, { paddingTop: NAV_HEIGHT }, largeTitleAnimatedStyle]}>
+          <View style={styles.heroIcon}>
+            <IconSymbol name={name === 'agakiza' ? 'music.note.list' : 'music.mic'} size={56} color={colors.text} />
+          </View>
+          <Animated.Text style={[styles.largeTitle, { color: colors.text }]}>
+            {playlistTitle}
+          </Animated.Text>
+          <Animated.Text style={[styles.subtitle, { color: colors.text, opacity: 0.7 }]}>
+            {songs.length} songs
+          </Animated.Text>
+        </Animated.View>
+      </Animated.View>
+
+      {/* Fixed navigation bar - always on top */}
+      <View style={[styles.navBar, { height: NAV_HEIGHT, paddingTop: insets.top }]}>
+        <Animated.View style={[StyleSheet.absoluteFill, { backgroundColor: colors.background }, navBarAnimatedStyle]} />
         <TouchableOpacity
           onPress={() => router.back()}
           style={styles.backButton}
           activeOpacity={0.7}>
           <IconSymbol name="arrow.left" size={24} color={colors.text} />
         </TouchableOpacity>
-        <ThemedText type="title" style={styles.title}>
-          {playlistTitle}
-        </ThemedText>
-        <View style={{ width: 40 }} />
-      </ThemedView>
 
-      <SearchInput
-        value={searchQuery}
-        onChangeText={setSearchQuery}
-        placeholder="Search by title, content, or number..."
-        style={styles.searchInput}
-      />
+        <Animated.View style={[styles.smallTitleContainer, smallTitleAnimatedStyle]}>
+          <Animated.Text style={[styles.smallTitle, { color: colors.text }]}>
+            {playlistTitle}
+          </Animated.Text>
+        </Animated.View>
 
-      <FlatList
+        <View style={styles.placeholder} />
+      </View>
+
+      {/* Scrollable Content */}
+      <Animated.FlatList
         data={filteredSongs}
         renderItem={renderSongItem}
         keyExtractor={getItemKey}
-        style={styles.scrollView}
-        contentInsetAdjustmentBehavior={Platform.OS === 'ios' ? 'automatic' : undefined}
-        contentContainerStyle={[styles.scrollContent, {
-          paddingBottom: isOs ? 0 : bottomPadding + 90,
-        }]}
+        onScroll={scrollHandler}
+        scrollEventThrottle={16}
+        contentContainerStyle={[
+          styles.listContent,
+          {
+            paddingTop: HEADER_MAX_HEIGHT + insets.top + 16,
+            paddingBottom: bottomPadding + 90,
+          }
+        ]}
+        ListHeaderComponent={
+          <View style={styles.listHeader}>
+            <SearchInput
+              value={searchQuery}
+              onChangeText={setSearchQuery}
+              placeholder="Search by title, content, or number..."
+            />
+          </View>
+        }
         ListEmptyComponent={renderEmptyState}
+        showsVerticalScrollIndicator={false}
         removeClippedSubviews={true}
         maxToRenderPerBatch={20}
-        updateCellsBatchingPeriod={50}
         initialNumToRender={30}
         windowSize={10}
-        getItemLayout={(data, index) => ({
-          length: 80, // Approximate height of song card (padding + height)
-          offset: 80 * index,
-          index,
-        })}
       />
     </ThemedView>
   );
@@ -212,33 +314,72 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  header: {
+  gradientWrapper: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    zIndex: 1,
+  },
+  navBar: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    zIndex: 10,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingHorizontal: 20,
-    paddingBottom: 16,
+    paddingHorizontal: 16,
   },
   backButton: {
-    padding: 8,
-    marginLeft: -8,
+    width: 40,
+    height: 40,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  title: {
+  smallTitleContainer: {
     flex: 1,
-    textAlign: 'center',
-    fontSize: 24,
+    alignItems: 'center',
   },
-  searchInput: {
-    marginHorizontal: 20,
+  smallTitle: {
+    fontSize: 17,
+    fontWeight: '600',
+  },
+  placeholder: {
+    width: 40,
+  },
+  largeTitleContainer: {
+    paddingHorizontal: 20,
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  heroIcon: {
+    alignItems: 'center',
     marginBottom: 16,
   },
-  scrollView: {
-    flex: 1,
+  largeTitle: {
+    fontSize: 34,
+    fontWeight: '700',
+    letterSpacing: -0.5,
+    textAlign: 'center',
   },
-  scrollContent: {
-    padding: 20,
-    paddingTop: 0,
-    paddingBottom: 20,
+  subtitle: {
+    fontSize: 15,
+    marginTop: 8,
+    fontWeight: '400',
+    textAlign: 'center',
+  },
+  listContent: {
+    paddingHorizontal: 20,
+  },
+  listHeader: {
+    marginBottom: 16,
   },
   songCard: {
     flexDirection: 'row',

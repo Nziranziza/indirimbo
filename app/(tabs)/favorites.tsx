@@ -106,6 +106,13 @@ export default function FavoritesTabScreen() {
             <ThemedText style={[styles.emptySubtext, { opacity: 0.6 }]}>
               Tap the heart icon on any song to add it to favorites
             </ThemedText>
+            <TouchableOpacity
+              onPress={() => router.push('/(tabs)/home')}
+              activeOpacity={0.8}
+              style={[styles.ctaButton, { backgroundColor: colors.tint }]}>
+              <IconSymbol name="play.fill" size={20} color="#FFFFFF" />
+              <ThemedText style={styles.ctaText}>Start Exploring Songs</ThemedText>
+            </TouchableOpacity>
           </ThemedView>
         ) : (
           favorites.map((favorite, index) => {
@@ -207,6 +214,20 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingVertical: 80,
     gap: 16,
+  },
+  ctaButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+    paddingHorizontal: 28,
+    paddingVertical: 16,
+    borderRadius: 30,
+    marginTop: 8,
+  },
+  ctaText: {
+    color: '#FFFFFF',
+    fontSize: 17,
+    fontWeight: '600',
   },
   emptyText: {
     fontSize: 18,
