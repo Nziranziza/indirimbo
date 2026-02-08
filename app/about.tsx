@@ -1,6 +1,7 @@
 import { TabScrollView } from '@/components/tab-scroll-view';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
+import { BackButton } from '@/components/ui/back-button';
 import { IconSymbol } from '@/components/ui/icon-symbol';
 import { useColors } from '@/hooks/use-colors';
 import { router } from 'expo-router';
@@ -26,12 +27,7 @@ export default function AboutScreen() {
   return (
     <ThemedView style={styles.container}>
       <ThemedView style={[styles.header, { paddingTop: insets.top + 20 }]}>
-        <TouchableOpacity
-          onPress={() => router.back()}
-          style={styles.backButton}
-          activeOpacity={0.7}>
-          <IconSymbol name="arrow.left" size={24} color={colors.tint} />
-        </TouchableOpacity>
+        <BackButton />
       </ThemedView>
 
       <TabScrollView contentContainerStyle={styles.scrollContent}>
@@ -57,7 +53,7 @@ export default function AboutScreen() {
           ]}>
           <ThemedText style={styles.description}>
             Indirimbo brings the beloved hymns and worship songs of Rwandan churches to your fingertips.
-            Whether you're leading worship, singing along at church, or practicing at home,
+            Whether you&apos;re leading worship, singing along at church, or practicing at home,
             Indirimbo is your perfect companion.
           </ThemedText>
         </ThemedView>
@@ -190,12 +186,6 @@ const styles = StyleSheet.create({
   header: {
     paddingHorizontal: 20,
     paddingBottom: 8,
-  },
-  backButton: {
-    width: 40,
-    height: 40,
-    justifyContent: 'center',
-    marginLeft: -8,
   },
   scrollContent: {
     padding: 20,

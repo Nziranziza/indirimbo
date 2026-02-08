@@ -1,5 +1,6 @@
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
+import { BackButton } from '@/components/ui/back-button';
 import { IconSymbol } from '@/components/ui/icon-symbol';
 import { SearchInput } from '@/components/ui/search-input';
 import { SongNumberBadge } from '@/components/ui/song-number-badge';
@@ -260,12 +261,7 @@ export default function PlaylistScreen() {
       {/* Fixed navigation bar - always on top */}
       <View style={[styles.navBar, { height: NAV_HEIGHT, paddingTop: insets.top }]}>
         <Animated.View style={[StyleSheet.absoluteFill, { backgroundColor: colors.background }, navBarAnimatedStyle]} />
-        <TouchableOpacity
-          onPress={() => router.back()}
-          style={styles.backButton}
-          activeOpacity={0.7}>
-          <IconSymbol name="arrow.left" size={24} color={colors.text} />
-        </TouchableOpacity>
+        <BackButton color={colors.text} style={styles.backButton} />
 
         <Animated.View style={[styles.smallTitleContainer, smallTitleAnimatedStyle]}>
           <Animated.Text style={[styles.smallTitle, { color: colors.text }]}>
@@ -301,6 +297,7 @@ export default function PlaylistScreen() {
         }
         ListEmptyComponent={renderEmptyState}
         showsVerticalScrollIndicator={false}
+        keyboardShouldPersistTaps="handled"
         removeClippedSubviews={true}
         maxToRenderPerBatch={20}
         initialNumToRender={30}

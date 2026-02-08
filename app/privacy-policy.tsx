@@ -1,6 +1,7 @@
 import { TabScrollView } from '@/components/tab-scroll-view';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
+import { BackButton } from '@/components/ui/back-button';
 import { IconSymbol } from '@/components/ui/icon-symbol';
 import { useColors } from '@/hooks/use-colors';
 import * as Clipboard from 'expo-clipboard';
@@ -30,12 +31,7 @@ export default function PrivacyPolicyScreen() {
   return (
     <ThemedView style={styles.container}>
       <ThemedView style={[styles.header, { paddingTop: insets.top + 20 }]}>
-        <TouchableOpacity
-          onPress={() => router.back()}
-          style={styles.backButton}
-          activeOpacity={0.7}>
-          <IconSymbol name="arrow.left" size={24} color={colors.tint} />
-        </TouchableOpacity>
+        <BackButton style={styles.backButton} />
         <ThemedText type="title" style={styles.title}>
           Privacy Policy
         </ThemedText>

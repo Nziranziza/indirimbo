@@ -27,6 +27,7 @@ export function TabScrollView({
       contentInsetAdjustmentBehavior={isOs ? 'automatic' : undefined}
       showsVerticalScrollIndicator={true}
       scrollEnabled={true}
+      keyboardShouldPersistTaps="handled"
       {...props}>
       {children}
     </ScrollView>

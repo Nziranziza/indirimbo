@@ -36,7 +36,7 @@ export const songs: Song[] = [
       {
         "type": "verse",
         "number": 1,
-        "content": `Uri Uwera Uwera ,Mwami Mana yacu,\nKare mu gitondo tukuririmbire:\nUri umunyambaraga uri umunyebambe;\nUri Ubutatu uri Imana imwe`
+        "content": `Uri Uwera Uwera, Mwami Mana yacu,\nKare mu gitondo tukuririmbire:\nUri umunyambaraga uri umunyebambe;\nUri Ubutatu uri Imana imwe`
       },
       {
         "type": "verse",
@@ -46,12 +46,12 @@ export const songs: Song[] = [
       {
         "type": "verse",
         "number": 3,
-        "content": "Uri Uwera Uwera, kandi ubwiza bwawe\nBuruta uko bwarebwa n'abacumuye.\nNiwowe wenyine wera urusha bose\nUbuntu no gutungana kose."
+        "content": "Uri Uwera Uwera, kandi ubwiza bwawe\nBuruta uko bwarebwa n'abacumuye.\nNi wowe wenyine wera urusha bose\nUbuntu no gutungana kose."
       },
       {
         "type": "verse",
         "number": 4,
-        "content": "Uri Uwera Uwera, Mwami Mana yacu\nIbyaremwe byose biragusingiza:\nUr'umunyambarag'ur'umunyebambe:\nIngoma yawe ntizahanguka."
+        "content": "Uri Uwera Uwera, Mwami Mana yacu\nIbyaremwe byose biragusingiza:\nUr' umunyambarag' ur' umunyebambe:\nIngoma yawe ntizahanguka."
       }
     ]
   },
@@ -67,7 +67,7 @@ export const songs: Song[] = [
       {
         "type": "verse",
         "number": 1,
-        "content": "Dushim’ Iman' ihoraho\nKukw ari Yo yaturemye;\nYatugiriy’imbabazi,\nTuyishime, Haleluya."
+        "content": "Dushim’ Iman' ihoraho\nKukw ari Yo yaturemye;\nYatugiriy’ imbabazi,\nTuyishime, Haleluya."
       },
       {
         "type": "verse",
@@ -98,7 +98,7 @@ export const songs: Song[] = [
       {
         "type": "verse",
         "number": 1,
-        "content": "Mwa bari mw isi yose mwe,\nNimuhimbaz' Uwiteka.\nMuhore mumukorera,\nKukw ibyo bidukwiriye."
+        "content": "Mwa bari mw isi yose mwe,\nNimuhimbaz' Uwiteka.\nMuhore mumukorera,\nKukw' ibyo bidukwiriye."
       },
       {
         "type": "verse",
@@ -129,7 +129,7 @@ export const songs: Song[] = [
       {
         "type": "verse",
         "number": 1,
-        "content": "Dushime cyan'izina ryawe,\nYesu mukiza wacu,\nTukwimik’utwitegekere"
+        "content": "Dushime cyan' izina ryawe,\nYesu mukiza wacu,\nTukwimik’ utwitegekere"
       },
       {
         "type": "chorus",
@@ -138,7 +138,7 @@ export const songs: Song[] = [
       {
         "type": "verse",
         "number": 2,
-        "content": "Mwa bishwe bamubahora mwe,\nMwishimire mw'ijuru;\nMuhimbaz’uwadupfiriye"
+        "content": "Mwa bishwe bamubahora mwe,\nMwishimire mw'ijuru:\nMuhimbaz’uwadupfiriye:"
       },
       {
         "type": "verse",
@@ -148,17 +148,17 @@ export const songs: Song[] = [
       {
         "type": "verse",
         "number": 4,
-        "content": "Abakuwehw’ibyaha twese,\nTwahaw’ubwo buntu bwe,\nNimuze tumupfukamire."
+        "content": "Abakuwehw’ibyaha twese,\nTwahaw’ubwo buntu bwe,\nNimuze tumupfukamire:"
       },
       {
         "type": "verse",
         "number": 5,
-        "content": "Mwa bava mu mahanga mwese,\nNimwumvir’umukiza;\nNi we mucunguzi w’abantu."
+        "content": "Mwa bava mu mahanga mwese,\nNimwumvir’ Umukiza;\nNi we mucunguzi w’abantu."
       },
       {
         "type": "verse",
         "number": 6,
-        "content": "Twifuza cyane gusohora\nMw’ijur’aho Yes’ari,\nNgo tumushim’iteka ryose."
+        "content": "Twifuza cyane gusohora\nMw’ijur’aho Yes’ari,\nNgo tumushim’iteka ryose:"
       }
     ]
   },
@@ -174,22 +174,22 @@ export const songs: Song[] = [
       {
         "type": "verse",
         "number": 1,
-        "content": "Duhimbaz’Uwitek’Imana no kuyisenga.\nKukw ari yo yaremy’ibyo mu isi n’iby’ijuru\nYesu mwami wez’imitima yacu\nNgo turirimbir’Imana."
+        "content": "Duhimbaz’ Uwitek’Imana no kuyisenga.\nKukw' ari yo yaremy’ ibyo mu isi n’ iby’ ijuru\nYesu mwami wez’ imitima yacu\nNgo turirimbir’ Imana."
       },
       {
         "type": "verse",
         "number": 2,
-        "content": "Duhimbaz’Uwitek’Imana no kuyisenga\nKukw’ijy’itegeka neza mu bihugu\nIzaduh’ibidukwiye byose,\nByose twizer’iri jambo ryayo."
+        "content": "Duhimbaz’ Uwitek’ Imana no kuyisenga\nKukw’ ijy’itegeka neza mu bihugu byose\nIzaduh’ ibidukwiye byose:\nTwizer’ iri jambo ryayo."
       },
       {
         "type": "verse",
         "number": 3,
-        "content": "Duhimbaz’uwitek’Imana no kuyisenga yaraturemye;ni yo yaduhay’ubugingo;\nIturinda mu byago byacu byose;\nNi y’itugirir’ubuntu."
+        "content": "Duhimbaz’ Uwitek’ Imana no kuyisenga.\nYaraturemye; ni yo yaduhay’ ubugingo;\nIturinda mu byago byacu byose;\nNi y’itugirir’ ubuntu."
       },
       {
         "type": "verse",
         "number": 4,
-        "content": "Duhimbaz’uwitek’Imana no kuyisenga.\nIbihumeka byose bishim’izina ryayo;\nTuyikunde kukw ar’umucyo wacu;\nTuyisab’iminsi yose."
+        "content": "Duhimbaz’uwitek’Imana no kuyisenga.\nIbihumeka byose bishim’ izina ryayo.\nTuyikunde kukw' ar’umucyo wacu;\nTuyisab’ iminsi yose."
       }
     ]
   },

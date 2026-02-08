@@ -1,5 +1,6 @@
 import { ThemedText } from "@/components/themed-text";
 import { ThemedView } from "@/components/themed-view";
+import { BackButton } from "@/components/ui/back-button";
 import { IconSymbol } from "@/components/ui/icon-symbol";
 import { LyricsContent } from "@/components/ui/lyrics-content";
 import { SongNumberBadge } from "@/components/ui/song-number-badge";
@@ -402,13 +403,7 @@ export default function SongScreen() {
     return (
       <ThemedView style={styles.container}>
         <ThemedView style={[styles.header, { paddingTop: insets.top + 16 }]}>
-          <TouchableOpacity
-            onPress={() => router.back()}
-            style={styles.backButton}
-            activeOpacity={0.7}
-          >
-            <IconSymbol name="arrow.left" size={24} color={colors.text} />
-          </TouchableOpacity>
+          <BackButton color={colors.text} style={styles.backButton} />
         </ThemedView>
         <ThemedView style={styles.emptyState}>
           <ThemedText>No songs available</ThemedText>
@@ -452,15 +447,13 @@ export default function SongScreen() {
   return (
     <ThemedView style={styles.container}>
       <ThemedView style={[styles.header, { paddingTop: insets.top + 16 }]}>
-        <TouchableOpacity
-          onPress={() => router.back()}
+        <BackButton
+          color={colors.text}
           style={styles.backButton}
-          activeOpacity={0.7}
-          hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
-        >
-          <IconSymbol name="arrow.left" size={24} color={colors.text} />
+        />
+        <TouchableOpacity onPress={() => router.back()} activeOpacity={0.7}>
+          <SongNumberBadge number={currentSong.number} size="large" style={styles.songNumberBadge} />
         </TouchableOpacity>
-        <SongNumberBadge number={currentSong.number} size="large" style={styles.songNumberBadge} />
         <ThemedView style={styles.headerCenter}>
           <ThemedText type="subtitle" style={styles.playlistLabel}>
             {playlistTitle}
@@ -471,7 +464,7 @@ export default function SongScreen() {
             </ThemedText>
           </View>
         </ThemedView>
-        <View style={styles.headerActions}>
+        <View style={[styles.headerActions, { borderColor: colors.icon + "30" }]}>
           <TouchableOpacity
             onPress={handleShare}
             style={[
@@ -487,7 +480,6 @@ export default function SongScreen() {
             onPress={handleToggleFavorite}
             style={[
               styles.headerActionButton,
-              { borderColor: colors.icon + "30" },
             ]}
             activeOpacity={0.7}
             hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
@@ -724,17 +716,16 @@ const styles = StyleSheet.create({
   },
   headerActionButton: {
     padding: 8,
-    borderRadius: 999,
-    borderWidth: 1,
   },
   headerActions: {
     flexDirection: "row",
     alignItems: "center",
     gap: 4,
+    borderRadius: 999,
+    borderWidth: 1,
   },
   headerCenter: {
     flex: 1,
-    // alignItems: 'center',
   },
   playlistLabel: {
     fontSize: 14,

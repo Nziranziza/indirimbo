@@ -3,7 +3,6 @@ import { Icon, Label, NativeTabs, VectorIcon } from 'expo-router/unstable-native
 import { Platform } from 'react-native';
 
 import { useColors } from '@/hooks/use-colors';
-import { IconSymbol } from '@/components/ui/icon-symbol';
 
 export default function TabLayout() {
   const colors = useColors();

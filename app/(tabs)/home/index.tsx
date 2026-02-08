@@ -232,6 +232,7 @@ export default function HomeScreen() {
                 <ScrollView
                   horizontal
                   showsHorizontalScrollIndicator={false}
+                  keyboardShouldPersistTaps="handled"
                   contentContainerStyle={styles.horizontalScroll}>
                   {favoriteSongs.map((favorite, index) => {
                     const playlistSongs = allSongs[favorite.playlist] || [];
