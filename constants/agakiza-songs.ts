@@ -450,7 +450,11 @@ export const songs: NewSong[] = [
       {
         "type": "verse",
         "number": 1,
-        "content": "Za mbaraga zamanukiye abigishwa ba Yesu mu murwa Yerusalemu;\nIyo ni Pentekote\nIzo mbaraga z’ Umukiza, Ziriho n’ ubu!\nMushim’ Imana\nRef: Impano, impano, izo mpano z’ Imana,\nNa non’ ubu ziriho, na non’ ubu ziriho\nImpano impano, izo mpano z’ Imana,\nNa non’ ubu ziriho"
+        "content": "Za mbaraga zamanukiye abigishwa ba Yesu mu murwa Yerusalemu;\nIyo ni Pentekote\nIzo mbaraga z’ Umukiza, Ziriho n’ ubu!\nMushim’ Imana"
+      },
+      {
+        type: "chorus",
+        content: "Impano, impano, izo mpano z’ Imana,\nNa non’ ubu ziriho, na non’ ubu ziriho\nImpano impano, izo mpano z’ Imana,\nNa non’ ubu ziriho"
       },
       {
         "type": "verse",

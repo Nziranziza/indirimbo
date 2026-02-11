@@ -219,6 +219,7 @@ function AnimatedViewportIndicator({
 
   return (
     <Animated.View
+      pointerEvents="none"
       style={[
         styles.viewportIndicator,
         {
