@@ -1,48 +1,64 @@
 import { IconSymbol } from '@/components/ui/icon-symbol';
 import { useColors } from '@/hooks/use-colors';
 import { StyleSheet, TextInput, TouchableOpacity, View } from 'react-native';
-import { useRef } from 'react';
+import { forwardRef, useImperativeHandle, useRef } from 'react';
+
+export interface SearchInputRef {
+  focus: () => void;
+}
 
 interface SearchInputProps {
   value: string;
   onChangeText: (text: string) => void;
   placeholder?: string;
   style?: any;
+  autoFocus?: boolean;
+  onFocus?: () => void;
+  onBlur?: () => void;
 }
 
-export function SearchInput({ value, onChangeText, placeholder = 'Search...', style }: SearchInputProps) {
-  const colors = useColors();
-  const inputRef = useRef<TextInput>(null);
+export const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
+  ({ value, onChangeText, placeholder = 'Search...', style, autoFocus, onFocus, onBlur }, ref) => {
+    const colors = useColors();
+    const inputRef = useRef<TextInput>(null);
 
-  return (
-    <View 
-      style={[
-        styles.container, 
-        { 
-          backgroundColor: colors.background, 
-          borderColor: colors.icon + '20' 
-        },
-        style
-      ]}
-      onTouchEnd={() => inputRef.current?.focus()}>
-      <IconSymbol name="magnifyingglass" size={20} color={colors.icon} />
-      <TextInput
-        ref={inputRef}
-        style={[styles.input, { color: colors.text }]}
-        placeholder={placeholder}
-        placeholderTextColor={colors.icon + '80'}
-        value={value}
-        onChangeText={onChangeText}
-        returnKeyType="search"
-      />
-      {value.length > 0 && (
-        <TouchableOpacity onPress={() => onChangeText('')} activeOpacity={0.7}>
-          <IconSymbol name="xmark.circle.fill" size={20} color={colors.icon} />
-        </TouchableOpacity>
-      )}
-    </View>
-  );
-}
+    useImperativeHandle(ref, () => ({
+      focus: () => inputRef.current?.focus(),
+    }));
+
+    return (
+      <View
+        style={[
+          styles.container,
+          {
+            backgroundColor: colors.background,
+            borderColor: colors.icon + '20'
+          },
+          style
+        ]}
+        onTouchEnd={() => inputRef.current?.focus()}>
+        <IconSymbol name="magnifyingglass" size={20} color={colors.icon} />
+        <TextInput
+          ref={inputRef}
+          style={[styles.input, { color: colors.text }]}
+          placeholder={placeholder}
+          placeholderTextColor={colors.icon + '80'}
+          value={value}
+          onChangeText={onChangeText}
+          returnKeyType="search"
+          autoFocus={autoFocus}
+          onFocus={onFocus}
+          onBlur={onBlur}
+        />
+        {value.length > 0 && (
+          <TouchableOpacity onPress={() => onChangeText('')} activeOpacity={0.7} hitSlop={{ top: 16, bottom: 16, left: 16, right: 16 }}>
+            <IconSymbol name="xmark.circle.fill" size={20} color={colors.icon} />
+          </TouchableOpacity>
+        )}
+      </View>
+    );
+  }
+);
 
 const styles = StyleSheet.create({
   container: {

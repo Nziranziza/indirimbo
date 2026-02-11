@@ -64,6 +64,8 @@ const MAPPING = {
   'play.fill': 'play-arrow',
   'chart.bar.fill': 'bar-chart',
   'clock': 'schedule',
+  'clock.arrow.circlepath': 'history',
+  'xmark': 'close',
 } as IconMapping;
 
 // Fallback icon for unmapped icons

@@ -2,7 +2,6 @@ import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { BackButton } from '@/components/ui/back-button';
 import { IconSymbol } from '@/components/ui/icon-symbol';
-import { SearchInput } from '@/components/ui/search-input';
 import { SongNumberBadge } from '@/components/ui/song-number-badge';
 import agakizaSongs from '@/constants/agakiza-songs';
 import gushimishaSongs from '@/constants/gushimisha-songs';
@@ -10,8 +9,7 @@ import { getPlaylistName } from '@/constants/playlists';
 import { useColors } from '@/hooks/use-colors';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useLocalSearchParams, usePathname, useRouter } from 'expo-router';
-import Fuse from 'fuse.js';
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import Animated, {
   Extrapolation,
@@ -82,10 +80,6 @@ export default function PlaylistScreen() {
     return 'agakiza';
   }, [params.name, pathname]);
 
-  const [searchQuery, setSearchQuery] = useState('');
-  const [debouncedSearchQuery, setDebouncedSearchQuery] = useState('');
-  const debounceTimerRef = useRef<number | null>(null);
-
   const songs: Song[] = useMemo(() => {
     return name === 'agakiza'
       ? (agakizaSongs as Song[])
@@ -95,37 +89,6 @@ export default function PlaylistScreen() {
   const playlistTitle = useMemo(() => {
     return getPlaylistName(name);
   }, [name]);
-
-  // Debounce search
-  useEffect(() => {
-    if (debounceTimerRef.current) {
-      clearTimeout(debounceTimerRef.current);
-    }
-    debounceTimerRef.current = setTimeout(() => {
-      setDebouncedSearchQuery(searchQuery);
-    }, 200);
-    return () => {
-      if (debounceTimerRef.current) {
-        clearTimeout(debounceTimerRef.current);
-      }
-    };
-  }, [searchQuery]);
-
-  // Fuzzy search
-  const fuse = useMemo(() => new Fuse(songs, {
-    keys: [
-      { name: 'number', weight: 0.3 },
-      { name: 'name', weight: 0.5 },
-      { name: 'body.content', weight: 0.2 }
-    ],
-    threshold: 0.4,
-    ignoreLocation: true,
-  }), [songs]);
-
-  const filteredSongs = useMemo(() => {
-    if (!debouncedSearchQuery.trim()) return songs;
-    return fuse.search(debouncedSearchQuery.trim()).map(r => r.item);
-  }, [songs, debouncedSearchQuery, fuse]);
 
   const handleSongPress = useCallback((songNumber: number | string) => {
     router.push({
@@ -213,21 +176,6 @@ export default function PlaylistScreen() {
     return `${item.number}-${index}`;
   }, []);
 
-  const renderEmptyState = useCallback(() => {
-    if (filteredSongs.length === 0 && debouncedSearchQuery.trim()) {
-      return (
-        <ThemedView style={styles.emptyState}>
-          <IconSymbol name="magnifyingglass" size={48} color={colors.icon} />
-          <ThemedText style={styles.emptyText}>No songs found</ThemedText>
-          <ThemedText style={[styles.emptySubtext, { opacity: 0.6 }]}>
-            Try a different search term
-          </ThemedText>
-        </ThemedView>
-      );
-    }
-    return null;
-  }, [filteredSongs.length, debouncedSearchQuery, colors.icon]);
-
 
   // Calculate fixed nav height
   const NAV_HEIGHT = insets.top + 52;
@@ -274,7 +222,7 @@ export default function PlaylistScreen() {
 
       {/* Scrollable Content */}
       <Animated.FlatList
-        data={filteredSongs}
+        data={songs}
         renderItem={renderSongItem}
         keyExtractor={getItemKey}
         onScroll={scrollHandler}
@@ -286,16 +234,6 @@ export default function PlaylistScreen() {
             paddingBottom: bottomPadding + 90,
           }
         ]}
-        ListHeaderComponent={
-          <View style={styles.listHeader}>
-            <SearchInput
-              value={searchQuery}
-              onChangeText={setSearchQuery}
-              placeholder="Search by title, content, or number..."
-            />
-          </View>
-        }
-        ListEmptyComponent={renderEmptyState}
         showsVerticalScrollIndicator={false}
         keyboardShouldPersistTaps="handled"
         removeClippedSubviews={true}
@@ -375,9 +313,6 @@ const styles = StyleSheet.create({
   listContent: {
     paddingHorizontal: 20,
   },
-  listHeader: {
-    marginBottom: 16,
-  },
   songCard: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -392,18 +327,5 @@ const styles = StyleSheet.create({
   },
   songTitle: {
     fontSize: 16,
-  },
-  emptyState: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingVertical: 60,
-    gap: 16,
-  },
-  emptyText: {
-    fontSize: 18,
-    fontWeight: '600',
-  },
-  emptySubtext: {
-    fontSize: 14,
   },
 });

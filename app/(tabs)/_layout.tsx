@@ -18,6 +18,8 @@ export default function TabLayout() {
       }}
       blurEffect="regular"
       disableTransparentOnScrollEdge
+      minimizeBehavior="onScrollDown"
+      labelVisibilityMode='labeled'
       >
       <NativeTabs.Trigger name="home">
         <NativeTabs.Trigger.TabBar
@@ -38,6 +40,16 @@ export default function TabLayout() {
           <Icon src={<VectorIcon family={MaterialIcons} name="favorite" />} />
         )}
         <Label>Favorites</Label>
+      </NativeTabs.Trigger>
+      <NativeTabs.Trigger name="search" role="search">
+        <NativeTabs.Trigger.TabBar
+        />
+        {Platform.OS === 'ios' ? (
+          <Icon sf={{ default: 'magnifyingglass', selected: 'magnifyingglass' }} />
+        ) : (
+          <Icon src={<VectorIcon family={MaterialIcons} name="search" />} />
+        )}
+        <Label>Search</Label>
       </NativeTabs.Trigger>
       <NativeTabs.Trigger name="settings">
         <NativeTabs.Trigger.TabBar

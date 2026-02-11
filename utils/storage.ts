@@ -5,7 +5,9 @@ const RECENT_SONGS_KEY = '@indirimbo:recent_songs';
 const FONT_SIZE_KEY = '@indirimbo:font_size';
 const THEME_PREFERENCE_KEY = '@indirimbo:theme_preference';
 const TINT_COLOR_KEY = '@indirimbo:tint_color';
+const RECENT_SEARCHES_KEY = '@indirimbo:recent_searches';
 const MAX_RECENT_SONGS = 20;
+const MAX_RECENT_SEARCHES = 15;
 
 export interface FavoriteSong {
   playlist: string;
@@ -18,6 +20,11 @@ export interface RecentSong {
   playlist: string;
   songNumber: number | string; // Can be number or string (e.g., "18a", "18b")
   songName: string;
+  timestamp: number;
+}
+
+export interface RecentSearch {
+  query: string;
   timestamp: number;
 }
 
@@ -163,5 +170,48 @@ export async function setTintColor(color: TintColorKey): Promise<void> {
     await AsyncStorage.setItem(TINT_COLOR_KEY, color);
   } catch (error) {
     console.error('Error setting tint color:', error);
+  }
+}
+
+// Recent Searches
+export async function getRecentSearches(): Promise<RecentSearch[]> {
+  try {
+    const data = await AsyncStorage.getItem(RECENT_SEARCHES_KEY);
+    return data ? JSON.parse(data) : [];
+  } catch (error) {
+    console.error('Error getting recent searches:', error);
+    return [];
+  }
+}
+
+export async function addRecentSearch(query: string): Promise<void> {
+  try {
+    const trimmed = query.trim();
+    if (!trimmed) return;
+    const searches = await getRecentSearches();
+    const filtered = searches.filter(s => s.query.toLowerCase() !== trimmed.toLowerCase());
+    filtered.unshift({ query: trimmed, timestamp: Date.now() });
+    const limited = filtered.slice(0, MAX_RECENT_SEARCHES);
+    await AsyncStorage.setItem(RECENT_SEARCHES_KEY, JSON.stringify(limited));
+  } catch (error) {
+    console.error('Error adding recent search:', error);
+  }
+}
+
+export async function removeRecentSearch(query: string): Promise<void> {
+  try {
+    const searches = await getRecentSearches();
+    const filtered = searches.filter(s => s.query.toLowerCase() !== query.toLowerCase());
+    await AsyncStorage.setItem(RECENT_SEARCHES_KEY, JSON.stringify(filtered));
+  } catch (error) {
+    console.error('Error removing recent search:', error);
+  }
+}
+
+export async function clearRecentSearches(): Promise<void> {
+  try {
+    await AsyncStorage.removeItem(RECENT_SEARCHES_KEY);
+  } catch (error) {
+    console.error('Error clearing recent searches:', error);
   }
 }

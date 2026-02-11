@@ -3,7 +3,6 @@ import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { IconSymbol } from '@/components/ui/icon-symbol';
 import { PlaylistCard } from '@/components/ui/playlist-card';
-import { SearchInput } from '@/components/ui/search-input';
 import { SongNumberBadge } from '@/components/ui/song-number-badge';
 import agakizaSongs from '@/constants/agakiza-songs';
 import gushimishaSongs from '@/constants/gushimisha-songs';
@@ -12,9 +11,8 @@ import { useColors } from '@/hooks/use-colors';
 import { useHydrated } from '@/hooks/use-hydrated';
 import { getFavorites, getRecentSongs, type FavoriteSong, type RecentSong } from '@/utils/storage';
 import { useFocusEffect, useRouter } from 'expo-router';
-import Fuse from 'fuse.js';
 import moment from 'moment';
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -54,9 +52,6 @@ export default function HomeScreen() {
   const hasHydrated = useHydrated();
   const [recentSongs, setRecentSongs] = useState<RecentSong[]>([]);
   const [favoriteSongs, setFavoriteSongs] = useState<FavoriteSong[]>([]);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [debouncedSearchQuery, setDebouncedSearchQuery] = useState('');
-  const debounceTimerRef = useRef<number | null>(null);
 
   // Memoize all songs to avoid recreating on every render
   const allSongs = useMemo<Record<string, Song[]>>(() => ({
@@ -72,23 +67,6 @@ export default function HomeScreen() {
     }, [])
   );
 
-  // Debounce search query
-  useEffect(() => {
-    if (debounceTimerRef.current) {
-      clearTimeout(debounceTimerRef.current);
-    }
-
-    debounceTimerRef.current = setTimeout(() => {
-      setDebouncedSearchQuery(searchQuery);
-    }, 300); // 300ms debounce delay
-
-    return () => {
-      if (debounceTimerRef.current) {
-        clearTimeout(debounceTimerRef.current);
-      }
-    };
-  }, [searchQuery]);
-
   const loadRecentSongs = async () => {
     const recent = await getRecentSongs();
     setRecentSongs(recent.slice(0, 10)); // Show last 10
@@ -98,37 +76,6 @@ export default function HomeScreen() {
     const favorites = await getFavorites();
     setFavoriteSongs(favorites.slice(0, 10)); // Show first 10
   };
-
-  // Create flat list of songs with playlist info for Fuse
-  const allSongsFlat = useMemo(() => {
-    return Object.entries(allSongs).flatMap(([playlist, songs]) =>
-      songs.map(song => ({ ...song, playlist }))
-    );
-  }, [allSongs]);
-
-  // Configure Fuse instance for fuzzy search
-  const fuse = useMemo(() => new Fuse(allSongsFlat, {
-    keys: [
-      { name: 'number', weight: 0.3 },
-      { name: 'name', weight: 0.5 },
-      { name: 'body.content', weight: 0.2 }
-    ],
-    threshold: 0.4,
-    ignoreLocation: true,
-  }), [allSongsFlat]);
-
-  // Memoize search results using fuzzy search
-  const searchResults = useMemo(() => {
-    if (!debouncedSearchQuery.trim()) {
-      return [];
-    }
-
-    const results = fuse.search(debouncedSearchQuery.trim());
-    return results.slice(0, 50).map(r => ({
-      playlist: r.item.playlist,
-      song: r.item
-    }));
-  }, [debouncedSearchQuery, fuse]);
 
   const handleSongPress = useCallback((playlist: string, songNumber: number | string) => {
     router.push({
@@ -147,48 +94,8 @@ export default function HomeScreen() {
           Choose a playlist to browse songs
         </ThemedText>
       </ThemedView>
-      <SearchInput
-        value={searchQuery}
-        onChangeText={setSearchQuery}
-        placeholder="Search all songs..."
-        style={styles.searchInput}
-      />
       <TabScrollView
         contentContainerStyle={styles.scrollContent}>
-        {debouncedSearchQuery.trim() ? (
-          <ThemedView>
-            <ThemedText type="subtitle" style={styles.sectionTitleStandalone}>
-              Search Results ({searchResults.length})
-            </ThemedText>
-            {searchResults.length === 0 ? (
-              <ThemedView style={styles.emptyState}>
-                <ThemedText style={styles.emptyText}>No songs found</ThemedText>
-              </ThemedView>
-            ) : (
-              searchResults.map((result, index) => {
-                const playlistTitle = getPlaylistName(result.playlist);
-                return (
-                  <TouchableOpacity
-                    key={`${result.playlist}-${result.song.number}-${index}`}
-                    style={[styles.songCard, { borderColor: colors.icon + '20' }]}
-                    onPress={() => handleSongPress(result.playlist, result.song.number)}
-                    activeOpacity={0.7}>
-                    <SongNumberBadge number={result.song.number} />
-                    <View style={styles.songInfo}>
-                      <ThemedText style={[styles.playlistLabel, { color: colors.icon, opacity: 0.7 }]}>
-                        {playlistTitle}
-                      </ThemedText>
-                      <ThemedText type="defaultSemiBold" style={styles.songTitle} numberOfLines={2}>
-                        {result.song.name}
-                      </ThemedText>
-                    </View>
-                    <IconSymbol name="arrow.right" size={20} color={colors.icon} />
-                  </TouchableOpacity>
-                );
-              })
-            )}
-          </ThemedView>
-        ) : (
           <View style={styles.playlistSection}>
               <ThemedView style={styles.playlistContainer}>
                 <PlaylistCard
@@ -302,7 +209,6 @@ export default function HomeScreen() {
               </ThemedView>
             )}
           </View>
-        )}
       </TabScrollView>
     </ThemedView>
   );
@@ -335,10 +241,6 @@ const styles = StyleSheet.create({
   },
   playlistContainer: {
     gap: 16,
-  },
-  searchInput: {
-    marginHorizontal: 20,
-    marginBottom: 12,
   },
   sectionHeader: {
     flexDirection: 'row',
@@ -411,33 +313,6 @@ const styles = StyleSheet.create({
   recentSongTitle: {
     fontSize: 14,
     lineHeight: 18,
-  },
-  songCard: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    padding: 16,
-    borderRadius: 12,
-    borderWidth: 1,
-    gap: 12,
-    marginBottom: 12,
-  },
-  songInfo: {
-    flex: 1,
-  },
-  playlistLabel: {
-    fontSize: 12,
-    marginBottom: 4,
-  },
-  songTitle: {
-    fontSize: 16,
-  },
-  emptyState: {
-    alignItems: 'center',
-    paddingVertical: 40,
-  },
-  emptyText: {
-    fontSize: 16,
-    opacity: 0.6,
   },
   emptyRecentState: {
     paddingVertical: 20,
