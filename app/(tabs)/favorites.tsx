@@ -110,8 +110,8 @@ export default function FavoritesTabScreen() {
               onPress={() => router.push('/(tabs)/home')}
               activeOpacity={0.8}
               style={[styles.ctaButton, { backgroundColor: colors.tint }]}>
-              <IconSymbol name="play.fill" size={20} color="#FFFFFF" />
-              <ThemedText style={styles.ctaText}>Start Exploring Songs</ThemedText>
+              <IconSymbol name="play.fill" size={20} color={colors.tintForeground} />
+              <ThemedText style={[styles.ctaText, { color: colors.tintForeground }]}>Start Exploring Songs</ThemedText>
             </TouchableOpacity>
           </ThemedView>
         ) : (
@@ -225,7 +225,6 @@ const styles = StyleSheet.create({
     marginTop: 8,
   },
   ctaText: {
-    color: '#FFFFFF',
     fontSize: 17,
     fontWeight: '600',
   },
