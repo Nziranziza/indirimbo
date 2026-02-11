@@ -18,8 +18,12 @@ import {
   type FontSize,
 } from "@/utils/storage";
 import * as Haptics from "expo-haptics";
+import {
+  activateKeepAwakeAsync,
+  deactivateKeepAwake,
+} from "expo-keep-awake";
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   LayoutChangeEvent,
   Platform,
@@ -233,6 +237,8 @@ function AnimatedViewportIndicator({
 }
 
 export default function SongScreen() {
+  const keepAwakeTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+
   const router = useRouter();
   const { playlist, songNumber } = useLocalSearchParams<{
     playlist: string;
@@ -286,6 +292,34 @@ export default function SongScreen() {
       });
     }
   }, [currentSong, playlist]);
+
+  // Keep screen awake for estimated song duration, reset on interaction
+  const estimatedDuration = useMemo(() => {
+    if (!currentSong?.body) return 4 * 60_000;
+    const lineCount = currentSong.body.reduce(
+      (sum, section) => sum + section.content.split("\n").length,
+      0
+    );
+    // ~3.5s per line + 60s buffer, clamped between 2-5 minutes
+    const ms = lineCount * 3500 + 60_000;
+    return Math.min(Math.max(ms, 2 * 60_000), 5 * 60_000);
+  }, [currentSong]);
+
+  const resetKeepAwake = useCallback(() => {
+    if (keepAwakeTimer.current) clearTimeout(keepAwakeTimer.current);
+    activateKeepAwakeAsync("song-screen");
+    keepAwakeTimer.current = setTimeout(() => {
+      deactivateKeepAwake("song-screen");
+    }, estimatedDuration);
+  }, [estimatedDuration]);
+
+  useEffect(() => {
+    resetKeepAwake();
+    return () => {
+      if (keepAwakeTimer.current) clearTimeout(keepAwakeTimer.current);
+      deactivateKeepAwake("song-screen");
+    };
+  }, [resetKeepAwake]);
 
   // Track section measurements - calculate cumulative Y positions
   const measureSection = (index: number, event: LayoutChangeEvent) => {
@@ -506,6 +540,7 @@ export default function SongScreen() {
           showsVerticalScrollIndicator={false}
           bounces={true}
           alwaysBounceVertical={true}
+          onScrollBeginDrag={resetKeepAwake}
         >
           {currentSong.body?.filter(item => item && item.type).map((item, index) => (
             <View

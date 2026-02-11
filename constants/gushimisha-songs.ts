@@ -10547,7 +10547,7 @@ export const songs: NewSong[] = [
   },
   {
     "number": 336,
-    "name": "|:Mwuka Wera w’ Imana",
+    "name": "Mwuka Wera w’ Imana",
     "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=336",
     "body": [
       {
@@ -13141,7 +13141,7 @@ export const songs: NewSong[] = [
   },
   {
     "number": 417,
-    "name": "|:Yesu n’ Umukiza",
+    "name": "Yesu n’ Umukiza",
     "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=417",
     "body": [
       {
@@ -13182,7 +13182,7 @@ export const songs: NewSong[] = [
   },
   {
     "number": 418,
-    "name": "|:Wa gatabaza kanjye we",
+    "name": "Wa gatabaza kanjye we",
     "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=418",
     "body": [
       {
