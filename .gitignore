@@ -44,3 +44,6 @@ app-example
 
 credentials.json
 eas-indirimbo-app-*.json
+
+# scripts and data files for song extraction
+/tools

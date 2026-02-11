@@ -532,7 +532,7 @@ export default function SongScreen() {
                     ]}
                   />
                 )}
-                {item.type === "verse" && item.number && (
+                {item.type === "verse" && item.number && currentSong.body.filter(b => b.type === "verse" || b.type === "chorus").length > 1 && (
                   <ThemedView style={styles.verseHeader}>
                     <ThemedText
                       style={[styles.verseLabel, { color: colors.icon }]}
