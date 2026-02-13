@@ -1,6 +1,6 @@
 import { IconSymbol } from '@/components/ui/icon-symbol';
 import { useColors } from '@/hooks/use-colors';
-import { StyleSheet, TextInput, TouchableOpacity, View } from 'react-native';
+import { Pressable, StyleSheet, TextInput, TouchableOpacity, View } from 'react-native';
 import { forwardRef, useImperativeHandle, useRef } from 'react';
 
 export interface SearchInputRef {
@@ -27,7 +27,7 @@ export const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
     }));
 
     return (
-      <View
+      <Pressable
         style={[
           styles.container,
           {
@@ -36,7 +36,7 @@ export const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
           },
           style
         ]}
-        onTouchEnd={() => inputRef.current?.focus()}>
+        onPress={() => inputRef.current?.focus()}>
         <IconSymbol name="magnifyingglass" size={20} color={colors.icon} />
         <TextInput
           ref={inputRef}
@@ -51,11 +51,16 @@ export const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
           onBlur={onBlur}
         />
         {value.length > 0 && (
-          <TouchableOpacity onPress={() => onChangeText('')} activeOpacity={0.7} hitSlop={{ top: 16, bottom: 16, left: 16, right: 16 }}>
+          <Pressable
+            onPress={(e) => {
+              e.stopPropagation();
+              onChangeText('');
+            }}
+            hitSlop={{ top: 16, bottom: 16, left: 16, right: 16 }}>
             <IconSymbol name="xmark.circle.fill" size={20} color={colors.icon} />
-          </TouchableOpacity>
+          </Pressable>
         )}
-      </View>
+      </Pressable>
     );
   }
 );

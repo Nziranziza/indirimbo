@@ -477,7 +477,7 @@ export default function SongScreen() {
 
   const playlistTitle = getPlaylistName(playlist);
 
-  const shareIconName = Platform.OS === "ios" ? "square.and.arrow.up" : "arrow.up";
+  const shareIconName = "square.and.arrow.up";
 
   return (
     <ThemedView style={styles.container}>

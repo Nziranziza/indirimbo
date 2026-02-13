@@ -9,7 +9,7 @@ import { getPlaylistName } from '@/constants/playlists';
 import { useColors } from '@/hooks/use-colors';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useLocalSearchParams, usePathname, useRouter } from 'expo-router';
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useMemo, useRef } from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import Animated, {
   Extrapolation,
@@ -46,6 +46,7 @@ export default function PlaylistScreen() {
 
   // Scroll tracking with Reanimated
   const scrollY = useSharedValue(0);
+  const flatListRef = useRef<Animated.FlatList<Song>>(null);
 
   const scrollHandler = useAnimatedScrollHandler({
     onScroll: (event) => {
@@ -154,6 +155,40 @@ export default function PlaylistScreen() {
     return { opacity };
   }, []);
 
+  // Back to top button animation
+  const backToTopAnimatedStyle = useAnimatedStyle(() => {
+    'worklet';
+    const showThreshold = 500; // Show button after scrolling 500px
+    const animationDistance = 200; // Animate over 200px for smoother transition
+    const opacity = interpolate(
+      scrollY.value,
+      [showThreshold - animationDistance, showThreshold],
+      [0, 1],
+      Extrapolation.CLAMP
+    );
+    const translateY = interpolate(
+      scrollY.value,
+      [showThreshold - animationDistance, showThreshold],
+      [30, 0],
+      Extrapolation.CLAMP
+    );
+    const scale = interpolate(
+      scrollY.value,
+      [showThreshold - animationDistance, showThreshold],
+      [0.5, 1],
+      Extrapolation.CLAMP
+    );
+    return {
+      opacity,
+      transform: [{ translateY }, { scale }],
+      pointerEvents: scrollY.value >= showThreshold ? 'auto' : 'none',
+    };
+  }, []);
+
+  const handleBackToTop = useCallback(() => {
+    flatListRef.current?.scrollToOffset({ offset: 0, animated: true });
+  }, []);
+
   // Song item renderer
   const renderSongItem = useCallback(({ item: song }: { item: Song }) => {
     return (
@@ -222,6 +257,7 @@ export default function PlaylistScreen() {
 
       {/* Scrollable Content */}
       <Animated.FlatList
+        ref={flatListRef}
         data={songs}
         renderItem={renderSongItem}
         keyExtractor={getItemKey}
@@ -241,6 +277,20 @@ export default function PlaylistScreen() {
         initialNumToRender={30}
         windowSize={10}
       />
+
+      {/* Back to Top Button */}
+      <Animated.View style={[styles.backToTopButton, { bottom: bottomPadding + 100 }]}>
+        <Animated.View style={[styles.backToTopShadow, backToTopAnimatedStyle]}>
+          <TouchableOpacity
+            onPress={handleBackToTop}
+            activeOpacity={0.8}
+            style={[styles.backToTopTouchable, { backgroundColor: colors.tint }]}>
+            <View pointerEvents="none">
+              <IconSymbol name="arrow.up" size={24} color={colors.background} />
+            </View>
+          </TouchableOpacity>
+        </Animated.View>
+      </Animated.View>
     </ThemedView>
   );
 }
@@ -327,5 +377,26 @@ const styles = StyleSheet.create({
   },
   songTitle: {
     fontSize: 16,
+  },
+  backToTopButton: {
+    position: 'absolute',
+    right: 20,
+    zIndex: 20,
+  },
+  backToTopShadow: {
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+    elevation: 8,
+    borderRadius: 28,
+  },
+  backToTopTouchable: {
+    width: 56,
+    height: 56,
+    borderRadius: 28,
+    justifyContent: 'center',
+    alignItems: 'center',
+    overflow: 'hidden',
   },
 });

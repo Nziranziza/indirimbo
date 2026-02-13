@@ -7,7 +7,7 @@ const THEME_PREFERENCE_KEY = '@indirimbo:theme_preference';
 const TINT_COLOR_KEY = '@indirimbo:tint_color';
 const RECENT_SEARCHES_KEY = '@indirimbo:recent_searches';
 const MAX_RECENT_SONGS = 20;
-const MAX_RECENT_SEARCHES = 15;
+const MAX_RECENT_SEARCHES = 10;
 
 export interface FavoriteSong {
   playlist: string;

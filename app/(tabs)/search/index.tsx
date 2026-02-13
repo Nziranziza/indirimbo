@@ -30,31 +30,20 @@ interface Song {
   }[];
 }
 
-// Try to find the longest matching prefix of a word in the text (min 3 chars)
-function findBestMatch(word: string, text: string): string | null {
-  for (let len = word.length; len >= 3; len--) {
-    const prefix = word.slice(0, len);
-    if (text.includes(prefix)) return prefix;
-  }
-  return null;
-}
-
-// Find a matching snippet in the song body and return it with location info
-function getMatchSnippet(song: Song, query: string): { label: string; snippet: string; matchStart: number } | null {
-  const words = query.toLowerCase().split(/\s+/).filter(Boolean);
+// Find a matching snippet in the song body — uses direct indexOf (fast)
+function getMatchSnippet(song: Song, words: string[]): { label: string; snippet: string } | null {
   if (words.length === 0) return null;
 
   for (const section of song.body) {
     const lowerContent = section.content.toLowerCase();
-    // Find the first word (or prefix) that matches in this section
-    let firstMatch: string | null = null;
+    // Find the first word that appears in this section
+    let matchIndex = -1;
     for (const w of words) {
-      firstMatch = findBestMatch(w, lowerContent);
-      if (firstMatch) break;
+      matchIndex = lowerContent.indexOf(w);
+      if (matchIndex !== -1) break;
     }
-    if (!firstMatch) continue;
+    if (matchIndex === -1) continue;
 
-    const matchIndex = lowerContent.indexOf(firstMatch);
     const label = section.type === 'chorus'
       ? 'Chorus'
       : `Verse ${section.number ?? ''}`;
@@ -71,29 +60,27 @@ function getMatchSnippet(song: Song, query: string): { label: string; snippet: s
         const snippet = (start > 0 ? '...' : '') +
           contextLines.join('\n') +
           (end < lines.length ? '...' : '');
-        return { label, snippet, matchStart: 0 };
+        return { label, snippet };
       }
       charCount = lineEnd + 1;
     }
 
-    // Fallback: return the full section content (trimmed)
-    return { label, snippet: section.content, matchStart: 0 };
+    return { label, snippet: section.content };
   }
 
   // Check song name
   const lowerName = song.name.toLowerCase();
   for (const w of words) {
-    const match = findBestMatch(w, lowerName);
-    if (match) {
-      return { label: 'Title', snippet: song.name, matchStart: lowerName.indexOf(match) };
+    if (lowerName.includes(w)) {
+      return { label: 'Title', snippet: song.name };
     }
   }
 
   return null;
 }
 
-// Render text with highlighted matches (supports multi-word queries)
-function HighlightedText({ text, query, highlightColor, textColor }: {
+// Render text with highlighted matches — single regex pass (fast)
+const HighlightedText = React.memo(function HighlightedText({ text, query, highlightColor, textColor }: {
   text: string;
   query: string;
   highlightColor: string;
@@ -103,59 +90,37 @@ function HighlightedText({ text, query, highlightColor, textColor }: {
     return <Text style={{ color: textColor }}>{text}</Text>;
   }
 
-  const words = query.toLowerCase().split(/\s+/).filter(Boolean);
+  const words = query.toLowerCase().split(/\s+/).filter(w => w.length >= 2);
   if (words.length === 0) {
     return <Text style={{ color: textColor }}>{text}</Text>;
   }
 
-  // Build a set of highlighted character indices
-  const highlighted = new Uint8Array(text.length);
-  const lowerText = text.toLowerCase();
+  // Build one regex for all words, split text in a single pass
+  const escaped = words.map(w => w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
+  const regex = new RegExp(`(${escaped.join('|')})`, 'gi');
+  const parts = text.split(regex);
 
-  for (const word of words) {
-    const match = findBestMatch(word, lowerText);
-    if (!match) continue;
-    let searchFrom = 0;
-    while (searchFrom < lowerText.length) {
-      const idx = lowerText.indexOf(match, searchFrom);
-      if (idx === -1) break;
-      for (let i = idx; i < idx + match.length; i++) {
-        highlighted[i] = 1;
-      }
-      searchFrom = idx + match.length;
-    }
-  }
-
-  // Build parts from highlighted ranges
-  const parts: { text: string; highlight: boolean }[] = [];
-  let i = 0;
-  while (i < text.length) {
-    const isHighlighted = highlighted[i] === 1;
-    let j = i + 1;
-    while (j < text.length && (highlighted[j] === 1) === isHighlighted) {
-      j++;
-    }
-    parts.push({ text: text.slice(i, j), highlight: isHighlighted });
-    i = j;
+  if (parts.length === 1) {
+    return <Text style={{ color: textColor }}>{text}</Text>;
   }
 
   return (
     <Text>
       {parts.map((part, i) =>
-        part.highlight ? (
-          <Text key={i} style={{ color: highlightColor, fontWeight: '700' }}>{part.text}</Text>
-        ) : (
-          <Text key={i} style={{ color: textColor }}>{part.text}</Text>
-        )
+        i % 2 === 1 ? (
+          <Text key={i} style={{ color: highlightColor, fontWeight: '700' }}>{part}</Text>
+        ) : part ? (
+          <Text key={i} style={{ color: textColor }}>{part}</Text>
+        ) : null
       )}
     </Text>
   );
-}
+});
 
 interface SearchResultItemProps {
   playlist: string;
   song: Song;
-  snippet: { label: string; snippet: string; matchStart: number } | null;
+  snippet: { label: string; snippet: string } | null;
   query: string;
   onPress: (playlist: string, songNumber: number | string) => void;
   colors: { icon: string; tint: string; text: string };
@@ -203,6 +168,10 @@ const SearchResultItem = React.memo(function SearchResultItem({ playlist, song, 
   );
 });
 
+// Module-level flag: survives component remounts (important on Android).
+// Set in handleSongPress so useFocusEffect knows to skip auto-focus on return.
+let _navigatedToSong = false;
+
 export default function SearchScreen() {
   const router = useRouter();
   const colors = useColors();
@@ -222,11 +191,17 @@ export default function SearchScreen() {
     gushimisha: gushimishaSongs as Song[],
   }), []);
 
-  // Load recent data and auto-focus when the tab is focused
+  // Load recent data on focus; auto-focus unless returning from a song
   useFocusEffect(
     useCallback(() => {
       getRecentSearches().then(setRecentSearches);
       getRecentSongs().then(songs => setRecentSongs(songs.slice(0, 10)));
+
+      if (_navigatedToSong) {
+        _navigatedToSong = false;
+        return;
+      }
+
       const timer = setTimeout(() => {
         if (isIOS) {
           searchBarRef.current?.focus();
@@ -246,7 +221,7 @@ export default function SearchScreen() {
 
     debounceTimerRef.current = setTimeout(() => {
       setDebouncedSearchQuery(searchQuery);
-    }, 150);
+    }, 300);
 
     return () => {
       if (debounceTimerRef.current) {
@@ -255,25 +230,50 @@ export default function SearchScreen() {
     };
   }, [searchQuery]);
 
-  // Create flat list of songs with playlist info for Fuse
+  // Create flat list of songs with playlist info and pre-computed search fields
   const allSongsFlat = useMemo(() => {
     return Object.entries(allSongs).flatMap(([playlist, songs]) =>
-      songs.map(song => ({ ...song, playlist }))
+      songs.map(song => {
+        const lowerName = song.name.toLowerCase();
+        const searchText = song.body.map(s => s.content).join('\n');
+        const lowerSearchText = searchText.toLowerCase();
+        return {
+          ...song,
+          playlist,
+          lowerName,
+          searchText,
+          lowerSearchText,
+          numberStr: String(song.number),
+        };
+      })
     );
   }, [allSongs]);
 
-  // Configure Fuse instance for fuzzy search
+  // Pre-build Fuse index and configure for fuzzy search
+  const fuseIndex = useMemo(
+    () => Fuse.createIndex(
+      [
+        { name: 'numberStr', weight: 0.3 },
+        { name: 'name', weight: 0.5 },
+        { name: 'searchText', weight: 0.2 }
+      ],
+      allSongsFlat
+    ),
+    [allSongsFlat]
+  );
+
   const fuse = useMemo(() => new Fuse(allSongsFlat, {
     keys: [
-      { name: 'number', weight: 0.3 },
+      { name: 'numberStr', weight: 0.3 },
       { name: 'name', weight: 0.5 },
-      { name: 'body.content', weight: 0.2 }
+      { name: 'searchText', weight: 0.2 }
     ],
-    threshold: 0.4,
+    threshold: 0.35,
     ignoreLocation: true,
-  }), [allSongsFlat]);
+    useExtendedSearch: true,
+  }, fuseIndex), [allSongsFlat, fuseIndex]);
 
-  // Memoize search results with precomputed snippets and ranking
+  // Memoize search results with Fuse extended search (tokenizes multi-word queries)
   const searchResults = useMemo(() => {
     if (!debouncedSearchQuery.trim()) {
       return [];
@@ -281,22 +281,25 @@ export default function SearchScreen() {
 
     const query = debouncedSearchQuery.trim();
     const lowerQuery = query.toLowerCase();
-    const results = fuse.search(query);
+    const words = lowerQuery.split(/\s+/).filter(w => w.length >= 2);
 
-    // Precompute rank and snippet for each result
-    const ranked = results.slice(0, 50).map(r => {
+    if (words.length === 0) return [];
+
+    const results = fuse.search(query, { limit: 30 });
+
+    const ranked = results.map(r => {
       const item = r.item;
       let rank = 3;
-      if (String(item.number) === lowerQuery) rank = 0;
-      else if (item.name.toLowerCase().includes(lowerQuery)) rank = 1;
-      else if (item.body.some(s => s.content.toLowerCase().includes(lowerQuery))) rank = 2;
+      if (item.numberStr === lowerQuery) rank = 0;
+      else if (item.lowerName.includes(lowerQuery)) rank = 1;
+      else if (item.lowerSearchText.includes(lowerQuery)) rank = 2;
 
       return {
         playlist: item.playlist,
         song: item,
         rank,
         score: r.score ?? 1,
-        snippet: getMatchSnippet(item, query),
+        snippet: getMatchSnippet(item, words),
       };
     });
 
@@ -309,6 +312,7 @@ export default function SearchScreen() {
   }, [debouncedSearchQuery, fuse]);
 
   const handleSongPress = useCallback((playlist: string, songNumber: number | string) => {
+    _navigatedToSong = true;
     if (debouncedSearchQuery.trim()) {
       addRecentSearch(debouncedSearchQuery.trim()).then(() =>
         getRecentSearches().then(setRecentSearches)
@@ -397,9 +401,10 @@ export default function SearchScreen() {
             contentContainerStyle={[styles.scrollContent, { paddingBottom: insets.bottom + 90 }]}
             keyboardShouldPersistTaps="handled"
             keyboardDismissMode="on-drag"
-            initialNumToRender={10}
-            maxToRenderPerBatch={10}
-            windowSize={5}
+            initialNumToRender={8}
+            maxToRenderPerBatch={5}
+            windowSize={3}
+            removeClippedSubviews={true}
             ListEmptyComponent={
               <ThemedView style={styles.emptyState}>
                 <IconSymbol name="magnifyingglass" size={48} color={colors.icon + '40'} />

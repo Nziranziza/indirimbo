@@ -9,7 +9,7 @@ import { Alert, StyleSheet, TouchableOpacity, View } from 'react-native';
 
 export default function SupportScreen() {
   const colors = useColors();
-  const supportEmail = 'danielnziranziza@gmail.com';
+  const supportEmail = 'indirimboapp@gmail.com';
 
   const BulletItem = ({ children }: { children: React.ReactNode }) => (
     <View style={styles.bulletRow}>
