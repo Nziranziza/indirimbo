@@ -1233,7 +1233,7 @@ export const songs: NewSong[] = [
         type: "verse",
         number: 1,
         content:
-          "Ubugingo dufite mw isi,\nBusa n’ ibiba n’ isarura\nUbibira mu mubiri we,\nNi w’ uzasarura kubora\nUbwo dukorer’ Umukiza\n,\nAzatugororera mw ijuru\nTugume mw ijambo ry’ Imana,\nKugeza mu gihe cyo gupfa",
+          "Ubugingo dufite mw isi,\nBusa n’ ibiba n’ isarura\nUbibira mu mubiri we,\nNi w’ uzasarura kubora\nUbwo dukorer’ Umukiza,\nAzatugororera mw ijuru\nTugume mw ijambo ry’ Imana,\nKugeza mu gihe cyo gupfa",
       },
       {
         type: "verse",
@@ -2414,7 +2414,7 @@ export const songs: NewSong[] = [
         type: "verse",
         number: 2,
         content:
-          "Amba hafi ndetse buri munsi,\nKand’ angerer’ ubuntu bukwiye\nAjy’ anyikorerer’ imitwaro\nNi we Data kandi ni we Mana!\nNguk’ ukw ajy’ antunga buri munsi,\nAjy’ anda mira mur’ ibyo byose\nBuri muns’ azajy’ amp’ imbaraga\nIryo n’ isezera no yampaye",
+          "Amba hafi ndetse buri munsi,\nKand’ angerer’ ubuntu bukwiye\nAjy’ anyikorerer’ imitwaro\nNi we Data kandi ni we Mana!\nNguk’ ukw ajy’ antunga buri munsi,\nAjy’ andamira mur’ ibyo byose\nBuri muns’ azajy’ amp’ imbaraga\nIryo n’ isezera no yampaye",
       },
       {
         type: "verse",

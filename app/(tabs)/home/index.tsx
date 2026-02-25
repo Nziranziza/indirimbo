@@ -6,18 +6,23 @@ import { PlaylistCard } from '@/components/ui/playlist-card';
 import { SongNumberBadge } from '@/components/ui/song-number-badge';
 import agakizaSongs from '@/constants/agakiza-songs';
 import gushimishaSongs from '@/constants/gushimisha-songs';
+import { gushimishaCategories } from '@/constants/gushimisha-categories';
 import { getPlaylistName } from '@/constants/playlists';
+import { useColorScheme } from '@/contexts/theme-context';
 import { useColors } from '@/hooks/use-colors';
 import { useHydrated } from '@/hooks/use-hydrated';
 import { getFavorites, getRecentSongs, type FavoriteSong, type RecentSong } from '@/utils/storage';
+import { LinearGradient } from 'expo-linear-gradient';
 import { useFocusEffect, useRouter } from 'expo-router';
 import moment from 'moment';
-import { useCallback, useMemo, useState } from 'react';
+import { ComponentProps, useCallback, useMemo, useState } from 'react';
 import { ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+type IconSymbolName = ComponentProps<typeof IconSymbol>['name'];
+
 interface Song {
-  number: number | string; // Can be number (e.g., 18) or string with suffix (e.g., "18a", "18b")
+  number: number | string;
   name: string;
   url: string;
   body: {
@@ -27,7 +32,13 @@ interface Song {
   }[];
 }
 
-// Helper function to get short relative time format
+const getGreeting = (): string => {
+  const hour = new Date().getHours();
+  if (hour < 12) return 'Good morning';
+  if (hour < 17) return 'Good afternoon';
+  return 'Good evening';
+};
+
 const getShortTimeAgo = (timestamp: number): string => {
   const now = moment();
   const then = moment(timestamp);
@@ -48,18 +59,18 @@ const getShortTimeAgo = (timestamp: number): string => {
 export default function HomeScreen() {
   const router = useRouter();
   const colors = useColors();
+  const colorScheme = useColorScheme();
+  const isDark = colorScheme === 'dark';
   const insets = useSafeAreaInsets();
   const hasHydrated = useHydrated();
   const [recentSongs, setRecentSongs] = useState<RecentSong[]>([]);
   const [favoriteSongs, setFavoriteSongs] = useState<FavoriteSong[]>([]);
 
-  // Memoize all songs to avoid recreating on every render
   const allSongs = useMemo<Record<string, Song[]>>(() => ({
     agakiza: agakizaSongs as Song[],
     gushimisha: gushimishaSongs as Song[],
   }), []);
 
-  // Reload recent songs and favorites when screen comes into focus
   useFocusEffect(
     useCallback(() => {
       loadRecentSongs();
@@ -69,12 +80,12 @@ export default function HomeScreen() {
 
   const loadRecentSongs = async () => {
     const recent = await getRecentSongs();
-    setRecentSongs(recent.slice(0, 10)); // Show last 10
+    setRecentSongs(recent.slice(0, 10));
   };
 
   const loadFavoriteSongs = async () => {
     const favorites = await getFavorites();
-    setFavoriteSongs(favorites.slice(0, 10)); // Show first 10
+    setFavoriteSongs(favorites.slice(0, 10));
   };
 
   const handleSongPress = useCallback((playlist: string, songNumber: number | string) => {
@@ -86,129 +97,167 @@ export default function HomeScreen() {
 
   return (
     <ThemedView style={styles.container}>
-      <ThemedView style={[styles.header, { paddingTop: insets.top + 20 }]}>
+      {/* Ambient tint glow behind the header */}
+      <LinearGradient
+        colors={
+          isDark
+            ? [colors.tint + '18', colors.tint + '0A', 'transparent']
+            : [colors.tint + '30', colors.tint + '18', 'transparent']
+        }
+        style={styles.ambientGlow}
+      />
+
+      <View style={[styles.header, { paddingTop: insets.top + 20 }]}>
+        <ThemedText style={[styles.greeting, { color: colors.tint }]}>
+          {getGreeting()}
+        </ThemedText>
         <ThemedText type="title" style={styles.title}>
           Indirimbo
         </ThemedText>
-        <ThemedText style={styles.subtitle}>
-          Choose a playlist to browse songs
-        </ThemedText>
-      </ThemedView>
-      <TabScrollView
-        contentContainerStyle={styles.scrollContent}>
-          <View style={styles.playlistSection}>
-              <ThemedView style={styles.playlistContainer}>
-                <PlaylistCard
-                  playlistId="gushimisha"
-                  iconName="music.mic"
-                  onPress={() => {
-                    router.push({
-                      pathname: '/(tabs)/home/playlist/[name]',
-                      params: { name: 'gushimisha' },
-                    });
-                  }}
-                />
+      </View>
 
-                <PlaylistCard
-                  playlistId="agakiza"
-                  iconName="music.note.list"
-                  onPress={() => {
-                    router.push({
-                      pathname: '/(tabs)/home/playlist/[name]',
-                      params: { name: 'agakiza' },
-                    });
-                  }}
-                />
-              </ThemedView>
-            {hasHydrated && favoriteSongs.length > 0 && (
-              <ThemedView>
-                <View style={styles.sectionHeader}>
-                  <ThemedText type="subtitle" style={styles.sectionTitle}>
-                    Favorite Songs
-                  </ThemedText>
-                  <TouchableOpacity
-                    onPress={() => router.push('/(tabs)/favorites')}
-                    activeOpacity={0.7}
-                    style={[styles.viewMoreButton, { backgroundColor: colors.tint + '20' }]}>
-                    <ThemedText style={[styles.viewMoreText, { color: colors.tint }]}>
-                      See all
-                    </ThemedText>
-                    <IconSymbol name="arrow.right" size={14} color={colors.tint} />
-                  </TouchableOpacity>
-                </View>
-                <ScrollView
-                  horizontal
-                  showsHorizontalScrollIndicator={false}
-                  keyboardShouldPersistTaps="handled"
-                  contentContainerStyle={styles.horizontalScroll}>
-                  {favoriteSongs.map((favorite, index) => {
-                    const playlistSongs = allSongs[favorite.playlist] || [];
-                    const song = playlistSongs.find(s => String(s.number) === String(favorite.songNumber));
-                    const playlistTitle = getPlaylistName(favorite.playlist);
-
-                    return (
-                      <TouchableOpacity
-                        key={`${favorite.playlist}-${favorite.songNumber}-${index}`}
-                        style={[styles.favoriteSongCard, { borderColor: colors.icon + '20' }]}
-                        onPress={() => handleSongPress(favorite.playlist, favorite.songNumber)}
-                        activeOpacity={0.7}>
-                        <SongNumberBadge number={favorite.songNumber} style={{ alignSelf: 'flex-start' }} />
-                        <View style={styles.recentSongInfo}>
-                          <View style={styles.recentPlaylistRow}>
-                            <ThemedText style={[styles.recentPlaylistLabel, { color: colors.icon, opacity: 0.6 }]} numberOfLines={1}>
-                              {playlistTitle}
-                            </ThemedText>
-                          </View>
-                          <ThemedText type="defaultSemiBold" style={styles.recentSongTitle} numberOfLines={2}>
-                            {song?.name || favorite.songName}
-                          </ThemedText>
-                        </View>
-                      </TouchableOpacity>
-                    );
-                  })}
-                </ScrollView>
-              </ThemedView>
-            )}
-            {hasHydrated && recentSongs.length > 0 && (
-              <ThemedView>
-                <ThemedText type="subtitle" style={styles.sectionTitleStandalone}>
-                  Recent Songs
+      <TabScrollView contentContainerStyle={styles.scrollContent}>
+        <View style={styles.categoryContainer}>
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={styles.categoryScroll}>
+            {gushimishaCategories.map((category, index) => (
+              <TouchableOpacity
+                key={category.name}
+                style={[styles.categoryChip, { borderColor: colors.tint + '40' }]}
+                activeOpacity={0.7}
+                onPress={() => {
+                  router.push({
+                    pathname: '/(tabs)/home/category',
+                    params: { index: String(index) },
+                  });
+                }}>
+                <IconSymbol name={category.icon as IconSymbolName} size={14} color={colors.tint} />
+                <ThemedText style={[styles.categoryChipText, { color: colors.tint }]}>
+                  {category.name}
                 </ThemedText>
-                <View style={styles.verticalList}>
-                  {recentSongs.map((recent, index) => {
-                    const playlistSongs = allSongs[recent.playlist] || [];
-                    const song = playlistSongs.find(s => String(s.number) === String(recent.songNumber));
-                    const playlistTitle = getPlaylistName(recent.playlist);
+              </TouchableOpacity>
+            ))}
+          </ScrollView>
+        </View>
 
-                    return (
-                      <TouchableOpacity
-                        key={`${recent.playlist}-${recent.songNumber}-${index}`}
-                        style={[styles.recentSongCard, { borderColor: colors.icon + '20' }]}
-                        onPress={() => handleSongPress(recent.playlist, recent.songNumber)}
-                        activeOpacity={0.7}>
-                        <SongNumberBadge number={recent.songNumber} />
-                        <View style={styles.recentSongInfo}>
-                          <View style={styles.recentPlaylistRow}>
-                            <ThemedText style={[styles.recentPlaylistLabel, { color: colors.icon, opacity: 0.6 }]} numberOfLines={1}>
-                              {playlistTitle}
-                            </ThemedText>
-                            {hasHydrated && (
-                              <ThemedText style={[styles.recentDate, { color: colors.icon, opacity: 0.4 }]} numberOfLines={1}>
-                                • {getShortTimeAgo(recent.timestamp)}
-                              </ThemedText>
-                            )}
-                          </View>
-                          <ThemedText type="defaultSemiBold" style={styles.recentSongTitle} numberOfLines={2}>
-                            {song?.name || recent.songName}
+        <View style={styles.playlistSection}>
+          <ThemedView style={styles.playlistContainer}>
+            <PlaylistCard
+              playlistId="gushimisha"
+              iconName="music.mic"
+              onPress={() => {
+                router.push({
+                  pathname: '/(tabs)/home/playlist/[name]',
+                  params: { name: 'gushimisha' },
+                });
+              }}
+            />
+            <PlaylistCard
+              playlistId="agakiza"
+              iconName="music.note.list"
+              onPress={() => {
+                router.push({
+                  pathname: '/(tabs)/home/playlist/[name]',
+                  params: { name: 'agakiza' },
+                });
+              }}
+            />
+          </ThemedView>
+
+          {hasHydrated && favoriteSongs.length > 0 && (
+            <ThemedView>
+              <View style={styles.sectionHeader}>
+                <ThemedText type="subtitle" style={styles.sectionTitle}>
+                  Favorite Songs
+                </ThemedText>
+                <TouchableOpacity
+                  onPress={() => router.push('/(tabs)/favorites')}
+                  activeOpacity={0.7}
+                  style={[styles.viewMoreButton, { backgroundColor: colors.tint + '20' }]}>
+                  <ThemedText style={[styles.viewMoreText, { color: colors.tint }]}>
+                    See all
+                  </ThemedText>
+                  <IconSymbol name="arrow.right" size={14} color={colors.tint} />
+                </TouchableOpacity>
+              </View>
+              <View style={styles.horizontalScrollWrapper}>
+              <ScrollView
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                keyboardShouldPersistTaps="handled"
+                contentContainerStyle={styles.horizontalScroll}>
+                {favoriteSongs.map((favorite, index) => {
+                  const playlistSongs = allSongs[favorite.playlist] || [];
+                  const song = playlistSongs.find(s => String(s.number) === String(favorite.songNumber));
+                  const playlistTitle = getPlaylistName(favorite.playlist);
+
+                  return (
+                    <TouchableOpacity
+                      key={`${favorite.playlist}-${favorite.songNumber}-${index}`}
+                      style={[styles.favoriteSongCard, { borderColor: colors.icon + '20' }]}
+                      onPress={() => handleSongPress(favorite.playlist, favorite.songNumber)}
+                      activeOpacity={0.7}>
+                      <SongNumberBadge number={favorite.songNumber} style={{ alignSelf: 'flex-start' }} />
+                      <View style={styles.recentSongInfo}>
+                        <View style={styles.recentPlaylistRow}>
+                          <ThemedText style={[styles.recentPlaylistLabel, { color: colors.icon, opacity: 0.6 }]} numberOfLines={1}>
+                            {playlistTitle}
                           </ThemedText>
                         </View>
-                      </TouchableOpacity>
-                    );
-                  })}
-                </View>
-              </ThemedView>
-            )}
-          </View>
+                        <ThemedText type="defaultSemiBold" style={styles.recentSongTitle} numberOfLines={2}>
+                          {song?.name || favorite.songName}
+                        </ThemedText>
+                      </View>
+                    </TouchableOpacity>
+                  );
+                })}
+              </ScrollView>
+              </View>
+            </ThemedView>
+          )}
+
+          {hasHydrated && recentSongs.length > 0 && (
+            <ThemedView>
+              <ThemedText type="subtitle" style={styles.sectionTitleStandalone}>
+                Recent Songs
+              </ThemedText>
+              <View style={styles.verticalList}>
+                {recentSongs.map((recent, index) => {
+                  const playlistSongs = allSongs[recent.playlist] || [];
+                  const song = playlistSongs.find(s => String(s.number) === String(recent.songNumber));
+                  const playlistTitle = getPlaylistName(recent.playlist);
+
+                  return (
+                    <TouchableOpacity
+                      key={`${recent.playlist}-${recent.songNumber}-${index}`}
+                      style={[styles.recentSongCard, { borderColor: colors.icon + '20' }]}
+                      onPress={() => handleSongPress(recent.playlist, recent.songNumber)}
+                      activeOpacity={0.7}>
+                      <SongNumberBadge number={recent.songNumber} />
+                      <View style={styles.recentSongInfo}>
+                        <View style={styles.recentPlaylistRow}>
+                          <ThemedText style={[styles.recentPlaylistLabel, { color: colors.icon, opacity: 0.6 }]} numberOfLines={1}>
+                            {playlistTitle}
+                          </ThemedText>
+                          {hasHydrated && (
+                            <ThemedText style={[styles.recentDate, { color: colors.icon, opacity: 0.4 }]} numberOfLines={1}>
+                              • {getShortTimeAgo(recent.timestamp)}
+                            </ThemedText>
+                          )}
+                        </View>
+                        <ThemedText type="defaultSemiBold" style={styles.recentSongTitle} numberOfLines={2}>
+                          {song?.name || recent.songName}
+                        </ThemedText>
+                      </View>
+                    </TouchableOpacity>
+                  );
+                })}
+              </View>
+            </ThemedView>
+          )}
+        </View>
       </TabScrollView>
     </ThemedView>
   );
@@ -218,23 +267,61 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  scrollView: {
-    flex: 1,
+
+  // Ambient glow
+  ambientGlow: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    height: 150,
+    zIndex: 0,
   },
-  scrollContent: {
-    paddingHorizontal: 20,
-    paddingTop: 12,
-  },
+
+  // Header
   header: {
     paddingHorizontal: 20,
     paddingBottom: 12,
+    zIndex: 1,
+  },
+  greeting: {
+    fontSize: 14,
+    fontWeight: '600',
+    marginBottom: 6,
+    letterSpacing: 0.3,
   },
   title: {
-    marginBottom: 8,
+    marginBottom: 0,
   },
-  subtitle: {
-    opacity: 0.7,
-    fontSize: 16,
+
+  // Category chips
+  categoryContainer: {
+    marginHorizontal: -20,
+    paddingBottom: 16,
+  },
+  categoryScroll: {
+    paddingHorizontal: 20,
+    gap: 8,
+  },
+  categoryChip: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 5,
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 20,
+    borderWidth: 1,
+  },
+  categoryChipText: {
+    fontSize: 13,
+    fontWeight: '500',
+    textTransform: 'capitalize',
+  },
+
+  // Content
+  scrollContent: {
+    paddingHorizontal: 20,
+    paddingTop: 4,
   },
   playlistSection: {
     gap: 28,
@@ -242,6 +329,8 @@ const styles = StyleSheet.create({
   playlistContainer: {
     gap: 16,
   },
+
+  // Section headers
   sectionHeader: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -267,10 +356,24 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: '600',
   },
+
+  // Favorites
+  horizontalScrollWrapper: {
+    marginHorizontal: -20,
+  },
   horizontalScroll: {
-    paddingRight: 20,
+    paddingHorizontal: 20,
     gap: 12,
   },
+  favoriteSongCard: {
+    width: 160,
+    padding: 14,
+    borderRadius: 12,
+    borderWidth: 1,
+    gap: 10,
+  },
+
+  // Recent
   verticalList: {
     gap: 12,
   },
@@ -282,15 +385,10 @@ const styles = StyleSheet.create({
     gap: 10,
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
-  favoriteSongCard: {
-    width: 160,
-    padding: 14,
-    borderRadius: 12,
-    borderWidth: 1,
-    gap: 10,
-  },
+
+  // Shared song info
   recentSongInfo: {
     flex: 1,
   },
@@ -313,12 +411,5 @@ const styles = StyleSheet.create({
   recentSongTitle: {
     fontSize: 14,
     lineHeight: 18,
-  },
-  emptyRecentState: {
-    paddingVertical: 20,
-    alignItems: 'center',
-  },
-  emptyRecentText: {
-    fontSize: 14,
   },
 });
