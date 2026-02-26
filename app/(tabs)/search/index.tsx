@@ -90,7 +90,7 @@ const HighlightedText = React.memo(function HighlightedText({ text, query, highl
     return <Text style={{ color: textColor }}>{text}</Text>;
   }
 
-  const words = query.toLowerCase().split(/\s+/).filter(w => w.length >= 2);
+  const words = query.toLowerCase().split(/\s+/).filter(w => w.length >= 2 || /^\d+$/.test(w));
   if (words.length === 0) {
     return <Text style={{ color: textColor }}>{text}</Text>;
   }
@@ -281,7 +281,7 @@ export default function SearchScreen() {
 
     const query = debouncedSearchQuery.trim();
     const lowerQuery = query.toLowerCase();
-    const words = lowerQuery.split(/\s+/).filter(w => w.length >= 2);
+    const words = lowerQuery.split(/\s+/).filter(w => w.length >= 2 || /^\d+$/.test(w));
 
     if (words.length === 0) return [];
 

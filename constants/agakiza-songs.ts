@@ -863,8 +863,12 @@ export const songs: NewSong[] = [
         type: "verse",
         number: 4,
         content:
-          "Yes’ azagaruka vuba\nAzajyan’ umugeni we\nTuzahora turirimba\nDushim’ Umwana w’ Intama\nMw ijuru, hafi ya Yesu\nDutandukanye n ‘ ibyaha\nN’ ukuri nzaba mpiriwe\nNzahora nezerw’ iteka",
+          "Yes’ azagaruka vuba\nAzajyan’ umugeni we\nTuzahora turirimba\nDushim’ Umwana w’ Intama.",
       },
+      {
+        type: "chorus",
+        content: "Mw ijuru, hafi ya Yesu\nDutandukanye n ‘ ibyaha\nN’ ukuri nzaba mpiriwe\nNzahora nezerw’ iteka."
+      }
     ],
   },
   {
@@ -1455,7 +1459,23 @@ export const songs: NewSong[] = [
         type: "verse",
         number: 2,
         content:
-          "Ndahiriwe kuko Yesu yampfiriye,\nNone akab’ ari muzima\nN’ inshuti y’ ukuri kand’ itubohora,\nMu ngoyi za wa mugome",
+          "Ndahiriwe kuko Yesu yampfiriye,\nNone akab’ ari muzima\nN’ inshuti y’ ukuri kand’ itubohora,\nMu ngoyi za wa mugome.",
+      },
+       {
+        type: "chorus",
+        content:
+          "Anezez' iminsi yose!\nAnezez' minsi yose!\nNdahiriwe kuko Yesu yampfiriye,\nNon' akab' uri muzima.",
+      },
+      {
+        type: "verse",
+        number: 3,
+        content:
+          "Ndahiriwe kuko nyoborwa na Yesu.\nNca mu nzira yaciyemo.\nCyane cyan' iyo numviy' amagambo ye,\nSi mba nkizimiy' ukundi.",
+      },
+      {
+        type: "chorus",
+        content:
+          "Anezez' iminsi yose!\nAnezez' iminsi yose!\nNdahiriwe kuko nyoborwa na Yesu,\nNtabwo nzaba nkizimiye.",
       },
     ],
   },
@@ -2200,25 +2220,25 @@ export const songs: NewSong[] = [
     name: "Mu gihe cyo gusenga, amase ngesho yacu",
     url: "https://indirimbo.rw/song?playlist=agakiza&songNumber=1",
     textContent:
-      "1Mu gihe cyo gusenga, amase ngesho yacuAgera kure cyane, atambuka n’ inyenyeriUmutima w’ umuntuujy’ imbere y’ Imana,Ugakomang’ urugi, Ushaka kureb’ Imana2Nta mahoro yuzuye twabona mur’ iyi si,Kwa Data ni ho gusa hasenderey’ amahoroUmutim’ uzatuza, N’ umucy’ uzaba mwinshi,Niba dukurikiye inzira y’ amasengesho3Ndetse n’ umwana muto uzi guseng’ Imana,Nta bw’ azagir’ ubwoba, azafashwa no gusengaKandi ntitwibagirwe yukw aho tujya hose,Yuko gusenga kwacu kugera ku Mana Data!",
+      "1Mu gihe cyo gusenga, amasengesho yacuAgera kure cyane, atambuka n’ inyenyeriUmutima w’ umuntuujy’ imbere y’ Imana,Ugakomang’ urugi, Ushaka kureb’ Imana2Nta mahoro yuzuye twabona mur’ iyi si,Kwa Data ni ho gusa hasenderey’ amahoroUmutim’ uzatuza, N’ umucy’ uzaba mwinshi,Niba dukurikiye inzira y’ amasengesho3Ndetse n’ umwana muto uzi guseng’ Imana,Nta bw’ azagir’ ubwoba, azafashwa no gusengaKandi ntitwibagirwe yukw aho tujya hose,Yuko gusenga kwacu kugera ku Mana Data!",
     body: [
       {
         type: "verse",
         number: 1,
         content:
-          "Mu gihe cyo gusenga, amase ngesho yacu\nAgera kure cyane, atambuka n’ inyenyeri\nUmutima w’ umuntu\nUjy’ imbere y’ Imana,\nUgakomang’ urugi, Ushaka kureb’ Imana",
+          "Mu gihe cyo gusenga, amasengesho yacu\nAgera kure cyane, atambuka n’ inyenyeri.\nUmutima w’ umuntu ujy’ imbere y’ Imana,\nUgakomang’ urugi, Ushaka kureb’ Imana",
       },
       {
         type: "verse",
         number: 2,
         content:
-          "Nta mahoro yuzuye twabona mur’ iyi si,\nKwa Data ni ho gusa hasenderey’ amahoro\nUmutim’ uzatuza, N’ umucy’ uzaba mwinshi,\nNiba dukurikiye inzira y’ amasengesho",
+          "Nta mahoro yuzuye twabona mur’ iyi si,\nKwa Data ni ho gusa hasenderey’ amahoro.\nUmutim’ uzatuza, N’ umucy’ uzaba mwinshi,\nNiba dukurikiye inzira y’ amasengesho",
       },
       {
         type: "verse",
         number: 3,
         content:
-          "Ndetse n’ umwana muto uzi guseng’ Imana,\nNta bw’ azagir’ ubwoba, azafashwa no gusenga\nKandi ntitwibagirwe yukw aho tujya hose,\nYuko gusenga kwacu kugera ku Mana Data!",
+          "Ndetse n’ umwana muto uzi guseng’ Imana,\nNta bw’ azagir’ ubwoba, azafashwa no gusenga.\nKandi ntitwibagirwe yukw' aho tujya hose,\nYuko gusenga kwacu kugera ku Mana Data!",
       },
     ],
   },
@@ -2473,24 +2493,30 @@ export const songs: NewSong[] = [
         type: "verse",
         number: 1,
         content:
-          "Reka gutiny’ ibizakubaho Iman’ izakurinda!\nReb’ ubushake bw’ Imana gusa Iman’ irakurinda",
+          "Reka gutiny’ ibizakubaho Iman’ izakurinda! Reb’ ubushake bw’ Imana gusa Iman’ irakurinda",
       },
       {
         type: "chorus",
         content:
-          "Iman’ irakurinda Iminsi yose mu nzir’ ucamo\nIraguhaz’ amahoro Iman’ irakurinda",
+          "Iman’ irakurinda Iminsi yose mu nzir’ ucamo Iraguhaz’ amahoro Iman’ irakurinda",
       },
       {
         type: "verse",
         number: 2,
         content:
-          "Nubw’ uwo mutwar’ uremereye, Iman’ irakurinda\nN’ ibyago biri mu nzir’ ucamo, Iman’ irakurinda",
+          "Nubw’ uwo mutwar’ uremereye, Iman’ irakurinda N’ ibyago biri mu nzir’ ucamo, Iman’ irakurinda",
       },
       {
         type: "verse",
         number: 3,
         content:
-          "Iman’ imeny’ ubukene bwawe, Iman’ irakurinda\nUyimenyesh’ ibikubabaje, Iman’ irakurinda",
+          "Iman’ imeny’ ubukene bwawe, Iman’ irakurinda Uyimenyesh’ ibikubabaje, Iman’ irakurinda",
+      },
+       {
+        type: "verse",
+        number: 4,
+        content:
+          "Kand' ubw' uzaca mu bikomeye, Iman' izakurinda. Uyimenyesh' ibikubabaje, Iman'irakurinda.",
       },
     ],
   },

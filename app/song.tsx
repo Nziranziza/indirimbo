@@ -867,6 +867,7 @@ const styles = StyleSheet.create({
     lineHeight: 30,
     textAlign: "left",
     letterSpacing: 0.1,
+    paddingRight: 5
   },
   chorusContent: {
     fontSize: 18,
@@ -874,6 +875,7 @@ const styles = StyleSheet.create({
     textAlign: "left",
     fontWeight: "400",
     letterSpacing: 0.15,
+    paddingRight: 5
   },
   emptyState: {
     alignItems: "center",
