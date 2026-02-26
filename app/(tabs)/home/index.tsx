@@ -14,6 +14,7 @@ import { useHydrated } from '@/hooks/use-hydrated';
 import { getFavorites, getRecentSongs, type FavoriteSong, type RecentSong } from '@/utils/storage';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useFocusEffect, useRouter } from 'expo-router';
+import Head from 'expo-router/head';
 import moment from 'moment';
 import { ComponentProps, useCallback, useMemo, useState } from 'react';
 import { ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
@@ -97,6 +98,10 @@ export default function HomeScreen() {
 
   return (
     <ThemedView style={styles.container}>
+      <Head>
+        <title>Indirimbo - Rwandan Hymns & Worship Songs</title>
+        <meta name="description" content="Browse hymns from Gushimisha Imana and Agakiza hymnbooks. Find Rwandan church worship songs with full lyrics." />
+      </Head>
       {/* Ambient tint glow behind the header */}
       <LinearGradient
         colors={

@@ -5,6 +5,7 @@ import { IconSymbol } from '@/components/ui/icon-symbol';
 import { useColors } from '@/hooks/use-colors';
 import * as Clipboard from 'expo-clipboard';
 import { router } from 'expo-router';
+import Head from 'expo-router/head';
 import { Alert, StyleSheet, TouchableOpacity, View } from 'react-native';
 
 export default function SupportScreen() {
@@ -24,6 +25,11 @@ export default function SupportScreen() {
   };
 
   return (
+    <>
+    <Head>
+      <title>Support | Indirimbo</title>
+      <meta name="description" content="Get help with using Indirimbo. Find FAQs, usage guide, and contact information for the Rwandan hymnal app." />
+    </Head>
     <CollapsibleHeaderScrollView
       title="Support"
       subtitle="Get help with using Indirimbo">
@@ -153,6 +159,7 @@ export default function SupportScreen() {
         </TouchableOpacity>
       </ThemedView>
     </CollapsibleHeaderScrollView>
+    </>
   );
 }
 

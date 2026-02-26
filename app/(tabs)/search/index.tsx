@@ -7,6 +7,7 @@ import gushimishaSongs from '@/constants/gushimisha-songs';
 import { getPlaylistName } from '@/constants/playlists';
 import { useColors } from '@/hooks/use-colors';
 import { Stack, useFocusEffect, useRouter } from 'expo-router';
+import Head from 'expo-router/head';
 import Fuse from 'fuse.js';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { FlatList, Platform, SectionList, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
@@ -363,6 +364,10 @@ export default function SearchScreen() {
 
   return (
     <>
+      <Head>
+        <title>Search Songs | Indirimbo</title>
+        <meta name="description" content="Search Rwandan hymns and worship songs by title, number, or lyrics across Gushimisha Imana and Agakiza hymnbooks." />
+      </Head>
       {isIOS && (
         <Stack.Screen
           options={{

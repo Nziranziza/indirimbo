@@ -4,6 +4,7 @@ import { ThemedView } from '@/components/themed-view';
 import { IconSymbol } from '@/components/ui/icon-symbol';
 import { useColors } from '@/hooks/use-colors';
 import { router } from 'expo-router';
+import Head from 'expo-router/head';
 import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 
 export default function AboutScreen() {
@@ -22,6 +23,11 @@ export default function AboutScreen() {
   );
 
   return (
+    <>
+    <Head>
+      <title>About | Indirimbo</title>
+      <meta name="description" content="Indirimbo brings Rwandan hymns and worship songs to your fingertips. Browse Gushimisha Imana and Agakiza hymnbooks." />
+    </Head>
     <CollapsibleHeaderScrollView
       title="About Indirimbo"
       headerMaxHeight={240}
@@ -170,6 +176,7 @@ export default function AboutScreen() {
 
       <ThemedText style={styles.version}>Version 1.0.0</ThemedText>
     </CollapsibleHeaderScrollView>
+    </>
   );
 }
 

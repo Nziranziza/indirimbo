@@ -4,6 +4,7 @@ import { ThemedView } from '@/components/themed-view';
 import { IconSymbol } from '@/components/ui/icon-symbol';
 import { useColors } from '@/hooks/use-colors';
 import * as Clipboard from 'expo-clipboard';
+import Head from 'expo-router/head';
 import { Alert, StyleSheet, TouchableOpacity, View } from 'react-native';
 
 export default function TermsOfServiceScreen() {
@@ -25,6 +26,11 @@ export default function TermsOfServiceScreen() {
   };
 
   return (
+    <>
+    <Head>
+      <title>Terms of Service | Indirimbo</title>
+      <meta name="description" content="Terms of service for the Indirimbo app. Guidelines for using the Rwandan hymnal app." />
+    </Head>
     <CollapsibleHeaderScrollView
       title="Terms of Service"
       subtitle="Guidelines for using the app">
@@ -156,6 +162,7 @@ export default function TermsOfServiceScreen() {
         </TouchableOpacity>
       </ThemedView>
     </CollapsibleHeaderScrollView>
+    </>
   );
 }
 

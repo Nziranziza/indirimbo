@@ -4,6 +4,7 @@ import agakizaSongs from '@/constants/agakiza-songs';
 import gushimishaSongs from '@/constants/gushimisha-songs';
 import { getPlaylistName } from '@/constants/playlists';
 import { useLocalSearchParams, usePathname } from 'expo-router';
+import Head from 'expo-router/head';
 import { ComponentProps, useMemo } from 'react';
 
 type IconSymbolName = ComponentProps<typeof IconSymbol>['name'];
@@ -53,11 +54,17 @@ export default function PlaylistScreen() {
   const iconName: IconSymbolName = name === 'agakiza' ? 'music.note.list' : 'music.mic';
 
   return (
-    <SongListScreen
-      title={playlistTitle}
-      iconName={iconName}
-      songs={songs}
-      playlist={name}
-    />
+    <>
+      <Head>
+        <title>{`${playlistTitle} | Indirimbo`}</title>
+        <meta name="description" content={`Browse all ${songs.length} songs in the ${playlistTitle} hymnbook. Rwandan church worship songs with full lyrics.`} />
+      </Head>
+      <SongListScreen
+        title={playlistTitle}
+        iconName={iconName}
+        songs={songs}
+        playlist={name}
+      />
+    </>
   );
 }

@@ -1,5 +1,6 @@
 import { DarkTheme, DefaultTheme, ThemeProvider as NavigationThemeProvider } from '@react-navigation/native';
 import { Stack } from 'expo-router';
+import Head from 'expo-router/head';
 import { StatusBar } from 'expo-status-bar';
 import { Platform, StyleSheet, View } from 'react-native';
 import 'react-native-reanimated';
@@ -10,9 +11,34 @@ import { AppInstallBanner } from '@/components/ui/app-install-banner';
 import { ThemeProvider, useColorScheme } from '@/contexts/theme-context';
 import { useHydrated } from '@/hooks/use-hydrated';
 
+const BASE_URL = 'https://nziranziza.github.io/indirimbo';
+
 export const unstable_settings = {
   anchor: '(tabs)',
 };
+
+function SEOHead() {
+  return (
+    <Head>
+      <title>Indirimbo - Rwandan Hymns & Worship Songs</title>
+      <meta name="description" content="Browse and search Rwandan church hymns from Gushimisha Imana and Agakiza hymnbooks. Find lyrics, save favorites, and share worship songs." />
+      <meta name="keywords" content="indirimbo, rwandan hymns, gushimisha imana, agakiza, worship songs, church hymns, kinyarwanda, rwanda" />
+      <meta name="theme-color" content="#0a7ea4" />
+      <meta property="og:site_name" content="Indirimbo" />
+      <meta property="og:type" content="website" />
+      <meta property="og:title" content="Indirimbo - Rwandan Hymns & Worship Songs" />
+      <meta property="og:description" content="Browse and search Rwandan church hymns from Gushimisha Imana and Agakiza hymnbooks. Find lyrics, save favorites, and share worship songs." />
+      <meta property="og:image" content={`${BASE_URL}/og-image.png`} />
+      <meta property="og:url" content={BASE_URL} />
+      <meta property="og:locale" content="rw_RW" />
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:title" content="Indirimbo - Rwandan Hymns & Worship Songs" />
+      <meta name="twitter:description" content="Browse and search Rwandan church hymns from Gushimisha Imana and Agakiza hymnbooks." />
+      <meta name="twitter:image" content={`${BASE_URL}/og-image.png`} />
+      <link rel="canonical" href={BASE_URL} />
+    </Head>
+  );
+}
 
 function RootLayoutContent() {
   const colorScheme = useColorScheme();
@@ -74,7 +100,7 @@ export default function RootLayout() {
   const hasHydrated = useHydrated();
   const content = hasHydrated ? <RootLayoutContent /> : <ThemedView style={{ flex: 1 }} />;
   
-  return (
+  const inner = (
     <SafeAreaProvider>
       <ThemeProvider>
         {Platform.OS === 'web' ? (
@@ -89,6 +115,13 @@ export default function RootLayout() {
         )}
       </ThemeProvider>
     </SafeAreaProvider>
+  );
+
+  return (
+    <Head.Provider>
+      <SEOHead />
+      {inner}
+    </Head.Provider>
   );
 }
 

@@ -10,6 +10,7 @@ import { useColors } from '@/hooks/use-colors';
 import { useHydrated } from '@/hooks/use-hydrated';
 import { getFavorites, removeFavorite, type FavoriteSong } from '@/utils/storage';
 import { useFocusEffect, useRouter } from 'expo-router';
+import Head from 'expo-router/head';
 import { useCallback, useState } from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -88,6 +89,10 @@ export default function FavoritesTabScreen() {
 
   return (
     <ThemedView style={styles.container}>
+      <Head>
+        <title>Favorites | Indirimbo</title>
+        <meta name="description" content="Your favorite Rwandan hymns and worship songs from Gushimisha Imana and Agakiza hymnbooks." />
+      </Head>
       <ThemedView style={[styles.header, { paddingTop: insets.top + 20 }]}>
         <ThemedText type="title" style={styles.title}>
           Favorites

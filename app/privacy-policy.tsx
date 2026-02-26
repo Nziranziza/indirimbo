@@ -4,6 +4,7 @@ import { ThemedView } from '@/components/themed-view';
 import { IconSymbol } from '@/components/ui/icon-symbol';
 import { useColors } from '@/hooks/use-colors';
 import * as Clipboard from 'expo-clipboard';
+import Head from 'expo-router/head';
 import { Alert, StyleSheet, TouchableOpacity, View } from 'react-native';
 
 export default function PrivacyPolicyScreen() {
@@ -25,6 +26,11 @@ export default function PrivacyPolicyScreen() {
   };
 
   return (
+    <>
+    <Head>
+      <title>Privacy Policy | Indirimbo</title>
+      <meta name="description" content="Privacy policy for the Indirimbo app. Learn how we handle your information." />
+    </Head>
     <CollapsibleHeaderScrollView
       title="Privacy Policy"
       subtitle="How we handle information in the app">
@@ -144,6 +150,7 @@ export default function PrivacyPolicyScreen() {
         </TouchableOpacity>
       </ThemedView>
     </CollapsibleHeaderScrollView>
+    </>
   );
 }
 

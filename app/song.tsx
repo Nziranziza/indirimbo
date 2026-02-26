@@ -23,6 +23,7 @@ import {
   deactivateKeepAwake,
 } from "expo-keep-awake";
 import { useLocalSearchParams, useRouter } from "expo-router";
+import Head from "expo-router/head";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   LayoutChangeEvent,
@@ -480,8 +481,19 @@ export default function SongScreen() {
 
   const shareIconName = "square.and.arrow.up";
 
+  const firstVerse = currentSong.body?.find(s => s.type === 'verse');
+  const seoDescription = firstVerse
+    ? `${currentSong.name} - ${firstVerse.content.split('\n').slice(0, 2).join(' ').substring(0, 150)}...`
+    : `${currentSong.name} - ${playlistTitle} hymn #${currentSong.number}`;
+
   return (
     <ThemedView style={styles.container}>
+      <Head>
+        <title>{`${currentSong.name} - ${playlistTitle} #${currentSong.number} | Indirimbo`}</title>
+        <meta name="description" content={seoDescription} />
+        <meta property="og:title" content={`${currentSong.name} | Indirimbo`} />
+        <meta property="og:description" content={seoDescription} />
+      </Head>
       <ThemedView style={[styles.header, { paddingTop: insets.top + 16 }]}>
         <BackButton
           color={colors.text}

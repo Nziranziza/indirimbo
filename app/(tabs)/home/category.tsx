@@ -3,6 +3,7 @@ import { IconSymbol } from '@/components/ui/icon-symbol';
 import gushimishaSongs from '@/constants/gushimisha-songs';
 import { gushimishaCategories } from '@/constants/gushimisha-categories';
 import { useLocalSearchParams } from 'expo-router';
+import Head from 'expo-router/head';
 import { ComponentProps, useMemo } from 'react';
 
 type IconSymbolName = ComponentProps<typeof IconSymbol>['name'];
@@ -33,11 +34,17 @@ export default function CategoryScreen() {
   const categoryIcon = (category?.icon || 'music.note.list') as IconSymbolName;
 
   return (
-    <SongListScreen
-      title={categoryName}
-      iconName={categoryIcon}
-      songs={songs}
-      playlist="gushimisha"
-    />
+    <>
+      <Head>
+        <title>{`${categoryName} | Indirimbo`}</title>
+        <meta name="description" content={`Browse ${categoryName} hymns from Gushimisha Imana hymnbook. ${songs.length} worship songs.`} />
+      </Head>
+      <SongListScreen
+        title={categoryName}
+        iconName={categoryIcon}
+        songs={songs}
+        playlist="gushimisha"
+      />
+    </>
   );
 }

@@ -8,6 +8,7 @@ import { useColors } from '@/hooks/use-colors';
 import { getFontSize, setFontSize, type FontSize, type ThemePreference, type TintColorKey } from '@/utils/storage';
 import * as Haptics from 'expo-haptics';
 import { router, useFocusEffect } from 'expo-router';
+import Head from 'expo-router/head';
 import { useCallback, useEffect, useState } from 'react';
 import { Dimensions, Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -99,6 +100,10 @@ export default function SettingsScreen() {
 
   return (
     <ThemedView style={styles.container}>
+      <Head>
+        <title>Settings | Indirimbo</title>
+        <meta name="description" content="Customize your Indirimbo reading experience. Adjust text size, theme, and accent color." />
+      </Head>
       <ThemedView style={[styles.header, { paddingTop: insets.top + 20 }]}>
         <ThemedText type="title" style={styles.title}>
           Settings
