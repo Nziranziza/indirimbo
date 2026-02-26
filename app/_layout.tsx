@@ -69,14 +69,17 @@ function RootLayoutContent() {
           }}
         />
         <Stack.Screen
-          name="song"
+          name="song/index"
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="song/[playlist]/[songNumber]"
           options={({ route }) => {
-            // Get direction from route params to determine animation
             const direction = (route.params as { direction?: string })?.direction;
-            const animation = direction === 'back' 
+            const animation = direction === 'back'
               ? 'slide_from_left'
               : 'slide_from_right';
-            
+
             return {
               headerShown: false,
               animation,

@@ -62,10 +62,7 @@ export function SongListScreen({ title, iconName, songs, playlist }: SongListScr
 
   const handleSongPress = useCallback(
     (songNumber: number | string) => {
-      router.push({
-        pathname: '/song',
-        params: { playlist, songNumber: String(songNumber) },
-      });
+      router.push(`/song/${playlist}/${songNumber}`);
     },
     [router, playlist]
   );

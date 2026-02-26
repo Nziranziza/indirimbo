@@ -39,9 +39,10 @@ function readSongs(filePath) {
     const number = match[1].replace(/^"|"$/g, '');
     const name = match[2];
 
+    // Find the first verse or chorus (whichever comes first)
     const afterMatch = content.slice(match.index);
-    const verseMatch = afterMatch.match(/"type"\s*:\s*"verse"[\s\S]*?"content"\s*:\s*"([^"]+)"/);
-    const firstVerse = verseMatch ? verseMatch[1].replace(/\\n/g, ' ') : '';
+    const firstSectionMatch = afterMatch.match(/"type"\s*:\s*"(?:verse|chorus)"[\s\S]*?"content"\s*:\s*"([^"]+)"/);
+    const firstVerse = firstSectionMatch ? firstSectionMatch[1].replace(/\\n/g, '\n') : '';
 
     songs.push({ number, name, firstVerse });
   }
@@ -60,8 +61,8 @@ function escapeHtml(str) {
 
 function buildDescription(song, playlistName) {
   if (song.firstVerse) {
-    const snippet = song.firstVerse.substring(0, 150);
-    return `${song.name} - ${snippet}...`;
+    // Use the full first verse/chorus, replacing newlines with spaces
+    return song.firstVerse.replace(/\n/g, ' ');
   }
   return `${song.name} - ${playlistName} hymn #${song.number}`;
 }
@@ -71,7 +72,6 @@ function generateSongHtml(song, playlist, playlistName) {
   const ogTitle = escapeHtml(`${song.name} | Indirimbo`);
   const description = escapeHtml(buildDescription(song, playlistName));
   const canonicalUrl = `${BASE_URL}/song/${playlist}/${encodeURIComponent(song.number)}`;
-  const spaPath = `/song?playlist=${encodeURIComponent(playlist)}&songNumber=${encodeURIComponent(song.number)}`;
 
   // Song-specific meta tags to inject
   const songMeta = `
@@ -92,9 +92,6 @@ function generateSongHtml(song, playlist, playlistName) {
   <meta name="twitter:image" content="${OG_IMAGE}" />
   <link rel="canonical" href="${canonicalUrl}" />`;
 
-  // Script that silently rewrites the URL before the SPA boots
-  const rewriteScript = `<script>history.replaceState(null,'','${spaPath}');</script>`;
-
   let html = templateHtml;
 
   // Replace the title
@@ -106,8 +103,8 @@ function generateSongHtml(song, playlist, playlistName) {
   html = html.replace(/<meta\s+name="twitter:[^"]*"[^>]*>/g, '');
   html = html.replace(/<link\s+rel="canonical"[^>]*>/g, '');
 
-  // Inject song-specific meta tags and the URL rewrite script right after <head>
-  html = html.replace(/<head>/, `<head>${rewriteScript}${songMeta}`);
+  // Inject song-specific meta tags right after <head>
+  html = html.replace(/<head>/, `<head>${songMeta}`);
 
   return html;
 }

@@ -90,10 +90,7 @@ export default function HomeScreen() {
   };
 
   const handleSongPress = useCallback((playlist: string, songNumber: number | string) => {
-    router.push({
-      pathname: '/song',
-      params: { playlist, songNumber: String(songNumber) },
-    });
+    router.push(`/song/${playlist}/${songNumber}`);
   }, [router]);
 
   return (

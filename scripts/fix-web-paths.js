@@ -32,9 +32,6 @@ if (normalizedBasePath) {
   console.log('ℹ️  No BASE_PATH set; leaving asset paths unchanged');
 }
 
-// Set HTML language to Kinyarwanda
-html = html.replace(/<html\s+lang="en"/, '<html lang="rw"');
-
 // Replace empty title with default SEO title
 html = html.replace(
   /<title data-rh="true"><\/title>/,
@@ -96,9 +93,6 @@ const fixHtmlFile = (filePath) => {
   if (!filePath.endsWith('.html')) return;
 
   let pageHtml = fs.readFileSync(filePath, 'utf8');
-
-  // Set HTML language
-  pageHtml = pageHtml.replace(/<html\s+lang="en"/, '<html lang="rw"');
 
   // Replace empty title
   pageHtml = pageHtml.replace(

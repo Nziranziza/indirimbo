@@ -45,13 +45,7 @@ export default function FavoritesTabScreen() {
   };
 
   const handleSongPress = (favorite: FavoriteSong) => {
-    router.push({
-      pathname: '/song',
-      params: { 
-        playlist: favorite.playlist, 
-        songNumber: String(favorite.songNumber) 
-      },
-    });
+    router.push(`/song/${favorite.playlist}/${favorite.songNumber}`);
   };
 
   const handleRemoveFavorite = async (playlist: string, songNumber: number | string) => {

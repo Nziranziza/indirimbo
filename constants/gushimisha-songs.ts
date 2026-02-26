@@ -1433,7 +1433,7 @@ export const songs: NewSong[] = [
       {
         "type": "verse",
         "number": 3,
-        "content": "Ni ngera ku nkombe ya rwa ruzi, \nUzampe gutinyuka \nAmazi maremare y'urupfu,\n Nyambuke, ngere mu ijuru."
+        "content": "Ni ngera ku nkombe ya rwa ruzi, \nUzampe gutinyuka \nAmazi maremare y'urupfu,\nNyambuke, ngere mu ijuru."
       },
       {
         "type": "chorus",

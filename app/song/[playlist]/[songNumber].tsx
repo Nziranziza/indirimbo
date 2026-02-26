@@ -453,12 +453,8 @@ export default function SongScreen() {
     if (currentIndex > 0) {
       const prevSong = allSongs[currentIndex - 1];
       router.replace({
-        pathname: '/song',
-        params: { 
-          playlist, 
-          songNumber: String(prevSong.number),
-          direction: 'back', // Indicate backward navigation
-        },
+        pathname: `/song/${playlist}/${prevSong.number}`,
+        params: { direction: 'back' },
       });
     }
   };
@@ -467,12 +463,8 @@ export default function SongScreen() {
     if (currentIndex < allSongs.length - 1) {
       const nextSong = allSongs[currentIndex + 1];
       router.replace({
-        pathname: '/song',
-        params: { 
-          playlist, 
-          songNumber: String(nextSong.number),
-          direction: 'forward', // Indicate forward navigation
-        },
+        pathname: `/song/${playlist}/${nextSong.number}`,
+        params: { direction: 'forward' },
       });
     }
   };
@@ -481,9 +473,9 @@ export default function SongScreen() {
 
   const shareIconName = "square.and.arrow.up";
 
-  const firstVerse = currentSong.body?.find(s => s.type === 'verse');
-  const seoDescription = firstVerse
-    ? `${currentSong.name} - ${firstVerse.content.split('\n').slice(0, 2).join(' ').substring(0, 150)}...`
+  const firstSection = currentSong.body?.find(s => s.type === 'verse' || s.type === 'chorus');
+  const seoDescription = firstSection
+    ? firstSection.content.replace(/\n/g, ' ')
     : `${currentSong.name} - ${playlistTitle} hymn #${currentSong.number}`;
 
   return (

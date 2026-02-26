@@ -319,10 +319,7 @@ export default function SearchScreen() {
         getRecentSearches().then(setRecentSearches)
       );
     }
-    router.push({
-      pathname: '/song',
-      params: { playlist, songNumber: String(songNumber) },
-    });
+    router.push(`/song/${playlist}/${songNumber}`);
   }, [router, debouncedSearchQuery]);
 
   const handleRecentSearchTap = useCallback((query: string) => {
