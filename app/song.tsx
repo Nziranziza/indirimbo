@@ -360,6 +360,7 @@ export default function SongScreen() {
   };
 
   const handleSectionPress = (index: number) => {
+    resetKeepAwake();
     const position = sectionPositions[index];
     if (position && scrollViewRef.current && contentHeight > 0 && scrollViewHeight > 0) {
       // Calculate maximum scrollable position (content height - scroll view height)

@@ -315,7 +315,6 @@ const styles = StyleSheet.create({
   categoryChipText: {
     fontSize: 13,
     fontWeight: '500',
-    textTransform: 'capitalize',
   },
 
   // Content
