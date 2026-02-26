@@ -408,9 +408,9 @@ export default function SongScreen() {
   const handleShare = async () => {
     if (!currentSong || !playlist) return;
 
-    const songUrl = `${APP_UNIVERSAL_LINK_URL}/song?playlist=${encodeURIComponent(
+    const songUrl = `${APP_UNIVERSAL_LINK_URL}/song/${encodeURIComponent(
       playlist
-    )}&songNumber=${encodeURIComponent(String(currentSong.number))}`;
+    )}/${encodeURIComponent(String(currentSong.number))}`;
     const shareMessage = `${currentSong.name} • ${playlistTitle} #${currentSong.number}`;
 
     try {

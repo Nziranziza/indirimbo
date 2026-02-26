@@ -7,7 +7,7 @@ import { fileURLToPath } from 'node:url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const BASE_URL = process.env.SITE_URL || 'https://nziranziza.github.io/indirimbo';
+const BASE_URL = process.env.SITE_URL || 'https://indirimbo.rw';
 const today = new Date().toISOString().split('T')[0];
 
 // Read the song data files to extract song numbers
@@ -64,7 +64,7 @@ for (const page of staticPages) {
 // Add song pages
 for (const num of gushimishaNumbers) {
   xml += `  <url>
-    <loc>${BASE_URL}/song?playlist=gushimisha&amp;songNumber=${encodeURIComponent(num)}</loc>
+    <loc>${BASE_URL}/song/gushimisha/${encodeURIComponent(num)}</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -73,7 +73,7 @@ for (const num of gushimishaNumbers) {
 
 for (const num of agakizaNumbers) {
   xml += `  <url>
-    <loc>${BASE_URL}/song?playlist=agakiza&amp;songNumber=${encodeURIComponent(num)}</loc>
+    <loc>${BASE_URL}/song/agakiza/${encodeURIComponent(num)}</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>

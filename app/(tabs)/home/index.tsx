@@ -99,8 +99,8 @@ export default function HomeScreen() {
   return (
     <ThemedView style={styles.container}>
       <Head>
-        <title>Indirimbo - Rwandan Hymns & Worship Songs</title>
-        <meta name="description" content="Browse hymns from Gushimisha Imana and Agakiza hymnbooks. Find Rwandan church worship songs with full lyrics." />
+        <title>Indirimbo - z'Agakiza no Gushimisha Imana</title>
+        <meta name="description" content="Browse hymns from Agakiza and Gushimisha Imana hymnbooks. Find Rwandan church worship songs with full lyrics." />
       </Head>
       {/* Ambient tint glow behind the header */}
       <LinearGradient

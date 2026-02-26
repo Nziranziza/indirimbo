@@ -20,21 +20,24 @@ export const unstable_settings = {
 function SEOHead() {
   return (
     <Head>
-      <title>Indirimbo - Rwandan Hymns & Worship Songs</title>
-      <meta name="description" content="Browse and search Rwandan church hymns from Gushimisha Imana and Agakiza hymnbooks. Find lyrics, save favorites, and share worship songs." />
-      <meta name="keywords" content="indirimbo, rwandan hymns, gushimisha imana, agakiza, worship songs, church hymns, kinyarwanda, rwanda" />
+      <title>Indirimbo - z'Agakiza no Gushimisha Imana</title>
+      <meta name="description" content="Browse and search Rwandan church hymns from Agakiza and Gushimisha Imana hymnbooks. Find lyrics, save favorites, and share worship songs." />
+      <meta name="keywords" content="indirimbo, agakiza, gushimisha imana, indirimbo z'agakiza, indirimbo zo gushimisha imana, rwandan hymns, worship songs, church hymns, kinyarwanda, rwanda" />
       <meta name="theme-color" content="#0a7ea4" />
       <meta property="og:site_name" content="Indirimbo" />
       <meta property="og:type" content="website" />
-      <meta property="og:title" content="Indirimbo - Rwandan Hymns & Worship Songs" />
-      <meta property="og:description" content="Browse and search Rwandan church hymns from Gushimisha Imana and Agakiza hymnbooks. Find lyrics, save favorites, and share worship songs." />
-      <meta property="og:image" content={`${BASE_URL}/og-image.png`} />
+      <meta property="og:title" content="Indirimbo - z'Agakiza no Gushimisha Imana" />
+      <meta property="og:description" content="Browse and search Rwandan church hymns from Agakiza and Gushimisha Imana hymnbooks. Find lyrics, save favorites, and share worship songs." />
+      <meta property="og:image" content={`${BASE_URL}/og-image.jpg`} />
+      <meta property="og:image:width" content="1024" />
+      <meta property="og:image:height" content="1024" />
+      <meta property="og:image:type" content="image/jpeg" />
       <meta property="og:url" content={BASE_URL} />
       <meta property="og:locale" content="rw_RW" />
       <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:title" content="Indirimbo - Rwandan Hymns & Worship Songs" />
-      <meta name="twitter:description" content="Browse and search Rwandan church hymns from Gushimisha Imana and Agakiza hymnbooks." />
-      <meta name="twitter:image" content={`${BASE_URL}/og-image.png`} />
+      <meta name="twitter:title" content="Indirimbo - z'Agakiza no Gushimisha Imana" />
+      <meta name="twitter:description" content="Browse and search Rwandan church hymns from Agakiza and Gushimisha Imana hymnbooks." />
+      <meta name="twitter:image" content={`${BASE_URL}/og-image.jpg`} />
       <link rel="canonical" href={BASE_URL} />
     </Head>
   );

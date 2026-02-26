@@ -45,6 +45,9 @@ jobs:
       - name: Fix base paths in exported HTML
         run: node scripts/fix-web-paths.js
 
+      - name: Generate static song pages for OG previews
+        run: node scripts/generate-song-pages.js
+
       - name: Add .nojekyll file
         run: touch dist/.nojekyll
 

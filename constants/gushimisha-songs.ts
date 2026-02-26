@@ -13,7 +13,7 @@ export const songs: NewSong[] = [
   {
     "number": 1,
     "name": "Ur’ Uwer’ Uwera, Mwami Mana yacu",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=1",
+    "url": "https://indirimbo.rw/song/gushimisha/1",
     "body": [
       {
         "type": "verse",
@@ -40,7 +40,7 @@ export const songs: NewSong[] = [
   {
     "number": 2,
     "name": "Dushim’ Iman’ ihoraho",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=2",
+    "url": "https://indirimbo.rw/song/gushimisha/2",
     "body": [
       {
         "type": "verse",
@@ -67,7 +67,7 @@ export const songs: NewSong[] = [
   {
     "number": 3,
     "name": "Mwa bari mw isi yose mwe",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=3",
+    "url": "https://indirimbo.rw/song/gushimisha/3",
     "body": [
       {
         "type": "verse",
@@ -94,7 +94,7 @@ export const songs: NewSong[] = [
   {
     "number": 4,
     "name": "Dushime cyan’ izina ryawe",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=4",
+    "url": "https://indirimbo.rw/song/gushimisha/4",
     "body": [
       {
         "type": "verse",
@@ -135,7 +135,7 @@ export const songs: NewSong[] = [
   {
     "number": 5,
     "name": "Duhimbaz’ Uwitek’ Imana no kuyisenga",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=5",
+    "url": "https://indirimbo.rw/song/gushimisha/5",
     "body": [
       {
         "type": "verse",
@@ -162,7 +162,7 @@ export const songs: NewSong[] = [
   {
     "number": 6,
     "name": "Nagir’ indim’ igihumbi",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=6",
+    "url": "https://indirimbo.rw/song/gushimisha/6",
     "body": [
       {
         "type": "verse",
@@ -194,7 +194,7 @@ export const songs: NewSong[] = [
   {
     "number": 7,
     "name": "Dor’ abera bo mw ijuru barishima cyane",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=7",
+    "url": "https://indirimbo.rw/song/gushimisha/7",
     "body": [
       {
         "type": "verse",
@@ -230,7 +230,7 @@ export const songs: NewSong[] = [
   {
     "number": 8,
     "name": "Izina rya Yesu — Turaryubaha",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=8",
+    "url": "https://indirimbo.rw/song/gushimisha/8",
     "body": [
       {
         "type": "verse",
@@ -267,7 +267,7 @@ export const songs: NewSong[] = [
   {
     "number": 9,
     "name": "Yes’ ashimwe; turamushim’ Umukiza",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=9",
+    "url": "https://indirimbo.rw/song/gushimisha/9",
     "body": [
       {
         "type": "verse",
@@ -289,7 +289,7 @@ export const songs: NewSong[] = [
   {
     "number": 10,
     "name": "Nshim’ Umwami wo mw ijuru",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=10",
+    "url": "https://indirimbo.rw/song/gushimisha/10",
     "body": [
       {
         "type": "verse",
@@ -316,7 +316,7 @@ export const songs: NewSong[] = [
   {
     "number": 11,
     "name": "Mpimbariz’ Iman’ ibyo yankoreye",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=11",
+    "url": "https://indirimbo.rw/song/gushimisha/11",
     "body": [
       {
         "type": "verse",
@@ -342,7 +342,7 @@ export const songs: NewSong[] = [
   {
     "number": 12,
     "name": "Tunezerewe k’ Umukiza yaje",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=12",
+    "url": "https://indirimbo.rw/song/gushimisha/12",
     "body": [
       {
         "type": "verse",
@@ -388,7 +388,7 @@ export const songs: NewSong[] = [
   {
     "number": 13,
     "name": "Uwambitswe ker’ ikamba",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=13",
+    "url": "https://indirimbo.rw/song/gushimisha/13",
     "body": [
       {
         "type": "verse",
@@ -425,7 +425,7 @@ export const songs: NewSong[] = [
   {
     "number": 14,
     "name": "Mana, turaguhimbaza",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=14",
+    "url": "https://indirimbo.rw/song/gushimisha/14",
     "body": [
       {
         "type": "verse",
@@ -457,7 +457,7 @@ export const songs: NewSong[] = [
   {
     "number": 15,
     "name": "Nimushim’ izina ryiza ry’ Uwiteka Rurema",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=15",
+    "url": "https://indirimbo.rw/song/gushimisha/15",
     "body": [
       {
         "type": "verse",
@@ -488,7 +488,7 @@ export const songs: NewSong[] = [
   {
     "number": 16,
     "name": "Aba Yesu bishimira",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=16",
+    "url": "https://indirimbo.rw/song/gushimisha/16",
     "body": [
       {
         "type": "verse",
@@ -535,7 +535,7 @@ export const songs: NewSong[] = [
   {
     "number": 17,
     "name": "Nshimy’ Umuremy’ Uhoraho",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=17",
+    "url": "https://indirimbo.rw/song/gushimisha/17",
     "body": [
       {
         "type": "verse",
@@ -557,7 +557,7 @@ export const songs: NewSong[] = [
   {
     "number": "18a",
     "name": "Umwungeri wacu ni we Yesu",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=18a",
+    "url": "https://indirimbo.rw/song/gushimisha/18a",
     "body": [
       {
         "type": "verse",
@@ -584,7 +584,7 @@ export const songs: NewSong[] = [
   {
     "number": "18b",
     "name": "Mukiza, Mwungeri mwiza",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=18b",
+    "url": "https://indirimbo.rw/song/gushimisha/18b",
     "body": [
       {
         "type": "verse",
@@ -615,7 +615,7 @@ export const songs: NewSong[] = [
   {
     "number": 19,
     "name": "Ijuru ryawe, Mana",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=19",
+    "url": "https://indirimbo.rw/song/gushimisha/19",
     "body": [
       {
         "type": "verse",
@@ -647,7 +647,7 @@ export const songs: NewSong[] = [
   {
     "number": 20,
     "name": "Mbony’ Umukiza mwiza, ni Yesu Kristo",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=20",
+    "url": "https://indirimbo.rw/song/gushimisha/20",
     "body": [
       {
         "type": "verse",
@@ -673,7 +673,7 @@ export const songs: NewSong[] = [
   {
     "number": 21,
     "name": "Mwami, turagushima",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=21",
+    "url": "https://indirimbo.rw/song/gushimisha/21",
     "body": [
       {
         "type": "verse",
@@ -700,7 +700,7 @@ export const songs: NewSong[] = [
   {
     "number": 22,
     "name": "Mwami mwiza w’ ijuru",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=22",
+    "url": "https://indirimbo.rw/song/gushimisha/22",
     "body": [
       {
         "type": "verse",
@@ -717,7 +717,7 @@ export const songs: NewSong[] = [
   {
     "number": 23,
     "name": "Mana yo mw ijuru",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=23",
+    "url": "https://indirimbo.rw/song/gushimisha/23",
     "body": [
       {
         "type": "verse",
@@ -739,7 +739,7 @@ export const songs: NewSong[] = [
   {
     "number": 24,
     "name": "Njya nshima nshima nshima nshim’ Imana mu mutima",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=24",
+    "url": "https://indirimbo.rw/song/gushimisha/24",
     "body": [
       {
         "type": "verse",
@@ -761,7 +761,7 @@ export const songs: NewSong[] = [
   {
     "number": 25,
     "name": "Uwiteka n’ umunyembabazi",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=25",
+    "url": "https://indirimbo.rw/song/gushimisha/25",
     "body": [
       {
         "type": "verse",
@@ -778,7 +778,7 @@ export const songs: NewSong[] = [
   {
     "number": 26,
     "name": "Mana Rurema, ndagushima",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=26",
+    "url": "https://indirimbo.rw/song/gushimisha/26",
     "body": [
       {
         "type": "verse",
@@ -805,7 +805,7 @@ export const songs: NewSong[] = [
   {
     "number": 27,
     "name": "Mutabazi wacu Yesu",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=27",
+    "url": "https://indirimbo.rw/song/gushimisha/27",
     "body": [
       {
         "type": "verse",
@@ -836,7 +836,7 @@ export const songs: NewSong[] = [
   {
     "number": 28,
     "name": "Munganga wacu ni Yesu",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=28",
+    "url": "https://indirimbo.rw/song/gushimisha/28",
     "body": [
       {
         "type": "verse",
@@ -862,7 +862,7 @@ export const songs: NewSong[] = [
   {
     "number": 29,
     "name": "Uduhagarare —Hagati, Mukiza",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=29",
+    "url": "https://indirimbo.rw/song/gushimisha/29",
     "body": [
       {
         "type": "verse",
@@ -894,7 +894,7 @@ export const songs: NewSong[] = [
   {
     "number": 30,
     "name": "Ai Mukunzi wanjye we",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=30",
+    "url": "https://indirimbo.rw/song/gushimisha/30",
     "body": [
       {
         "type": "verse",
@@ -921,7 +921,7 @@ export const songs: NewSong[] = [
   {
     "number": 31,
     "name": "Mutabaz’ ubuntu bwawe",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=31",
+    "url": "https://indirimbo.rw/song/gushimisha/31",
     "body": [
       {
         "type": "verse",
@@ -982,7 +982,7 @@ export const songs: NewSong[] = [
   {
     "number": 32,
     "name": "Mwam’ utuvubir’ imvura",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=32",
+    "url": "https://indirimbo.rw/song/gushimisha/32",
     "body": [
       {
         "type": "verse",
@@ -1013,7 +1013,7 @@ export const songs: NewSong[] = [
   {
     "number": 33,
     "name": "Ndagushimiye, Mukiza",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=33",
+    "url": "https://indirimbo.rw/song/gushimisha/33",
     "body": [
       {
         "type": "verse",
@@ -1049,7 +1049,7 @@ export const songs: NewSong[] = [
   {
     "number": 34,
     "name": "Ndusheho kukwegera, Mukiza",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=34",
+    "url": "https://indirimbo.rw/song/gushimisha/34",
     "body": [
       {
         "type": "verse",
@@ -1086,7 +1086,7 @@ export const songs: NewSong[] = [
   {
     "number": 35,
     "name": "Umpe kukwegera, —Mana yanjye",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=35",
+    "url": "https://indirimbo.rw/song/gushimisha/35",
     "body": [
       {
         "type": "verse",
@@ -1113,7 +1113,7 @@ export const songs: NewSong[] = [
   {
     "number": 36,
     "name": "Ntumpiteho, Mukiza we",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=36",
+    "url": "https://indirimbo.rw/song/gushimisha/36",
     "body": [
       {
         "type": "verse",
@@ -1144,7 +1144,7 @@ export const songs: NewSong[] = [
   {
     "number": 37,
     "name": "Tuguman’ iteka, —Mukiz’ uhebuje",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=37",
+    "url": "https://indirimbo.rw/song/gushimisha/37",
     "body": [
       {
         "type": "verse",
@@ -1180,7 +1180,7 @@ export const songs: NewSong[] = [
   {
     "number": 38,
     "name": "Ai Mana, ndondor’ umenye",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=38",
+    "url": "https://indirimbo.rw/song/gushimisha/38",
     "body": [
       {
         "type": "verse",
@@ -1217,7 +1217,7 @@ export const songs: NewSong[] = [
   {
     "number": 39,
     "name": "Ngwino, mutima wanjye",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=39",
+    "url": "https://indirimbo.rw/song/gushimisha/39",
     "body": [
       {
         "type": "verse",
@@ -1254,7 +1254,7 @@ export const songs: NewSong[] = [
   {
     "number": 40,
     "name": "Ndakwizeye, Yesu",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=40",
+    "url": "https://indirimbo.rw/song/gushimisha/40",
     "body": [
       {
         "type": "verse",
@@ -1276,7 +1276,7 @@ export const songs: NewSong[] = [
   {
     "number": 41,
     "name": "Nasezeranije guhora",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=41",
+    "url": "https://indirimbo.rw/song/gushimisha/41",
     "body": [
       {
         "type": "verse",
@@ -1308,7 +1308,7 @@ export const songs: NewSong[] = [
   {
     "number": 42,
     "name": "Mwami wanjye, nshaka kuba",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=42",
+    "url": "https://indirimbo.rw/song/gushimisha/42",
     "body": [
       {
         "type": "verse",
@@ -1330,7 +1330,7 @@ export const songs: NewSong[] = [
   {
     "number": 43,
     "name": "Ngwino, Mwami Yesu, ngwino",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=43",
+    "url": "https://indirimbo.rw/song/gushimisha/43",
     "body": [
       {
         "type": "verse",
@@ -1357,7 +1357,7 @@ export const songs: NewSong[] = [
   {
     "number": 44,
     "name": "Tubabarire: —Duh’ umugisha",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=44",
+    "url": "https://indirimbo.rw/song/gushimisha/44",
     "body": [
       {
         "type": "verse",
@@ -1379,7 +1379,7 @@ export const songs: NewSong[] = [
   {
     "number": 45,
     "name": "Ndagushaka, Mwami Yesu",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=45",
+    "url": "https://indirimbo.rw/song/gushimisha/45",
     "body": [
       {
         "type": "verse",
@@ -1410,7 +1410,7 @@ export const songs: NewSong[] = [
   {
     "number": 46,
     "name": "Unjy’ imbere, Man’ isumba byose",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=46",
+    "url": "https://indirimbo.rw/song/gushimisha/46",
     "body": [
       {
         "type": "verse",
@@ -1444,7 +1444,7 @@ export const songs: NewSong[] = [
   {
     "number": 47,
     "name": "Ube maso, Mukristo",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=47",
+    "url": "https://indirimbo.rw/song/gushimisha/47",
     "body": [
       {
         "type": "verse",
@@ -1481,7 +1481,7 @@ export const songs: NewSong[] = [
   {
     "number": 48,
     "name": "Ni jye, ni jye gusa",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=48",
+    "url": "https://indirimbo.rw/song/gushimisha/48",
     "body": [
       {
         "type": "chorus",
@@ -1512,7 +1512,7 @@ export const songs: NewSong[] = [
   {
     "number": 49,
     "name": "Ibihe nseng’ Uwiteka",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=49",
+    "url": "https://indirimbo.rw/song/gushimisha/49",
     "body": [
       {
         "type": "verse",
@@ -1534,7 +1534,7 @@ export const songs: NewSong[] = [
   {
     "number": 50,
     "name": "Muze mwenyine, twihererane",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=50",
+    "url": "https://indirimbo.rw/song/gushimisha/50",
     "body": [
       {
         "type": "verse",
@@ -1566,7 +1566,7 @@ export const songs: NewSong[] = [
   {
     "number": 51,
     "name": "Muze, musange Yes’ ubakunda",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=51",
+    "url": "https://indirimbo.rw/song/gushimisha/51",
     "body": [
       {
         "type": "verse",
@@ -1592,7 +1592,7 @@ export const songs: NewSong[] = [
   {
     "number": 52,
     "name": "Utahe! Utahe",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=52",
+    "url": "https://indirimbo.rw/song/gushimisha/52",
     "body": [
       {
         "type": "verse",
@@ -1618,7 +1618,7 @@ export const songs: NewSong[] = [
   {
     "number": 53,
     "name": "Nimusang’ Umwami Yesu",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=53",
+    "url": "https://indirimbo.rw/song/gushimisha/53",
     "body": [
       {
         "type": "verse",
@@ -1645,7 +1645,7 @@ export const songs: NewSong[] = [
   {
     "number": 54,
     "name": "Yemwe mwes’ abananiwe",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=54",
+    "url": "https://indirimbo.rw/song/gushimisha/54",
     "body": [
       {
         "type": "verse",
@@ -1676,7 +1676,7 @@ export const songs: NewSong[] = [
   {
     "number": 55,
     "name": "Yes’ araduhamagara",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=55",
+    "url": "https://indirimbo.rw/song/gushimisha/55",
     "body": [
       {
         "type": "verse",
@@ -1708,7 +1708,7 @@ export const songs: NewSong[] = [
   {
     "number": 56,
     "name": "Yes’ aragutegereza",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=56",
+    "url": "https://indirimbo.rw/song/gushimisha/56",
     "body": [
       {
         "type": "verse",
@@ -1755,7 +1755,7 @@ export const songs: NewSong[] = [
   {
     "number": 57,
     "name": "Yes’ araguhamagara",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=57",
+    "url": "https://indirimbo.rw/song/gushimisha/57",
     "body": [
       {
         "type": "verse",
@@ -1777,7 +1777,7 @@ export const songs: NewSong[] = [
   {
     "number": 58,
     "name": "Shobuj’ aguhamagara",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=58",
+    "url": "https://indirimbo.rw/song/gushimisha/58",
     "body": [
       {
         "type": "verse",
@@ -1813,7 +1813,7 @@ export const songs: NewSong[] = [
   {
     "number": 59,
     "name": "Nimuze, mwa ndushyi mwe mwese",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=59",
+    "url": "https://indirimbo.rw/song/gushimisha/59",
     "body": [
       {
         "type": "verse",
@@ -1845,7 +1845,7 @@ export const songs: NewSong[] = [
   {
     "number": 60,
     "name": "We, mutim’ urira, —Uze kwa Yesu",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=60",
+    "url": "https://indirimbo.rw/song/gushimisha/60",
     "body": [
       {
         "type": "verse",
@@ -1867,7 +1867,7 @@ export const songs: NewSong[] = [
   {
     "number": 61,
     "name": "Umwuk’ ukubwira, —Wumv’ ijwi ryawo",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=61",
+    "url": "https://indirimbo.rw/song/gushimisha/61",
     "body": [
       {
         "type": "verse",
@@ -1889,7 +1889,7 @@ export const songs: NewSong[] = [
   {
     "number": 62,
     "name": "Ntumwa za Yesu, murangurure",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=62",
+    "url": "https://indirimbo.rw/song/gushimisha/62",
     "body": [
       {
         "type": "verse",
@@ -1915,7 +1915,7 @@ export const songs: NewSong[] = [
   {
     "number": 63,
     "name": "Yemwe, banyabyaha mwe",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=63",
+    "url": "https://indirimbo.rw/song/gushimisha/63",
     "body": [
       {
         "type": "verse",
@@ -1951,7 +1951,7 @@ export const songs: NewSong[] = [
   {
     "number": 64,
     "name": "Muze ku Mwami w’ unugingo",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=64",
+    "url": "https://indirimbo.rw/song/gushimisha/64",
     "body": [
       {
         "type": "verse",
@@ -1977,7 +1977,7 @@ export const songs: NewSong[] = [
   {
     "number": 65,
     "name": "Musang’ Umwam’ ugir’ ubuntu",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=65",
+    "url": "https://indirimbo.rw/song/gushimisha/65",
     "body": [
       {
         "type": "verse",
@@ -1999,7 +1999,7 @@ export const songs: NewSong[] = [
   {
     "number": 66,
     "name": "Ngwino, ngukize, mwangizi",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=66",
+    "url": "https://indirimbo.rw/song/gushimisha/66",
     "body": [
       {
         "type": "verse",
@@ -2026,7 +2026,7 @@ export const songs: NewSong[] = [
   {
     "number": 67,
     "name": "Uhagaze, Mukiza",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=67",
+    "url": "https://indirimbo.rw/song/gushimisha/67",
     "body": [
       {
         "type": "verse",
@@ -2048,7 +2048,7 @@ export const songs: NewSong[] = [
   {
     "number": 68,
     "name": "Nta kindi gihesha gukiranuka",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=68",
+    "url": "https://indirimbo.rw/song/gushimisha/68",
     "body": [
       {
         "type": "verse",
@@ -2079,7 +2079,7 @@ export const songs: NewSong[] = [
   {
     "number": 69,
     "name": "Nkuko Mose yamanits’ inzoka ku giti",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=69",
+    "url": "https://indirimbo.rw/song/gushimisha/69",
     "body": [
       {
         "type": "verse",
@@ -2111,7 +2111,7 @@ export const songs: NewSong[] = [
   {
     "number": 70,
     "name": "Nimuze mwese kumv’ inkuru nziza",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=70",
+    "url": "https://indirimbo.rw/song/gushimisha/70",
     "body": [
       {
         "type": "verse",
@@ -2138,7 +2138,7 @@ export const songs: NewSong[] = [
   {
     "number": 71,
     "name": "Hagarara munyabyaha",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=71",
+    "url": "https://indirimbo.rw/song/gushimisha/71",
     "body": [
       {
         "type": "verse",
@@ -2169,7 +2169,7 @@ export const songs: NewSong[] = [
   {
     "number": 72,
     "name": "Twaheze mu mwijima mwinshi cyane",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=72",
+    "url": "https://indirimbo.rw/song/gushimisha/72",
     "body": [
       {
         "type": "verse",
@@ -2200,7 +2200,7 @@ export const songs: NewSong[] = [
   {
     "number": 73,
     "name": "Ngwino, zan’ ibyaha byawe",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=73",
+    "url": "https://indirimbo.rw/song/gushimisha/73",
     "body": [
       {
         "type": "verse",
@@ -2231,7 +2231,7 @@ export const songs: NewSong[] = [
   {
     "number": 74,
     "name": "Njye mfit’ Umukiz’ ujy’ amvuganira ku Mana",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=74",
+    "url": "https://indirimbo.rw/song/gushimisha/74",
     "body": [
       {
         "type": "verse",
@@ -2267,7 +2267,7 @@ export const songs: NewSong[] = [
   {
     "number": 75,
     "name": "Yesu ni we Nshuti yacu",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=75",
+    "url": "https://indirimbo.rw/song/gushimisha/75",
     "body": [
       {
         "type": "verse",
@@ -2289,7 +2289,7 @@ export const songs: NewSong[] = [
   {
     "number": 76,
     "name": "Bene wacu bo mw isi",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=76",
+    "url": "https://indirimbo.rw/song/gushimisha/76",
     "body": [
       {
         "type": "verse",
@@ -2331,7 +2331,7 @@ export const songs: NewSong[] = [
   {
     "number": 77,
     "name": "Umva munyabyaha we",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=77",
+    "url": "https://indirimbo.rw/song/gushimisha/77",
     "body": [
       {
         "type": "verse",
@@ -2363,7 +2363,7 @@ export const songs: NewSong[] = [
   {
     "number": 78,
     "name": "Kera har’ umubibyi",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=78",
+    "url": "https://indirimbo.rw/song/gushimisha/78",
     "body": [
       {
         "type": "verse",
@@ -2405,7 +2405,7 @@ export const songs: NewSong[] = [
   {
     "number": 79,
     "name": "Jy’ uhor’ undinganirije",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=79",
+    "url": "https://indirimbo.rw/song/gushimisha/79",
     "body": [
       {
         "type": "verse",
@@ -2431,7 +2431,7 @@ export const songs: NewSong[] = [
   {
     "number": 80,
     "name": "Mwa bitang’ igicuri mwe",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=80",
+    "url": "https://indirimbo.rw/song/gushimisha/80",
     "body": [
       {
         "type": "verse",
@@ -2482,7 +2482,7 @@ export const songs: NewSong[] = [
   {
     "number": 81,
     "name": "Teg’ amatwi, wumve—Ijwi rya Yesu",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=81",
+    "url": "https://indirimbo.rw/song/gushimisha/81",
     "body": [
       {
         "type": "verse",
@@ -2523,7 +2523,7 @@ export const songs: NewSong[] = [
   {
     "number": 82,
     "name": "Mwami, wakomeretse",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=82",
+    "url": "https://indirimbo.rw/song/gushimisha/82",
     "body": [
       {
         "type": "verse",
@@ -2555,7 +2555,7 @@ export const songs: NewSong[] = [
   {
     "number": 83,
     "name": "Umutwaro wanjye, Krisito",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=83",
+    "url": "https://indirimbo.rw/song/gushimisha/83",
     "body": [
       {
         "type": "verse",
@@ -2592,7 +2592,7 @@ export const songs: NewSong[] = [
   {
     "number": 84,
     "name": "N’ iki cyankiz’ ibyaha",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=84",
+    "url": "https://indirimbo.rw/song/gushimisha/84",
     "body": [
       {
         "type": "verse",
@@ -2628,7 +2628,7 @@ export const songs: NewSong[] = [
   {
     "number": 85,
     "name": "Amaraso Y’umucunguzi",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=85",
+    "url": "https://indirimbo.rw/song/gushimisha/85",
     "body": [
       {
         "type": "verse",
@@ -2669,7 +2669,7 @@ export const songs: NewSong[] = [
   {
     "number": 86,
     "name": "Amaraso y’ Umukiza",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=86",
+    "url": "https://indirimbo.rw/song/gushimisha/86",
     "body": [
       {
         "type": "verse",
@@ -2715,7 +2715,7 @@ export const songs: NewSong[] = [
   {
     "number": 87,
     "name": "Mbe, ntiwaturw’ ibyo byaha byawe",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=87",
+    "url": "https://indirimbo.rw/song/gushimisha/87",
     "body": [
       {
         "type": "verse",
@@ -2746,7 +2746,7 @@ export const songs: NewSong[] = [
   {
     "number": 88,
     "name": "Numva Yes’ anyemeza",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=88",
+    "url": "https://indirimbo.rw/song/gushimisha/88",
     "body": [
       {
         "type": "verse",
@@ -2782,7 +2782,7 @@ export const songs: NewSong[] = [
   {
     "number": 89,
     "name": "Yesu yaje kunshaka",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=89",
+    "url": "https://indirimbo.rw/song/gushimisha/89",
     "body": [
       {
         "type": "verse",
@@ -2818,7 +2818,7 @@ export const songs: NewSong[] = [
   {
     "number": 90,
     "name": "Nari kure y’ Imana mu ngoyi",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=90",
+    "url": "https://indirimbo.rw/song/gushimisha/90",
     "body": [
       {
         "type": "verse",
@@ -2849,7 +2849,7 @@ export const songs: NewSong[] = [
   {
     "number": 91,
     "name": "Ai Gitare Cy’Imana",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=91",
+    "url": "https://indirimbo.rw/song/gushimisha/91",
     "body": [
       {
         "type": "verse",
@@ -2881,7 +2881,7 @@ export const songs: NewSong[] = [
   {
     "number": 92,
     "name": "Ushimwe, Mana, ko wampaye Yesu",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=92",
+    "url": "https://indirimbo.rw/song/gushimisha/92",
     "body": [
       {
         "type": "verse",
@@ -2912,7 +2912,7 @@ export const songs: NewSong[] = [
   {
     "number": 93,
     "name": "Umunsi mwiza nibuka",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=93",
+    "url": "https://indirimbo.rw/song/gushimisha/93",
     "body": [
       {
         "type": "verse",
@@ -2943,7 +2943,7 @@ export const songs: NewSong[] = [
   {
     "number": 94,
     "name": "Ubugingo bwanjye bwahinduts’ ukundi",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=94",
+    "url": "https://indirimbo.rw/song/gushimisha/94",
     "body": [
       {
         "type": "verse",
@@ -2979,7 +2979,7 @@ export const songs: NewSong[] = [
   {
     "number": 95,
     "name": "Ibyaha byanjye, Yesu",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=95",
+    "url": "https://indirimbo.rw/song/gushimisha/95",
     "body": [
       {
         "type": "verse",
@@ -3006,7 +3006,7 @@ export const songs: NewSong[] = [
   {
     "number": 96,
     "name": "Iby’ Iman’ ijy’ inkorera",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=96",
+    "url": "https://indirimbo.rw/song/gushimisha/96",
     "body": [
       {
         "type": "verse",
@@ -3033,7 +3033,7 @@ export const songs: NewSong[] = [
   {
     "number": 97,
     "name": "Nishimiye ko menye rwose Yesu",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=97",
+    "url": "https://indirimbo.rw/song/gushimisha/97",
     "body": [
       {
         "type": "verse",
@@ -3064,7 +3064,7 @@ export const songs: NewSong[] = [
   {
     "number": 98,
     "name": "Ndumva k’ umutim’ ukeye",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=98",
+    "url": "https://indirimbo.rw/song/gushimisha/98",
     "body": [
       {
         "type": "verse",
@@ -3091,7 +3091,7 @@ export const songs: NewSong[] = [
   {
     "number": 99,
     "name": "Unkunda n’ Umwana w’ Imana",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=99",
+    "url": "https://indirimbo.rw/song/gushimisha/99",
     "body": [
       {
         "type": "verse",
@@ -3118,7 +3118,7 @@ export const songs: NewSong[] = [
   {
     "number": 100,
     "name": "Nzaririmb’ igitangaza",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=100",
+    "url": "https://indirimbo.rw/song/gushimisha/100",
     "body": [
       {
         "type": "verse",
@@ -3154,7 +3154,7 @@ export const songs: NewSong[] = [
   {
     "number": 101,
     "name": "Nabony’ uburuhukiro",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=101",
+    "url": "https://indirimbo.rw/song/gushimisha/101",
     "body": [
       {
         "type": "verse",
@@ -3185,7 +3185,7 @@ export const songs: NewSong[] = [
   {
     "number": 102,
     "name": "Iby’ isi Yesu yabinkuyemo",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=102",
+    "url": "https://indirimbo.rw/song/gushimisha/102",
     "body": [
       {
         "type": "verse",
@@ -3211,7 +3211,7 @@ export const songs: NewSong[] = [
   {
     "number": 103,
     "name": "Kera nari mw isayo",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=103",
+    "url": "https://indirimbo.rw/song/gushimisha/103",
     "body": [
       {
         "type": "verse",
@@ -3257,7 +3257,7 @@ export const songs: NewSong[] = [
   {
     "number": 104,
     "name": "Imbabazi z’ Umukiza",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=104",
+    "url": "https://indirimbo.rw/song/gushimisha/104",
     "body": [
       {
         "type": "verse",
@@ -3288,7 +3288,7 @@ export const songs: NewSong[] = [
   {
     "number": 105,
     "name": "Ubuntu bw’ Imana—Butangaje",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=105",
+    "url": "https://indirimbo.rw/song/gushimisha/105",
     "body": [
       {
         "type": "verse",
@@ -3330,7 +3330,7 @@ export const songs: NewSong[] = [
   {
     "number": 106,
     "name": "Sinterw’ isoni na Yesu",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=106",
+    "url": "https://indirimbo.rw/song/gushimisha/106",
     "body": [
       {
         "type": "verse",
@@ -3361,7 +3361,7 @@ export const songs: NewSong[] = [
   {
     "number": 107,
     "name": "Nkomeze njye niringira",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=107",
+    "url": "https://indirimbo.rw/song/gushimisha/107",
     "body": [
       {
         "type": "verse",
@@ -3392,7 +3392,7 @@ export const songs: NewSong[] = [
   {
     "number": 108,
     "name": "Jye nd’ Umukristo: nzahora ndi we",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=108",
+    "url": "https://indirimbo.rw/song/gushimisha/108",
     "body": [
       {
         "type": "verse",
@@ -3419,7 +3419,7 @@ export const songs: NewSong[] = [
   {
     "number": 109,
     "name": "Nyuzwe n’ ubucuti bwo mw ijuru",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=109",
+    "url": "https://indirimbo.rw/song/gushimisha/109",
     "body": [
       {
         "type": "verse",
@@ -3445,7 +3445,7 @@ export const songs: NewSong[] = [
   {
     "number": 110,
     "name": "Igituma nkunda Yesu",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=110",
+    "url": "https://indirimbo.rw/song/gushimisha/110",
     "body": [
       {
         "type": "verse",
@@ -3476,7 +3476,7 @@ export const songs: NewSong[] = [
   {
     "number": 111,
     "name": "Izina ryiza rihebuje",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=111",
+    "url": "https://indirimbo.rw/song/gushimisha/111",
     "body": [
       {
         "type": "verse",
@@ -3512,7 +3512,7 @@ export const songs: NewSong[] = [
   {
     "number": 112,
     "name": "Nzi k’ Umukiz’ ankunda",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=112",
+    "url": "https://indirimbo.rw/song/gushimisha/112",
     "body": [
       {
         "type": "verse",
@@ -3538,7 +3538,7 @@ export const songs: NewSong[] = [
   {
     "number": 113,
     "name": "Nkunda kwizigira Yesu",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=113",
+    "url": "https://indirimbo.rw/song/gushimisha/113",
     "body": [
       {
         "type": "verse",
@@ -3569,7 +3569,7 @@ export const songs: NewSong[] = [
   {
     "number": 114,
     "name": "Kuv’ Ubu Sintiny’ ibizab’ ejo",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=114",
+    "url": "https://indirimbo.rw/song/gushimisha/114",
     "body": [
       {
         "type": "verse",
@@ -3595,7 +3595,7 @@ export const songs: NewSong[] = [
   {
     "number": 115,
     "name": "Nabony’umukunzi mwiza",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=115",
+    "url": "https://indirimbo.rw/song/gushimisha/115",
     "body": [
       {
         "type": "verse",
@@ -3622,7 +3622,7 @@ export const songs: NewSong[] = [
   {
     "number": 116,
     "name": "Numva Yes’ ampamagara",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=116",
+    "url": "https://indirimbo.rw/song/gushimisha/116",
     "body": [
       {
         "type": "verse",
@@ -3653,7 +3653,7 @@ export const songs: NewSong[] = [
   {
     "number": 117,
     "name": "Numvise Yes’ ambwir’ ati",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=117",
+    "url": "https://indirimbo.rw/song/gushimisha/117",
     "body": [
       {
         "type": "verse",
@@ -3675,7 +3675,7 @@ export const songs: NewSong[] = [
   {
     "number": 118,
     "name": "Ibyaha byanjye byose n’ ibyago",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=118",
+    "url": "https://indirimbo.rw/song/gushimisha/118",
     "body": [
       {
         "type": "verse",
@@ -3702,7 +3702,7 @@ export const songs: NewSong[] = [
   {
     "number": 119,
     "name": "Yesu murutisha byose",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=119",
+    "url": "https://indirimbo.rw/song/gushimisha/119",
     "body": [
       {
         "type": "verse",
@@ -3729,7 +3729,7 @@ export const songs: NewSong[] = [
   {
     "number": 120,
     "name": "Mw’ijuru Imbere Y’Imana",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=120",
+    "url": "https://indirimbo.rw/song/gushimisha/120",
     "body": [
       {
         "type": "verse",
@@ -3751,7 +3751,7 @@ export const songs: NewSong[] = [
   {
     "number": 121,
     "name": "Yesu ni We mucyo wanjye",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=121",
+    "url": "https://indirimbo.rw/song/gushimisha/121",
     "body": [
       {
         "type": "verse",
@@ -3778,7 +3778,7 @@ export const songs: NewSong[] = [
   {
     "number": 122,
     "name": "Ukunda kujy’ ambabarira",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=122",
+    "url": "https://indirimbo.rw/song/gushimisha/122",
     "body": [
       {
         "type": "verse",
@@ -3800,7 +3800,7 @@ export const songs: NewSong[] = [
   {
     "number": 123,
     "name": "Yesu, ni Wowe musa mbonyemo",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=123",
+    "url": "https://indirimbo.rw/song/gushimisha/123",
     "body": [
       {
         "type": "verse",
@@ -3831,7 +3831,7 @@ export const songs: NewSong[] = [
   {
     "number": 124,
     "name": "Yes’ amp’ amahoro y’ atarondoreka",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=124",
+    "url": "https://indirimbo.rw/song/gushimisha/124",
     "body": [
       {
         "type": "verse",
@@ -3867,7 +3867,7 @@ export const songs: NewSong[] = [
   {
     "number": 125,
     "name": "Ubw’ Umwami Yes’ ankunda",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=125",
+    "url": "https://indirimbo.rw/song/gushimisha/125",
     "body": [
       {
         "type": "verse",
@@ -3889,7 +3889,7 @@ export const songs: NewSong[] = [
   {
     "number": 126,
     "name": "Yesu, tuguhungiyeho",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=126",
+    "url": "https://indirimbo.rw/song/gushimisha/126",
     "body": [
       {
         "type": "verse",
@@ -3920,7 +3920,7 @@ export const songs: NewSong[] = [
   {
     "number": "127a",
     "name": "Mukiza, numvis’ ijwi",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=127a",
+    "url": "https://indirimbo.rw/song/gushimisha/127a",
     "body": [
       {
         "type": "verse",
@@ -3956,7 +3956,7 @@ export const songs: NewSong[] = [
   {
     "number": "127b",
     "name": "Numvis’ijwi ryawe",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=127b",
+    "url": "https://indirimbo.rw/song/gushimisha/127b",
     "body": [
       {
         "type": "verse",
@@ -3987,7 +3987,7 @@ export const songs: NewSong[] = [
   {
     "number": 128,
     "name": "Ubu, nj’ uko ndi, niringiye",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=128",
+    "url": "https://indirimbo.rw/song/gushimisha/128",
     "body": [
       {
         "type": "verse",
@@ -4009,7 +4009,7 @@ export const songs: NewSong[] = [
   {
     "number": 129,
     "name": "Ndeger’Umusaraba",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=129",
+    "url": "https://indirimbo.rw/song/gushimisha/129",
     "body": [
       {
         "type": "verse",
@@ -4045,7 +4045,7 @@ export const songs: NewSong[] = [
   {
     "number": 130,
     "name": "Nazimiriye kure yawe",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=130",
+    "url": "https://indirimbo.rw/song/gushimisha/130",
     "body": [
       {
         "type": "verse",
@@ -4081,7 +4081,7 @@ export const songs: NewSong[] = [
   {
     "number": 131,
     "name": "Mwumv’ imbabazi z’ Imana",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=131",
+    "url": "https://indirimbo.rw/song/gushimisha/131",
     "body": [
       {
         "type": "verse",
@@ -4112,7 +4112,7 @@ export const songs: NewSong[] = [
   {
     "number": 132,
     "name": "Nsiz’ ububata n’ umwijima",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=132",
+    "url": "https://indirimbo.rw/song/gushimisha/132",
     "body": [
       {
         "type": "verse",
@@ -4139,7 +4139,7 @@ export const songs: NewSong[] = [
   {
     "number": 133,
     "name": "Ndagukurikira, Yesu",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=133",
+    "url": "https://indirimbo.rw/song/gushimisha/133",
     "body": [
       {
         "type": "verse",
@@ -4175,7 +4175,7 @@ export const songs: NewSong[] = [
   {
     "number": 134,
     "name": "Nshaka Yesu; nta wundi nifuza",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=134",
+    "url": "https://indirimbo.rw/song/gushimisha/134",
     "body": [
       {
         "type": "verse",
@@ -4201,7 +4201,7 @@ export const songs: NewSong[] = [
   {
     "number": 135,
     "name": "Mukiz’ utubonez’ iminsi yose",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=135",
+    "url": "https://indirimbo.rw/song/gushimisha/135",
     "body": [
       {
         "type": "verse",
@@ -4218,7 +4218,7 @@ export const songs: NewSong[] = [
   {
     "number": "136a",
     "name": "Ubugingo bwanjye bwose",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=136a",
+    "url": "https://indirimbo.rw/song/gushimisha/136a",
     "body": [
       {
         "type": "verse",
@@ -4255,7 +4255,7 @@ export const songs: NewSong[] = [
   {
     "number": "136b",
     "name": "Numvise ijwi ry’ Umukiza",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=136b",
+    "url": "https://indirimbo.rw/song/gushimisha/136b",
     "body": [
       {
         "type": "verse",
@@ -4282,7 +4282,7 @@ export const songs: NewSong[] = [
   {
     "number": 137,
     "name": "Wowe, Mana, , ndaguhimbaza",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=137",
+    "url": "https://indirimbo.rw/song/gushimisha/137",
     "body": [
       {
         "type": "verse",
@@ -4299,7 +4299,7 @@ export const songs: NewSong[] = [
   {
     "number": 138,
     "name": "Yesu, Mukiza wanjye",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=138",
+    "url": "https://indirimbo.rw/song/gushimisha/138",
     "body": [
       {
         "type": "verse",
@@ -4330,7 +4330,7 @@ export const songs: NewSong[] = [
   {
     "number": 139,
     "name": "Mukiza Yesu, ntabara",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=139",
+    "url": "https://indirimbo.rw/song/gushimisha/139",
     "body": [
       {
         "type": "verse",
@@ -4376,7 +4376,7 @@ export const songs: NewSong[] = [
   {
     "number": 140,
     "name": "Mwami, ndakwimitse: wime",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=140",
+    "url": "https://indirimbo.rw/song/gushimisha/140",
     "body": [
       {
         "type": "verse",
@@ -4407,7 +4407,7 @@ export const songs: NewSong[] = [
   {
     "number": 141,
     "name": "Mwami Yesu, ndagukunda",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=141",
+    "url": "https://indirimbo.rw/song/gushimisha/141",
     "body": [
       {
         "type": "verse",
@@ -4433,7 +4433,7 @@ export const songs: NewSong[] = [
   {
     "number": 142,
     "name": "Untwar’ untwar’untware, Yesu",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=142",
+    "url": "https://indirimbo.rw/song/gushimisha/142",
     "body": [
       {
         "type": "verse",
@@ -4460,7 +4460,7 @@ export const songs: NewSong[] = [
   {
     "number": 143,
     "name": "Yesu, ko wankunze, bigatum’ umfira",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=143",
+    "url": "https://indirimbo.rw/song/gushimisha/143",
     "body": [
       {
         "type": "verse",
@@ -4482,7 +4482,7 @@ export const songs: NewSong[] = [
   {
     "number": 144,
     "name": "Yesu ndagukunda cyane ndakwihaye",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=144",
+    "url": "https://indirimbo.rw/song/gushimisha/144",
     "body": [
       {
         "type": "verse",
@@ -4509,7 +4509,7 @@ export const songs: NewSong[] = [
   {
     "number": 145,
     "name": "Kugukorera ni byiza",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=145",
+    "url": "https://indirimbo.rw/song/gushimisha/145",
     "body": [
       {
         "type": "verse",
@@ -4545,7 +4545,7 @@ export const songs: NewSong[] = [
   {
     "number": 146,
     "name": "kugukunda, mwami Yesu",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=146",
+    "url": "https://indirimbo.rw/song/gushimisha/146",
     "body": [
       {
         "type": "verse",
@@ -4572,7 +4572,7 @@ export const songs: NewSong[] = [
   {
     "number": 147,
     "name": "Uburyo Yes’ ankunda",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=147",
+    "url": "https://indirimbo.rw/song/gushimisha/147",
     "body": [
       {
         "type": "verse",
@@ -4599,7 +4599,7 @@ export const songs: NewSong[] = [
   {
     "number": 148,
     "name": "Nta rukundo rusa n’urwa Yesu",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=148",
+    "url": "https://indirimbo.rw/song/gushimisha/148",
     "body": [
       {
         "type": "verse",
@@ -4630,7 +4630,7 @@ export const songs: NewSong[] = [
   {
     "number": 149,
     "name": "Mbeg’ urukundo rw’Imana yacu",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=149",
+    "url": "https://indirimbo.rw/song/gushimisha/149",
     "body": [
       {
         "type": "verse",
@@ -4661,7 +4661,7 @@ export const songs: NewSong[] = [
   {
     "number": 150,
     "name": "Nishimiye ko Data wa twese",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=150",
+    "url": "https://indirimbo.rw/song/gushimisha/150",
     "body": [
       {
         "type": "verse",
@@ -4692,7 +4692,7 @@ export const songs: NewSong[] = [
   {
     "number": 151,
     "name": "Yes’ arush’ abandi bose—Kudukunda",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=151",
+    "url": "https://indirimbo.rw/song/gushimisha/151",
     "body": [
       {
         "type": "verse",
@@ -4719,7 +4719,7 @@ export const songs: NewSong[] = [
   {
     "number": 152,
     "name": "Har’ umukunzi nka Yesu wacu",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=152",
+    "url": "https://indirimbo.rw/song/gushimisha/152",
     "body": [
       {
         "type": "verse",
@@ -4760,7 +4760,7 @@ export const songs: NewSong[] = [
   {
     "number": 153,
     "name": "Yes’ urankunda, Mukiza mwiza",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=153",
+    "url": "https://indirimbo.rw/song/gushimisha/153",
     "body": [
       {
         "type": "verse",
@@ -4791,7 +4791,7 @@ export const songs: NewSong[] = [
   {
     "number": 154,
     "name": "Ndabaririmbira—Iby’Uwamfiriye",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=154",
+    "url": "https://indirimbo.rw/song/gushimisha/154",
     "body": [
       {
         "type": "verse",
@@ -4828,7 +4828,7 @@ export const songs: NewSong[] = [
   {
     "number": 155,
     "name": "Yesu, nguhagaz’ imbere",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=155",
+    "url": "https://indirimbo.rw/song/gushimisha/155",
     "body": [
       {
         "type": "verse",
@@ -4864,7 +4864,7 @@ export const songs: NewSong[] = [
   {
     "number": 156,
     "name": "Ni jye, Yesu, witanze",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=156",
+    "url": "https://indirimbo.rw/song/gushimisha/156",
     "body": [
       {
         "type": "verse",
@@ -4891,7 +4891,7 @@ export const songs: NewSong[] = [
   {
     "number": 157,
     "name": "Mukiz’ umpe kumenya",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=157",
+    "url": "https://indirimbo.rw/song/gushimisha/157",
     "body": [
       {
         "type": "verse",
@@ -4932,7 +4932,7 @@ export const songs: NewSong[] = [
   {
     "number": 158,
     "name": "Umvir’ ijwi rya Yesu",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=158",
+    "url": "https://indirimbo.rw/song/gushimisha/158",
     "body": [
       {
         "type": "verse",
@@ -4974,7 +4974,7 @@ export const songs: NewSong[] = [
   {
     "number": 159,
     "name": "Jye nahoze ndengerwa",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=159",
+    "url": "https://indirimbo.rw/song/gushimisha/159",
     "body": [
       {
         "type": "verse",
@@ -5000,7 +5000,7 @@ export const songs: NewSong[] = [
   {
     "number": 160,
     "name": "Mbeg’ urukundo rwaw’umfitiye",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=160",
+    "url": "https://indirimbo.rw/song/gushimisha/160",
     "body": [
       {
         "type": "verse",
@@ -5042,7 +5042,7 @@ export const songs: NewSong[] = [
   {
     "number": 161,
     "name": "Mbwir’amagambo ya Yesu",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=161",
+    "url": "https://indirimbo.rw/song/gushimisha/161",
     "body": [
       {
         "type": "verse",
@@ -5068,7 +5068,7 @@ export const songs: NewSong[] = [
   {
     "number": 162,
     "name": "Nganirir’ibya Yesu",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=162",
+    "url": "https://indirimbo.rw/song/gushimisha/162",
     "body": [
       {
         "type": "verse",
@@ -5104,7 +5104,7 @@ export const songs: NewSong[] = [
   {
     "number": 163,
     "name": "Uhereye kera kose",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=163",
+    "url": "https://indirimbo.rw/song/gushimisha/163",
     "body": [
       {
         "type": "verse",
@@ -5161,7 +5161,7 @@ export const songs: NewSong[] = [
   {
     "number": 164,
     "name": "Yes’ avukir’i Betelehemu",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=164",
+    "url": "https://indirimbo.rw/song/gushimisha/164",
     "body": [
       {
         "type": "verse",
@@ -5188,7 +5188,7 @@ export const songs: NewSong[] = [
   {
     "number": 165,
     "name": "Hozana, singizwa",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=165",
+    "url": "https://indirimbo.rw/song/gushimisha/165",
     "body": [
       {
         "type": "verse",
@@ -5215,7 +5215,7 @@ export const songs: NewSong[] = [
   {
     "number": 166,
     "name": "Ngwino, soko y’ umugisha",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=166",
+    "url": "https://indirimbo.rw/song/gushimisha/166",
     "body": [
       {
         "type": "verse",
@@ -5237,7 +5237,7 @@ export const songs: NewSong[] = [
   {
     "number": 167,
     "name": "Yesu Ni We Nihishemo",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=167",
+    "url": "https://indirimbo.rw/song/gushimisha/167",
     "body": [
       {
         "type": "verse",
@@ -5273,7 +5273,7 @@ export const songs: NewSong[] = [
   {
     "number": 168,
     "name": "Mbumbatiwe nawe, Yesu",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=168",
+    "url": "https://indirimbo.rw/song/gushimisha/168",
     "body": [
       {
         "type": "verse",
@@ -5299,7 +5299,7 @@ export const songs: NewSong[] = [
   {
     "number": 169,
     "name": "Mana, nkuko Wafashaga",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=169",
+    "url": "https://indirimbo.rw/song/gushimisha/169",
     "body": [
       {
         "type": "verse",
@@ -5341,7 +5341,7 @@ export const songs: NewSong[] = [
   {
     "number": 170,
     "name": "Utinyuke kuyoborwa",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=170",
+    "url": "https://indirimbo.rw/song/gushimisha/170",
     "body": [
       {
         "type": "verse",
@@ -5363,7 +5363,7 @@ export const songs: NewSong[] = [
   {
     "number": 171,
     "name": "Amahoro Yesu—Ah’ abantu be",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=171",
+    "url": "https://indirimbo.rw/song/gushimisha/171",
     "body": [
       {
         "type": "verse",
@@ -5389,7 +5389,7 @@ export const songs: NewSong[] = [
   {
     "number": 172,
     "name": "Mwemere kw Iman’ ibaha",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=172",
+    "url": "https://indirimbo.rw/song/gushimisha/172",
     "body": [
       {
         "type": "verse",
@@ -5416,7 +5416,7 @@ export const songs: NewSong[] = [
   {
     "number": 173,
     "name": "Imana ni yo mwungeri",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=173",
+    "url": "https://indirimbo.rw/song/gushimisha/173",
     "body": [
       {
         "type": "verse",
@@ -5458,7 +5458,7 @@ export const songs: NewSong[] = [
   {
     "number": 174,
     "name": "Jy’ uba maso, wowe muntu wizeye",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=174",
+    "url": "https://indirimbo.rw/song/gushimisha/174",
     "body": [
       {
         "type": "verse",
@@ -5489,7 +5489,7 @@ export const songs: NewSong[] = [
   {
     "number": 175,
     "name": "Mwunger’ udukunda, —Jy’ uturagira",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=175",
+    "url": "https://indirimbo.rw/song/gushimisha/175",
     "body": [
       {
         "type": "verse",
@@ -5516,7 +5516,7 @@ export const songs: NewSong[] = [
   {
     "number": 176,
     "name": "We kwumvir’ Umubi ujy’ agushuka",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=176",
+    "url": "https://indirimbo.rw/song/gushimisha/176",
     "body": [
       {
         "type": "verse",
@@ -5547,7 +5547,7 @@ export const songs: NewSong[] = [
   {
     "number": 177,
     "name": "Mwen’ Imana yizerwa",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=177",
+    "url": "https://indirimbo.rw/song/gushimisha/177",
     "body": [
       {
         "type": "verse",
@@ -5569,7 +5569,7 @@ export const songs: NewSong[] = [
   {
     "number": 178,
     "name": "Iy’ utewe n’ amakub’ akomeye",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=178",
+    "url": "https://indirimbo.rw/song/gushimisha/178",
     "body": [
       {
         "type": "verse",
@@ -5600,7 +5600,7 @@ export const songs: NewSong[] = [
   {
     "number": 179,
     "name": "Iy’ urushye, iy’ uremerewe",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=179",
+    "url": "https://indirimbo.rw/song/gushimisha/179",
     "body": [
       {
         "type": "verse",
@@ -5631,7 +5631,7 @@ export const songs: NewSong[] = [
   {
     "number": 180,
     "name": "Impara yaguy’ umwuma",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=180",
+    "url": "https://indirimbo.rw/song/gushimisha/180",
     "body": [
       {
         "type": "verse",
@@ -5658,7 +5658,7 @@ export const songs: NewSong[] = [
   {
     "number": 181,
     "name": "Mwa nshuti za Yesu mwe",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=181",
+    "url": "https://indirimbo.rw/song/gushimisha/181",
     "body": [
       {
         "type": "verse",
@@ -5689,7 +5689,7 @@ export const songs: NewSong[] = [
   {
     "number": 182,
     "name": "Mur’ iyo nzir’ iruhije",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=182",
+    "url": "https://indirimbo.rw/song/gushimisha/182",
     "body": [
       {
         "type": "verse",
@@ -5716,7 +5716,7 @@ export const songs: NewSong[] = [
   {
     "number": 183,
     "name": "Tugiy’ i wacu mw ijuru",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=183",
+    "url": "https://indirimbo.rw/song/gushimisha/183",
     "body": [
       {
         "type": "verse",
@@ -5738,7 +5738,7 @@ export const songs: NewSong[] = [
   {
     "number": 184,
     "name": "Dor’ inzir’ ijya mw ijuru n’ imwe",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=184",
+    "url": "https://indirimbo.rw/song/gushimisha/184",
     "body": [
       {
         "type": "verse",
@@ -5764,7 +5764,7 @@ export const songs: NewSong[] = [
   {
     "number": 185,
     "name": "Genda mu mucyo wa Yesu",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=185",
+    "url": "https://indirimbo.rw/song/gushimisha/185",
     "body": [
       {
         "type": "verse",
@@ -5811,7 +5811,7 @@ export const songs: NewSong[] = [
   {
     "number": 186,
     "name": "Mw isi yacu no mw ijuru",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=186",
+    "url": "https://indirimbo.rw/song/gushimisha/186",
     "body": [
       {
         "type": "verse",
@@ -5852,7 +5852,7 @@ export const songs: NewSong[] = [
   {
     "number": 187,
     "name": "Ngwino, Mwami wacu Yesu",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=187",
+    "url": "https://indirimbo.rw/song/gushimisha/187",
     "body": [
       {
         "type": "verse",
@@ -5889,7 +5889,7 @@ export const songs: NewSong[] = [
   {
     "number": 188,
     "name": "Ndashaka gusa nawe",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=188",
+    "url": "https://indirimbo.rw/song/gushimisha/188",
     "body": [
       {
         "type": "verse",
@@ -5911,7 +5911,7 @@ export const songs: NewSong[] = [
   {
     "number": 189,
     "name": "Mugenz’ uragana mw ijuru",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=189",
+    "url": "https://indirimbo.rw/song/gushimisha/189",
     "body": [
       {
         "type": "verse",
@@ -5942,7 +5942,7 @@ export const songs: NewSong[] = [
   {
     "number": 190,
     "name": "Iyo turi hamwe n’ Umukiza wacu",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=190",
+    "url": "https://indirimbo.rw/song/gushimisha/190",
     "body": [
       {
         "type": "verse",
@@ -5978,7 +5978,7 @@ export const songs: NewSong[] = [
   {
     "number": 191,
     "name": "Nunguk’ ubuntu bwa Yesu",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=191",
+    "url": "https://indirimbo.rw/song/gushimisha/191",
     "body": [
       {
         "type": "verse",
@@ -6009,7 +6009,7 @@ export const songs: NewSong[] = [
   {
     "number": 192,
     "name": "Mwam’ ujy’ imbere mu nzira yacu",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=192",
+    "url": "https://indirimbo.rw/song/gushimisha/192",
     "body": [
       {
         "type": "verse",
@@ -6056,7 +6056,7 @@ export const songs: NewSong[] = [
   {
     "number": 193,
     "name": "Kor’ ugifit’ uburyo",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=193",
+    "url": "https://indirimbo.rw/song/gushimisha/193",
     "body": [
       {
         "type": "verse",
@@ -6078,7 +6078,7 @@ export const songs: NewSong[] = [
   {
     "number": 194,
     "name": "Mana nduburira amaso yanjye",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=194",
+    "url": "https://indirimbo.rw/song/gushimisha/194",
     "body": [
       {
         "type": "verse",
@@ -6105,7 +6105,7 @@ export const songs: NewSong[] = [
   {
     "number": 195,
     "name": "Yesu yatwis’ amatabaza ye",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=195",
+    "url": "https://indirimbo.rw/song/gushimisha/195",
     "body": [
       {
         "type": "verse",
@@ -6132,7 +6132,7 @@ export const songs: NewSong[] = [
   {
     "number": 196,
     "name": "Ni Yes’ ufit’ urufunguzo",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=196",
+    "url": "https://indirimbo.rw/song/gushimisha/196",
     "body": [
       {
         "type": "verse",
@@ -6164,7 +6164,7 @@ export const songs: NewSong[] = [
   {
     "number": 197,
     "name": "Uwishinze ku byasezeranijwe",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=197",
+    "url": "https://indirimbo.rw/song/gushimisha/197",
     "body": [
       {
         "type": "verse",
@@ -6200,7 +6200,7 @@ export const songs: NewSong[] = [
   {
     "number": 198,
     "name": "Umwami wacu, Yesu",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=198",
+    "url": "https://indirimbo.rw/song/gushimisha/198",
     "body": [
       {
         "type": "verse",
@@ -6232,7 +6232,7 @@ export const songs: NewSong[] = [
   {
     "number": 199,
     "name": "Ni nd’ uzarwanana n’ Umwami wacu",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=199",
+    "url": "https://indirimbo.rw/song/gushimisha/199",
     "body": [
       {
         "type": "verse",
@@ -6268,7 +6268,7 @@ export const songs: NewSong[] = [
   {
     "number": 200,
     "name": "Umwam’ agaby’ ingabo ze",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=200",
+    "url": "https://indirimbo.rw/song/gushimisha/200",
     "body": [
       {
         "type": "verse",
@@ -6315,7 +6315,7 @@ export const songs: NewSong[] = [
   {
     "number": 201,
     "name": "Bayoboke, mubyuke",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=201",
+    "url": "https://indirimbo.rw/song/gushimisha/201",
     "body": [
       {
         "type": "verse",
@@ -6342,7 +6342,7 @@ export const songs: NewSong[] = [
   {
     "number": 202,
     "name": "Tur’ abasirikare ba Kristo Yesu",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=202",
+    "url": "https://indirimbo.rw/song/gushimisha/202",
     "body": [
       {
         "type": "verse",
@@ -6384,7 +6384,7 @@ export const songs: NewSong[] = [
   {
     "number": 203,
     "name": "Mwa ngabo z’ Umwami mwe",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=203",
+    "url": "https://indirimbo.rw/song/gushimisha/203",
     "body": [
       {
         "type": "verse",
@@ -6410,7 +6410,7 @@ export const songs: NewSong[] = [
   {
     "number": 204,
     "name": "Dor’ ibendera ya Yesu",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=204",
+    "url": "https://indirimbo.rw/song/gushimisha/204",
     "body": [
       {
         "type": "verse",
@@ -6441,7 +6441,7 @@ export const songs: NewSong[] = [
   {
     "number": 205,
     "name": "Urwan’ intambara nziza",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=205",
+    "url": "https://indirimbo.rw/song/gushimisha/205",
     "body": [
       {
         "type": "verse",
@@ -6468,7 +6468,7 @@ export const songs: NewSong[] = [
   {
     "number": 206,
     "name": "Har’ uwitwa Danyeli: yar’ intwari pe",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=206",
+    "url": "https://indirimbo.rw/song/gushimisha/206",
     "body": [
       {
         "type": "verse",
@@ -6504,7 +6504,7 @@ export const songs: NewSong[] = [
   {
     "number": 207,
     "name": "Uwab’atinyutse lbyago byose",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=207",
+    "url": "https://indirimbo.rw/song/gushimisha/207",
     "body": [
       {
         "type": "verse",
@@ -6526,7 +6526,7 @@ export const songs: NewSong[] = [
   {
     "number": 208,
     "name": "Imana n’ ubuhingiro",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=208",
+    "url": "https://indirimbo.rw/song/gushimisha/208",
     "body": [
       {
         "type": "verse",
@@ -6553,7 +6553,7 @@ export const songs: NewSong[] = [
   {
     "number": 209,
     "name": "Yemw’ abari kuri Yesu",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=209",
+    "url": "https://indirimbo.rw/song/gushimisha/209",
     "body": [
       {
         "type": "verse",
@@ -6585,7 +6585,7 @@ export const songs: NewSong[] = [
   {
     "number": 210,
     "name": "Nimuze, ngabo za Yesu",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=210",
+    "url": "https://indirimbo.rw/song/gushimisha/210",
     "body": [
       {
         "type": "verse",
@@ -6612,7 +6612,7 @@ export const songs: NewSong[] = [
   {
     "number": 211,
     "name": "Harihw indi si nziza cyane",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=211",
+    "url": "https://indirimbo.rw/song/gushimisha/211",
     "body": [
       {
         "type": "verse",
@@ -6638,7 +6638,7 @@ export const songs: NewSong[] = [
   {
     "number": "212a",
     "name": "Mw ijuru, hariho—is nziza",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=212a",
+    "url": "https://indirimbo.rw/song/gushimisha/212a",
     "body": [
       {
         "type": "verse",
@@ -6660,7 +6660,7 @@ export const songs: NewSong[] = [
   {
     "number": "212b",
     "name": "Ni mw’ ijuru ku Mana —Abizeye",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=212b",
+    "url": "https://indirimbo.rw/song/gushimisha/212b",
     "body": [
       {
         "type": "verse",
@@ -6682,7 +6682,7 @@ export const songs: NewSong[] = [
   {
     "number": 213,
     "name": "Harihw indi s’ irut’ iyi cyane",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=213",
+    "url": "https://indirimbo.rw/song/gushimisha/213",
     "body": [
       {
         "type": "verse",
@@ -6704,7 +6704,7 @@ export const songs: NewSong[] = [
   {
     "number": 214,
     "name": "Har’ umurwa mwiza—W’ abera b’ lmana",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=214",
+    "url": "https://indirimbo.rw/song/gushimisha/214",
     "body": [
       {
         "type": "verse",
@@ -6731,7 +6731,7 @@ export const songs: NewSong[] = [
   {
     "number": 215,
     "name": "Tujye duhimbaz’ iteka",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=215",
+    "url": "https://indirimbo.rw/song/gushimisha/215",
     "body": [
       {
         "type": "verse",
@@ -6777,7 +6777,7 @@ export const songs: NewSong[] = [
   {
     "number": 216,
     "name": "Singishak’ubutunzi",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=216",
+    "url": "https://indirimbo.rw/song/gushimisha/216",
     "body": [
       {
         "type": "verse",
@@ -6803,7 +6803,7 @@ export const songs: NewSong[] = [
   {
     "number": 217,
     "name": "Mw’ isi nd’ umushyitsi; —-Si ho nzab’ iteka",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=217",
+    "url": "https://indirimbo.rw/song/gushimisha/217",
     "body": [
       {
         "type": "verse",
@@ -6835,7 +6835,7 @@ export const songs: NewSong[] = [
   {
     "number": 218,
     "name": "kubana na Yesu",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=218",
+    "url": "https://indirimbo.rw/song/gushimisha/218",
     "body": [
       {
         "type": "verse",
@@ -6862,7 +6862,7 @@ export const songs: NewSong[] = [
   {
     "number": 219,
     "name": "Ubwo nzamar’ imirimo ngo nsezere kw’ isi",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=219",
+    "url": "https://indirimbo.rw/song/gushimisha/219",
     "body": [
       {
         "type": "verse",
@@ -6893,7 +6893,7 @@ export const songs: NewSong[] = [
   {
     "number": 220,
     "name": "Ubwo nzabon’ Umukiza",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=220",
+    "url": "https://indirimbo.rw/song/gushimisha/220",
     "body": [
       {
         "type": "verse",
@@ -6924,7 +6924,7 @@ export const songs: NewSong[] = [
   {
     "number": 221,
     "name": "Bana mw ijur’ abiringiy’ Umucunguzi",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=221",
+    "url": "https://indirimbo.rw/song/gushimisha/221",
     "body": [
       {
         "type": "verse",
@@ -6955,7 +6955,7 @@ export const songs: NewSong[] = [
   {
     "number": 222,
     "name": "Mbese, tuzahurirayo",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=222",
+    "url": "https://indirimbo.rw/song/gushimisha/222",
     "body": [
       {
         "type": "verse",
@@ -6991,7 +6991,7 @@ export const songs: NewSong[] = [
   {
     "number": 223,
     "name": "Rya Joro ryatowe",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=223",
+    "url": "https://indirimbo.rw/song/gushimisha/223",
     "body": [
       {
         "type": "verse",
@@ -7018,7 +7018,7 @@ export const songs: NewSong[] = [
   {
     "number": 224,
     "name": "Wasiz’ ubwiza war’ ufite mw ijuru",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=224",
+    "url": "https://indirimbo.rw/song/gushimisha/224",
     "body": [
       {
         "type": "verse",
@@ -7062,7 +7062,7 @@ export const songs: NewSong[] = [
   {
     "number": 225,
     "name": "Mw ivuka ryawe, Yesu, bakuryamishije",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=225",
+    "url": "https://indirimbo.rw/song/gushimisha/225",
     "body": [
       {
         "type": "verse",
@@ -7084,7 +7084,7 @@ export const songs: NewSong[] = [
   {
     "number": 226,
     "name": "Mukiza wacu Yesu",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=226",
+    "url": "https://indirimbo.rw/song/gushimisha/226",
     "body": [
       {
         "type": "verse",
@@ -7111,7 +7111,7 @@ export const songs: NewSong[] = [
   {
     "number": 227,
     "name": "Ku rurembo rwa Dawid’ Umwami",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=227",
+    "url": "https://indirimbo.rw/song/gushimisha/227",
     "body": [
       {
         "type": "verse",
@@ -7148,7 +7148,7 @@ export const songs: NewSong[] = [
   {
     "number": 228,
     "name": "Bahungu, bakobwa, —Nimuze mwese",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=228",
+    "url": "https://indirimbo.rw/song/gushimisha/228",
     "body": [
       {
         "type": "verse",
@@ -7175,7 +7175,7 @@ export const songs: NewSong[] = [
   {
     "number": 229,
     "name": "Abungeri barindaga",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=229",
+    "url": "https://indirimbo.rw/song/gushimisha/229",
     "body": [
       {
         "type": "verse",
@@ -7212,7 +7212,7 @@ export const songs: NewSong[] = [
   {
     "number": 230,
     "name": "Umv’ intumwa zo mw’ ijuru",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=230",
+    "url": "https://indirimbo.rw/song/gushimisha/230",
     "body": [
       {
         "type": "verse",
@@ -7243,7 +7243,7 @@ export const songs: NewSong[] = [
   {
     "number": 231,
     "name": "Umwana yavukiye",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=231",
+    "url": "https://indirimbo.rw/song/gushimisha/231",
     "body": [
       {
         "type": "verse",
@@ -7274,7 +7274,7 @@ export const songs: NewSong[] = [
   {
     "number": 232,
     "name": "Munezero, Munezero",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=232",
+    "url": "https://indirimbo.rw/song/gushimisha/232",
     "body": [
       {
         "type": "verse",
@@ -7296,7 +7296,7 @@ export const songs: NewSong[] = [
   {
     "number": 233,
     "name": "Yemwe, bungeri ba kera",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=233",
+    "url": "https://indirimbo.rw/song/gushimisha/233",
     "body": [
       {
         "type": "verse",
@@ -7337,7 +7337,7 @@ export const songs: NewSong[] = [
   {
     "number": 234,
     "name": "Inkuru nziza yavuye mw ijuru",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=234",
+    "url": "https://indirimbo.rw/song/gushimisha/234",
     "body": [
       {
         "type": "verse",
@@ -7364,7 +7364,7 @@ export const songs: NewSong[] = [
   {
     "number": 235,
     "name": "Bakristo, nimuze, munezerwe mwese",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=235",
+    "url": "https://indirimbo.rw/song/gushimisha/235",
     "body": [
       {
         "type": "verse",
@@ -7395,7 +7395,7 @@ export const songs: NewSong[] = [
   {
     "number": 236,
     "name": "Umukiza wac’ ubwo yavukaga",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=236",
+    "url": "https://indirimbo.rw/song/gushimisha/236",
     "body": [
       {
         "type": "verse",
@@ -7422,7 +7422,7 @@ export const songs: NewSong[] = [
   {
     "number": 237,
     "name": "Tur’ abami bayobotse",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=237",
+    "url": "https://indirimbo.rw/song/gushimisha/237",
     "body": [
       {
         "type": "verse",
@@ -7458,7 +7458,7 @@ export const songs: NewSong[] = [
   {
     "number": 238,
     "name": "Kera har’ abungeri mu gihugu cyera",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=238",
+    "url": "https://indirimbo.rw/song/gushimisha/238",
     "body": [
       {
         "type": "verse",
@@ -7494,7 +7494,7 @@ export const songs: NewSong[] = [
   {
     "number": 239,
     "name": "Nkuko ba banyabwenge",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=239",
+    "url": "https://indirimbo.rw/song/gushimisha/239",
     "body": [
       {
         "type": "verse",
@@ -7526,7 +7526,7 @@ export const songs: NewSong[] = [
   {
     "number": 240,
     "name": "Wa mwanya mu Getsemani",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=240",
+    "url": "https://indirimbo.rw/song/gushimisha/240",
     "body": [
       {
         "type": "verse",
@@ -7557,7 +7557,7 @@ export const songs: NewSong[] = [
   {
     "number": 241,
     "name": "Mbes’uriy’ubabaye",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=241",
+    "url": "https://indirimbo.rw/song/gushimisha/241",
     "body": [
       {
         "type": "verse",
@@ -7589,7 +7589,7 @@ export const songs: NewSong[] = [
   {
     "number": 242,
     "name": "Mwana w’ Imana, mbega wakoz’iki",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=242",
+    "url": "https://indirimbo.rw/song/gushimisha/242",
     "body": [
       {
         "type": "verse",
@@ -7621,7 +7621,7 @@ export const songs: NewSong[] = [
   {
     "number": 243,
     "name": "Umunyamibabaro",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=243",
+    "url": "https://indirimbo.rw/song/gushimisha/243",
     "body": [
       {
         "type": "verse",
@@ -7658,7 +7658,7 @@ export const songs: NewSong[] = [
   {
     "number": 244,
     "name": "Har’ umusozi wa kure",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=244",
+    "url": "https://indirimbo.rw/song/gushimisha/244",
     "body": [
       {
         "type": "verse",
@@ -7690,7 +7690,7 @@ export const songs: NewSong[] = [
   {
     "number": 245,
     "name": "Iyo nibwiye mu mutima",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=245",
+    "url": "https://indirimbo.rw/song/gushimisha/245",
     "body": [
       {
         "type": "verse",
@@ -7722,7 +7722,7 @@ export const songs: NewSong[] = [
   {
     "number": 246,
     "name": "I Gologota, ku Giti",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=246",
+    "url": "https://indirimbo.rw/song/gushimisha/246",
     "body": [
       {
         "type": "verse",
@@ -7769,7 +7769,7 @@ export const songs: NewSong[] = [
   {
     "number": 247,
     "name": "unyigishe Mukiza",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=247",
+    "url": "https://indirimbo.rw/song/gushimisha/247",
     "body": [
       {
         "type": "verse",
@@ -7801,7 +7801,7 @@ export const songs: NewSong[] = [
   {
     "number": 248,
     "name": "Hafi y’ Umusaraba",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=248",
+    "url": "https://indirimbo.rw/song/gushimisha/248",
     "body": [
       {
         "type": "verse",
@@ -7837,7 +7837,7 @@ export const songs: NewSong[] = [
   {
     "number": 249,
     "name": "Nitegerej’Umusaraba",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=249",
+    "url": "https://indirimbo.rw/song/gushimisha/249",
     "body": [
       {
         "type": "verse",
@@ -7868,7 +7868,7 @@ export const songs: NewSong[] = [
   {
     "number": 250,
     "name": "Shimwa, Mwami Yesu, —Ko wamviriye",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=250",
+    "url": "https://indirimbo.rw/song/gushimisha/250",
     "body": [
       {
         "type": "verse",
@@ -7915,7 +7915,7 @@ export const songs: NewSong[] = [
   {
     "number": 251,
     "name": "Munsi y’Umusaraba",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=251",
+    "url": "https://indirimbo.rw/song/gushimisha/251",
     "body": [
       {
         "type": "verse",
@@ -7947,7 +7947,7 @@ export const songs: NewSong[] = [
   {
     "number": 252,
     "name": "Yes’ Umucunguzi—Yashyizwe mu mva",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=252",
+    "url": "https://indirimbo.rw/song/gushimisha/252",
     "body": [
       {
         "type": "verse",
@@ -7973,7 +7973,7 @@ export const songs: NewSong[] = [
   {
     "number": "253a",
     "name": "Yesu yarangij’ intambara",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=253a",
+    "url": "https://indirimbo.rw/song/gushimisha/253a",
     "body": [
       {
         "type": "chorus",
@@ -8004,7 +8004,7 @@ export const songs: NewSong[] = [
   {
     "number": "253b",
     "name": "Hashimw’ Uwatuzukiye",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=253b",
+    "url": "https://indirimbo.rw/song/gushimisha/253b",
     "body": [
       {
         "type": "chorus",
@@ -8035,7 +8035,7 @@ export const songs: NewSong[] = [
   {
     "number": 254,
     "name": "Nimureb’igitangaza",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=254",
+    "url": "https://indirimbo.rw/song/gushimisha/254",
     "body": [
       {
         "type": "verse",
@@ -8062,7 +8062,7 @@ export const songs: NewSong[] = [
   {
     "number": 255,
     "name": "Yesu KrIsto yarazutse",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=255",
+    "url": "https://indirimbo.rw/song/gushimisha/255",
     "body": [
       {
         "type": "verse",
@@ -8084,7 +8084,7 @@ export const songs: NewSong[] = [
   {
     "number": 256,
     "name": "Yesu KrIst’ arazutse",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=256",
+    "url": "https://indirimbo.rw/song/gushimisha/256",
     "body": [
       {
         "type": "verse",
@@ -8121,7 +8121,7 @@ export const songs: NewSong[] = [
   {
     "number": 257,
     "name": "ShImwa, Mukiza—-UtuzukIye",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=257",
+    "url": "https://indirimbo.rw/song/gushimisha/257",
     "body": [
       {
         "type": "verse",
@@ -8147,7 +8147,7 @@ export const songs: NewSong[] = [
   {
     "number": 258,
     "name": "Umwami yazutse",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=258",
+    "url": "https://indirimbo.rw/song/gushimisha/258",
     "body": [
       {
         "type": "verse",
@@ -8174,7 +8174,7 @@ export const songs: NewSong[] = [
   {
     "number": 259,
     "name": "Ubu tunezerwe",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=259",
+    "url": "https://indirimbo.rw/song/gushimisha/259",
     "body": [
       {
         "type": "verse",
@@ -8200,7 +8200,7 @@ export const songs: NewSong[] = [
   {
     "number": 260,
     "name": "Kuri wa munsi tuzazukaho",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=260",
+    "url": "https://indirimbo.rw/song/gushimisha/260",
     "body": [
       {
         "type": "verse",
@@ -8242,7 +8242,7 @@ export const songs: NewSong[] = [
   {
     "number": 261,
     "name": "Bene data mwe mwese",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=261",
+    "url": "https://indirimbo.rw/song/gushimisha/261",
     "body": [
       {
         "type": "verse",
@@ -8283,7 +8283,7 @@ export const songs: NewSong[] = [
   {
     "number": 262,
     "name": "Umva gusaba kwanjye",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=262",
+    "url": "https://indirimbo.rw/song/gushimisha/262",
     "body": [
       {
         "type": "verse",
@@ -8305,7 +8305,7 @@ export const songs: NewSong[] = [
   {
     "number": 263,
     "name": "Mwuka Wera wo mw ijuru",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=263",
+    "url": "https://indirimbo.rw/song/gushimisha/263",
     "body": [
       {
         "type": "verse",
@@ -8337,7 +8337,7 @@ export const songs: NewSong[] = [
   {
     "number": 264,
     "name": "Mwuka Wer’ udukunda",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=264",
+    "url": "https://indirimbo.rw/song/gushimisha/264",
     "body": [
       {
         "type": "verse",
@@ -8384,7 +8384,7 @@ export const songs: NewSong[] = [
   {
     "number": 265,
     "name": "Ubwo Yesu yar’ agiye",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=265",
+    "url": "https://indirimbo.rw/song/gushimisha/265",
     "body": [
       {
         "type": "verse",
@@ -8416,7 +8416,7 @@ export const songs: NewSong[] = [
   {
     "number": 266,
     "name": "Man’ ubwami bwawe—Buze mur’ iyi si",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=266",
+    "url": "https://indirimbo.rw/song/gushimisha/266",
     "body": [
       {
         "type": "verse",
@@ -8453,7 +8453,7 @@ export const songs: NewSong[] = [
   {
     "number": 267,
     "name": "Imitim’ ikomezwa",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=267",
+    "url": "https://indirimbo.rw/song/gushimisha/267",
     "body": [
       {
         "type": "verse",
@@ -8480,7 +8480,7 @@ export const songs: NewSong[] = [
   {
     "number": 268,
     "name": "Ubw’ UmwamI Yes’ azaza",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=268",
+    "url": "https://indirimbo.rw/song/gushimisha/268",
     "body": [
       {
         "type": "verse",
@@ -8506,7 +8506,7 @@ export const songs: NewSong[] = [
   {
     "number": 269,
     "name": "Yesu n’ az’ umwIjIm’ uzahunga",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=269",
+    "url": "https://indirimbo.rw/song/gushimisha/269",
     "body": [
       {
         "type": "verse",
@@ -8532,7 +8532,7 @@ export const songs: NewSong[] = [
   {
     "number": 270,
     "name": "Uwadupfiriye kera",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=270",
+    "url": "https://indirimbo.rw/song/gushimisha/270",
     "body": [
       {
         "type": "verse",
@@ -8559,7 +8559,7 @@ export const songs: NewSong[] = [
   {
     "number": 271,
     "name": "Ubw’ impanda z’ UwIteka zizavuzwa mw ijuru",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=271",
+    "url": "https://indirimbo.rw/song/gushimisha/271",
     "body": [
       {
         "type": "verse",
@@ -8585,7 +8585,7 @@ export const songs: NewSong[] = [
   {
     "number": 272,
     "name": "Umwam’ ageze kw irembo",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=272",
+    "url": "https://indirimbo.rw/song/gushimisha/272",
     "body": [
       {
         "type": "verse",
@@ -8616,7 +8616,7 @@ export const songs: NewSong[] = [
   {
     "number": 273,
     "name": "Dukanguke, dukanguke",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=273",
+    "url": "https://indirimbo.rw/song/gushimisha/273",
     "body": [
       {
         "type": "verse",
@@ -8658,7 +8658,7 @@ export const songs: NewSong[] = [
   {
     "number": 274,
     "name": "MukIza, tuguhaye",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=274",
+    "url": "https://indirimbo.rw/song/gushimisha/274",
     "body": [
       {
         "type": "verse",
@@ -8695,7 +8695,7 @@ export const songs: NewSong[] = [
   {
     "number": 275,
     "name": "Iri joro, Mana yanjye",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=275",
+    "url": "https://indirimbo.rw/song/gushimisha/275",
     "body": [
       {
         "type": "verse",
@@ -8732,7 +8732,7 @@ export const songs: NewSong[] = [
   {
     "number": 276,
     "name": "Data ngiye gusinzira",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=276",
+    "url": "https://indirimbo.rw/song/gushimisha/276",
     "body": [
       {
         "type": "verse",
@@ -8764,7 +8764,7 @@ export const songs: NewSong[] = [
   {
     "number": 277,
     "name": "Mwam’ ubugingo bwacu ni nk’ umunsi",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=277",
+    "url": "https://indirimbo.rw/song/gushimisha/277",
     "body": [
       {
         "type": "verse",
@@ -8796,7 +8796,7 @@ export const songs: NewSong[] = [
   {
     "number": 278,
     "name": "Mukiza, ni Wowe zuba ryanjye",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=278",
+    "url": "https://indirimbo.rw/song/gushimisha/278",
     "body": [
       {
         "type": "verse",
@@ -8833,7 +8833,7 @@ export const songs: NewSong[] = [
   {
     "number": 279,
     "name": "Dor’ umuns’ urakuze",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=279",
+    "url": "https://indirimbo.rw/song/gushimisha/279",
     "body": [
       {
         "type": "verse",
@@ -8864,7 +8864,7 @@ export const songs: NewSong[] = [
   {
     "number": 280,
     "name": "Imins’ irahita vuba",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=280",
+    "url": "https://indirimbo.rw/song/gushimisha/280",
     "body": [
       {
         "type": "verse",
@@ -8910,7 +8910,7 @@ export const songs: NewSong[] = [
   {
     "number": 281,
     "name": "Ngiy’ inkuru twumvise",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=281",
+    "url": "https://indirimbo.rw/song/gushimisha/281",
     "body": [
       {
         "type": "verse",
@@ -8937,7 +8937,7 @@ export const songs: NewSong[] = [
   {
     "number": 282,
     "name": "Abantu benshi cyane",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=282",
+    "url": "https://indirimbo.rw/song/gushimisha/282",
     "body": [
       {
         "type": "verse",
@@ -8973,7 +8973,7 @@ export const songs: NewSong[] = [
   {
     "number": 283,
     "name": "N’ ijwi ry’ umwungeri twumva",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=283",
+    "url": "https://indirimbo.rw/song/gushimisha/283",
     "body": [
       {
         "type": "verse",
@@ -8999,7 +8999,7 @@ export const songs: NewSong[] = [
   {
     "number": 284,
     "name": "Har ‘ intama urwenda n’ icyenda",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=284",
+    "url": "https://indirimbo.rw/song/gushimisha/284",
     "body": [
       {
         "type": "verse",
@@ -9031,7 +9031,7 @@ export const songs: NewSong[] = [
   {
     "number": 285,
     "name": "Kiz’ abarimbuka; renger’ abapfa",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=285",
+    "url": "https://indirimbo.rw/song/gushimisha/285",
     "body": [
       {
         "type": "verse",
@@ -9062,7 +9062,7 @@ export const songs: NewSong[] = [
   {
     "number": 286,
     "name": "Biba mu gitondo imbuto z’ ineza",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=286",
+    "url": "https://indirimbo.rw/song/gushimisha/286",
     "body": [
       {
         "type": "verse",
@@ -9088,7 +9088,7 @@ export const songs: NewSong[] = [
   {
     "number": 287,
     "name": "Yes’ azaganz’ ibihugu byose",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=287",
+    "url": "https://indirimbo.rw/song/gushimisha/287",
     "body": [
       {
         "type": "verse",
@@ -9120,7 +9120,7 @@ export const songs: NewSong[] = [
   {
     "number": 288,
     "name": "Urukundo rwa Yesu",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=288",
+    "url": "https://indirimbo.rw/song/gushimisha/288",
     "body": [
       {
         "type": "verse",
@@ -9151,7 +9151,7 @@ export const songs: NewSong[] = [
   {
     "number": 289,
     "name": "Igitabo cy’ Imana",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=289",
+    "url": "https://indirimbo.rw/song/gushimisha/289",
     "body": [
       {
         "type": "verse",
@@ -9193,7 +9193,7 @@ export const songs: NewSong[] = [
   {
     "number": 290,
     "name": "Ijambo ryaw’ urimfungurire",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=290",
+    "url": "https://indirimbo.rw/song/gushimisha/290",
     "body": [
       {
         "type": "verse",
@@ -9220,7 +9220,7 @@ export const songs: NewSong[] = [
   {
     "number": 291,
     "name": "Nubwo nd’ umwana muto bwose",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=291",
+    "url": "https://indirimbo.rw/song/gushimisha/291",
     "body": [
       {
         "type": "verse",
@@ -9251,7 +9251,7 @@ export const songs: NewSong[] = [
   {
     "number": 292,
     "name": "Tugiye gutaha: -ntitwibagirwe",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=292",
+    "url": "https://indirimbo.rw/song/gushimisha/292",
     "body": [
       {
         "type": "verse",
@@ -9283,7 +9283,7 @@ export const songs: NewSong[] = [
   {
     "number": 293,
     "name": "Uko njya mbona mw ‘ isi",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=293",
+    "url": "https://indirimbo.rw/song/gushimisha/293",
     "body": [
       {
         "type": "verse",
@@ -9315,7 +9315,7 @@ export const songs: NewSong[] = [
   {
     "number": 294,
     "name": "Har’ ubw’ abagore",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=294",
+    "url": "https://indirimbo.rw/song/gushimisha/294",
     "body": [
       {
         "type": "verse",
@@ -9337,7 +9337,7 @@ export const songs: NewSong[] = [
   {
     "number": 295,
     "name": "Mumushime, bana bato mwese",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=295",
+    "url": "https://indirimbo.rw/song/gushimisha/295",
     "body": [
       {
         "type": "verse",
@@ -9374,7 +9374,7 @@ export const songs: NewSong[] = [
   {
     "number": 296,
     "name": "Tuzany’ amaturo—-Yo gushimisha",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=296",
+    "url": "https://indirimbo.rw/song/gushimisha/296",
     "body": [
       {
         "type": "verse",
@@ -9405,7 +9405,7 @@ export const songs: NewSong[] = [
   {
     "number": 297,
     "name": "Yesu ntahinduka",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=297",
+    "url": "https://indirimbo.rw/song/gushimisha/297",
     "body": [
       {
         "type": "verse",
@@ -9442,7 +9442,7 @@ export const songs: NewSong[] = [
   {
     "number": 298,
     "name": "Mbe nk’ umurase w’ izuba",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=298",
+    "url": "https://indirimbo.rw/song/gushimisha/298",
     "body": [
       {
         "type": "verse",
@@ -9473,7 +9473,7 @@ export const songs: NewSong[] = [
   {
     "number": 299,
     "name": "Amaboko yawe, Yesu Mukiza",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=299",
+    "url": "https://indirimbo.rw/song/gushimisha/299",
     "body": [
       {
         "type": "verse",
@@ -9490,7 +9490,7 @@ export const songs: NewSong[] = [
   {
     "number": 300,
     "name": "Bana, ntimugire—Icyaha mukora",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=300",
+    "url": "https://indirimbo.rw/song/gushimisha/300",
     "body": [
       {
         "type": "verse",
@@ -9532,7 +9532,7 @@ export const songs: NewSong[] = [
   {
     "number": 301,
     "name": "Nd’ agatama ka Yesu",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=301",
+    "url": "https://indirimbo.rw/song/gushimisha/301",
     "body": [
       {
         "type": "verse",
@@ -9554,7 +9554,7 @@ export const songs: NewSong[] = [
   {
     "number": 302,
     "name": "Mukiza, Mwungeri mwiza",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=302",
+    "url": "https://indirimbo.rw/song/gushimisha/302",
     "body": [
       {
         "type": "verse",
@@ -9576,7 +9576,7 @@ export const songs: NewSong[] = [
   {
     "number": 303,
     "name": "Yesu, Mwungeri wanjye",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=303",
+    "url": "https://indirimbo.rw/song/gushimisha/303",
     "body": [
       {
         "type": "verse",
@@ -9613,7 +9613,7 @@ export const songs: NewSong[] = [
   {
     "number": 304,
     "name": "Harihw Inshuti y’ abana",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=304",
+    "url": "https://indirimbo.rw/song/gushimisha/304",
     "body": [
       {
         "type": "verse",
@@ -9650,7 +9650,7 @@ export const songs: NewSong[] = [
   {
     "number": 305,
     "name": "Uwo ni nd’ urambitswe",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=305",
+    "url": "https://indirimbo.rw/song/gushimisha/305",
     "body": [
       {
         "type": "verse",
@@ -9711,7 +9711,7 @@ export const songs: NewSong[] = [
   {
     "number": 306,
     "name": "Twishimir’ umunsi w’ Imana",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=306",
+    "url": "https://indirimbo.rw/song/gushimisha/306",
     "body": [
       {
         "type": "verse",
@@ -9743,7 +9743,7 @@ export const songs: NewSong[] = [
   {
     "number": 307,
     "name": "Haleluya! Haj’ umunsi",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=307",
+    "url": "https://indirimbo.rw/song/gushimisha/307",
     "body": [
       {
         "type": "verse",
@@ -9770,7 +9770,7 @@ export const songs: NewSong[] = [
   {
     "number": 308,
     "name": "Mwami Yesu, turaje",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=308",
+    "url": "https://indirimbo.rw/song/gushimisha/308",
     "body": [
       {
         "type": "verse",
@@ -9792,7 +9792,7 @@ export const songs: NewSong[] = [
   {
     "number": 309,
     "name": "Inzu yawe, Mana, —Turayishimira",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=309",
+    "url": "https://indirimbo.rw/song/gushimisha/309",
     "body": [
       {
         "type": "verse",
@@ -9829,7 +9829,7 @@ export const songs: NewSong[] = [
   {
     "number": 310,
     "name": "Iki gihe twamaranye",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=310",
+    "url": "https://indirimbo.rw/song/gushimisha/310",
     "body": [
       {
         "type": "verse",
@@ -9881,7 +9881,7 @@ export const songs: NewSong[] = [
   {
     "number": 311,
     "name": "Yemwe, nshuti twabanye",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=311",
+    "url": "https://indirimbo.rw/song/gushimisha/311",
     "body": [
       {
         "type": "verse",
@@ -9928,7 +9928,7 @@ export const songs: NewSong[] = [
   {
     "number": 312,
     "name": "Abakund’ Imana mwese",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=312",
+    "url": "https://indirimbo.rw/song/gushimisha/312",
     "body": [
       {
         "type": "verse",
@@ -9963,7 +9963,7 @@ export const songs: NewSong[] = [
   {
     "number": 313,
     "name": "Umukiz’ abe hamwe namwe",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=313",
+    "url": "https://indirimbo.rw/song/gushimisha/313",
     "body": [
       {
         "type": "verse",
@@ -9999,7 +9999,7 @@ export const songs: NewSong[] = [
   {
     "number": 314,
     "name": "Gukundana kw’ aba Yesu",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=314",
+    "url": "https://indirimbo.rw/song/gushimisha/314",
     "body": [
       {
         "type": "verse",
@@ -10026,7 +10026,7 @@ export const songs: NewSong[] = [
   {
     "number": 315,
     "name": "Imana yakoze neza",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=315",
+    "url": "https://indirimbo.rw/song/gushimisha/315",
     "body": [
       {
         "type": "verse",
@@ -10063,7 +10063,7 @@ export const songs: NewSong[] = [
   {
     "number": 316,
     "name": "Man’ itang’ itimana",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=316",
+    "url": "https://indirimbo.rw/song/gushimisha/316",
     "body": [
       {
         "type": "verse",
@@ -10114,7 +10114,7 @@ export const songs: NewSong[] = [
   {
     "number": 317,
     "name": "Mukiza, wadutoreye",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=317",
+    "url": "https://indirimbo.rw/song/gushimisha/317",
     "body": [
       {
         "type": "verse",
@@ -10141,7 +10141,7 @@ export const songs: NewSong[] = [
   {
     "number": 318,
     "name": "Hose habera heza",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=318",
+    "url": "https://indirimbo.rw/song/gushimisha/318",
     "body": [
       {
         "type": "verse",
@@ -10168,7 +10168,7 @@ export const songs: NewSong[] = [
   {
     "number": 319,
     "name": "Aho, mwumvis’ ijwi ry’ Umwami",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=319",
+    "url": "https://indirimbo.rw/song/gushimisha/319",
     "body": [
       {
         "type": "verse",
@@ -10199,7 +10199,7 @@ export const songs: NewSong[] = [
   {
     "number": 320,
     "name": "Mwa bagore mwe b’ i Rwanda",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=320",
+    "url": "https://indirimbo.rw/song/gushimisha/320",
     "body": [
       {
         "type": "verse",
@@ -10221,7 +10221,7 @@ export const songs: NewSong[] = [
   {
     "number": 321,
     "name": "Mana Data wo mw ijuru",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=321",
+    "url": "https://indirimbo.rw/song/gushimisha/321",
     "body": [
       {
         "type": "verse",
@@ -10243,7 +10243,7 @@ export const songs: NewSong[] = [
   {
     "number": 322,
     "name": "Aba bombi, Mana Data",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=322",
+    "url": "https://indirimbo.rw/song/gushimisha/322",
     "body": [
       {
         "type": "verse",
@@ -10260,7 +10260,7 @@ export const songs: NewSong[] = [
   {
     "number": 323,
     "name": "Mana Data wa twese",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=323",
+    "url": "https://indirimbo.rw/song/gushimisha/323",
     "body": [
       {
         "type": "verse",
@@ -10287,7 +10287,7 @@ export const songs: NewSong[] = [
   {
     "number": 324,
     "name": "Mana Dat’ ukiranuka",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=324",
+    "url": "https://indirimbo.rw/song/gushimisha/324",
     "body": [
       {
         "type": "verse",
@@ -10309,7 +10309,7 @@ export const songs: NewSong[] = [
   {
     "number": 325,
     "name": "Ababatijwe none",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=325",
+    "url": "https://indirimbo.rw/song/gushimisha/325",
     "body": [
       {
         "type": "verse",
@@ -10331,7 +10331,7 @@ export const songs: NewSong[] = [
   {
     "number": 326,
     "name": "Utuzanye hano gusangira",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=326",
+    "url": "https://indirimbo.rw/song/gushimisha/326",
     "body": [
       {
         "type": "verse",
@@ -10353,7 +10353,7 @@ export const songs: NewSong[] = [
   {
     "number": 327,
     "name": "Ni byiza kureb’ ab’ Imana",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=327",
+    "url": "https://indirimbo.rw/song/gushimisha/327",
     "body": [
       {
         "type": "verse",
@@ -10380,7 +10380,7 @@ export const songs: NewSong[] = [
   {
     "number": 328,
     "name": "Yes’ ur’ Umukiza wanjye",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=328",
+    "url": "https://indirimbo.rw/song/gushimisha/328",
     "body": [
       {
         "type": "verse",
@@ -10416,7 +10416,7 @@ export const songs: NewSong[] = [
   {
     "number": 329,
     "name": "Nezerwa cyane, wa si we",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=329",
+    "url": "https://indirimbo.rw/song/gushimisha/329",
     "body": [
       {
         "type": "verse",
@@ -10443,7 +10443,7 @@ export const songs: NewSong[] = [
   {
     "number": 330,
     "name": "Wowe, Man’ ikiranuka",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=330",
+    "url": "https://indirimbo.rw/song/gushimisha/330",
     "body": [
       {
         "type": "verse",
@@ -10470,7 +10470,7 @@ export const songs: NewSong[] = [
   {
     "number": 331,
     "name": "Hoziyana! Twese dushim’ Uwaje",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=331",
+    "url": "https://indirimbo.rw/song/gushimisha/331",
     "body": [
       {
         "type": "verse",
@@ -10482,7 +10482,7 @@ export const songs: NewSong[] = [
   {
     "number": 332,
     "name": "Turirimbe na none",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=332",
+    "url": "https://indirimbo.rw/song/gushimisha/332",
     "body": [
       {
         "type": "verse",
@@ -10514,7 +10514,7 @@ export const songs: NewSong[] = [
   {
     "number": 333,
     "name": "Nimuze, dusange Yesu",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=333",
+    "url": "https://indirimbo.rw/song/gushimisha/333",
     "body": [
       {
         "type": "verse",
@@ -10541,7 +10541,7 @@ export const songs: NewSong[] = [
   {
     "number": 334,
     "name": "Wa mutima wanjye we, shim’ Uwiteka",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=334",
+    "url": "https://indirimbo.rw/song/gushimisha/334",
     "body": [
       {
         "type": "verse",
@@ -10573,7 +10573,7 @@ export const songs: NewSong[] = [
   {
     "number": 335,
     "name": "Umuhanuzi Yesaya",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=335",
+    "url": "https://indirimbo.rw/song/gushimisha/335",
     "body": [
       {
         "type": "verse",
@@ -10595,7 +10595,7 @@ export const songs: NewSong[] = [
   {
     "number": 336,
     "name": "Mwuka Wera w’ Imana",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=336",
+    "url": "https://indirimbo.rw/song/gushimisha/336",
     "body": [
       {
         "type": "verse",
@@ -10607,7 +10607,7 @@ export const songs: NewSong[] = [
   {
     "number": 337,
     "name": "Imbabazi z’ Umwami wacu Yesu",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=337",
+    "url": "https://indirimbo.rw/song/gushimisha/337",
     "body": [
       {
         "type": "verse",
@@ -10619,7 +10619,7 @@ export const songs: NewSong[] = [
   {
     "number": 338,
     "name": "Mwami, vuga, nanjye ndumva",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=338",
+    "url": "https://indirimbo.rw/song/gushimisha/338",
     "body": [
       {
         "type": "verse",
@@ -10631,7 +10631,7 @@ export const songs: NewSong[] = [
   {
     "number": 339,
     "name": "Non’ amaganya yawe yose",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=339",
+    "url": "https://indirimbo.rw/song/gushimisha/339",
     "body": [
       {
         "type": "verse",
@@ -10643,7 +10643,7 @@ export const songs: NewSong[] = [
   {
     "number": 340,
     "name": "Umutima wanjye wizera",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=340",
+    "url": "https://indirimbo.rw/song/gushimisha/340",
     "body": [
       {
         "type": "verse",
@@ -10665,7 +10665,7 @@ export const songs: NewSong[] = [
   {
     "number": 341,
     "name": "Fat’ ukuboko kwanjye, —-Ungendeshe",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=341",
+    "url": "https://indirimbo.rw/song/gushimisha/341",
     "body": [
       {
         "type": "verse",
@@ -10687,7 +10687,7 @@ export const songs: NewSong[] = [
   {
     "number": 342,
     "name": "Njye nsindagizwa n’ ukuboko kwawe",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=342",
+    "url": "https://indirimbo.rw/song/gushimisha/342",
     "body": [
       {
         "type": "verse",
@@ -10709,7 +10709,7 @@ export const songs: NewSong[] = [
   {
     "number": 343,
     "name": "Munyabyaha, nturushye se",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=343",
+    "url": "https://indirimbo.rw/song/gushimisha/343",
     "body": [
       {
         "type": "verse",
@@ -10746,7 +10746,7 @@ export const songs: NewSong[] = [
   {
     "number": 344,
     "name": "Muze mwese, muz’ aho ndi",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=344",
+    "url": "https://indirimbo.rw/song/gushimisha/344",
     "body": [
       {
         "type": "verse",
@@ -10788,7 +10788,7 @@ export const songs: NewSong[] = [
   {
     "number": 345,
     "name": "Umv’ iryo jwi rikwinginga",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=345",
+    "url": "https://indirimbo.rw/song/gushimisha/345",
     "body": [
       {
         "type": "verse",
@@ -10819,7 +10819,7 @@ export const songs: NewSong[] = [
   {
     "number": 346,
     "name": "Ngwino, witabe Yesu",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=346",
+    "url": "https://indirimbo.rw/song/gushimisha/346",
     "body": [
       {
         "type": "verse",
@@ -10850,7 +10850,7 @@ export const songs: NewSong[] = [
   {
     "number": 347,
     "name": "Yesu nguriy’ ahw ahagaze",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=347",
+    "url": "https://indirimbo.rw/song/gushimisha/347",
     "body": [
       {
         "type": "verse",
@@ -10886,7 +10886,7 @@ export const songs: NewSong[] = [
   {
     "number": 348,
     "name": "Mbese, mu mutima wawe",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=348",
+    "url": "https://indirimbo.rw/song/gushimisha/348",
     "body": [
       {
         "type": "verse",
@@ -10917,7 +10917,7 @@ export const songs: NewSong[] = [
   {
     "number": 349,
     "name": "Reba Yesu ku Musaraba",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=349",
+    "url": "https://indirimbo.rw/song/gushimisha/349",
     "body": [
       {
         "type": "verse",
@@ -10948,7 +10948,7 @@ export const songs: NewSong[] = [
   {
     "number": 350,
     "name": "Yemw’ abaguzwe n’ amaraso",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=350",
+    "url": "https://indirimbo.rw/song/gushimisha/350",
     "body": [
       {
         "type": "verse",
@@ -10984,7 +10984,7 @@ export const songs: NewSong[] = [
   {
     "number": 351,
     "name": "Yemw’ abahung’ Umukiza",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=351",
+    "url": "https://indirimbo.rw/song/gushimisha/351",
     "body": [
       {
         "type": "verse",
@@ -11051,7 +11051,7 @@ export const songs: NewSong[] = [
   {
     "number": 352,
     "name": "Muze kureb’ i Gologota",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=352",
+    "url": "https://indirimbo.rw/song/gushimisha/352",
     "body": [
       {
         "type": "verse",
@@ -11097,7 +11097,7 @@ export const songs: NewSong[] = [
   {
     "number": 353,
     "name": "Amaraso yose",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=353",
+    "url": "https://indirimbo.rw/song/gushimisha/353",
     "body": [
       {
         "type": "verse",
@@ -11134,7 +11134,7 @@ export const songs: NewSong[] = [
   {
     "number": 354,
     "name": "Man’ ishobora byose",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=354",
+    "url": "https://indirimbo.rw/song/gushimisha/354",
     "body": [
       {
         "type": "verse",
@@ -11180,7 +11180,7 @@ export const songs: NewSong[] = [
   {
     "number": 355,
     "name": "Nejejwe n’ uko nacunguwe",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=355",
+    "url": "https://indirimbo.rw/song/gushimisha/355",
     "body": [
       {
         "type": "verse",
@@ -11216,7 +11216,7 @@ export const songs: NewSong[] = [
   {
     "number": 356,
     "name": "Batoboy’ ibiganza bye",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=356",
+    "url": "https://indirimbo.rw/song/gushimisha/356",
     "body": [
       {
         "type": "verse",
@@ -11248,7 +11248,7 @@ export const songs: NewSong[] = [
   {
     "number": 357,
     "name": "Ubwo nari nshinjirijwe cyane",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=357",
+    "url": "https://indirimbo.rw/song/gushimisha/357",
     "body": [
       {
         "type": "verse",
@@ -11279,7 +11279,7 @@ export const songs: NewSong[] = [
   {
     "number": 358,
     "name": "Twemere Yesu—-Ko yaje mw isi",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=358",
+    "url": "https://indirimbo.rw/song/gushimisha/358",
     "body": [
       {
         "type": "verse",
@@ -11301,7 +11301,7 @@ export const songs: NewSong[] = [
   {
     "number": 359,
     "name": "Iyo ntinye ko kwizera",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=359",
+    "url": "https://indirimbo.rw/song/gushimisha/359",
     "body": [
       {
         "type": "verse",
@@ -11332,7 +11332,7 @@ export const songs: NewSong[] = [
   {
     "number": 360,
     "name": "Rukundo rwinshi, —Buntu butarutwa",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=360",
+    "url": "https://indirimbo.rw/song/gushimisha/360",
     "body": [
       {
         "type": "verse",
@@ -11358,7 +11358,7 @@ export const songs: NewSong[] = [
   {
     "number": 361,
     "name": "Uwo njya nikomezaho",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=361",
+    "url": "https://indirimbo.rw/song/gushimisha/361",
     "body": [
       {
         "type": "verse",
@@ -11390,7 +11390,7 @@ export const songs: NewSong[] = [
   {
     "number": 362,
     "name": "iyi s’ izashira",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=362",
+    "url": "https://indirimbo.rw/song/gushimisha/362",
     "body": [
       {
         "type": "verse",
@@ -11417,7 +11417,7 @@ export const songs: NewSong[] = [
   {
     "number": 363,
     "name": "Jye mpisemo Yesu; murutish’ iyi si yose",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=363",
+    "url": "https://indirimbo.rw/song/gushimisha/363",
     "body": [
       {
         "type": "verse",
@@ -11443,7 +11443,7 @@ export const songs: NewSong[] = [
   {
     "number": 364,
     "name": "Yes’ Umwami ndamubonye",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=364",
+    "url": "https://indirimbo.rw/song/gushimisha/364",
     "body": [
       {
         "type": "verse",
@@ -11484,7 +11484,7 @@ export const songs: NewSong[] = [
   {
     "number": 365,
     "name": "Mwami, nubwo nd’ umunyabyaha",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=365",
+    "url": "https://indirimbo.rw/song/gushimisha/365",
     "body": [
       {
         "type": "verse",
@@ -11526,7 +11526,7 @@ export const songs: NewSong[] = [
   {
     "number": 366,
     "name": "Ngutuy’ ubugingo bwanjye",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=366",
+    "url": "https://indirimbo.rw/song/gushimisha/366",
     "body": [
       {
         "type": "verse",
@@ -11553,7 +11553,7 @@ export const songs: NewSong[] = [
   {
     "number": 367,
     "name": "Yesu ndakwitabye, —Ntakwiriye",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=367",
+    "url": "https://indirimbo.rw/song/gushimisha/367",
     "body": [
       {
         "type": "verse",
@@ -11580,7 +11580,7 @@ export const songs: NewSong[] = [
   {
     "number": 368,
     "name": "Bene Data bizeye Yesu",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=368",
+    "url": "https://indirimbo.rw/song/gushimisha/368",
     "body": [
       {
         "type": "verse",
@@ -11631,7 +11631,7 @@ export const songs: NewSong[] = [
   {
     "number": 369,
     "name": "Ngukunde Yesu, Mwami wanjye",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=369",
+    "url": "https://indirimbo.rw/song/gushimisha/369",
     "body": [
       {
         "type": "verse",
@@ -11653,7 +11653,7 @@ export const songs: NewSong[] = [
   {
     "number": 370,
     "name": "Urampamagara, Yesu",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=370",
+    "url": "https://indirimbo.rw/song/gushimisha/370",
     "body": [
       {
         "type": "verse",
@@ -11680,7 +11680,7 @@ export const songs: NewSong[] = [
   {
     "number": 371,
     "name": "Yesu, nd’ uwawe: nyakira",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=371",
+    "url": "https://indirimbo.rw/song/gushimisha/371",
     "body": [
       {
         "type": "verse",
@@ -11711,7 +11711,7 @@ export const songs: NewSong[] = [
   {
     "number": 372,
     "name": "Nyigiza hafi, Mwami Yesu",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=372",
+    "url": "https://indirimbo.rw/song/gushimisha/372",
     "body": [
       {
         "type": "verse",
@@ -11738,7 +11738,7 @@ export const songs: NewSong[] = [
   {
     "number": 373,
     "name": "Harihw’icyo nkwaka Mwami",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=373",
+    "url": "https://indirimbo.rw/song/gushimisha/373",
     "body": [
       {
         "type": "verse",
@@ -11769,7 +11769,7 @@ export const songs: NewSong[] = [
   {
     "number": 374,
     "name": "Uyu mwana w’ uruhinja ni nde",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=374",
+    "url": "https://indirimbo.rw/song/gushimisha/374",
     "body": [
       {
         "type": "verse",
@@ -11796,7 +11796,7 @@ export const songs: NewSong[] = [
   {
     "number": 375,
     "name": "Habay’umunsi w’ishimwe mw’ijuru",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=375",
+    "url": "https://indirimbo.rw/song/gushimisha/375",
     "body": [
       {
         "type": "verse",
@@ -11832,7 +11832,7 @@ export const songs: NewSong[] = [
   {
     "number": 376,
     "name": "Mwami Yesu",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=376",
+    "url": "https://indirimbo.rw/song/gushimisha/376",
     "body": [
       {
         "type": "verse",
@@ -11875,7 +11875,7 @@ export const songs: NewSong[] = [
   {
     "number": 377,
     "name": "Reka twongere twishimire",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=377",
+    "url": "https://indirimbo.rw/song/gushimisha/377",
     "body": [
       {
         "type": "verse",
@@ -11911,7 +11911,7 @@ export const songs: NewSong[] = [
   {
     "number": 378,
     "name": "Nuzuy’ umunezero",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=378",
+    "url": "https://indirimbo.rw/song/gushimisha/378",
     "body": [
       {
         "type": "verse",
@@ -11947,7 +11947,7 @@ export const songs: NewSong[] = [
   {
     "number": 379,
     "name": "Umutim’ ukomerekejwe",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=379",
+    "url": "https://indirimbo.rw/song/gushimisha/379",
     "body": [
       {
         "type": "verse",
@@ -11979,7 +11979,7 @@ export const songs: NewSong[] = [
   {
     "number": 380,
     "name": "Nubwo ntsizwe n’ ibyaha",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=380",
+    "url": "https://indirimbo.rw/song/gushimisha/380",
     "body": [
       {
         "type": "verse",
@@ -12001,7 +12001,7 @@ export const songs: NewSong[] = [
   {
     "number": 381,
     "name": "Yes’ avukiye mw isi",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=381",
+    "url": "https://indirimbo.rw/song/gushimisha/381",
     "body": [
       {
         "type": "verse",
@@ -12048,7 +12048,7 @@ export const songs: NewSong[] = [
   {
     "number": 382,
     "name": "Yes’ aduh’ amahoro byukuri",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=382",
+    "url": "https://indirimbo.rw/song/gushimisha/382",
     "body": [
       {
         "type": "verse",
@@ -12090,7 +12090,7 @@ export const songs: NewSong[] = [
   {
     "number": 383,
     "name": "Icyamp’ ukanyikorerera",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=383",
+    "url": "https://indirimbo.rw/song/gushimisha/383",
     "body": [
       {
         "type": "verse",
@@ -12122,7 +12122,7 @@ export const songs: NewSong[] = [
   {
     "number": 384,
     "name": "Ben’ Imana yizerwa",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=384",
+    "url": "https://indirimbo.rw/song/gushimisha/384",
     "body": [
       {
         "type": "verse",
@@ -12144,7 +12144,7 @@ export const songs: NewSong[] = [
   {
     "number": 385,
     "name": "Murinzi we menyesh’ igihe",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=385",
+    "url": "https://indirimbo.rw/song/gushimisha/385",
     "body": [
       {
         "type": "verse",
@@ -12171,7 +12171,7 @@ export const songs: NewSong[] = [
   {
     "number": 386,
     "name": "Ntukajy’ urambirwa—kumwizera",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=386",
+    "url": "https://indirimbo.rw/song/gushimisha/386",
     "body": [
       {
         "type": "verse",
@@ -12198,7 +12198,7 @@ export const songs: NewSong[] = [
   {
     "number": 387,
     "name": "Yesu n’ ubugingo bwacu",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=387",
+    "url": "https://indirimbo.rw/song/gushimisha/387",
     "body": [
       {
         "type": "verse",
@@ -12240,7 +12240,7 @@ export const songs: NewSong[] = [
   {
     "number": 388,
     "name": "Tunganir’Imana ubudasiba",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=388",
+    "url": "https://indirimbo.rw/song/gushimisha/388",
     "body": [
       {
         "type": "verse",
@@ -12267,7 +12267,7 @@ export const songs: NewSong[] = [
   {
     "number": 389,
     "name": "Wa Mukristo muto we",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=389",
+    "url": "https://indirimbo.rw/song/gushimisha/389",
     "body": [
       {
         "type": "verse",
@@ -12309,7 +12309,7 @@ export const songs: NewSong[] = [
   {
     "number": 390,
     "name": "Ngabo z’ umwete, mubyuke",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=390",
+    "url": "https://indirimbo.rw/song/gushimisha/390",
     "body": [
       {
         "type": "verse",
@@ -12336,7 +12336,7 @@ export const songs: NewSong[] = [
   {
     "number": 391,
     "name": "Kugeza gupfa, tuzakuyoboka",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=391",
+    "url": "https://indirimbo.rw/song/gushimisha/391",
     "body": [
       {
         "type": "verse",
@@ -12372,7 +12372,7 @@ export const songs: NewSong[] = [
   {
     "number": 392,
     "name": "Basirikare ba Kristo, mubyuke",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=392",
+    "url": "https://indirimbo.rw/song/gushimisha/392",
     "body": [
       {
         "type": "verse",
@@ -12394,7 +12394,7 @@ export const songs: NewSong[] = [
   {
     "number": 393,
     "name": "Yesu, tugushimir’ abera bawe",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=393",
+    "url": "https://indirimbo.rw/song/gushimisha/393",
     "body": [
       {
         "type": "verse",
@@ -12441,7 +12441,7 @@ export const songs: NewSong[] = [
   {
     "number": 394,
     "name": "Duhurure ngo twitabe",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=394",
+    "url": "https://indirimbo.rw/song/gushimisha/394",
     "body": [
       {
         "type": "verse",
@@ -12472,7 +12472,7 @@ export const songs: NewSong[] = [
   {
     "number": 395,
     "name": "Tumeny’ ubwami buri mw ijuru",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=395",
+    "url": "https://indirimbo.rw/song/gushimisha/395",
     "body": [
       {
         "type": "verse",
@@ -12494,7 +12494,7 @@ export const songs: NewSong[] = [
   {
     "number": 396,
     "name": "Ni heh’ abizera bazajya kuba",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=396",
+    "url": "https://indirimbo.rw/song/gushimisha/396",
     "body": [
       {
         "type": "verse",
@@ -12516,7 +12516,7 @@ export const songs: NewSong[] = [
   {
     "number": 397,
     "name": "Mw isi tubonana n’ inshuti",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=397",
+    "url": "https://indirimbo.rw/song/gushimisha/397",
     "body": [
       {
         "type": "verse",
@@ -12547,7 +12547,7 @@ export const songs: NewSong[] = [
   {
     "number": 398,
     "name": "Kwa Data mw ijuru, nta wubabara",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=398",
+    "url": "https://indirimbo.rw/song/gushimisha/398",
     "body": [
       {
         "type": "verse",
@@ -12609,7 +12609,7 @@ export const songs: NewSong[] = [
   {
     "number": 399,
     "name": "Iyi si turimo—N’ iy’ ibyago",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=399",
+    "url": "https://indirimbo.rw/song/gushimisha/399",
     "body": [
       {
         "type": "verse",
@@ -12641,7 +12641,7 @@ export const songs: NewSong[] = [
   {
     "number": 400,
     "name": "Twebw’ abasiganirwa",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=400",
+    "url": "https://indirimbo.rw/song/gushimisha/400",
     "body": [
       {
         "type": "verse",
@@ -12682,7 +12682,7 @@ export const songs: NewSong[] = [
   {
     "number": 401,
     "name": "Iri joro, yemwe bakristo mwese",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=401",
+    "url": "https://indirimbo.rw/song/gushimisha/401",
     "body": [
       {
         "type": "verse",
@@ -12704,7 +12704,7 @@ export const songs: NewSong[] = [
   {
     "number": 402,
     "name": "Ijwi ryumviswe n’ abantu",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=402",
+    "url": "https://indirimbo.rw/song/gushimisha/402",
     "body": [
       {
         "type": "verse",
@@ -12726,7 +12726,7 @@ export const songs: NewSong[] = [
   {
     "number": 403,
     "name": "Nyenyeri yo mu museke",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=403",
+    "url": "https://indirimbo.rw/song/gushimisha/403",
     "body": [
       {
         "type": "verse",
@@ -12757,7 +12757,7 @@ export const songs: NewSong[] = [
   {
     "number": 404,
     "name": "Yesu Krist’ agiye kuza",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=404",
+    "url": "https://indirimbo.rw/song/gushimisha/404",
     "body": [
       {
         "type": "verse",
@@ -12784,7 +12784,7 @@ export const songs: NewSong[] = [
   {
     "number": 405,
     "name": "Dor’ is’ ukunt’ ikwifuza",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=405",
+    "url": "https://indirimbo.rw/song/gushimisha/405",
     "body": [
       {
         "type": "verse",
@@ -12815,7 +12815,7 @@ export const songs: NewSong[] = [
   {
     "number": 406,
     "name": "Jyan’ umucyo mur’ Afurika",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=406",
+    "url": "https://indirimbo.rw/song/gushimisha/406",
     "body": [
       {
         "type": "verse",
@@ -12847,7 +12847,7 @@ export const songs: NewSong[] = [
   {
     "number": 407,
     "name": "Umurimo wacu—Ni mwiza cyane",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=407",
+    "url": "https://indirimbo.rw/song/gushimisha/407",
     "body": [
       {
         "type": "verse",
@@ -12878,7 +12878,7 @@ export const songs: NewSong[] = [
   {
     "number": 408,
     "name": "abakijijwe mwese",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=408",
+    "url": "https://indirimbo.rw/song/gushimisha/408",
     "body": [
       {
         "type": "verse",
@@ -12914,7 +12914,7 @@ export const songs: NewSong[] = [
   {
     "number": 409,
     "name": "Yes’ aradubamagara",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=409",
+    "url": "https://indirimbo.rw/song/gushimisha/409",
     "body": [
       {
         "type": "verse",
@@ -12941,7 +12941,7 @@ export const songs: NewSong[] = [
   {
     "number": 410,
     "name": "Yesu, ni Wowe dushima",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=410",
+    "url": "https://indirimbo.rw/song/gushimisha/410",
     "body": [
       {
         "type": "verse",
@@ -12968,7 +12968,7 @@ export const songs: NewSong[] = [
   {
     "number": 411,
     "name": "Ai Data wo mw ijuru",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=411",
+    "url": "https://indirimbo.rw/song/gushimisha/411",
     "body": [
       {
         "type": "verse",
@@ -13010,7 +13010,7 @@ export const songs: NewSong[] = [
   {
     "number": 412,
     "name": "Isi yos’ iririmbe—Ibitangaza",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=412",
+    "url": "https://indirimbo.rw/song/gushimisha/412",
     "body": [
       {
         "type": "verse",
@@ -13047,7 +13047,7 @@ export const songs: NewSong[] = [
   {
     "number": 413,
     "name": "Intumwa z’ Umwami Yesu",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=413",
+    "url": "https://indirimbo.rw/song/gushimisha/413",
     "body": [
       {
         "type": "verse",
@@ -13098,7 +13098,7 @@ export const songs: NewSong[] = [
   {
     "number": 414,
     "name": "Urutare rw’ Imana",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=414",
+    "url": "https://indirimbo.rw/song/gushimisha/414",
     "body": [
       {
         "type": "verse",
@@ -13149,7 +13149,7 @@ export const songs: NewSong[] = [
   {
     "number": 415,
     "name": "Turashim’ Imana yuko twavukiye",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=415",
+    "url": "https://indirimbo.rw/song/gushimisha/415",
     "body": [
       {
         "type": "verse",
@@ -13175,7 +13175,7 @@ export const songs: NewSong[] = [
   {
     "number": 416,
     "name": "Gumy’ ushim’ ushim’ ushim’",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=416",
+    "url": "https://indirimbo.rw/song/gushimisha/416",
     "body": [
       {
         "type": "chorus",
@@ -13211,7 +13211,7 @@ export const songs: NewSong[] = [
   {
     "number": 417,
     "name": "Yesu n’ Umukiza",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=417",
+    "url": "https://indirimbo.rw/song/gushimisha/417",
     "body": [
       {
         "type": "verse",
@@ -13252,7 +13252,7 @@ export const songs: NewSong[] = [
   {
     "number": 418,
     "name": "Wa gatabaza kanjye we",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=418",
+    "url": "https://indirimbo.rw/song/gushimisha/418",
     "body": [
       {
         "type": "verse",
@@ -13288,7 +13288,7 @@ export const songs: NewSong[] = [
   {
     "number": 419,
     "name": "Har’ Umwami wa kera",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=419",
+    "url": "https://indirimbo.rw/song/gushimisha/419",
     "body": [
       {
         "type": "verse",
@@ -13325,7 +13325,7 @@ export const songs: NewSong[] = [
   {
     "number": 420,
     "name": "Habay’ umuntu twizeho",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=420",
+    "url": "https://indirimbo.rw/song/gushimisha/420",
     "body": [
       {
         "type": "verse",
@@ -13407,7 +13407,7 @@ export const songs: NewSong[] = [
   {
     "number": 421,
     "name": "Nguhaye, Data wera",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=421",
+    "url": "https://indirimbo.rw/song/gushimisha/421",
     "body": [
       {
         "type": "verse",
@@ -13439,7 +13439,7 @@ export const songs: NewSong[] = [
   {
     "number": 422,
     "name": "Yesu yageze mu Rwanda",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=422",
+    "url": "https://indirimbo.rw/song/gushimisha/422",
     "body": [
       {
         "type": "verse",
@@ -13476,7 +13476,7 @@ export const songs: NewSong[] = [
   {
     "number": 423,
     "name": "Reka nshim’ Umwami Yesu",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=423",
+    "url": "https://indirimbo.rw/song/gushimisha/423",
     "body": [
       {
         "type": "verse",
@@ -13527,7 +13527,7 @@ export const songs: NewSong[] = [
   {
     "number": 424,
     "name": "Iteka nagendaga",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=424",
+    "url": "https://indirimbo.rw/song/gushimisha/424",
     "body": [
       {
         "type": "verse",
@@ -13583,7 +13583,7 @@ export const songs: NewSong[] = [
   {
     "number": 425,
     "name": "Kera narabatijwe",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=425",
+    "url": "https://indirimbo.rw/song/gushimisha/425",
     "body": [
       {
         "type": "verse",
@@ -13639,7 +13639,7 @@ export const songs: NewSong[] = [
   {
     "number": 426,
     "name": "Dukomeze gutambuka",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=426",
+    "url": "https://indirimbo.rw/song/gushimisha/426",
     "body": [
       {
         "type": "verse",
@@ -13695,7 +13695,7 @@ export const songs: NewSong[] = [
   {
     "number": 427,
     "name": "Urukundo rwa Yesu",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=427",
+    "url": "https://indirimbo.rw/song/gushimisha/427",
     "body": [
       {
         "type": "verse",
@@ -13741,7 +13741,7 @@ export const songs: NewSong[] = [
   {
     "number": 428,
     "name": "Bene Data b’ abirabura",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=428",
+    "url": "https://indirimbo.rw/song/gushimisha/428",
     "body": [
       {
         "type": "verse",
@@ -13768,7 +13768,7 @@ export const songs: NewSong[] = [
   {
     "number": 429,
     "name": "Dor’ inzira nziz’ ijya mw ijuru",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=429",
+    "url": "https://indirimbo.rw/song/gushimisha/429",
     "body": [
       {
         "type": "verse",
@@ -13800,7 +13800,7 @@ export const songs: NewSong[] = [
   {
     "number": 430,
     "name": "Kera nar’ umwangizi",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=430",
+    "url": "https://indirimbo.rw/song/gushimisha/430",
     "body": [
       {
         "type": "verse",
@@ -13847,7 +13847,7 @@ export const songs: NewSong[] = [
   {
     "number": 431,
     "name": "Abakund’ iby’ isi—-Ntabwo babihaga",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=431",
+    "url": "https://indirimbo.rw/song/gushimisha/431",
     "body": [
       {
         "type": "verse",
@@ -13889,7 +13889,7 @@ export const songs: NewSong[] = [
   {
     "number": 432,
     "name": "Abo mur’ iyi si—Izashira",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=432",
+    "url": "https://indirimbo.rw/song/gushimisha/432",
     "body": [
       {
         "type": "verse",
@@ -13935,7 +13935,7 @@ export const songs: NewSong[] = [
   {
     "number": 433,
     "name": "Yemw’ abasubir’ iyo muva",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=433",
+    "url": "https://indirimbo.rw/song/gushimisha/433",
     "body": [
       {
         "type": "verse",
@@ -13981,7 +13981,7 @@ export const songs: NewSong[] = [
   {
     "number": 434,
     "name": "Abo mur’ iyi si mbi",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=434",
+    "url": "https://indirimbo.rw/song/gushimisha/434",
     "body": [
       {
         "type": "verse",
@@ -14032,7 +14032,7 @@ export const songs: NewSong[] = [
   {
     "number": 435,
     "name": "Muze mwes’ abakijijwe",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=435",
+    "url": "https://indirimbo.rw/song/gushimisha/435",
     "body": [
       {
         "type": "verse",
@@ -14073,7 +14073,7 @@ export const songs: NewSong[] = [
   {
     "number": 436,
     "name": "Ubwo nagendaga ndemerewe",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=436",
+    "url": "https://indirimbo.rw/song/gushimisha/436",
     "body": [
       {
         "type": "verse",
@@ -14104,7 +14104,7 @@ export const songs: NewSong[] = [
   {
     "number": 437,
     "name": "Mp’ amavuta, Yesu, mbone kwaka",
-    "url": "https://indirimbo.rw/song?playlist=gushimisha&songNumber=437",
+    "url": "https://indirimbo.rw/song/gushimisha/437",
     "body": [
       {
         "type": "verse",
