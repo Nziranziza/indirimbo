@@ -41,7 +41,7 @@ function readSongs(filePath) {
 
     // Find the first verse or chorus (whichever comes first)
     const afterMatch = content.slice(match.index);
-    const firstSectionMatch = afterMatch.match(/"type"\s*:\s*"(?:verse|chorus)"[\s\S]*?"content"\s*:\s*"([^"]+)"/);
+    const firstSectionMatch = afterMatch.match(/"?type"?\s*:\s*"(?:verse|chorus)"[\s\S]*?"?content"?\s*:\s*"([^"]+)"/);
     const firstVerse = firstSectionMatch ? firstSectionMatch[1].replace(/\\n/g, '\n') : '';
 
     songs.push({ number, name, firstVerse });

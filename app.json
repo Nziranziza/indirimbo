@@ -58,7 +58,12 @@
       "bundler": "metro"
     },
     "plugins": [
-      "expo-router",
+      [
+        "expo-router",
+        {
+          "origin": "https://indirimbo.rw"
+        }
+      ],
       [
         "expo-splash-screen",
         {
