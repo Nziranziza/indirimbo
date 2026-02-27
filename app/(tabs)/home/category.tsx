@@ -36,8 +36,13 @@ export default function CategoryScreen() {
   return (
     <>
       <Head>
-        <title>{`${categoryName} | Indirimbo`}</title>
-        <meta name="description" content={`Browse ${categoryName} hymns from Gushimisha Imana hymnbook. ${songs.length} worship songs.`} />
+        <title>{`${categoryName} - Gushimisha Imana | Indirimbo`}</title>
+        <meta name="description" content={`Browse ${categoryName} hymns from Gushimisha Imana hymnbook. ${songs.length} worship songs with full lyrics.`} />
+        <meta property="og:title" content={`${categoryName} - Gushimisha Imana | Indirimbo`} />
+        <meta property="og:description" content={`Browse ${categoryName} hymns from Gushimisha Imana hymnbook. ${songs.length} worship songs with full lyrics.`} />
+        <meta property="og:image" content="https://indirimbo.rw/og-image.jpg" />
+        <meta property="og:url" content={`https://indirimbo.rw/category?index=${categoryIndex}`} />
+        <meta name="keywords" content={`${categoryName}, gushimisha imana, indirimbo, indirimbo zo gushimisha imana, rwandan hymns, worship songs`} />
       </Head>
       <SongListScreen
         title={categoryName}

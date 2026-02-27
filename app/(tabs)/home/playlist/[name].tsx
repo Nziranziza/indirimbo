@@ -58,6 +58,11 @@ export default function PlaylistScreen() {
       <Head>
         <title>{`${playlistTitle} | Indirimbo`}</title>
         <meta name="description" content={`Browse all ${songs.length} songs in the ${playlistTitle} hymnbook. Rwandan church worship songs with full lyrics.`} />
+        <meta property="og:title" content={`${playlistTitle} | Indirimbo`} />
+        <meta property="og:description" content={`Browse all ${songs.length} songs in the ${playlistTitle} hymnbook. Rwandan church worship songs with full lyrics.`} />
+        <meta property="og:image" content="https://indirimbo.rw/og-image.jpg" />
+        <meta property="og:url" content={`https://indirimbo.rw/playlist/${name}`} />
+        <meta name="keywords" content={`${playlistTitle}, indirimbo, ${name === 'agakiza' ? 'agakiza, indirimbo z\'agakiza' : 'gushimisha imana, indirimbo zo gushimisha imana'}, rwandan hymns, worship songs`} />
       </Head>
       <SongListScreen
         title={playlistTitle}

@@ -481,9 +481,9 @@ export default function SongScreen() {
   return (
     <ThemedView style={styles.container}>
       <Head>
-        <title>{`${currentSong.name} - ${playlistTitle} #${currentSong.number} | Indirimbo`}</title>
+        <title>{`${currentSong.name} | Indirimbo ya ${currentSong.number} mu ${playlist === 'agakiza' ? 'Gakiza' : 'Gushimisha Imana'}`}</title>
         <meta name="description" content={seoDescription} />
-        <meta property="og:title" content={`${currentSong.name} | Indirimbo`} />
+        <meta property="og:title" content={`${currentSong.name} | Indirimbo ya ${currentSong.number} mu ${playlist === 'agakiza' ? 'Gakiza' : 'Gushimisha Imana'}`} />
         <meta property="og:description" content={seoDescription} />
       </Head>
       <ThemedView style={[styles.header, { paddingTop: insets.top + 16 }]}>

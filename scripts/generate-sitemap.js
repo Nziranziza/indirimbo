@@ -34,6 +34,15 @@ function extractSongNumbers(filePath) {
 const gushimishaNumbers = extractSongNumbers(gushimishaSongsPath);
 const agakizaNumbers = extractSongNumbers(agakizaSongsPath);
 
+// Read category names for sitemap
+const categoriesPath = path.join(__dirname, '../constants/gushimisha-categories.ts');
+function extractCategoryCount(filePath) {
+  const content = fs.readFileSync(filePath, 'utf8');
+  const matches = content.match(/name:\s*"[^"]+"/g);
+  return matches ? matches.length : 0;
+}
+const categoryCount = extractCategoryCount(categoriesPath);
+
 // Static pages
 const staticPages = [
   { url: '', priority: '1.0', changefreq: 'weekly' },
@@ -57,6 +66,29 @@ for (const page of staticPages) {
     <lastmod>${today}</lastmod>
     <changefreq>${page.changefreq}</changefreq>
     <priority>${page.priority}</priority>
+  </url>
+`;
+}
+
+// Add playlist pages
+const playlistIds = ['agakiza', 'gushimisha'];
+for (const id of playlistIds) {
+  xml += `  <url>
+    <loc>${BASE_URL}/playlist/${id}</loc>
+    <lastmod>${today}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+`;
+}
+
+// Add category pages
+for (let i = 0; i < categoryCount; i++) {
+  xml += `  <url>
+    <loc>${BASE_URL}/category?index=${i}</loc>
+    <lastmod>${today}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
 `;
 }
@@ -86,4 +118,4 @@ xml += `</urlset>
 const outputPath = path.join(__dirname, '../public/sitemap.xml');
 fs.writeFileSync(outputPath, xml);
 
-console.log(`✅ Generated sitemap.xml with ${staticPages.length} static pages, ${gushimishaNumbers.length} gushimisha songs, and ${agakizaNumbers.length} agakiza songs`);
+console.log(`✅ Generated sitemap.xml with ${staticPages.length} static pages, ${playlistIds.length} playlists, ${categoryCount} categories, ${gushimishaNumbers.length} gushimisha songs, and ${agakizaNumbers.length} agakiza songs`);

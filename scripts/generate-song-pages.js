@@ -68,8 +68,9 @@ function buildDescription(song, playlistName) {
 }
 
 function generateSongHtml(song, playlist, playlistName) {
-  const title = escapeHtml(`${song.name} - ${playlistName} #${song.number} | Indirimbo`);
-  const ogTitle = escapeHtml(`${song.name} | Indirimbo`);
+  const playlistShort = playlist === 'agakiza' ? 'Gakiza' : 'Gushimisha Imana';
+  const title = escapeHtml(`${song.name} | Indirimbo ya ${song.number} mu ${playlistShort}`);
+  const ogTitle = escapeHtml(`${song.name} | Indirimbo ya ${song.number} mu ${playlistShort}`);
   const description = escapeHtml(buildDescription(song, playlistName));
   const canonicalUrl = `${BASE_URL}/song/${playlist}/${encodeURIComponent(song.number)}`;
 
