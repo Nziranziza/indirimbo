@@ -87,13 +87,14 @@ function readCategories() {
   const content = fs.readFileSync(filePath, 'utf8');
   const categories = [];
 
-  // Parse each category object: { name: "...", icon: "...", songs: [...] }
-  const categoryRegex = /\{\s*\n\s*name:\s*"([^"]+)",\s*\n\s*icon:\s*"([^"]+)",\s*\n\s*songs:\s*\[([^\]]*)\]/g;
+  // Parse each category object: { name: "...", slug: "...", icon: "...", songs: [...] }
+  const categoryRegex = /\{\s*\n\s*name:\s*"([^"]+)",\s*\n\s*slug:\s*"([^"]+)",\s*\n\s*icon:\s*"([^"]+)",\s*\n\s*songs:\s*\[([^\]]*)\]/g;
   let match;
   while ((match = categoryRegex.exec(content)) !== null) {
     const name = match[1];
+    const slug = match[2];
     // Count songs by extracting numbers from the songs array
-    const songsStr = match[3];
+    const songsStr = match[4];
     // Count range calls and individual numbers
     const rangeMatches = [...songsStr.matchAll(/range\((\d+),\s*(\d+)\)/g)];
     let songCount = 0;
@@ -107,7 +108,7 @@ function readCategories() {
       songCount += individualNums.length;
     }
 
-    categories.push({ name, songCount });
+    categories.push({ name, slug, songCount });
   }
 
   return categories;
@@ -144,9 +145,9 @@ const playlists = [
 for (const playlist of playlists) {
   const songCount = countSongs(playlist.file);
   const description = `Browse all ${songCount} songs in the ${playlist.name} hymnbook. Rwandan church worship songs with full lyrics.`;
-  const canonicalUrl = `${BASE_URL}/playlist/${playlist.id}`;
+  const canonicalUrl = `${BASE_URL}/home/playlist/${playlist.id}`;
 
-  const dir = path.join(distDir, 'playlist', playlist.id);
+  const dir = path.join(distDir, 'home', 'playlist', playlist.id);
   fs.mkdirSync(dir, { recursive: true });
 
   const html = generatePage({
@@ -164,13 +165,12 @@ for (const playlist of playlists) {
 // Generate category pages
 const categories = readCategories();
 
-for (let i = 0; i < categories.length; i++) {
-  const category = categories[i];
+for (const category of categories) {
   const description = `Browse ${category.name} hymns from Gushimisha Imana hymnbook. ${category.songCount} worship songs with full lyrics.`;
-  const canonicalUrl = `${BASE_URL}/category?index=${i}`;
+  const canonicalUrl = `${BASE_URL}/home/category/${category.slug}`;
   const keywords = `${category.name}, gushimisha imana, indirimbo, indirimbo zo gushimisha imana, rwandan hymns, worship songs`;
 
-  const dir = path.join(distDir, 'category', String(i));
+  const dir = path.join(distDir, 'home', 'category', category.slug);
   fs.mkdirSync(dir, { recursive: true });
 
   const html = generatePage({

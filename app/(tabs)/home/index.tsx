@@ -131,8 +131,8 @@ export default function HomeScreen() {
                 activeOpacity={0.7}
                 onPress={() => {
                   router.push({
-                    pathname: '/(tabs)/home/category',
-                    params: { index: String(index) },
+                    pathname: '/(tabs)/home/category/[slug]',
+                    params: { slug: category.slug },
                   });
                 }}>
                 <IconSymbol name={category.icon as IconSymbolName} size={14} color={colors.tint} />

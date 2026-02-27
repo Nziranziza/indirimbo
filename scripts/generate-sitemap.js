@@ -34,14 +34,14 @@ function extractSongNumbers(filePath) {
 const gushimishaNumbers = extractSongNumbers(gushimishaSongsPath);
 const agakizaNumbers = extractSongNumbers(agakizaSongsPath);
 
-// Read category names for sitemap
+// Read category slugs for sitemap
 const categoriesPath = path.join(__dirname, '../constants/gushimisha-categories.ts');
-function extractCategoryCount(filePath) {
+function extractCategorySlugs(filePath) {
   const content = fs.readFileSync(filePath, 'utf8');
-  const matches = content.match(/name:\s*"[^"]+"/g);
-  return matches ? matches.length : 0;
+  const matches = [...content.matchAll(/slug:\s*"([^"]+)"/g)];
+  return matches.map((m) => m[1]);
 }
-const categoryCount = extractCategoryCount(categoriesPath);
+const categorySlugs = extractCategorySlugs(categoriesPath);
 
 // Static pages
 const staticPages = [
@@ -74,7 +74,7 @@ for (const page of staticPages) {
 const playlistIds = ['agakiza', 'gushimisha'];
 for (const id of playlistIds) {
   xml += `  <url>
-    <loc>${BASE_URL}/playlist/${id}</loc>
+    <loc>${BASE_URL}/home/playlist/${id}</loc>
     <lastmod>${today}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -83,9 +83,9 @@ for (const id of playlistIds) {
 }
 
 // Add category pages
-for (let i = 0; i < categoryCount; i++) {
+for (const slug of categorySlugs) {
   xml += `  <url>
-    <loc>${BASE_URL}/category?index=${i}</loc>
+    <loc>${BASE_URL}/home/category/${slug}</loc>
     <lastmod>${today}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -118,4 +118,4 @@ xml += `</urlset>
 const outputPath = path.join(__dirname, '../public/sitemap.xml');
 fs.writeFileSync(outputPath, xml);
 
-console.log(`✅ Generated sitemap.xml with ${staticPages.length} static pages, ${playlistIds.length} playlists, ${categoryCount} categories, ${gushimishaNumbers.length} gushimisha songs, and ${agakizaNumbers.length} agakiza songs`);
+console.log(`✅ Generated sitemap.xml with ${staticPages.length} static pages, ${playlistIds.length} playlists, ${categorySlugs.length} categories, ${gushimishaNumbers.length} gushimisha songs, and ${agakizaNumbers.length} agakiza songs`);
