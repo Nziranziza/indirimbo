@@ -97,7 +97,8 @@ export default function HomeScreen() {
     <ThemedView style={styles.container}>
       <Head>
         <title>Indirimbo - z'Agakiza no Gushimisha Imana</title>
-        <meta name="description" content="Browse hymns from Agakiza and Gushimisha Imana hymnbooks. Find Rwandan church worship songs with full lyrics." />
+        <meta name="description" content="Shakisha indirimbo z'agakiza n'izo gushimisha Imana. Igitabo cy'indirimbo zo mu matorero, amagambo yose y'indirimbo z'abarokore. Find Rwandan worship songs with full lyrics." />
+        <meta name="keywords" content="indirimbo, indirimbo zo mugitabo, indirimbo z'agakiza, indirimbo zo gushimisha imana, igitabo cy'indirimbo, indirimbo z'abarokore, indirimbo zo guhimbaza imana, rwandan hymns, worship songs" />
       </Head>
       {/* Ambient tint glow behind the header */}
       <LinearGradient

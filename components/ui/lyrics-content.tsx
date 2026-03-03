@@ -39,7 +39,7 @@ function isInlineRepeat(parts: LyricsPart[], index: number): boolean {
   return true;
 }
 
-// Render inline content - split text into words for natural wrapping
+// Render inline content for a single line
 function InlineContent({
   parts,
   style,
@@ -49,45 +49,37 @@ function InlineContent({
   style?: StyleProp<TextStyle>;
   tintColor: string;
 }) {
-  // Build array of renderable items (words and repeats)
-  const items: React.ReactNode[] = [];
-  let keyIndex = 0;
-
-  for (const part of parts) {
-    if (part.type === 'text') {
-      // Split text into words, preserving spaces
-      const words = part.content.split(/(\s+)/);
-      for (const word of words) {
-        if (word) {
-          items.push(
-            <ThemedText key={keyIndex++} style={style}>{word}</ThemedText>
-          );
-        }
-      }
-    } else {
-      // Repeat part - render with gradient and badge
-      items.push(
-        <View key={keyIndex++} style={styles.inlineRepeatWrapper}>
-          <LinearGradient
-            colors={['transparent', tintColor + '20']}
-            start={{ x: 0, y: 0 }}
-            end={{ x: 1, y: 0 }}
-            style={StyleSheet.absoluteFill}
-          />
-          <ThemedText style={style}>{part.content}</ThemedText>
-          <View style={[styles.inlineRepeatBadge, { backgroundColor: tintColor }]}>
-            <Text style={[styles.inlineBadgeText, { color: getContrastTextColor(tintColor) }]}>
-              ×{part.repeatCount}
-            </Text>
-          </View>
-        </View>
-      );
-    }
+  // If this line has no repeat parts, render as a single ThemedText
+  const hasRepeat = parts.some(p => p.type === 'repeat');
+  if (!hasRepeat) {
+    const text = parts.map(p => p.content).join('');
+    return <ThemedText style={style}>{text}</ThemedText>;
   }
 
+  // Line has a repeat badge - use flex row layout
   return (
     <View style={styles.inlineContainer}>
-      {items}
+      {parts.map((part, index) => {
+        if (part.type === 'text') {
+          return <ThemedText key={index} style={style}>{part.content}</ThemedText>;
+        }
+        return (
+          <View key={index} style={styles.inlineRepeatWrapper}>
+            <LinearGradient
+              colors={['transparent', tintColor + '20']}
+              start={{ x: 0, y: 0 }}
+              end={{ x: 1, y: 0 }}
+              style={StyleSheet.absoluteFill}
+            />
+            <ThemedText style={style}>{part.content}</ThemedText>
+            <View style={[styles.inlineRepeatBadge, { backgroundColor: tintColor }]}>
+              <Text style={[styles.inlineBadgeText, { color: getContrastTextColor(tintColor) }]}>
+                ×{part.repeatCount}
+              </Text>
+            </View>
+          </View>
+        );
+      })}
     </View>
   );
 }

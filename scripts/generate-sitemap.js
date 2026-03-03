@@ -46,9 +46,6 @@ const categorySlugs = extractCategorySlugs(categoriesPath);
 // Static pages
 const staticPages = [
   { url: '', priority: '1.0', changefreq: 'weekly' },
-  { url: '/search', priority: '0.8', changefreq: 'monthly' },
-  { url: '/favorites', priority: '0.5', changefreq: 'monthly' },
-  { url: '/settings', priority: '0.3', changefreq: 'monthly' },
   { url: '/about', priority: '0.6', changefreq: 'monthly' },
   { url: '/support', priority: '0.4', changefreq: 'monthly' },
   { url: '/privacy-policy', priority: '0.3', changefreq: 'yearly' },

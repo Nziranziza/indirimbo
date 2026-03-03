@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://nziranziza.github.io/indirimbo/sitemap.xml
+Sitemap: https://indirimbo.rw/sitemap.xml

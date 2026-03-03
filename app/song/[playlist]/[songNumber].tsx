@@ -485,6 +485,7 @@ export default function SongScreen() {
         <meta name="description" content={seoDescription} />
         <meta property="og:title" content={`${currentSong.name} | Indirimbo ya ${currentSong.number} mu ${playlist === 'agakiza' ? 'Gakiza' : 'Gushimisha Imana'}`} />
         <meta property="og:description" content={seoDescription} />
+        <meta name="keywords" content={`${currentSong.name}, indirimbo ya ${currentSong.number}, ${playlistTitle}, indirimbo, indirimbo zo mugitabo, ${playlist === 'agakiza' ? "indirimbo z'agakiza, indirimbo z'abarokore" : 'indirimbo zo gushimisha imana'}`} />
       </Head>
       <ThemedView style={[styles.header, { paddingTop: insets.top + 16 }]}>
         <BackButton
