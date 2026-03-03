@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Linking, Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-import { APP_STORE_URL, APP_UNIVERSAL_LINK_URL, PLAY_STORE_URL } from '@/constants/app-links';
+import { APP_STORE_URL, PLAY_STORE_URL } from '@/constants/app-links';
 import { useColors } from '@/hooks/use-colors';
 
 const APP_SCHEME = 'indirimbo://';
@@ -15,11 +15,6 @@ function getCurrentWebPath() {
   const { pathname, search, hash } = window.location;
   const path = `${pathname || '/'}${search || ''}${hash || ''}`;
   return path.startsWith('/') ? path : `/${path}`;
-}
-
-function joinBaseAndPath(base: string, path: string) {
-  // Use URL to avoid accidental double slashes, and to keep query/hash intact.
-  return new URL(path, base.endsWith('/') ? base : `${base}/`).toString();
 }
 
 function getMobilePlatform(userAgent: string) {
@@ -50,32 +45,28 @@ export function AppInstallBanner() {
       (window.navigator as typeof window.navigator & { standalone?: boolean }).standalone ||
       false;
 
+    // On iOS Safari, the native Smart App Banner (via apple-itunes-app meta
+    // tag) already handles open/install — skip the custom banner to avoid
+    // duplicates. Other iOS browsers (Chrome, Firefox, etc.) don't support
+    // the native banner, so show the custom one there.
+    const isSafari = detectedPlatform === 'ios'
+      && /safari/i.test(userAgent)
+      && !/crios|fxios|opios|edgios/i.test(userAgent);
+
     setPlatform(detectedPlatform);
-    setIsVisible(Boolean(detectedPlatform) && !isStandalone);
+    setIsVisible(Boolean(detectedPlatform) && !isStandalone && !isSafari);
   }, []);
 
   useEffect(() => {
-    if (Platform.OS !== 'web') {
-      return;
+    // On mobile web, Linking.canOpenURL for custom schemes is unreliable
+    // (always fails on iOS Safari). When we know the app exists (store URL
+    // is set), optimistically assume it can be opened — handleOpenApp will
+    // fall back to the store if the app isn't installed.
+    if (platform) {
+      const hasStoreUrl = (platform === 'ios' && APP_STORE_URL) || (platform === 'android' && PLAY_STORE_URL);
+      setCanOpenApp(Boolean(hasStoreUrl));
     }
-
-    let active = true;
-    Linking.canOpenURL(APP_SCHEME)
-      .then((supported) => {
-        if (active) {
-          setCanOpenApp(Boolean(supported));
-        }
-      })
-      .catch(() => {
-        if (active) {
-          setCanOpenApp(false);
-        }
-      });
-
-    return () => {
-      active = false;
-    };
-  }, []);
+  }, [platform]);
 
   const storeUrl = useMemo(() => {
     if (platform === 'ios') {
@@ -89,30 +80,40 @@ export function AppInstallBanner() {
 
   const handleOpenApp = async () => {
     const currentPath = getCurrentWebPath();
-    const openUrl = platform
-      ? joinBaseAndPath(APP_UNIVERSAL_LINK_URL, currentPath)
-      : `${APP_SCHEME.replace(/\/+$/, '')}${currentPath}`;
 
-    if (Platform.OS === 'web' && typeof window !== 'undefined' && platform === 'ios') {
-      // iOS Safari is picky; use a direct location change with a fallback.
+    if (typeof window !== 'undefined' && platform) {
+      // Use the custom scheme to open the installed app. Universal links
+      // don't trigger from the same domain, so the custom scheme is more
+      // reliable here.
+      const schemeUrl = `${APP_SCHEME.replace(/\/+$/, '')}${currentPath}`;
       const fallback = storeUrl;
-      const timeout = fallback
-        ? window.setTimeout(() => {
-            window.location.href = fallback;
-          }, 1400)
+
+      // Navigate to the custom scheme. If the app is installed it will
+      // open; if not, the browser stays on the page and the fallback
+      // timer redirects to the store after a short delay.
+      const fallbackTimer = fallback
+        ? window.setTimeout(() => { window.location.href = fallback; }, 1500)
         : null;
 
-      window.location.href = openUrl;
+      window.location.href = schemeUrl;
 
-      window.setTimeout(() => {
-        if (timeout) {
-          window.clearTimeout(timeout);
+      // If the app opens, the page will be hidden. Clear the fallback
+      // so the user isn't redirected to the store when they return.
+      const onVisibilityChange = () => {
+        if (document.hidden && fallbackTimer) {
+          window.clearTimeout(fallbackTimer);
         }
+      };
+      document.addEventListener('visibilitychange', onVisibilityChange, { once: true });
+
+      // Clean up the listener after the fallback window.
+      window.setTimeout(() => {
+        document.removeEventListener('visibilitychange', onVisibilityChange);
       }, 2000);
       return;
     }
 
-    await Linking.openURL(openUrl);
+    await Linking.openURL(`${APP_SCHEME.replace(/\/+$/, '')}${currentPath}`);
   };
 
   const handleInstall = async () => {
