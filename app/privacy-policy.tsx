@@ -2,6 +2,7 @@ import { CollapsibleHeaderScrollView } from '@/components/collapsible-header-scr
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { IconSymbol } from '@/components/ui/icon-symbol';
+import { FloatingShareButton } from '@/components/ui/floating-share-button';
 import { useColors } from '@/hooks/use-colors';
 import * as Clipboard from 'expo-clipboard';
 import Head from 'expo-router/head';
@@ -33,7 +34,8 @@ export default function PrivacyPolicyScreen() {
     </Head>
     <CollapsibleHeaderScrollView
       title="Privacy Policy"
-      subtitle="How we handle information in the app">
+      subtitle="How we handle information in the app"
+      extraBottomPadding={80}>
       <ThemedText style={[styles.date, { opacity: 0.5 }]}>
         Last Updated: February 1, 2026
       </ThemedText>
@@ -150,6 +152,7 @@ export default function PrivacyPolicyScreen() {
         </TouchableOpacity>
       </ThemedView>
     </CollapsibleHeaderScrollView>
+    <FloatingShareButton />
     </>
   );
 }

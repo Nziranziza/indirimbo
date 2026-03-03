@@ -2,6 +2,7 @@ import { CollapsibleHeaderScrollView } from '@/components/collapsible-header-scr
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { IconSymbol } from '@/components/ui/icon-symbol';
+import { FloatingShareButton } from '@/components/ui/floating-share-button';
 import { useColors } from '@/hooks/use-colors';
 import { router } from 'expo-router';
 import Head from 'expo-router/head';
@@ -32,6 +33,7 @@ export default function AboutScreen() {
       title="About Indirimbo"
       headerMaxHeight={240}
       contentGap={20}
+      extraBottomPadding={80}
       headerContent={
         <View style={styles.heroSection}>
           <Image
@@ -42,7 +44,7 @@ export default function AboutScreen() {
             Indirimbo
           </ThemedText>
           <ThemedText style={styles.tagline}>
-            Rwandan Hymns & Worship Songs
+            Gushimisha Imana & Agakiza
           </ThemedText>
         </View>
       }>
@@ -176,6 +178,7 @@ export default function AboutScreen() {
 
       <ThemedText style={styles.version}>Version 1.0.0</ThemedText>
     </CollapsibleHeaderScrollView>
+    <FloatingShareButton />
     </>
   );
 }

@@ -3,6 +3,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 interface TabScrollViewProps extends ScrollViewProps {
   children: React.ReactNode;
+  extraBottomPadding?: number;
 }
 
 /**
@@ -10,10 +11,11 @@ interface TabScrollViewProps extends ScrollViewProps {
  * Use this instead of regular ScrollView in tab screens to ensure content is not hidden behind the tab bar
  */
 export function TabScrollView({ 
-  children, 
-  contentContainerStyle, 
+  children,
+  contentContainerStyle,
+  extraBottomPadding = 0,
   style,
-  ...props 
+  ...props
 }: TabScrollViewProps) {
   const isOs = Platform.OS === 'ios';
   const insets = useSafeAreaInsets();
@@ -22,7 +24,7 @@ export function TabScrollView({
     <ScrollView
       style={[styles.scrollView, style]}
       contentContainerStyle={[contentContainerStyle, {
-        paddingBottom: isOs ? 16 : bottomPadding + 90,
+        paddingBottom: (isOs ? 16 : bottomPadding + 90) + extraBottomPadding,
       }]}
       contentInsetAdjustmentBehavior={isOs ? 'automatic' : undefined}
       showsVerticalScrollIndicator={true}

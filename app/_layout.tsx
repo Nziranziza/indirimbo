@@ -88,6 +88,14 @@ function RootLayoutContent() {
           }}
         />
         <Stack.Screen
+          name="download"
+          options={{
+            headerShown: false,
+            animation: 'slide_from_right',
+            animationDuration: Platform.OS === 'ios' ? 350 : 300,
+          }}
+        />
+        <Stack.Screen
           name="modal"
           options={{
             presentation: 'modal',

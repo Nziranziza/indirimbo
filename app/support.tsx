@@ -2,6 +2,7 @@ import { CollapsibleHeaderScrollView } from '@/components/collapsible-header-scr
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { IconSymbol } from '@/components/ui/icon-symbol';
+import { FloatingShareButton } from '@/components/ui/floating-share-button';
 import { useColors } from '@/hooks/use-colors';
 import * as Clipboard from 'expo-clipboard';
 import { router } from 'expo-router';
@@ -32,7 +33,8 @@ export default function SupportScreen() {
     </Head>
     <CollapsibleHeaderScrollView
       title="Support"
-      subtitle="Get help with using Indirimbo">
+      subtitle="Get help with using Indirimbo"
+      extraBottomPadding={80}>
       {/* Getting Started */}
       <ThemedView
         style={[
@@ -159,6 +161,7 @@ export default function SupportScreen() {
         </TouchableOpacity>
       </ThemedView>
     </CollapsibleHeaderScrollView>
+    <FloatingShareButton />
     </>
   );
 }

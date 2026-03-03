@@ -1,7 +1,9 @@
 import { TabScrollView } from '@/components/tab-scroll-view';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
+import { FloatingShareButton } from '@/components/ui/floating-share-button';
 import { IconSymbol } from '@/components/ui/icon-symbol';
+import { APP_STORE_URL, APP_UNIVERSAL_LINK_URL, PLAY_STORE_URL } from '@/constants/app-links';
 import { TintColorOptions } from '@/constants/theme';
 import { useTheme } from '@/contexts/theme-context';
 import { useColors } from '@/hooks/use-colors';
@@ -10,7 +12,7 @@ import * as Haptics from 'expo-haptics';
 import { router, useFocusEffect } from 'expo-router';
 import Head from 'expo-router/head';
 import { useCallback, useEffect, useState } from 'react';
-import { Dimensions, Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Dimensions, Linking, Platform, Share, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export default function SettingsScreen() {
@@ -86,6 +88,23 @@ export default function SettingsScreen() {
     }
   };
 
+  const handleShareApp = async () => {
+    const message = `Check out Indirimbo - Agakiza no Gushimisha Imana\n\n${APP_UNIVERSAL_LINK_URL}/download`;
+    try {
+      await Share.share(
+        { message, title: 'Indirimbo - Rwandan Hymns & Worship Songs' },
+        { dialogTitle: 'Share Indirimbo' },
+      );
+    } catch {}
+  };
+
+  const handleRateApp = async () => {
+    const url = Platform.OS === 'ios' ? APP_STORE_URL : PLAY_STORE_URL;
+    if (url) {
+      await Linking.openURL(url);
+    }
+  };
+
   const fontSizeOptions: { label: string; value: FontSize; description: string }[] = [
     { label: 'Small', value: 'small', description: 'Compact text for more content' },
     { label: 'Medium', value: 'medium', description: 'Balanced size (recommended)' },
@@ -113,8 +132,9 @@ export default function SettingsScreen() {
         </ThemedText>
       </ThemedView>
 
-      <TabScrollView 
-        contentContainerStyle={styles.scrollContent}>
+      <TabScrollView
+        contentContainerStyle={styles.scrollContent}
+        extraBottomPadding={80}>
         {/* Text Size Group */}
         <ThemedView style={[styles.groupContainer, { backgroundColor: colors.background, borderColor: colors.icon + '15' }]}>
           <ThemedView style={[styles.groupHeader, { borderBottomColor: colors.icon + '10' }]}>
@@ -283,6 +303,65 @@ export default function SettingsScreen() {
           </ThemedView>
         </ThemedView>
 
+        {/* Share & Download Group */}
+        <ThemedView style={[styles.groupContainer, { backgroundColor: colors.background, borderColor: colors.icon + '15' }]}>
+          <ThemedView style={[styles.groupHeader, { borderBottomColor: colors.icon + '10' }]}>
+            <IconSymbol name="square.and.arrow.up" size={20} color={colors.tint} />
+            <ThemedText type="subtitle" style={styles.groupTitle}>
+              {Platform.OS === 'web' ? 'Share & Download' : 'Share & Rate'}
+            </ThemedText>
+          </ThemedView>
+
+          <ThemedText style={[styles.groupDescription, { opacity: 0.7 }]}>
+            Spread the word and help others discover Indirimbo
+          </ThemedText>
+
+          <ThemedView style={styles.legalLinksContainer}>
+            <TouchableOpacity
+              onPress={handleShareApp}
+              style={[styles.legalLink, { borderBottomColor: colors.icon + '10' }]}
+              activeOpacity={0.7}>
+              <View style={styles.legalLinkContent}>
+                <IconSymbol name="person.2.fill" size={20} color={colors.icon} />
+                <ThemedText type="defaultSemiBold" style={styles.legalLinkText}>
+                  Share with Friends
+                </ThemedText>
+              </View>
+              <IconSymbol name="arrow.up.forward" size={20} color={colors.icon} />
+            </TouchableOpacity>
+
+            {Platform.OS !== 'web' && (
+              <TouchableOpacity
+                onPress={handleRateApp}
+                style={[styles.legalLink, { borderBottomWidth: 0 }]}
+                activeOpacity={0.7}>
+                <View style={styles.legalLinkContent}>
+                  <IconSymbol name="star.fill" size={20} color={colors.icon} />
+                  <ThemedText type="defaultSemiBold" style={styles.legalLinkText}>
+                    {Platform.OS === 'ios' ? 'Rate on App Store' : 'Rate on Play Store'}
+                  </ThemedText>
+                </View>
+                <IconSymbol name="arrow.up.forward" size={20} color={colors.icon} />
+              </TouchableOpacity>
+            )}
+
+            {Platform.OS === 'web' && (
+              <TouchableOpacity
+                onPress={() => router.push('/download')}
+                style={[styles.legalLink, { borderBottomWidth: 0 }]}
+                activeOpacity={0.7}>
+                <View style={styles.legalLinkContent}>
+                  <IconSymbol name="arrow.down.circle.fill" size={20} color={colors.icon} />
+                  <ThemedText type="defaultSemiBold" style={styles.legalLinkText}>
+                    Download the App
+                  </ThemedText>
+                </View>
+                <IconSymbol name="arrow.right" size={20} color={colors.icon} />
+              </TouchableOpacity>
+            )}
+          </ThemedView>
+        </ThemedView>
+
         {/* Legal & Info Group */}
         <ThemedView style={[
           styles.groupContainer,
@@ -355,6 +434,7 @@ export default function SettingsScreen() {
           </ThemedView>
         </ThemedView>
       </TabScrollView>
+      <FloatingShareButton inTabs />
     </ThemedView>
   );
 }

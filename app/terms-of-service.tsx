@@ -2,6 +2,7 @@ import { CollapsibleHeaderScrollView } from '@/components/collapsible-header-scr
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { IconSymbol } from '@/components/ui/icon-symbol';
+import { FloatingShareButton } from '@/components/ui/floating-share-button';
 import { useColors } from '@/hooks/use-colors';
 import * as Clipboard from 'expo-clipboard';
 import Head from 'expo-router/head';
@@ -33,7 +34,8 @@ export default function TermsOfServiceScreen() {
     </Head>
     <CollapsibleHeaderScrollView
       title="Terms of Service"
-      subtitle="Guidelines for using the app">
+      subtitle="Guidelines for using the app"
+      extraBottomPadding={80}>
       <ThemedText style={[styles.date, { opacity: 0.5 }]}>
         Last Updated: February 1, 2026
       </ThemedText>
@@ -162,6 +164,7 @@ export default function TermsOfServiceScreen() {
         </TouchableOpacity>
       </ThemedView>
     </CollapsibleHeaderScrollView>
+    <FloatingShareButton />
     </>
   );
 }

@@ -21,6 +21,7 @@ interface CollapsibleHeaderScrollViewProps {
   headerContent?: React.ReactNode;
   headerMaxHeight?: number;
   contentGap?: number;
+  extraBottomPadding?: number;
   children: React.ReactNode;
 }
 
@@ -30,6 +31,7 @@ export function CollapsibleHeaderScrollView({
   headerContent,
   headerMaxHeight = DEFAULT_HEADER_MAX_HEIGHT,
   contentGap = 12,
+  extraBottomPadding = 0,
   children,
 }: CollapsibleHeaderScrollViewProps) {
   const HEADER_SCROLL_DISTANCE = headerMaxHeight - HEADER_MIN_HEIGHT;
@@ -172,7 +174,7 @@ export function CollapsibleHeaderScrollView({
           styles.scrollContent,
           {
             paddingTop: headerMaxHeight + insets.top + 16,
-            paddingBottom: insets.bottom + 20,
+            paddingBottom: insets.bottom + 20 + extraBottomPadding,
             gap: contentGap,
           },
         ]}
