@@ -80,12 +80,20 @@ export function AppInstallBanner() {
 
   const handleOpenApp = async () => {
     const currentPath = getCurrentWebPath();
+    const scheme = APP_SCHEME.replace(/\/+$/, '');
 
-    if (typeof window !== 'undefined' && platform) {
-      // Use the custom scheme to open the installed app. Universal links
-      // don't trigger from the same domain, so the custom scheme is more
-      // reliable here.
-      const schemeUrl = `${APP_SCHEME.replace(/\/+$/, '')}${currentPath}`;
+    if (typeof window !== 'undefined' && platform === 'android') {
+      // On Android, use an Intent URL so Chrome natively falls back to the
+      // Play Store when the app isn't installed. A plain custom-scheme URL
+      // would show an error page instead.
+      const fallback = storeUrl ? `S.browser_fallback_url=${encodeURIComponent(storeUrl)};` : '';
+      const intentUrl = `intent:/${currentPath}#Intent;scheme=indirimbo;package=com.indirimbo.app;${fallback}end`;
+      window.location.href = intentUrl;
+      return;
+    }
+
+    if (typeof window !== 'undefined' && platform === 'ios') {
+      const schemeUrl = `${scheme}${currentPath}`;
       const fallback = storeUrl;
 
       // Navigate to the custom scheme. If the app is installed it will
@@ -106,14 +114,13 @@ export function AppInstallBanner() {
       };
       document.addEventListener('visibilitychange', onVisibilityChange, { once: true });
 
-      // Clean up the listener after the fallback window.
       window.setTimeout(() => {
         document.removeEventListener('visibilitychange', onVisibilityChange);
       }, 2000);
       return;
     }
 
-    await Linking.openURL(`${APP_SCHEME.replace(/\/+$/, '')}${currentPath}`);
+    await Linking.openURL(`${scheme}${currentPath}`);
   };
 
   const handleInstall = async () => {
