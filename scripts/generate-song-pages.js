@@ -91,18 +91,20 @@ function generateSongHtml(song, playlist, playlistName) {
   <meta name="twitter:title" content="${ogTitle}" />
   <meta name="twitter:description" content="${description}" />
   <meta name="twitter:image" content="${OG_IMAGE}" />
-  <link rel="canonical" href="${canonicalUrl}" />`;
+  <link rel="canonical" href="${canonicalUrl}" />
+  <meta name="apple-itunes-app" content="app-id=6758376573, app-argument=${canonicalUrl}" />`;
 
   let html = templateHtml;
 
   // Replace the title
   html = html.replace(/<title[^>]*>.*?<\/title>/, `<title>${title}</title>`);
 
-  // Remove existing default OG/Twitter/description/canonical meta tags
+  // Remove existing default OG/Twitter/description/canonical/smart-banner meta tags
   html = html.replace(/<meta\s+name="description"[^>]*>/g, '');
   html = html.replace(/<meta\s+property="og:[^"]*"[^>]*>/g, '');
   html = html.replace(/<meta\s+name="twitter:[^"]*"[^>]*>/g, '');
   html = html.replace(/<link\s+rel="canonical"[^>]*>/g, '');
+  html = html.replace(/<meta\s+name="apple-itunes-app"[^>]*>/g, '');
 
   // Inject song-specific meta tags right after <head>
   html = html.replace(/<head>/, `<head>${songMeta}`);
