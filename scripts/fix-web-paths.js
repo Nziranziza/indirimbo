@@ -19,9 +19,7 @@ const normalizedBasePath = basePath
   ? basePath.startsWith('/') ? basePath : `/${basePath}`
   : '';
 
-const BASE_URL = normalizedBasePath
-  ? `https://nziranziza.github.io${normalizedBasePath}`
-  : 'https://nziranziza.github.io/indirimbo';
+const BASE_URL = 'https://indirimbo.rw';
 
 if (normalizedBasePath) {
   // Replace absolute paths with paths relative to the base path
