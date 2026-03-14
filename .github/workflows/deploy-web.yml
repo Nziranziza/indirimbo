@@ -33,20 +33,11 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Generate sitemap
-        run: node scripts/generate-sitemap.js
-
       - name: Build web
         run: npm run build:web:gh-pages
 
       - name: Copy 404.html for SPA routing
         run: cp public/404.html dist/404.html
-
-      - name: Fix base paths in exported HTML
-        run: node scripts/fix-web-paths.js
-
-      - name: Generate static song pages for OG previews
-        run: node scripts/generate-song-pages.js
 
       - name: Add .nojekyll file
         run: touch dist/.nojekyll

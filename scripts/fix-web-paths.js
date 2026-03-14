@@ -56,7 +56,7 @@ const seoMetaTags = `
   <meta name="twitter:description" content="Browse and search Rwandan church hymns from Agakiza and Gushimisha Imana hymnbooks." />
   <meta name="twitter:image" content="${BASE_URL}/og-image.jpg" />
   <link rel="canonical" href="${BASE_URL}" />
-  <meta name="apple-itunes-app" content="app-id=6758376573, app-argument=${BASE_URL}" />
+  <meta name="apple-itunes-app" content="app-id=6758376573" />
 `;
 
 if (!html.includes('og:title')) {

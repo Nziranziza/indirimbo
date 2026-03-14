@@ -92,7 +92,7 @@ function generateSongHtml(song, playlist, playlistName) {
   <meta name="twitter:description" content="${description}" />
   <meta name="twitter:image" content="${OG_IMAGE}" />
   <link rel="canonical" href="${canonicalUrl}" />
-  <meta name="apple-itunes-app" content="app-id=6758376573, app-argument=${canonicalUrl}" />`;
+  <meta name="apple-itunes-app" content="app-id=6758376573" />`;
 
   let html = templateHtml;
 
