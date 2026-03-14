@@ -4,6 +4,7 @@
  */
 
 import { Platform } from 'react-native';
+import type { ThemePreference } from '@/utils/storage';
 
 // Predefined tint color options that work well in both light and dark modes
 export const TintColorOptions = {
@@ -126,3 +127,9 @@ export const Fonts = Platform.select({
     mono: "SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
   },
 });
+
+export const THEME_OPTIONS: { label: string; value: ThemePreference; description: string; icon: string }[] = [
+  { label: 'Light', value: 'light', description: 'Always use light theme', icon: 'sun.max' },
+  { label: 'Dark', value: 'dark', description: 'Always use dark theme', icon: 'moon' },
+  { label: 'Auto', value: 'auto', description: 'Follow system setting', icon: 'circle.lefthalf.filled' },
+];

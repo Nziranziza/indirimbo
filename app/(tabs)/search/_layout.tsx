@@ -13,7 +13,6 @@ export default function SearchLayout() {
         headerShown: isIOS,
         headerLargeTitleEnabled: isIOS,
         headerShadowVisible: false,
-        headerBlurEffect: 'regular',
         headerStyle: { backgroundColor: colors.background },
         headerTintColor: colors.text,
         animation: 'default',

@@ -35,7 +35,8 @@ export default function PrivacyPolicyScreen() {
     <CollapsibleHeaderScrollView
       title="Privacy Policy"
       subtitle="How we handle information in the app"
-      extraBottomPadding={80}>
+      extraBottomPadding={80}
+      fallbackHref="/(tabs)/settings">
       <ThemedText style={[styles.date, { opacity: 0.5 }]}>
         Last Updated: February 1, 2026
       </ThemedText>

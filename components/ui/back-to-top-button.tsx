@@ -17,8 +17,7 @@ interface BackToTopButtonProps {
 export function BackToTopButton({ scrollY, onPress }: BackToTopButtonProps) {
   const colors = useColors();
   const insets = useSafeAreaInsets();
-  const TAB_BAR_OFFSET = Platform.select({ ios: 70, web: 20, default: 100 });
-  const bottom = insets.bottom + TAB_BAR_OFFSET;
+  const bottom = Platform.OS === 'ios' ? insets.bottom + 16 : 16;
 
   const animatedStyle = useAnimatedStyle(() => {
     'worklet';

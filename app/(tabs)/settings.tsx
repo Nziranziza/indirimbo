@@ -1,28 +1,53 @@
-import { TabScrollView } from '@/components/tab-scroll-view';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { FloatingShareButton } from '@/components/ui/floating-share-button';
-import { IconSymbol } from '@/components/ui/icon-symbol';
-import { APP_STORE_URL, APP_UNIVERSAL_LINK_URL, PLAY_STORE_URL } from '@/constants/app-links';
-import { TintColorOptions } from '@/constants/theme';
-import { useTheme } from '@/contexts/theme-context';
-import { useColors } from '@/hooks/use-colors';
-import { getFontSize, setFontSize, type FontSize, type ThemePreference, type TintColorKey } from '@/utils/storage';
-import * as Haptics from 'expo-haptics';
-import { router, useFocusEffect } from 'expo-router';
-import Head from 'expo-router/head';
-import { useCallback, useEffect, useState } from 'react';
-import { Dimensions, Linking, Platform, Share, StyleSheet, TouchableOpacity, View } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { TabCollapsibleScrollView } from "@/components/tab-collapsible-scroll-view";
+import { ThemedText } from "@/components/themed-text";
+import { ThemedView } from "@/components/themed-view";
+import { FloatingShareButton } from "@/components/ui/floating-share-button";
+import { IconSymbol } from "@/components/ui/icon-symbol";
+import {
+  APP_STORE_URL,
+  APP_UNIVERSAL_LINK_URL,
+  PLAY_STORE_URL,
+} from "@/constants/app-links";
+import { THEME_OPTIONS, TintColorOptions } from "@/constants/theme";
+import { FONT_SIZE_OPTIONS, FONT_SIZES } from "@/constants/typography";
+import { useColorScheme, useTheme } from "@/contexts/theme-context";
+import { useColors } from "@/hooks/use-colors";
+import {
+  getFontSize,
+  setFontSize,
+  type FontSize,
+  type ThemePreference,
+  type TintColorKey,
+} from "@/utils/storage";
+import * as Haptics from "expo-haptics";
+import { router, useFocusEffect } from "expo-router";
+import Head from "expo-router/head";
+import { useCallback, useEffect, useState } from "react";
+import {
+  Dimensions,
+  Linking,
+  Platform,
+  Share,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import SegmentedControl from "@react-native-segmented-control/segmented-control";
 
 export default function SettingsScreen() {
-  const [fontSize, setFontSizeState] = useState<FontSize>('medium');
-  const { themePreference, setThemePreference: setThemePreferenceContext, tintColor, setTintColor: setTintColorContext } = useTheme();
+  const [fontSize, setFontSizeState] = useState<FontSize>("medium");
+  const {
+    themePreference,
+    setThemePreference: setThemePreferenceContext,
+    tintColor,
+    setTintColor: setTintColorContext,
+  } = useTheme();
   const colors = useColors();
-  const insets = useSafeAreaInsets();
+  const colorScheme = useColorScheme();
 
   const getColorOptionWidth = (screenWidth: number) => {
-    const effectiveWidth = Platform.OS === 'web' ? Math.min(screenWidth, 428) : screenWidth;
+    const effectiveWidth =
+      Platform.OS === "web" ? Math.min(screenWidth, 428) : screenWidth;
     // scrollContent padding: 20px each side = 40px total
     // groupContainer padding: 20px each side = 40px total
     // Total horizontal padding: 80px
@@ -30,16 +55,17 @@ export default function SettingsScreen() {
     const totalGaps = 0; // spacing handled by layout
     const wrapperBorder = 6; // borderWidth 3 on each side
     const totalBorders = wrapperBorder * 4;
-    const availableWidth = effectiveWidth - totalHorizontalPadding - totalGaps - totalBorders;
+    const availableWidth =
+      effectiveWidth - totalHorizontalPadding - totalGaps - totalBorders;
     const itemWidth = Math.floor(availableWidth / 4);
     return Math.max(65, itemWidth);
   };
 
   const [colorOptionWidth, setColorOptionWidth] = useState(() => {
-    if (Platform.OS === 'web') {
+    if (Platform.OS === "web") {
       return getColorOptionWidth(428);
     }
-    return getColorOptionWidth(Dimensions.get('window').width);
+    return getColorOptionWidth(Dimensions.get("window").width);
   });
 
   useEffect(() => {
@@ -47,8 +73,8 @@ export default function SettingsScreen() {
       setColorOptionWidth(getColorOptionWidth(window.width));
     };
 
-    const subscription = Dimensions.addEventListener('change', updateWidth);
-    updateWidth({ window: Dimensions.get('window') });
+    const subscription = Dimensions.addEventListener("change", updateWidth);
+    updateWidth({ window: Dimensions.get("window") });
 
     return () => {
       subscription.remove();
@@ -58,7 +84,7 @@ export default function SettingsScreen() {
   useFocusEffect(
     useCallback(() => {
       loadSettings();
-    }, [])
+    }, []),
   );
 
   const loadSettings = async () => {
@@ -69,21 +95,21 @@ export default function SettingsScreen() {
   const handleFontSizeChange = async (newSize: FontSize) => {
     await setFontSize(newSize);
     setFontSizeState(newSize);
-    if (process.env.EXPO_OS === 'ios') {
+    if (process.env.EXPO_OS === "ios") {
       Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
     }
   };
 
   const handleThemeChange = async (newTheme: ThemePreference) => {
     await setThemePreferenceContext(newTheme);
-    if (process.env.EXPO_OS === 'ios') {
+    if (process.env.EXPO_OS === "ios") {
       Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
     }
   };
 
   const handleTintColorChange = async (newColor: TintColorKey) => {
     await setTintColorContext(newColor);
-    if (process.env.EXPO_OS === 'ios') {
+    if (process.env.EXPO_OS === "ios") {
       Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
     }
   };
@@ -92,150 +118,200 @@ export default function SettingsScreen() {
     const message = `Check out Indirimbo - Agakiza no Gushimisha Imana\n\n${APP_UNIVERSAL_LINK_URL}/download`;
     try {
       await Share.share(
-        { message, title: 'Indirimbo - Rwandan Hymns & Worship Songs' },
-        { dialogTitle: 'Share Indirimbo' },
+        { message, title: "Indirimbo - Rwandan Hymns & Worship Songs" },
+        { dialogTitle: "Share Indirimbo" },
       );
     } catch {}
   };
 
   const handleRateApp = async () => {
-    const url = Platform.OS === 'ios' ? APP_STORE_URL : PLAY_STORE_URL;
+    const url = Platform.OS === "ios" ? APP_STORE_URL : PLAY_STORE_URL;
     if (url) {
       await Linking.openURL(url);
     }
   };
 
-  const fontSizeOptions: { label: string; value: FontSize; description: string }[] = [
-    { label: 'Small', value: 'small', description: 'Compact text for more content' },
-    { label: 'Medium', value: 'medium', description: 'Balanced size (recommended)' },
-    { label: 'Large', value: 'large', description: 'Larger text for easier reading' },
-  ];
-
-  const themeOptions: { label: string; value: ThemePreference; description: string; icon: string }[] = [
-    { label: 'Light', value: 'light', description: 'Always use light theme', icon: 'sun.max' },
-    { label: 'Dark', value: 'dark', description: 'Always use dark theme', icon: 'moon' },
-    { label: 'Auto', value: 'auto', description: 'Follow system setting', icon: 'circle.lefthalf.filled' },
-  ];
+  const fontSizePreview = FONT_SIZES;
 
   return (
     <ThemedView style={styles.container}>
       <Head>
         <title>Settings | Indirimbo</title>
-        <meta name="description" content="Customize your Indirimbo reading experience. Adjust text size, theme, and accent color." />
+        <meta
+          name="description"
+          content="Customize your Indirimbo reading experience. Adjust text size, theme, and accent color."
+        />
       </Head>
-      <ThemedView style={[styles.header, { paddingTop: insets.top + 20 }]}>
-        <ThemedText type="title" style={styles.title}>
-          Settings
-        </ThemedText>
-        <ThemedText style={styles.subtitle}>
-          Customize your reading experience
-        </ThemedText>
-      </ThemedView>
-
-      <TabScrollView
-        contentContainerStyle={styles.scrollContent}
-        extraBottomPadding={80}>
+      <TabCollapsibleScrollView
+        title="Settings"
+        subtitle="Customize your reading experience"
+        contentGap={20}
+        extraBottomPadding={80}
+      >
         {/* Text Size Group */}
-        <ThemedView style={[styles.groupContainer, { backgroundColor: colors.background, borderColor: colors.icon + '15' }]}>
-          <ThemedView style={[styles.groupHeader, { borderBottomColor: colors.icon + '10' }]}>
+        <ThemedView
+          style={[
+            styles.groupContainer,
+            {
+              backgroundColor: colors.background,
+              borderColor: colors.icon + "15",
+            },
+          ]}
+        >
+          <ThemedView
+            style={[
+              styles.groupHeader,
+              { borderBottomColor: colors.icon + "10" },
+            ]}
+          >
             <IconSymbol name="textformat.size" size={20} color={colors.tint} />
             <ThemedText type="subtitle" style={styles.groupTitle}>
               Text Size
             </ThemedText>
           </ThemedView>
-          
+
           <ThemedText style={[styles.groupDescription, { opacity: 0.7 }]}>
             Adjust the font size for song lyrics
           </ThemedText>
-          
-          <ThemedView style={styles.optionsContainer}>
-            {fontSizeOptions.map((option) => (
-              <TouchableOpacity
-                key={option.value}
-                onPress={() => handleFontSizeChange(option.value)}
-                style={[
-                  styles.optionCard,
-                  { 
-                    borderColor: fontSize === option.value ? colors.tint : colors.icon + '20',
-                    backgroundColor: fontSize === option.value ? colors.tint + '10' : 'transparent',
-                  }
-                ]}
-                activeOpacity={0.7}>
-                <View style={styles.optionContent}>
-                  <View style={styles.optionHeader}>
-                    <ThemedText 
-                      type="defaultSemiBold" 
-                      style={[
-                        styles.optionLabel,
-                        { color: fontSize === option.value ? colors.tint : colors.text }
-                      ]}>
-                      {option.label}
-                    </ThemedText>
-                    {fontSize === option.value && (
-                      <View style={[styles.selectedBadge, { backgroundColor: colors.tint }]}>
-                        <IconSymbol name="checkmark" size={16} color="#FFFFFF" />
-                      </View>
-                    )}
-                  </View>
-                  <ThemedText style={[styles.optionDescription, { opacity: 0.6 }]}>
-                    {option.description}
-                  </ThemedText>
-                </View>
-              </TouchableOpacity>
-            ))}
-          </ThemedView>
+
+          <SegmentedControl
+            values={FONT_SIZE_OPTIONS.map((o) => o.label)}
+            selectedIndex={FONT_SIZE_OPTIONS.findIndex(
+              (o) => o.value === fontSize,
+            )}
+            onChange={(event) => {
+              const index = event.nativeEvent.selectedSegmentIndex;
+              handleFontSizeChange(FONT_SIZE_OPTIONS[index].value);
+            }}
+            appearance={colorScheme === "dark" ? "dark" : "light"}
+            style={styles.segmentedControlNative}
+          />
+
+          <View
+            style={[
+              styles.previewContainer,
+              {
+                backgroundColor: colors.icon + "08",
+                borderColor: colors.icon + "15",
+              },
+            ]}
+          >
+            <ThemedText
+              style={[
+                styles.previewLabel,
+                { color: colors.icon, opacity: 0.6 },
+              ]}
+            >
+              Preview
+            </ThemedText>
+            <ThemedText style={[styles.segmentedDescription, { opacity: 0.5 }]}>
+              {FONT_SIZE_OPTIONS.find((o) => o.value === fontSize)?.description}
+            </ThemedText>
+            <ThemedText
+              style={[
+                {
+                  fontSize: fontSizePreview[fontSize].verse,
+                  lineHeight: fontSizePreview[fontSize].lineHeight,
+                },
+              ]}
+            >
+              Urukundo ruhebuje,{"\n"}gend&apos; urwogeze hose,{"\n"}Ni rwo
+              rwatumye Imana{"\n"}itanga Umwana wayo.
+            </ThemedText>
+          </View>
         </ThemedView>
 
         {/* Appearance Group */}
-        <ThemedView style={[styles.groupContainer, { backgroundColor: colors.background, borderColor: colors.icon + '15' }]}>
-          <ThemedView style={[styles.groupHeader, { borderBottomColor: colors.icon + '10' }]}>
+        <ThemedView
+          style={[
+            styles.groupContainer,
+            {
+              backgroundColor: colors.background,
+              borderColor: colors.icon + "15",
+            },
+          ]}
+        >
+          <ThemedView
+            style={[
+              styles.groupHeader,
+              { borderBottomColor: colors.icon + "10" },
+            ]}
+          >
             <IconSymbol name="paintbrush.fill" size={20} color={colors.tint} />
             <ThemedText type="subtitle" style={styles.groupTitle}>
               Appearance
             </ThemedText>
           </ThemedView>
-          
+
           <ThemedText style={[styles.groupDescription, { opacity: 0.7 }]}>
             Choose your preferred theme
           </ThemedText>
-          
+
           <ThemedView style={styles.optionsContainer}>
-            {themeOptions.map((option) => (
+            {THEME_OPTIONS.map((option) => (
               <TouchableOpacity
                 key={option.value}
                 onPress={() => handleThemeChange(option.value)}
                 style={[
                   styles.optionCard,
-                  { 
-                    borderColor: themePreference === option.value ? colors.tint : colors.icon + '20',
-                    backgroundColor: themePreference === option.value ? colors.tint + '10' : 'transparent',
-                  }
+                  {
+                    borderColor:
+                      themePreference === option.value
+                        ? colors.tint
+                        : colors.icon + "20",
+                    backgroundColor:
+                      themePreference === option.value
+                        ? colors.tint + "10"
+                        : "transparent",
+                  },
                 ]}
-                activeOpacity={0.7}>
+                activeOpacity={0.7}
+              >
                 <View style={styles.optionContent}>
                   <View style={styles.optionHeader}>
                     <View style={styles.optionHeaderLeft}>
-                      <IconSymbol 
-                        name={option.icon as any} 
-                        size={20} 
-                        color={themePreference === option.value ? colors.tint : colors.icon} 
+                      <IconSymbol
+                        name={option.icon as any}
+                        size={20}
+                        color={
+                          themePreference === option.value
+                            ? colors.tint
+                            : colors.icon
+                        }
                       />
-                      <ThemedText 
-                        type="defaultSemiBold" 
+                      <ThemedText
+                        type="defaultSemiBold"
                         style={[
                           styles.optionLabel,
-                          { color: themePreference === option.value ? colors.tint : colors.text }
-                        ]}>
+                          {
+                            color:
+                              themePreference === option.value
+                                ? colors.tint
+                                : colors.text,
+                          },
+                        ]}
+                      >
                         {option.label}
                       </ThemedText>
                     </View>
                     {themePreference === option.value && (
-                      <View style={[styles.selectedBadge, { backgroundColor: colors.tint }]}>
-                        <IconSymbol name="checkmark" size={16} color="#FFFFFF" />
+                      <View
+                        style={[
+                          styles.selectedBadge,
+                          { backgroundColor: colors.tint },
+                        ]}
+                      >
+                        <IconSymbol
+                          name="checkmark"
+                          size={16}
+                          color="#FFFFFF"
+                        />
                       </View>
                     )}
                   </View>
-                  <ThemedText style={[styles.optionDescription, { opacity: 0.6 }]}>
+                  <ThemedText
+                    style={[styles.optionDescription, { opacity: 0.6 }]}
+                  >
                     {option.description}
                   </ThemedText>
                 </View>
@@ -245,70 +321,121 @@ export default function SettingsScreen() {
         </ThemedView>
 
         {/* Accent Color Group */}
-        <ThemedView style={[
-          styles.groupContainer,
-          { backgroundColor: colors.background, borderColor: colors.icon + '15' }
-        ]}>
-          <ThemedView style={[styles.groupHeader, { borderBottomColor: colors.icon + '10' }]}>
-            <IconSymbol name="paintpalette.fill" size={20} color={colors.tint} />
+        <ThemedView
+          style={[
+            styles.groupContainer,
+            {
+              backgroundColor: colors.background,
+              borderColor: colors.icon + "15",
+            },
+          ]}
+        >
+          <ThemedView
+            style={[
+              styles.groupHeader,
+              { borderBottomColor: colors.icon + "10" },
+            ]}
+          >
+            <IconSymbol
+              name="paintpalette.fill"
+              size={20}
+              color={colors.tint}
+            />
             <ThemedText type="subtitle" style={styles.groupTitle}>
               Accent Color
             </ThemedText>
           </ThemedView>
-          
+
           <ThemedText style={[styles.groupDescription, { opacity: 0.7 }]}>
             Choose your preferred accent color
           </ThemedText>
-          
+
           <ThemedView style={styles.colorGrid}>
-            {(Object.keys(TintColorOptions) as TintColorKey[]).map((colorKey) => {
-              const colorOption = TintColorOptions[colorKey];
-              const isSelected = tintColor === colorKey;
-              const currentColor = colors.tint;
-              
-              return (
-                <View
-                  key={colorKey}
-                  style={[
-                    styles.colorOptionWrapper,
-                    {
-                      borderColor: isSelected ? currentColor : colors.icon + '20',
-                      width: colorOptionWidth,
-                    }
-                  ]}>
-                  <TouchableOpacity
-                    onPress={() => handleTintColorChange(colorKey)}
-                    style={styles.colorOption}
-                    activeOpacity={0.7}>
-                    <View
-                      style={[
-                        styles.colorCircle,
-                        {
-                          backgroundColor: colorOption.light,
-                        }
-                      ]}
-                    />
-                    {isSelected && (
-                      <View style={[styles.colorCheckmark, { backgroundColor: currentColor }]}>
-                        <IconSymbol name="checkmark" size={14} color="#FFFFFF" />
-                      </View>
-                    )}
-                    <ThemedText style={[styles.colorLabel, { opacity: isSelected ? 1 : 0.7 }]}>
-                      {colorOption.name}
-                    </ThemedText>
-                  </TouchableOpacity>
-                </View>
-              );
-            })}
+            {(Object.keys(TintColorOptions) as TintColorKey[]).map(
+              (colorKey) => {
+                const colorOption = TintColorOptions[colorKey];
+                const isSelected = tintColor === colorKey;
+                const currentColor = colors.tint;
+
+                return (
+                  <View
+                    key={colorKey}
+                    style={[
+                      styles.colorOptionWrapper,
+                      {
+                        borderColor: isSelected
+                          ? currentColor
+                          : colors.icon + "20",
+                        width: colorOptionWidth,
+                      },
+                    ]}
+                  >
+                    <TouchableOpacity
+                      onPress={() => handleTintColorChange(colorKey)}
+                      style={styles.colorOption}
+                      activeOpacity={0.7}
+                    >
+                      <View
+                        style={[
+                          styles.colorCircle,
+                          {
+                            backgroundColor: colorOption.light,
+                          },
+                        ]}
+                      />
+                      {isSelected && (
+                        <View
+                          style={[
+                            styles.colorCheckmark,
+                            { backgroundColor: currentColor },
+                          ]}
+                        >
+                          <IconSymbol
+                            name="checkmark"
+                            size={14}
+                            color="#FFFFFF"
+                          />
+                        </View>
+                      )}
+                      <ThemedText
+                        style={[
+                          styles.colorLabel,
+                          { opacity: isSelected ? 1 : 0.7 },
+                        ]}
+                      >
+                        {colorOption.name}
+                      </ThemedText>
+                    </TouchableOpacity>
+                  </View>
+                );
+              },
+            )}
           </ThemedView>
         </ThemedView>
 
         {/* Share & Download Group */}
-        <ThemedView style={[styles.groupContainer, { backgroundColor: colors.background, borderColor: colors.icon + '15' }]}>
-          <ThemedView style={[styles.groupHeader, { borderBottomColor: colors.icon + '10' }]}>
-            <IconSymbol name="square.and.arrow.up" size={20} color={colors.tint} />
+        <ThemedView
+          style={[
+            styles.groupContainer,
+            {
+              backgroundColor: colors.background,
+              borderColor: colors.icon + "15",
+            },
+          ]}
+        >
+          <ThemedView
+            style={[
+              styles.groupHeader,
+              { borderBottomColor: colors.icon + "10" },
+            ]}
+          >
+            <IconSymbol
+              name="square.and.arrow.up"
+              size={20}
+              color={colors.tint}
+            />
             <ThemedText type="subtitle" style={styles.groupTitle}>
-              {Platform.OS === 'web' ? 'Share & Download' : 'Share & Rate'}
+              {Platform.OS === "web" ? "Share & Download" : "Share & Rate"}
             </ThemedText>
           </ThemedView>
 
@@ -319,40 +446,70 @@ export default function SettingsScreen() {
           <ThemedView style={styles.legalLinksContainer}>
             <TouchableOpacity
               onPress={handleShareApp}
-              style={[styles.legalLink, { borderBottomColor: colors.icon + '10' }]}
-              activeOpacity={0.7}>
+              style={[
+                styles.legalLink,
+                { borderBottomColor: colors.icon + "10" },
+              ]}
+              activeOpacity={0.7}
+            >
               <View style={styles.legalLinkContent}>
-                <IconSymbol name="person.2.fill" size={20} color={colors.icon} />
+                <IconSymbol
+                  name="person.2.fill"
+                  size={20}
+                  color={colors.icon}
+                />
                 <ThemedText type="defaultSemiBold" style={styles.legalLinkText}>
                   Share with Friends
                 </ThemedText>
               </View>
-              <IconSymbol name="arrow.up.forward" size={20} color={colors.icon} />
+              <IconSymbol
+                name="arrow.up.forward"
+                size={20}
+                color={colors.icon}
+              />
             </TouchableOpacity>
 
-            {Platform.OS !== 'web' && (
+            {Platform.OS !== "web" && (
               <TouchableOpacity
                 onPress={handleRateApp}
                 style={[styles.legalLink, { borderBottomWidth: 0 }]}
-                activeOpacity={0.7}>
+                activeOpacity={0.7}
+              >
                 <View style={styles.legalLinkContent}>
                   <IconSymbol name="star.fill" size={20} color={colors.icon} />
-                  <ThemedText type="defaultSemiBold" style={styles.legalLinkText}>
-                    {Platform.OS === 'ios' ? 'Rate on App Store' : 'Rate on Play Store'}
+                  <ThemedText
+                    type="defaultSemiBold"
+                    style={styles.legalLinkText}
+                  >
+                    {Platform.OS === "ios"
+                      ? "Rate on App Store"
+                      : "Rate on Play Store"}
                   </ThemedText>
                 </View>
-                <IconSymbol name="arrow.up.forward" size={20} color={colors.icon} />
+                <IconSymbol
+                  name="arrow.up.forward"
+                  size={20}
+                  color={colors.icon}
+                />
               </TouchableOpacity>
             )}
 
-            {Platform.OS === 'web' && (
+            {Platform.OS === "web" && (
               <TouchableOpacity
-                onPress={() => router.push('/download')}
+                onPress={() => router.push("/download")}
                 style={[styles.legalLink, { borderBottomWidth: 0 }]}
-                activeOpacity={0.7}>
+                activeOpacity={0.7}
+              >
                 <View style={styles.legalLinkContent}>
-                  <IconSymbol name="arrow.down.circle.fill" size={20} color={colors.icon} />
-                  <ThemedText type="defaultSemiBold" style={styles.legalLinkText}>
+                  <IconSymbol
+                    name="arrow.down.circle.fill"
+                    size={20}
+                    color={colors.icon}
+                  />
+                  <ThemedText
+                    type="defaultSemiBold"
+                    style={styles.legalLinkText}
+                  >
                     Download the App
                   </ThemedText>
                 </View>
@@ -363,12 +520,22 @@ export default function SettingsScreen() {
         </ThemedView>
 
         {/* Legal & Info Group */}
-        <ThemedView style={[
-          styles.groupContainer,
-          styles.lastGroupContainer,
-          { backgroundColor: colors.background, borderColor: colors.icon + '15' }
-        ]}>
-          <ThemedView style={[styles.groupHeader, { borderBottomColor: colors.icon + '10' }]}>
+        <ThemedView
+          style={[
+            styles.groupContainer,
+            styles.lastGroupContainer,
+            {
+              backgroundColor: colors.background,
+              borderColor: colors.icon + "15",
+            },
+          ]}
+        >
+          <ThemedView
+            style={[
+              styles.groupHeader,
+              { borderBottomColor: colors.icon + "10" },
+            ]}
+          >
             <IconSymbol name="info.circle.fill" size={20} color={colors.tint} />
             <ThemedText type="subtitle" style={styles.groupTitle}>
               Legal & Information
@@ -381,11 +548,19 @@ export default function SettingsScreen() {
 
           <ThemedView style={styles.legalLinksContainer}>
             <TouchableOpacity
-              onPress={() => router.push('/about')}
-              style={[styles.legalLink, { borderBottomColor: colors.icon + '10' }]}
-              activeOpacity={0.7}>
+              onPress={() => router.push("/about")}
+              style={[
+                styles.legalLink,
+                { borderBottomColor: colors.icon + "10" },
+              ]}
+              activeOpacity={0.7}
+            >
               <View style={styles.legalLinkContent}>
-                <IconSymbol name="music.note.list" size={20} color={colors.icon} />
+                <IconSymbol
+                  name="music.note.list"
+                  size={20}
+                  color={colors.icon}
+                />
                 <ThemedText type="defaultSemiBold" style={styles.legalLinkText}>
                   About Indirimbo
                 </ThemedText>
@@ -394,11 +569,19 @@ export default function SettingsScreen() {
             </TouchableOpacity>
 
             <TouchableOpacity
-              onPress={() => router.push('/support')}
-              style={[styles.legalLink, { borderBottomColor: colors.icon + '10' }]}
-              activeOpacity={0.7}>
+              onPress={() => router.push("/support")}
+              style={[
+                styles.legalLink,
+                { borderBottomColor: colors.icon + "10" },
+              ]}
+              activeOpacity={0.7}
+            >
               <View style={styles.legalLinkContent}>
-                <IconSymbol name="questionmark.circle.fill" size={20} color={colors.icon} />
+                <IconSymbol
+                  name="questionmark.circle.fill"
+                  size={20}
+                  color={colors.icon}
+                />
                 <ThemedText type="defaultSemiBold" style={styles.legalLinkText}>
                   Help & Support
                 </ThemedText>
@@ -407,11 +590,19 @@ export default function SettingsScreen() {
             </TouchableOpacity>
 
             <TouchableOpacity
-              onPress={() => router.push('/privacy-policy')}
-              style={[styles.legalLink, { borderBottomColor: colors.icon + '10' }]}
-              activeOpacity={0.7}>
+              onPress={() => router.push("/privacy-policy")}
+              style={[
+                styles.legalLink,
+                { borderBottomColor: colors.icon + "10" },
+              ]}
+              activeOpacity={0.7}
+            >
               <View style={styles.legalLinkContent}>
-                <IconSymbol name="lock.shield.fill" size={20} color={colors.icon} />
+                <IconSymbol
+                  name="lock.shield.fill"
+                  size={20}
+                  color={colors.icon}
+                />
                 <ThemedText type="defaultSemiBold" style={styles.legalLinkText}>
                   Privacy Policy
                 </ThemedText>
@@ -420,11 +611,16 @@ export default function SettingsScreen() {
             </TouchableOpacity>
 
             <TouchableOpacity
-              onPress={() => router.push('/terms-of-service')}
+              onPress={() => router.push("/terms-of-service")}
               style={[styles.legalLink, { borderBottomWidth: 0 }]}
-              activeOpacity={0.7}>
+              activeOpacity={0.7}
+            >
               <View style={styles.legalLinkContent}>
-                <IconSymbol name="doc.text.fill" size={20} color={colors.icon} />
+                <IconSymbol
+                  name="doc.text.fill"
+                  size={20}
+                  color={colors.icon}
+                />
                 <ThemedText type="defaultSemiBold" style={styles.legalLinkText}>
                   Terms of Service
                 </ThemedText>
@@ -433,7 +629,7 @@ export default function SettingsScreen() {
             </TouchableOpacity>
           </ThemedView>
         </ThemedView>
-      </TabScrollView>
+      </TabCollapsibleScrollView>
       <FloatingShareButton inTabs />
     </ThemedView>
   );
@@ -442,25 +638,6 @@ export default function SettingsScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  header: {
-    paddingHorizontal: 20,
-    paddingBottom: 20,
-  },
-  title: {
-    marginBottom: 8,
-  },
-  subtitle: {
-    opacity: 0.7,
-    fontSize: 16,
-  },
-  scrollView: {
-    flex: 1,
-  },
-  scrollContent: {
-    padding: 20,
-    paddingTop: 0,
-    gap: 20,
   },
   groupContainer: {
     borderRadius: 16,
@@ -473,8 +650,8 @@ const styles = StyleSheet.create({
     marginBottom: 0,
   },
   groupHeader: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     gap: 10,
     marginBottom: 20,
     paddingBottom: 12,
@@ -486,7 +663,28 @@ const styles = StyleSheet.create({
   groupDescription: {
     fontSize: 14,
     marginBottom: 20,
-    marginTop: 4,
+  },
+  segmentedControlNative: {
+    marginBottom: 20,
+  },
+  segmentedDescription: {
+    fontSize: 10,
+    lineHeight: 10,
+    marginBottom: 5
+  },
+  previewContainer: {
+    borderRadius: 12,
+    borderWidth: 1,
+    padding: 16,
+    height: 195,
+  },
+  previewLabel: {
+    fontSize: 12,
+    fontWeight: "600",
+    textTransform: "uppercase",
+    letterSpacing: 2,
+    lineHeight: 12,
+    marginBottom: 2
   },
   optionsContainer: {
     gap: 12,
@@ -500,13 +698,13 @@ const styles = StyleSheet.create({
     gap: 6,
   },
   optionHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
   optionHeaderLeft: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     gap: 12,
   },
   optionLabel: {
@@ -516,17 +714,17 @@ const styles = StyleSheet.create({
     width: 24,
     height: 24,
     borderRadius: 12,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   optionDescription: {
     fontSize: 13,
   },
   colorGrid: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
-    width: '100%',
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-between",
+    width: "100%",
   },
   colorOptionWrapper: {
     // Width is calculated dynamically in component to ensure exactly 4 per row
@@ -539,12 +737,12 @@ const styles = StyleSheet.create({
   },
   colorOption: {
     minHeight: 85,
-    alignItems: 'center',
-    justifyContent: 'flex-start',
+    alignItems: "center",
+    justifyContent: "flex-start",
     borderRadius: 9,
     padding: 8,
     paddingTop: 12,
-    position: 'relative',
+    position: "relative",
   },
   colorCircle: {
     width: 40,
@@ -553,37 +751,36 @@ const styles = StyleSheet.create({
     marginBottom: 6,
   },
   colorCheckmark: {
-    position: 'absolute',
+    position: "absolute",
     top: 4,
     right: 4,
     width: 20,
     height: 20,
     borderRadius: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   colorLabel: {
     fontSize: 11,
-    textAlign: 'center',
+    textAlign: "center",
     marginTop: 2,
   },
   legalLinksContainer: {
     gap: 0,
   },
   legalLink: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
     paddingVertical: 16,
     borderBottomWidth: 1,
   },
   legalLinkContent: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     gap: 12,
   },
   legalLinkText: {
     fontSize: 16,
   },
 });
-

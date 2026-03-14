@@ -4,6 +4,7 @@ import { ThemedView } from '@/components/themed-view';
 import { IconSymbol } from '@/components/ui/icon-symbol';
 import { FloatingShareButton } from '@/components/ui/floating-share-button';
 import { useColors } from '@/hooks/use-colors';
+import Constants from 'expo-constants';
 import { router } from 'expo-router';
 import Head from 'expo-router/head';
 import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
@@ -34,6 +35,7 @@ export default function AboutScreen() {
       headerMaxHeight={240}
       contentGap={20}
       extraBottomPadding={80}
+      fallbackHref="/(tabs)/settings"
       headerContent={
         <View style={styles.heroSection}>
           <Image
@@ -176,7 +178,7 @@ export default function AboutScreen() {
         </TouchableOpacity>
       </ThemedView>
 
-      <ThemedText style={styles.version}>Version 1.0.0</ThemedText>
+      <ThemedText style={styles.version}>Version {Constants.expoConfig?.version ?? '1.0.0'}</ThemedText>
     </CollapsibleHeaderScrollView>
     <FloatingShareButton />
     </>

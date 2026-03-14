@@ -1,6 +1,4 @@
-import MaterialIcons from '@expo/vector-icons/MaterialIcons';
-import { Icon, Label, NativeTabs, VectorIcon } from 'expo-router/unstable-native-tabs';
-import { Platform } from 'react-native';
+import { NativeTabs } from 'expo-router/unstable-native-tabs';
 
 import { useColors } from '@/hooks/use-colors';
 
@@ -16,50 +14,37 @@ export default function TabLayout() {
         default: { color: colors.tabIconDefault },
         selected: { color: colors.tint }
       }}
-      blurEffect="regular"
       disableTransparentOnScrollEdge
       minimizeBehavior="onScrollDown"
-      labelVisibilityMode='labeled'
+      labelVisibilityMode="labeled"
       >
       <NativeTabs.Trigger name="home">
-        <NativeTabs.Trigger.TabBar
+        <NativeTabs.Trigger.Icon
+          sf={{ default: 'music.note.list', selected: 'music.note.list' }}
+          md="queue_music"
         />
-        {Platform.OS === 'ios' ? (
-          <Icon sf={{ default: 'music.note.list', selected: 'music.note.list' }} />
-        ) : (
-          <Icon src={<VectorIcon family={MaterialIcons} name="queue-music" />} />
-        )}
-        <Label>Playlists</Label>
+        <NativeTabs.Trigger.Label>Playlists</NativeTabs.Trigger.Label>
       </NativeTabs.Trigger>
       <NativeTabs.Trigger name="favorites">
-        <NativeTabs.Trigger.TabBar
+        <NativeTabs.Trigger.Icon
+          sf={{ default: 'heart', selected: 'heart.fill' }}
+          md="favorite"
         />
-        {Platform.OS === 'ios' ? (
-          <Icon sf={{ default: 'heart', selected: 'heart.fill' }} />
-        ) : (
-          <Icon src={<VectorIcon family={MaterialIcons} name="favorite" />} />
-        )}
-        <Label>Favorites</Label>
+        <NativeTabs.Trigger.Label>Favorites</NativeTabs.Trigger.Label>
       </NativeTabs.Trigger>
       <NativeTabs.Trigger name="search" role="search">
-        <NativeTabs.Trigger.TabBar
+        <NativeTabs.Trigger.Icon
+          sf="magnifyingglass"
+          md="search"
         />
-        {Platform.OS === 'ios' ? (
-          <Icon sf={{ default: 'magnifyingglass', selected: 'magnifyingglass' }} />
-        ) : (
-          <Icon src={<VectorIcon family={MaterialIcons} name="search" />} />
-        )}
-        <Label>Search</Label>
+        <NativeTabs.Trigger.Label>Search</NativeTabs.Trigger.Label>
       </NativeTabs.Trigger>
       <NativeTabs.Trigger name="settings">
-        <NativeTabs.Trigger.TabBar
+        <NativeTabs.Trigger.Icon
+          sf={{ default: 'gear', selected: 'gear' }}
+          md="settings"
         />
-        {Platform.OS === 'ios' ? (
-          <Icon sf="gear" />
-        ) : (
-          <Icon src={<VectorIcon family={MaterialIcons} name="settings" />} />
-        )}
-        <Label>Settings</Label>
+        <NativeTabs.Trigger.Label>Settings</NativeTabs.Trigger.Label>
       </NativeTabs.Trigger>
     </NativeTabs>
   );

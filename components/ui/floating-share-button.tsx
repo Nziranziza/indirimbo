@@ -56,8 +56,9 @@ export function FloatingShareButton({ inTabs = false }: { inTabs?: boolean }) {
     } catch {}
   };
 
-  const TAB_BAR_OFFSET = Platform.select({ ios: 70, web: 20, default: 100 });
-  const bottom = inTabs ? insets.bottom + TAB_BAR_OFFSET : Math.max(insets.bottom, 16) + 16;
+  const bottom = inTabs
+    ? (Platform.OS === 'ios' ? insets.bottom + 16 : 16)
+    : Math.max(insets.bottom, 16) + 16;
 
   return (
     <Animated.View

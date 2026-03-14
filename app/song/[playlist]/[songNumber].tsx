@@ -8,6 +8,7 @@ import agakizaSongs from "@/constants/agakiza-songs";
 import { APP_UNIVERSAL_LINK_URL } from "@/constants/app-links";
 import gushimishaSongs from "@/constants/gushimisha-songs";
 import { getPlaylistName } from "@/constants/playlists";
+import { FONT_SIZES } from "@/constants/typography";
 import { useColors } from "@/hooks/use-colors";
 import {
   addFavorite,
@@ -428,12 +429,7 @@ export default function SongScreen() {
   };
 
   const fontSizeStyles = useMemo(() => {
-    const sizes = {
-      small: { verse: 15, chorus: 16, lineHeight: 26 },
-      medium: { verse: 17, chorus: 18, lineHeight: 30 },
-      large: { verse: 19, chorus: 20, lineHeight: 34 },
-    };
-    return sizes[fontSize];
+    return FONT_SIZES[fontSize];
   }, [fontSize]);
 
   if (!currentSong || allSongs.length === 0) {
@@ -491,8 +487,9 @@ export default function SongScreen() {
         <BackButton
           color={colors.text}
           style={styles.backButton}
+          fallbackHref={`/(tabs)/home/playlist/${playlist}` as any}
         />
-        <TouchableOpacity onPress={() => router.back()} activeOpacity={0.7}>
+        <TouchableOpacity onPress={() => Platform.OS === 'web' ? (window.history.length > 1 ? window.history.back() : router.replace(`/(tabs)/home/playlist/${playlist}` as any)) : router.canGoBack() ? router.back() : router.replace(`/(tabs)/home/playlist/${playlist}` as any)} activeOpacity={0.7}>
           <SongNumberBadge number={currentSong.number} size="large" style={styles.songNumberBadge} />
         </TouchableOpacity>
         <ThemedView style={styles.headerCenter}>

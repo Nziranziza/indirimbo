@@ -2,10 +2,15 @@ import { getThemePreference, type ThemePreference } from '@/utils/storage';
 import { useEffect, useState } from 'react';
 import { AppState, useColorScheme as useSystemColorScheme } from 'react-native';
 
+function normalizeScheme(scheme: string | null | undefined): 'light' | 'dark' | null {
+  if (scheme === 'light' || scheme === 'dark') return scheme;
+  return null;
+}
+
 export function useColorScheme(): 'light' | 'dark' | null {
-  const systemColorScheme = useSystemColorScheme();
+  const systemColorScheme = normalizeScheme(useSystemColorScheme());
   const [userPreference, setUserPreference] = useState<ThemePreference | null>(null);
-  const [effectiveScheme, setEffectiveScheme] = useState<'light' | 'dark' | null>(systemColorScheme ?? null);
+  const [effectiveScheme, setEffectiveScheme] = useState<'light' | 'dark' | null>(systemColorScheme);
   const [refreshKey, setRefreshKey] = useState(0);
 
   const loadPreference = async () => {

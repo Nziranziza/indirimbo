@@ -14,8 +14,15 @@ interface ThemeContextType {
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
+// RN 0.83 returns 'unspecified' instead of null — normalize it
+function normalizeScheme(scheme: string | null | undefined): 'light' | 'dark' | null {
+  if (scheme === 'light' || scheme === 'dark') return scheme;
+  return null;
+}
+
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const systemColorScheme = useSystemColorScheme();
+  const rawSystemColorScheme = useSystemColorScheme();
+  const systemColorScheme = normalizeScheme(rawSystemColorScheme);
   const [userPreference, setUserPreference] = useState<ThemePreference | null>(null);
   const [tintColor, setTintColorState] = useState<TintColorKey | null>(null);
   const [effectiveScheme, setEffectiveScheme] = useState<'light' | 'dark' | null>(() => {
@@ -23,20 +30,25 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     if (Platform.OS === 'web') {
       return 'light';
     }
-    return systemColorScheme ?? null;
+    return systemColorScheme;
   });
   const [isLoading, setIsLoading] = useState(true);
 
+  // Reset to system default when switching to auto
+  useEffect(() => {
+    if (Platform.OS !== 'web' && userPreference === 'auto') {
+      Appearance.setColorScheme('unspecified');
+    }
+  }, [userPreference]);
+
+  // Sync explicit light/dark override with system UI
   useEffect(() => {
     if (Platform.OS === 'web') {
-      // On web, update document root color-scheme for proper scrollbar theming
       if (typeof document !== 'undefined' && effectiveScheme) {
         document.documentElement.style.colorScheme = effectiveScheme;
       }
-    } else {
-      // On native platforms, sync with system UI
-      // When 'auto', reset to null so RN tracks the OS color scheme
-      Appearance.setColorScheme(userPreference === 'auto' ? null : effectiveScheme === "dark" ? "dark" : "light");
+    } else if (userPreference !== 'auto' && effectiveScheme != null) {
+      Appearance.setColorScheme(effectiveScheme === "dark" ? "dark" : "light");
     }
   }, [effectiveScheme, userPreference]);
 
@@ -85,7 +97,11 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     if (userPreference === null) return; // Wait for preference to load
 
     if (userPreference === 'auto') {
-      setEffectiveScheme(systemColorScheme ?? null);
+      // Only update if system reports a concrete scheme;
+      // skip null (brief 'unspecified' transition) to avoid flash
+      if (systemColorScheme != null) {
+        setEffectiveScheme(systemColorScheme);
+      }
     } else {
       setEffectiveScheme(userPreference);
     }
@@ -96,7 +112,9 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     setUserPreference(preference);
     // Immediately update effective scheme
     if (preference === 'auto') {
-      setEffectiveScheme(systemColorScheme ?? null);
+      if (systemColorScheme != null) {
+        setEffectiveScheme(systemColorScheme);
+      }
     } else {
       setEffectiveScheme(preference);
     }

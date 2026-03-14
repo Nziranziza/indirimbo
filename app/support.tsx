@@ -34,7 +34,8 @@ export default function SupportScreen() {
     <CollapsibleHeaderScrollView
       title="Support"
       subtitle="Get help with using Indirimbo"
-      extraBottomPadding={80}>
+      extraBottomPadding={80}
+      fallbackHref="/(tabs)/settings">
       {/* Getting Started */}
       <ThemedView
         style={[

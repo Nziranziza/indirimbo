@@ -1,4 +1,4 @@
-import { TabScrollView } from '@/components/tab-scroll-view';
+import { TabCollapsibleScrollView } from '@/components/tab-collapsible-scroll-view';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { IconSymbol } from '@/components/ui/icon-symbol';
@@ -13,8 +13,6 @@ import { useFocusEffect, useRouter } from 'expo-router';
 import Head from 'expo-router/head';
 import { useCallback, useState } from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
-
 interface Song {
   number: number | string; // Can be number (e.g., 18) or string with suffix (e.g., "18a", "18b")
   name: string;
@@ -30,7 +28,6 @@ export default function FavoritesTabScreen() {
   const router = useRouter();
   const [favorites, setFavorites] = useState<FavoriteSong[]>([]);
   const colors = useColors();
-  const insets = useSafeAreaInsets();
   const hasHydrated = useHydrated();
 
   useFocusEffect(
@@ -87,17 +84,10 @@ export default function FavoritesTabScreen() {
         <title>Favorites | Indirimbo</title>
         <meta name="description" content="Your favorite Rwandan hymns and worship songs from Gushimisha Imana and Agakiza hymnbooks." />
       </Head>
-      <ThemedView style={[styles.header, { paddingTop: insets.top + 20 }]}>
-        <ThemedText type="title" style={styles.title}>
-          Favorites
-        </ThemedText>
-        <ThemedText style={styles.subtitle}>
-          Your favorite songs
-        </ThemedText>
-      </ThemedView>
-
-      <TabScrollView 
-        contentContainerStyle={styles.scrollContent}>
+      <TabCollapsibleScrollView
+        title="Favorites"
+        subtitle="Your favorite songs"
+      >
         {!hasHydrated || favorites.length === 0 ? (
           <ThemedView style={styles.emptyState}>
             <IconSymbol name="heart" size={64} color={colors.icon} />
@@ -151,7 +141,7 @@ export default function FavoritesTabScreen() {
             );
           })
         )}
-      </TabScrollView>
+      </TabCollapsibleScrollView>
     </ThemedView>
   );
 }
@@ -159,25 +149,6 @@ export default function FavoritesTabScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  header: {
-    paddingHorizontal: 20,
-    paddingBottom: 20,
-  },
-  title: {
-    marginBottom: 8,
-  },
-  subtitle: {
-    opacity: 0.7,
-    fontSize: 16,
-  },
-  scrollView: {
-    flex: 1,
-  },
-  scrollContent: {
-    padding: 20,
-    paddingTop: 0,
-    gap: 12,
   },
   songCard: {
     flexDirection: 'row',

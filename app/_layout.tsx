@@ -11,7 +11,7 @@ import { AppInstallBanner } from '@/components/ui/app-install-banner';
 import { ThemeProvider, useColorScheme } from '@/contexts/theme-context';
 import { useHydrated } from '@/hooks/use-hydrated';
 
-const BASE_URL = 'https://nziranziza.github.io/indirimbo';
+const BASE_URL = 'https://indirimbo.rw';
 
 export const unstable_settings = {
   anchor: '(tabs)',

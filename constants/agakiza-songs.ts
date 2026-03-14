@@ -1683,7 +1683,7 @@ export const songs: NewSong[] = [
         type: "verse",
         number: 3,
         content:
-          "N’ igihe gito ngifit’ umuruho\nN’ igihe gito nkazabona Yesu\nNi bwo nzaba ntandukanye n’ ibyago\nNzaba mbumbatiwe mu maboko ye\n/: Nzi ko mw jjuru hatab’ umwijima\nHabah’ umucyo uhorahw iteka.: /",
+          "N’ igihe gito ngifit’ umuruho\nN’ igihe gito nkazabona Yesu\nNi bwo nzaba ntandukanye n’ ibyago\nNzaba mbumbatiwe mu maboko ye\n/: Nzi ko mw ijuru hatab’ umwijima\nHabah’ umucyo uhorahw iteka.: /",
       },
       {
         type: "verse",
@@ -3857,29 +3857,29 @@ export const songs: NewSong[] = [
         type: "verse",
         number: 1,
         content:
-          "Yesu, ni wowe mucyo,\nNi wowe nshima kuko wa nkunze\nMwami, byose wakoze\nKutwitangira ndabigushima",
+          "Yesu, ni wowe mucyo,\nNi wowe nshima kuko wankunze.\nMwami, byose wakoze\nKutwitangira ndabigushima.",
       },
       {
         type: "chorus",
-        content: "/: Yesu, ur’ amahoro yacu,\nKuko watuberey’ inshungu.: /",
+        content: "/: Yesu, ur’ amahoro yacu,\nKuko watuberey’ inshungu. :/",
       },
       {
         type: "verse",
         number: 2,
         content:
-          "Mwami, ndanezerewe\nKukuririmba kuko wankunze\nYesu, komez’ umfashe,\nNanjye ngukunde, nkuririmbire",
+          "Mwami, ndanezerewe\nKukuririmba kuko wankunze\nYesu, komez’ umfashe,\nNanjye ngukunde, nkuririmbire.",
       },
       {
         type: "verse",
         number: 3,
         content:
-          "Yesu, ngwino tubane,\nNgwin’ unyobore mu nzira yawe\nKandi ni wowe nzira,\nUr’ ubugingo ndetse n’ ukuri",
+          "Yesu, ngwino tubane,\nNgwin’ unyobore mu nzira yawe\nKandi ni wowe nzira,\nUr’ ubugingo ndetse n’ ukuri.",
       },
       {
         type: "verse",
         number: 4,
         content:
-          "Nzi ko har’ igihugu cy’ umucyo mwinshi ku bakijijwe\nNdetse icyo gihugu\nN’ icy’ izahabu zitatse neza",
+          "Nzi ko har’ igihugu cy’ umucyo mwinshi ku bakijijwe\nNdetse icyo gihugu\nN’ icy’ izahabu zitatse neza.",
       },
     ],
   },

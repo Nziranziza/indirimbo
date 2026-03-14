@@ -45,16 +45,8 @@ export function AppInstallBanner() {
       (window.navigator as typeof window.navigator & { standalone?: boolean }).standalone ||
       false;
 
-    // On iOS Safari, the native Smart App Banner (via apple-itunes-app meta
-    // tag) already handles open/install — skip the custom banner to avoid
-    // duplicates. Other iOS browsers (Chrome, Firefox, etc.) don't support
-    // the native banner, so show the custom one there.
-    const isSafari = detectedPlatform === 'ios'
-      && /safari/i.test(userAgent)
-      && !/crios|fxios|opios|edgios/i.test(userAgent);
-
     setPlatform(detectedPlatform);
-    setIsVisible(Boolean(detectedPlatform) && !isStandalone && !isSafari);
+    setIsVisible(Boolean(detectedPlatform) && !isStandalone);
   }, []);
 
   useEffect(() => {
@@ -100,7 +92,7 @@ export function AppInstallBanner() {
       // open; if not, the browser stays on the page and the fallback
       // timer redirects to the store after a short delay.
       const fallbackTimer = fallback
-        ? window.setTimeout(() => { window.location.href = fallback; }, 1500)
+        ? window.setTimeout(() => { window.location.href = fallback; }, 800)
         : null;
 
       window.location.href = schemeUrl;
@@ -116,7 +108,7 @@ export function AppInstallBanner() {
 
       window.setTimeout(() => {
         document.removeEventListener('visibilitychange', onVisibilityChange);
-      }, 2000);
+      }, 1200);
       return;
     }
 

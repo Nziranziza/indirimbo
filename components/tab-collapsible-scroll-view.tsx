@@ -1,9 +1,8 @@
+import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
-import { BackButton } from '@/components/ui/back-button';
 import { useColors } from '@/hooks/use-colors';
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
-import type { Href } from 'expo-router';
+import { Platform, StyleSheet } from 'react-native';
 import Animated, {
   Extrapolation,
   interpolate,
@@ -13,31 +12,26 @@ import Animated, {
 } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-const DEFAULT_HEADER_MAX_HEIGHT = 150;
-const HEADER_MIN_HEIGHT = 52;
+// Original header: paddingTop 20 + title(32) + marginBottom 8 + subtitle(24) + paddingBottom 20 = 104
+const HEADER_EXPANDED_CONTENT = 104;
+const HEADER_COLLAPSED_HEIGHT = 44;
+const SCROLL_DISTANCE = HEADER_EXPANDED_CONTENT - HEADER_COLLAPSED_HEIGHT;
 
-interface CollapsibleHeaderScrollViewProps {
+interface TabCollapsibleScrollViewProps {
   title: string;
   subtitle?: string;
-  headerContent?: React.ReactNode;
-  headerMaxHeight?: number;
+  children: React.ReactNode;
   contentGap?: number;
   extraBottomPadding?: number;
-  fallbackHref?: Href;
-  children: React.ReactNode;
 }
 
-export function CollapsibleHeaderScrollView({
+export function TabCollapsibleScrollView({
   title,
   subtitle,
-  headerContent,
-  headerMaxHeight = DEFAULT_HEADER_MAX_HEIGHT,
+  children,
   contentGap = 12,
   extraBottomPadding = 0,
-  fallbackHref,
-  children,
-}: CollapsibleHeaderScrollViewProps) {
-  const HEADER_SCROLL_DISTANCE = headerMaxHeight - HEADER_MIN_HEIGHT;
+}: TabCollapsibleScrollViewProps) {
   const colors = useColors();
   const insets = useSafeAreaInsets();
   const scrollY = useSharedValue(0);
@@ -48,102 +42,96 @@ export function CollapsibleHeaderScrollView({
     },
   });
 
-  const NAV_HEIGHT = insets.top + HEADER_MIN_HEIGHT;
+  const EXPANDED_HEIGHT = insets.top + HEADER_EXPANDED_CONTENT;
+  const COLLAPSED_HEIGHT = insets.top + HEADER_COLLAPSED_HEIGHT;
 
+  // Animate header height
   const headerAnimatedStyle = useAnimatedStyle(() => {
     'worklet';
     const height = interpolate(
       scrollY.value,
-      [0, HEADER_SCROLL_DISTANCE],
-      [headerMaxHeight + insets.top, HEADER_MIN_HEIGHT + insets.top],
+      [0, SCROLL_DISTANCE],
+      [EXPANDED_HEIGHT, COLLAPSED_HEIGHT],
       Extrapolation.CLAMP
     );
     return { height };
-  }, [insets.top, headerMaxHeight, HEADER_SCROLL_DISTANCE]);
+  });
 
+  // Fade out the large title + subtitle
   const largeTitleAnimatedStyle = useAnimatedStyle(() => {
     'worklet';
     const opacity = interpolate(
       scrollY.value,
-      [0, HEADER_SCROLL_DISTANCE - 50],
+      [0, SCROLL_DISTANCE * 0.6],
       [1, 0],
       Extrapolation.CLAMP
     );
     const translateY = interpolate(
       scrollY.value,
-      [0, HEADER_SCROLL_DISTANCE],
-      [0, -20],
+      [0, SCROLL_DISTANCE],
+      [0, -15],
       Extrapolation.CLAMP
     );
-    const scale = interpolate(
-      scrollY.value,
-      [0, HEADER_SCROLL_DISTANCE - 50],
-      [1, 0.5],
-      Extrapolation.CLAMP
-    );
-    return { opacity, transform: [{ translateY }, { scale }] };
-  }, []);
+    return { opacity, transform: [{ translateY }] };
+  });
 
+  // Fade in the small collapsed title
   const smallTitleAnimatedStyle = useAnimatedStyle(() => {
     'worklet';
     const opacity = interpolate(
       scrollY.value,
-      [HEADER_SCROLL_DISTANCE - 80, HEADER_SCROLL_DISTANCE],
+      [SCROLL_DISTANCE * 0.5, SCROLL_DISTANCE],
       [0, 1],
       Extrapolation.CLAMP
     );
     return { opacity };
-  }, []);
+  });
 
+  // Fade in nav bar background + border
   const navBarBgAnimatedStyle = useAnimatedStyle(() => {
     'worklet';
     const opacity = interpolate(
       scrollY.value,
-      [HEADER_SCROLL_DISTANCE - 50, HEADER_SCROLL_DISTANCE],
+      [SCROLL_DISTANCE * 0.6, SCROLL_DISTANCE],
       [0, 1],
       Extrapolation.CLAMP
     );
     return { opacity };
-  }, []);
+  });
 
   const borderAnimatedStyle = useAnimatedStyle(() => {
     'worklet';
     const opacity = interpolate(
       scrollY.value,
-      [HEADER_SCROLL_DISTANCE - 10, HEADER_SCROLL_DISTANCE],
+      [SCROLL_DISTANCE * 0.85, SCROLL_DISTANCE],
       [0, 1],
       Extrapolation.CLAMP
     );
     return { opacity };
-  }, []);
+  });
 
   return (
     <ThemedView style={styles.container}>
-      {/* Collapsible header area */}
-      <Animated.View style={[styles.headerBackground, headerAnimatedStyle]}>
+      {/* Collapsible header */}
+      <Animated.View style={[styles.header, headerAnimatedStyle]}>
+        {/* Large title (original header look) */}
         <Animated.View
           style={[
             styles.largeTitleContainer,
-            { paddingTop: NAV_HEIGHT },
+            { paddingTop: insets.top + 20 },
             largeTitleAnimatedStyle,
           ]}>
-          {headerContent ?? (
-            <>
-              <Animated.Text style={[styles.largeTitle, { color: colors.text }]}>
-                {title}
-              </Animated.Text>
-              {subtitle && (
-                <Animated.Text style={[styles.subtitle, { color: colors.text, opacity: 0.7 }]}>
-                  {subtitle}
-                </Animated.Text>
-              )}
-            </>
+          <ThemedText type="title" style={styles.title}>
+            {title}
+          </ThemedText>
+          {subtitle && (
+            <ThemedText style={styles.subtitle}>
+              {subtitle}
+            </ThemedText>
           )}
         </Animated.View>
-      </Animated.View>
 
-      {/* Fixed nav bar */}
-      <View style={[styles.navBar, { height: NAV_HEIGHT, paddingTop: insets.top }]}>
+        {/* Collapsed nav bar */}
         <Animated.View
           style={[
             StyleSheet.absoluteFill,
@@ -158,16 +146,19 @@ export function CollapsibleHeaderScrollView({
             borderAnimatedStyle,
           ]}
         />
-        <BackButton style={styles.backButton} fallbackHref={fallbackHref} />
-        <Animated.View style={[styles.smallTitleContainer, smallTitleAnimatedStyle]}>
+        <Animated.View
+          style={[
+            styles.smallTitleContainer,
+            { paddingTop: insets.top },
+            smallTitleAnimatedStyle,
+          ]}>
           <Animated.Text
             style={[styles.smallTitle, { color: colors.text }]}
             numberOfLines={1}>
             {title}
           </Animated.Text>
         </Animated.View>
-        <View style={styles.placeholder} />
-      </View>
+      </Animated.View>
 
       {/* Scrollable content */}
       <Animated.ScrollView
@@ -176,12 +167,12 @@ export function CollapsibleHeaderScrollView({
         contentContainerStyle={[
           styles.scrollContent,
           {
-            paddingTop: headerMaxHeight + insets.top + 16,
-            paddingBottom: insets.bottom + 20 + extraBottomPadding,
+            paddingTop: EXPANDED_HEIGHT,
+            paddingBottom: insets.bottom + 90 + extraBottomPadding,
             gap: contentGap,
           },
         ]}
-        showsVerticalScrollIndicator={false}
+        showsVerticalScrollIndicator={true}
         keyboardShouldPersistTaps="handled">
         {children}
       </Animated.ScrollView>
@@ -193,23 +184,34 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  headerBackground: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    zIndex: 1,
-  },
-  navBar: {
+  header: {
     position: 'absolute',
     top: 0,
     left: 0,
     right: 0,
     zIndex: 10,
-    flexDirection: 'row',
+    overflow: 'hidden',
+  },
+  largeTitleContainer: {
+    paddingHorizontal: 20,
+    paddingBottom: 20,
+  },
+  title: {
+    marginBottom: 8,
+  },
+  subtitle: {
+    opacity: 0.7,
+    fontSize: 16,
+  },
+  smallTitleContainer: {
+    ...StyleSheet.absoluteFillObject,
+    justifyContent: 'flex-end',
     alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingHorizontal: 16,
+    paddingBottom: 12,
+  },
+  smallTitle: {
+    fontSize: 17,
+    fontWeight: '600',
   },
   navBarBorder: {
     position: 'absolute',
@@ -217,41 +219,7 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     height: StyleSheet.hairlineWidth,
-  },
-  backButton: {
-    width: 40,
-    height: 40,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  smallTitleContainer: {
-    flex: 1,
-    alignItems: 'center',
-  },
-  smallTitle: {
-    fontSize: 17,
-    fontWeight: '600',
-  },
-  placeholder: {
-    width: 40,
-  },
-  largeTitleContainer: {
-    paddingHorizontal: 20,
-    position: 'absolute',
-    top: 0,
-    bottom: 0,
-    left: 0,
-    right: 0,
-    justifyContent: 'center',
-  },
-  largeTitle: {
-    fontSize: 34,
-    fontWeight: '700',
-    letterSpacing: -0.5,
-  },
-  subtitle: {
-    fontSize: 16,
-    marginTop: 8,
+    zIndex: 1,
   },
   scrollContent: {
     paddingHorizontal: 20,

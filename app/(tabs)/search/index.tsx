@@ -179,7 +179,7 @@ export default function SearchScreen() {
   const insets = useSafeAreaInsets();
   const [searchQuery, setSearchQuery] = useState('');
   const [debouncedSearchQuery, setDebouncedSearchQuery] = useState('');
-  const debounceTimerRef = useRef<number | null>(null);
+  const debounceTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const searchBarRef = useRef<SearchBarCommands>(null);
   const searchInputRef = useRef<SearchInputRef>(null);
   const [recentSearches, setRecentSearches] = useState<RecentSearch[]>([]);
@@ -366,19 +366,17 @@ export default function SearchScreen() {
         <meta name="description" content="Search Rwandan hymns and worship songs by title, number, or lyrics across Gushimisha Imana and Agakiza hymnbooks." />
       </Head>
       {isIOS && (
-        <Stack.Screen
-          options={{
-            title: 'Search',
-            headerSearchBarOptions: {
-              ref: searchBarRef as any,
-              placeholder: 'Search all songs...',
-              onChangeText: (e: { nativeEvent: { text: string } }) =>
-                setSearchQuery(e.nativeEvent.text),
-              autoCapitalize: 'none',
-              hideWhenScrolling: false,
-            },
-          }}
-        />
+        <>
+          <Stack.Screen options={{ title: 'Search' }} />
+          <Stack.SearchBar
+            ref={searchBarRef as any}
+            placeholder="Search by title, number, or lyrics..."
+            onChangeText={(e: { nativeEvent: { text: string } }) =>
+              setSearchQuery(e.nativeEvent.text)}
+            autoCapitalize="none"
+            hideWhenScrolling={false}
+          />
+        </>
       )}
       <ThemedView style={styles.container}>
         {!isIOS && (
@@ -390,7 +388,7 @@ export default function SearchScreen() {
               ref={searchInputRef}
               value={searchQuery}
               onChangeText={setSearchQuery}
-              placeholder="Search all songs..."
+              placeholder="Search by title, number, or lyrics..."
               style={styles.searchInput}
             />
           </>

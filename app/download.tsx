@@ -4,6 +4,7 @@ import { ThemedView } from '@/components/themed-view';
 import { IconSymbol } from '@/components/ui/icon-symbol';
 import { APP_STORE_URL, APP_UNIVERSAL_LINK_URL, PLAY_STORE_URL } from '@/constants/app-links';
 import { useColors } from '@/hooks/use-colors';
+import { Redirect } from 'expo-router';
 import Head from 'expo-router/head';
 import { Image, Linking, Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
 import Svg, { Defs, LinearGradient, Path, Stop } from 'react-native-svg';
@@ -12,6 +13,10 @@ const BASE_URL = APP_UNIVERSAL_LINK_URL;
 
 export default function DownloadScreen() {
   const colors = useColors();
+
+  if (Platform.OS !== 'web') {
+    return <Redirect href="/(tabs)/home" />;
+  }
 
   return (
     <>
@@ -30,6 +35,7 @@ export default function DownloadScreen() {
         title="Download"
         headerMaxHeight={260}
         contentGap={20}
+        fallbackHref="/(tabs)/settings"
         headerContent={
           <View style={styles.heroSection}>
             <Image
@@ -63,7 +69,7 @@ export default function DownloadScreen() {
               onPress={() => Linking.openURL(APP_STORE_URL!)}
               activeOpacity={0.8}
               style={[styles.storeButton, { borderColor: colors.icon + '40' }]}>
-              <IconSymbol name="apple.logo" size={22} color="#FFFFFF" />
+              <IconSymbol name="apple.logo" size={32} color="#FFFFFF" />
               <View>
                 <ThemedText style={styles.storeLabel}>
                   Download on the
@@ -80,7 +86,7 @@ export default function DownloadScreen() {
               onPress={() => Linking.openURL(PLAY_STORE_URL!)}
               activeOpacity={0.8}
               style={[styles.storeButton, { borderColor: colors.icon + '40' }]}>
-              <GooglePlayIcon size={22} />
+              <GooglePlayIcon size={32} />
               <View>
                 <ThemedText style={styles.storeLabel}>
                   Get it on

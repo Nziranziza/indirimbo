@@ -2,17 +2,18 @@
   "expo": {
     "name": "Indirimbo",
     "slug": "indirimbo",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "indirimbo",
     "userInterfaceStyle": "automatic",
-    "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.indirimbo.app",
       "appleTeamId": "5RCND6P3FM",
-      "associatedDomains": ["applinks:indirimbo.rw"],
+      "associatedDomains": [
+        "applinks:indirimbo.rw"
+      ],
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false
       }
@@ -25,14 +26,16 @@
         "backgroundImage": "./assets/images/android-icon-background.png",
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
-      "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false,
       "softwareKeyboardLayoutMode": "pan",
       "intentFilters": [
         {
           "action": "VIEW",
           "autoVerify": true,
-          "category": ["BROWSABLE", "DEFAULT"],
+          "category": [
+            "BROWSABLE",
+            "DEFAULT"
+          ],
           "data": [
             {
               "scheme": "https",
@@ -43,7 +46,10 @@
         },
         {
           "action": "VIEW",
-          "category": ["BROWSABLE", "DEFAULT"],
+          "category": [
+            "BROWSABLE",
+            "DEFAULT"
+          ],
           "data": [
             {
               "scheme": "indirimbo"
@@ -75,7 +81,10 @@
             "backgroundColor": "#000000"
           }
         }
-      ]
+      ],
+      "expo-font",
+      "expo-image",
+      "expo-web-browser"
     ],
     "experiments": {
       "typedRoutes": true,
@@ -86,9 +95,9 @@
       "router": {},
       "eas": {
         "projectId": "42352c61-6285-46aa-9faa-ee33c490e5c7"
-      }
-    },
-    "privacyPolicyUrl": "https://indirimbo.rw/privacy-policy",
-    "termsOfServiceUrl": "https://indirimbo.rw/terms-of-service"
+      },
+      "privacyPolicyUrl": "https://indirimbo.rw/privacy-policy",
+      "termsOfServiceUrl": "https://indirimbo.rw/terms-of-service"
+    }
   }
 }
