@@ -12,16 +12,7 @@ import { useFocusEffect, useRouter } from 'expo-router';
 import Head from 'expo-router/head';
 import { useCallback, useState } from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
-interface Song {
-  number: number | string; // Can be number (e.g., 18) or string with suffix (e.g., "18a", "18b")
-  name: string;
-  url: string;
-  body: {
-    type: 'verse' | 'chorus';
-    number?: number;
-    content: string;
-  }[];
-}
+import type { Song } from '@/constants/types';
 
 export default function FavoritesTabScreen() {
   const router = useRouter();

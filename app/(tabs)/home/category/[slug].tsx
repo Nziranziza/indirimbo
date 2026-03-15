@@ -1,19 +1,11 @@
 import { SongListScreen } from '@/components/song-list-screen';
-import { IconSymbol } from '@/components/ui/icon-symbol';
+import type { IconSymbolName } from '@/components/ui/icon-symbol';
 import { gushimishaCategories } from '@/constants/gushimisha-categories';
+import type { Song } from '@/constants/types';
 import { useSongs } from '@/contexts/songs-context';
 import { useLocalSearchParams } from 'expo-router';
 import Head from 'expo-router/head';
-import { ComponentProps, useMemo } from 'react';
-
-type IconSymbolName = ComponentProps<typeof IconSymbol>['name'];
-
-interface Song {
-  number: number | string;
-  name: string;
-  url: string;
-  body: { type: 'verse' | 'chorus'; number?: number; content: string }[];
-}
+import { useMemo } from 'react';
 
 export default function CategoryScreen() {
   const { slug } = useLocalSearchParams<{ slug: string }>();

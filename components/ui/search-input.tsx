@@ -1,6 +1,6 @@
 import { IconSymbol } from '@/components/ui/icon-symbol';
 import { useColors } from '@/hooks/use-colors';
-import { Pressable, StyleSheet, TextInput, TouchableOpacity, View } from 'react-native';
+import { Pressable, StyleSheet, TextInput } from 'react-native';
 import { forwardRef, useImperativeHandle, useRef } from 'react';
 
 export interface SearchInputRef {
@@ -64,6 +64,8 @@ export const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
     );
   }
 );
+
+SearchInput.displayName = 'SearchInput';
 
 const styles = StyleSheet.create({
   container: {

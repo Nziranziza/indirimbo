@@ -7,7 +7,6 @@ import { Platform, Share, StyleSheet, TouchableOpacity, View } from 'react-nativ
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
-  withDelay,
   withTiming,
 } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -30,7 +29,7 @@ export function FloatingShareButton({ inTabs = false }: { inTabs?: boolean }) {
         expanded.value = withTiming(0, { duration: 300 });
       }, COLLAPSE_DELAY);
       return () => clearTimeout(timeout);
-    }, [])
+    }, [expanded])
   );
 
   const containerStyle = useAnimatedStyle(() => ({

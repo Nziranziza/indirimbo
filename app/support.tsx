@@ -1,29 +1,17 @@
 import { CollapsibleHeaderScrollView } from '@/components/collapsible-header-scroll-view';
 import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { IconSymbol } from '@/components/ui/icon-symbol';
+import { BulletItem } from '@/components/ui/bullet-item';
+import { ContactSection } from '@/components/ui/contact-section';
 import { FloatingShareButton } from '@/components/ui/floating-share-button';
+import { InfoCard } from '@/components/ui/info-card';
 import { useColors } from '@/hooks/use-colors';
-import * as Clipboard from 'expo-clipboard';
 import { router } from 'expo-router';
 import Head from 'expo-router/head';
-import { Alert, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { IconSymbol } from '@/components/ui/icon-symbol';
+import { StyleSheet, TouchableOpacity } from 'react-native';
 
 export default function SupportScreen() {
   const colors = useColors();
-  const supportEmail = 'indirimboapp@gmail.com';
-
-  const BulletItem = ({ children }: { children: React.ReactNode }) => (
-    <View style={styles.bulletRow}>
-      <View style={[styles.bulletDot, { backgroundColor: colors.icon }]} />
-      <ThemedText style={styles.bulletText}>{children}</ThemedText>
-    </View>
-  );
-
-  const handleEmailPress = async () => {
-    await Clipboard.setStringAsync(supportEmail);
-    Alert.alert('Email copied', 'The address is copied to your clipboard.');
-  };
 
   return (
     <>
@@ -37,45 +25,23 @@ export default function SupportScreen() {
       extraBottomPadding={80}
       fallbackHref="/(tabs)/settings">
       {/* Getting Started */}
-      <ThemedView
-        style={[
-          styles.card,
-          { borderColor: colors.tint + '30', backgroundColor: colors.tint + '08' },
-        ]}>
-        <View style={styles.cardHeader}>
-          <IconSymbol name="sparkles" size={20} color={colors.tint} />
-          <ThemedText type="defaultSemiBold" style={styles.cardTitle}>
-            Getting Started
-          </ThemedText>
-        </View>
+      <InfoCard icon="sparkles" title="Getting Started" isHighlighted>
         <ThemedText style={styles.paragraph}>
           Indirimbo is a hymns and worship songs app for Rwandan churches. Browse songs from popular hymnbooks, search by title or lyrics, and save your favorites.
         </ThemedText>
-      </ThemedView>
+      </InfoCard>
 
       {/* How to Use */}
-      <ThemedView style={[styles.card, { borderColor: colors.icon + '20', backgroundColor: colors.background }]}>
-        <View style={styles.cardHeader}>
-          <IconSymbol name="book" size={20} color={colors.tint} />
-          <ThemedText type="defaultSemiBold" style={styles.cardTitle}>
-            How to Use
-          </ThemedText>
-        </View>
+      <InfoCard icon="book" title="How to Use">
         <BulletItem>Browse songs by selecting a playlist (Gushimisha Imana or Agakiza)</BulletItem>
         <BulletItem>Use the search bar to find songs by title, number, or lyrics</BulletItem>
         <BulletItem>Tap the heart icon to save songs to your favorites</BulletItem>
         <BulletItem>Share songs with friends using the share button</BulletItem>
         <BulletItem>Adjust text size in Settings for comfortable reading</BulletItem>
-      </ThemedView>
+      </InfoCard>
 
       {/* Frequently Asked Questions */}
-      <ThemedView style={[styles.card, { borderColor: colors.icon + '20', backgroundColor: colors.background }]}>
-        <View style={styles.cardHeader}>
-          <IconSymbol name="questionmark.circle" size={20} color={colors.tint} />
-          <ThemedText type="defaultSemiBold" style={styles.cardTitle}>
-            Frequently Asked Questions
-          </ThemedText>
-        </View>
+      <InfoCard icon="questionmark.circle" title="Frequently Asked Questions">
         <ThemedText type="defaultSemiBold" style={styles.faqQuestion}>
           How do I find a specific song?
         </ThemedText>
@@ -96,56 +62,23 @@ export default function SupportScreen() {
         <ThemedText style={styles.faqAnswer}>
           Go to Settings and adjust the font size to small, medium, or large based on your preference.
         </ThemedText>
-      </ThemedView>
+      </InfoCard>
 
       {/* Report an Issue */}
-      <ThemedView style={[styles.card, { borderColor: colors.icon + '20', backgroundColor: colors.background }]}>
-        <View style={styles.cardHeader}>
-          <IconSymbol name="exclamationmark.triangle" size={20} color={colors.tint} />
-          <ThemedText type="defaultSemiBold" style={styles.cardTitle}>
-            Report an Issue
-          </ThemedText>
-        </View>
+      <InfoCard icon="exclamationmark.triangle" title="Report an Issue">
         <ThemedText style={styles.paragraph}>
-          Found a bug or incorrect lyrics? Please let us know and we'll fix it as soon as possible. Include:
+          Found a bug or incorrect lyrics? Please let us know and we&apos;ll fix it as soon as possible. Include:
         </ThemedText>
         <BulletItem>The song name and number</BulletItem>
         <BulletItem>Description of the issue</BulletItem>
         <BulletItem>Your device type and iOS version</BulletItem>
-      </ThemedView>
+      </InfoCard>
 
       {/* Contact Us */}
-      <ThemedView style={[styles.card, { borderColor: colors.icon + '20', backgroundColor: colors.background }]}>
-        <View style={styles.cardHeader}>
-          <IconSymbol name="envelope" size={20} color={colors.tint} />
-          <ThemedText type="defaultSemiBold" style={styles.cardTitle}>
-            Contact Us
-          </ThemedText>
-        </View>
-        <ThemedText style={styles.paragraph}>
-          Have questions, feedback, or need help? We'd love to hear from you:
-        </ThemedText>
-        <TouchableOpacity
-          onPress={handleEmailPress}
-          activeOpacity={0.7}
-          style={styles.contactLink}>
-          <ThemedText type="defaultSemiBold" style={{ color: colors.tint }}>
-            {supportEmail}
-          </ThemedText>
-          <ThemedText style={styles.contactHint}>
-            Tap to copy
-          </ThemedText>
-        </TouchableOpacity>
-      </ThemedView>
+      <ContactSection preamble="Have questions, feedback, or need help? We'd love to hear from you:" />
 
       {/* Links */}
-      <ThemedView style={[styles.card, { borderColor: colors.icon + '20', backgroundColor: colors.background }]}>
-        <View style={styles.cardHeader}>
-          <IconSymbol name="link" size={20} color={colors.tint} />
-          <ThemedText type="defaultSemiBold" style={styles.cardTitle}>
-            Legal
-          </ThemedText>
-        </View>
+      <InfoCard icon="link" title="Legal">
         <TouchableOpacity
           onPress={() => router.push('/privacy-policy')}
           activeOpacity={0.7}
@@ -160,7 +93,7 @@ export default function SupportScreen() {
           <ThemedText style={{ color: colors.tint }}>Terms of Service</ThemedText>
           <IconSymbol name="arrow.right" size={16} color={colors.tint} />
         </TouchableOpacity>
-      </ThemedView>
+      </InfoCard>
     </CollapsibleHeaderScrollView>
     <FloatingShareButton />
     </>
@@ -168,41 +101,10 @@ export default function SupportScreen() {
 }
 
 const styles = StyleSheet.create({
-  card: {
-    padding: 16,
-    borderRadius: 12,
-    borderWidth: 1,
-  },
-  cardHeader: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 10,
-    marginBottom: 12,
-  },
-  cardTitle: {
-    fontSize: 16,
-  },
   paragraph: {
     marginBottom: 8,
     lineHeight: 22,
     opacity: 0.9,
-  },
-  bulletRow: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    gap: 8,
-    marginBottom: 6,
-  },
-  bulletDot: {
-    width: 6,
-    height: 6,
-    borderRadius: 3,
-    marginTop: 8,
-  },
-  bulletText: {
-    flex: 1,
-    lineHeight: 22,
-    opacity: 0.85,
   },
   faqQuestion: {
     marginTop: 8,
@@ -212,14 +114,6 @@ const styles = StyleSheet.create({
     marginBottom: 12,
     lineHeight: 22,
     opacity: 0.85,
-  },
-  contactLink: {
-    marginTop: 6,
-  },
-  contactHint: {
-    marginTop: 4,
-    fontSize: 12,
-    opacity: 0.6,
   },
   linkItem: {
     flexDirection: 'row',

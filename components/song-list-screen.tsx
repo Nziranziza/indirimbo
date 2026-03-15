@@ -17,20 +17,8 @@ import Animated, {
   useSharedValue,
 } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { ComponentProps } from 'react';
-
-type IconSymbolName = ComponentProps<typeof IconSymbol>['name'];
-
-interface Song {
-  number: number | string;
-  name: string;
-  url: string;
-  body: {
-    type: 'verse' | 'chorus';
-    number?: number;
-    content: string;
-  }[];
-}
+import type { Song } from '@/constants/types';
+import type { IconSymbolName } from '@/components/ui/icon-symbol';
 
 const HEADER_MAX_HEIGHT = 280;
 const HEADER_MIN_HEIGHT = 56;

@@ -1,11 +1,5 @@
+import type { Song } from '@/constants/types';
 import { createContext, useContext, useEffect, useState, type ReactNode } from 'react';
-
-interface Song {
-  number: number | string;
-  name: string;
-  url: string;
-  body: { type: 'verse' | 'chorus'; number?: number; content: string }[];
-}
 
 interface SongsContextValue {
   agakiza: Song[];
@@ -36,7 +30,7 @@ export function SongsProvider({ children }: { children: ReactNode }) {
         gushimisha: gushimishaModule.default as Song[],
         isLoaded: true,
       });
-    });
+    }).catch(console.error);
   }, []);
 
   return (
