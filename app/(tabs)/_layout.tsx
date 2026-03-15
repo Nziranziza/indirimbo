@@ -10,6 +10,7 @@ export default function TabLayout() {
       tintColor={colors.tint}
       backgroundColor={colors.bottomTabBackground}
       indicatorColor={`${colors.tint}20`}
+      rippleColor={`${colors.tint}20`}
       labelStyle={{
         default: { color: colors.tabIconDefault },
         selected: { color: colors.tint }

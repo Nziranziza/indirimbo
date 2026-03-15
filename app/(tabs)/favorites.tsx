@@ -3,9 +3,8 @@ import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { IconSymbol } from '@/components/ui/icon-symbol';
 import { SongNumberBadge } from '@/components/ui/song-number-badge';
-import agakizaSongs from '@/constants/agakiza-songs';
-import gushimishaSongs from '@/constants/gushimisha-songs';
 import { getPlaylistName } from '@/constants/playlists';
+import { useSongs } from '@/contexts/songs-context';
 import { useColors } from '@/hooks/use-colors';
 import { useHydrated } from '@/hooks/use-hydrated';
 import { getFavorites, removeFavorite, type FavoriteSong } from '@/utils/storage';
@@ -50,9 +49,10 @@ export default function FavoritesTabScreen() {
     loadFavorites();
   };
 
+  const { agakiza, gushimisha } = useSongs();
   const allSongs: Record<string, Song[]> = {
-    agakiza: agakizaSongs as Song[],
-    gushimisha: gushimishaSongs as Song[],
+    agakiza: agakiza as Song[],
+    gushimisha: gushimisha as Song[],
   };
 
   const formatDate = (timestamp: number): string => {

@@ -8,6 +8,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import { ThemedView } from '@/components/themed-view';
 import { AppInstallBanner } from '@/components/ui/app-install-banner';
+import { SongsProvider } from '@/contexts/songs-context';
 import { ThemeProvider, useColorScheme } from '@/contexts/theme-context';
 import { useHydrated } from '@/hooks/use-hydrated';
 
@@ -117,6 +118,7 @@ export default function RootLayout() {
   
   const inner = (
     <SafeAreaProvider>
+      <SongsProvider>
       <ThemeProvider>
         {Platform.OS === 'web' ? (
           <ThemedView style={{ flex: 1}}>
@@ -129,6 +131,7 @@ export default function RootLayout() {
           content
         )}
       </ThemeProvider>
+      </SongsProvider>
     </SafeAreaProvider>
   );
 

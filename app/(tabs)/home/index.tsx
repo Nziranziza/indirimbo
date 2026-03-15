@@ -4,10 +4,9 @@ import { ThemedView } from '@/components/themed-view';
 import { IconSymbol } from '@/components/ui/icon-symbol';
 import { PlaylistCard } from '@/components/ui/playlist-card';
 import { SongNumberBadge } from '@/components/ui/song-number-badge';
-import agakizaSongs from '@/constants/agakiza-songs';
-import gushimishaSongs from '@/constants/gushimisha-songs';
 import { gushimishaCategories } from '@/constants/gushimisha-categories';
 import { getPlaylistName } from '@/constants/playlists';
+import { useSongs } from '@/contexts/songs-context';
 import { useColorScheme } from '@/contexts/theme-context';
 import { useColors } from '@/hooks/use-colors';
 import { useHydrated } from '@/hooks/use-hydrated';
@@ -41,20 +40,7 @@ const getGreeting = (): string => {
 };
 
 const getShortTimeAgo = (timestamp: number): string => {
-  const now = moment();
-  const then = moment(timestamp);
-  const diffMinutes = now.diff(then, 'minutes');
-  const diffHours = now.diff(then, 'hours');
-  const diffDays = now.diff(then, 'days');
-  const diffMonths = now.diff(then, 'months');
-  const diffYears = now.diff(then, 'years');
-
-  if (diffMinutes < 1) return 'a few sec ago';
-  if (diffMinutes < 60) return `${diffMinutes} min ago`;
-  if (diffHours < 24) return `${diffHours} hr ago`;
-  if (diffDays < 30) return `${diffDays} day${diffDays > 1 ? 's' : ''} ago`;
-  if (diffMonths < 12) return `${diffMonths} mo ago`;
-  return `${diffYears} yr ago`;
+  return moment(timestamp).fromNow();
 };
 
 export default function HomeScreen() {
@@ -66,11 +52,12 @@ export default function HomeScreen() {
   const hasHydrated = useHydrated();
   const [recentSongs, setRecentSongs] = useState<RecentSong[]>([]);
   const [favoriteSongs, setFavoriteSongs] = useState<FavoriteSong[]>([]);
+  const { agakiza, gushimisha } = useSongs();
 
   const allSongs = useMemo<Record<string, Song[]>>(() => ({
-    agakiza: agakizaSongs as Song[],
-    gushimisha: gushimishaSongs as Song[],
-  }), []);
+    agakiza: agakiza as Song[],
+    gushimisha: gushimisha as Song[],
+  }), [agakiza, gushimisha]);
 
   useFocusEffect(
     useCallback(() => {

@@ -1,7 +1,7 @@
 import { SongListScreen } from '@/components/song-list-screen';
 import { IconSymbol } from '@/components/ui/icon-symbol';
-import gushimishaSongs from '@/constants/gushimisha-songs';
 import { gushimishaCategories } from '@/constants/gushimisha-categories';
+import { useSongs } from '@/contexts/songs-context';
 import { useLocalSearchParams } from 'expo-router';
 import Head from 'expo-router/head';
 import { ComponentProps, useMemo } from 'react';
@@ -20,14 +20,15 @@ export default function CategoryScreen() {
 
   const category = gushimishaCategories.find((c) => c.slug === slug);
 
+  const { gushimisha } = useSongs();
   const songs = useMemo(() => {
     if (!category) return [];
-    const allSongs = gushimishaSongs as Song[];
+    const allSongs = gushimisha as Song[];
     const songNumberSet = new Set(category.songs);
     return allSongs
       .filter((song) => songNumberSet.has(Number(song.number)))
       .sort((a, b) => Number(a.number) - Number(b.number));
-  }, [category]);
+  }, [category, gushimisha]);
 
   const categoryName = category?.name || 'Category';
   const categoryIcon = (category?.icon || 'music.note.list') as IconSymbolName;

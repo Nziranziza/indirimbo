@@ -2,13 +2,12 @@ import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { IconSymbol } from '@/components/ui/icon-symbol';
 import { SongNumberBadge } from '@/components/ui/song-number-badge';
-import agakizaSongs from '@/constants/agakiza-songs';
-import gushimishaSongs from '@/constants/gushimisha-songs';
 import { getPlaylistName } from '@/constants/playlists';
+import { useSongs } from '@/contexts/songs-context';
 import { useColors } from '@/hooks/use-colors';
 import { Stack, useFocusEffect, useRouter } from 'expo-router';
 import Head from 'expo-router/head';
-import Fuse from 'fuse.js';
+import type FuseType from 'fuse.js';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { FlatList, Platform, SectionList, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { SearchInput, type SearchInputRef } from '@/components/ui/search-input';
@@ -188,10 +187,11 @@ export default function SearchScreen() {
 
   const isIOS = Platform.OS === 'ios';
 
+  const { agakiza, gushimisha } = useSongs();
   const allSongs = useMemo<Record<string, Song[]>>(() => ({
-    agakiza: agakizaSongs as Song[],
-    gushimisha: gushimishaSongs as Song[],
-  }), []);
+    agakiza: agakiza as Song[],
+    gushimisha: gushimisha as Song[],
+  }), [agakiza, gushimisha]);
 
   // Load recent data on focus; auto-focus unless returning from a song
   useFocusEffect(
@@ -251,33 +251,34 @@ export default function SearchScreen() {
     );
   }, [allSongs]);
 
-  // Pre-build Fuse index and configure for fuzzy search
-  const fuseIndex = useMemo(
-    () => Fuse.createIndex(
-      [
-        { name: 'numberStr', weight: 0.3 },
-        { name: 'name', weight: 0.5 },
-        { name: 'searchText', weight: 0.2 }
-      ],
-      allSongsFlat
-    ),
-    [allSongsFlat]
-  );
+  // Lazy-load Fuse.js and build index
+  const [fuseInstance, setFuseInstance] = useState<FuseType<typeof allSongsFlat[number]> | null>(null);
 
-  const fuse = useMemo(() => new Fuse(allSongsFlat, {
-    keys: [
-      { name: 'numberStr', weight: 0.3 },
-      { name: 'name', weight: 0.5 },
-      { name: 'searchText', weight: 0.2 }
-    ],
-    threshold: 0.35,
-    ignoreLocation: true,
-    useExtendedSearch: true,
-  }, fuseIndex), [allSongsFlat, fuseIndex]);
+  useEffect(() => {
+    if (allSongsFlat.length === 0) return;
+    let cancelled = false;
+    import('fuse.js').then(({ default: Fuse }) => {
+      if (cancelled) return;
+      const keys = [
+        { name: 'numberStr' as const, weight: 0.3 },
+        { name: 'name' as const, weight: 0.5 },
+        { name: 'searchText' as const, weight: 0.2 },
+      ];
+      const index = Fuse.createIndex(keys, allSongsFlat);
+      const instance = new Fuse(allSongsFlat, {
+        keys,
+        threshold: 0.35,
+        ignoreLocation: true,
+        useExtendedSearch: true,
+      }, index);
+      setFuseInstance(instance);
+    });
+    return () => { cancelled = true; };
+  }, [allSongsFlat]);
 
   // Memoize search results with Fuse extended search (tokenizes multi-word queries)
   const searchResults = useMemo(() => {
-    if (!debouncedSearchQuery.trim()) {
+    if (!debouncedSearchQuery.trim() || !fuseInstance) {
       return [];
     }
 
@@ -287,9 +288,9 @@ export default function SearchScreen() {
 
     if (words.length === 0) return [];
 
-    const results = fuse.search(query, { limit: 30 });
+    const results = fuseInstance.search(query, { limit: 30 });
 
-    const ranked = results.map(r => {
+    const ranked = results.map((r: { item: typeof allSongsFlat[number]; score?: number }) => {
       const item = r.item;
       let rank = 3;
       if (item.numberStr === lowerQuery) rank = 0;
@@ -305,13 +306,13 @@ export default function SearchScreen() {
       };
     });
 
-    ranked.sort((a, b) => {
+    ranked.sort((a: { rank: number; score: number }, b: { rank: number; score: number }) => {
       if (a.rank !== b.rank) return a.rank - b.rank;
       return a.score - b.score;
     });
 
     return ranked;
-  }, [debouncedSearchQuery, fuse]);
+  }, [debouncedSearchQuery, fuseInstance]);
 
   const handleSongPress = useCallback((playlist: string, songNumber: number | string) => {
     _navigatedToSong = true;

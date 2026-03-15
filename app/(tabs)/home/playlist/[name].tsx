@@ -1,8 +1,7 @@
 import { SongListScreen } from '@/components/song-list-screen';
 import { IconSymbol } from '@/components/ui/icon-symbol';
-import agakizaSongs from '@/constants/agakiza-songs';
-import gushimishaSongs from '@/constants/gushimisha-songs';
 import { getPlaylistName } from '@/constants/playlists';
+import { useSongs } from '@/contexts/songs-context';
 import { useLocalSearchParams, usePathname } from 'expo-router';
 import Head from 'expo-router/head';
 import { ComponentProps, useMemo } from 'react';
@@ -46,9 +45,10 @@ export default function PlaylistScreen() {
     return 'agakiza';
   }, [params.name, pathname]);
 
+  const { agakiza, gushimisha } = useSongs();
   const songs = useMemo(() => {
-    return (name === 'agakiza' ? agakizaSongs : gushimishaSongs) as Song[];
-  }, [name]);
+    return (name === 'agakiza' ? agakiza : gushimisha) as Song[];
+  }, [name, agakiza, gushimisha]);
 
   const playlistTitle = getPlaylistName(name);
   const iconName: IconSymbolName = name === 'agakiza' ? 'music.note.list' : 'music.mic';

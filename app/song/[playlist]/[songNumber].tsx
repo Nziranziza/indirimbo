@@ -4,9 +4,8 @@ import { BackButton } from "@/components/ui/back-button";
 import { IconSymbol } from "@/components/ui/icon-symbol";
 import { LyricsContent } from "@/components/ui/lyrics-content";
 import { SongNumberBadge } from "@/components/ui/song-number-badge";
-import agakizaSongs from "@/constants/agakiza-songs";
 import { APP_UNIVERSAL_LINK_URL } from "@/constants/app-links";
-import gushimishaSongs from "@/constants/gushimisha-songs";
+import { useSongs } from "@/contexts/songs-context";
 import { getPlaylistName } from "@/constants/playlists";
 import { FONT_SIZES } from "@/constants/typography";
 import { useColors } from "@/hooks/use-colors";
@@ -259,10 +258,11 @@ export default function SongScreen() {
   const colors = useColors();
   const insets = useSafeAreaInsets();
 
+  const { agakiza, gushimisha } = useSongs();
   const allSongs: Song[] =
     playlist === "agakiza"
-      ? (agakizaSongs as Song[])
-      : (gushimishaSongs as Song[]);
+      ? (agakiza as Song[])
+      : (gushimisha as Song[]);
 
   // Handle both number and string song numbers (e.g., "18a", "18b")
   // Keep as string to preserve suffixes like "18a", "18b"
