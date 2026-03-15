@@ -112,7 +112,12 @@ for (const num of agakizaNumbers) {
 xml += `</urlset>
 `;
 
-const outputPath = path.join(__dirname, '../public/sitemap.xml');
-fs.writeFileSync(outputPath, xml);
+// Write to both public/ (source) and dist/ (deployed output)
+const publicPath = path.join(__dirname, '../public/sitemap.xml');
+const distPath = path.join(__dirname, '../dist/sitemap.xml');
+fs.writeFileSync(publicPath, xml);
+if (fs.existsSync(path.join(__dirname, '../dist'))) {
+  fs.writeFileSync(distPath, xml);
+}
 
 console.log(`✅ Generated sitemap.xml with ${staticPages.length} static pages, ${playlistIds.length} playlists, ${categorySlugs.length} categories, ${gushimishaNumbers.length} gushimisha songs, and ${agakizaNumbers.length} agakiza songs`);

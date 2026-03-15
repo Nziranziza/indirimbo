@@ -37,7 +37,7 @@ function escapeHtml(str) {
     .replace(/'/g, '&#39;');
 }
 
-function generatePage({ title, ogTitle, description, canonicalUrl, keywords }) {
+function generatePage({ title, ogTitle, description, canonicalUrl, keywords, noscriptHtml }) {
   const escapedTitle = escapeHtml(title);
   const escapedOgTitle = escapeHtml(ogTitle);
   const escapedDescription = escapeHtml(description);
@@ -79,6 +79,11 @@ function generatePage({ title, ogTitle, description, canonicalUrl, keywords }) {
   // Inject specific meta tags right after <head>
   html = html.replace(/<head>/, `<head>${metaTags}`);
 
+  // Inject noscript block with crawlable content right after <body>
+  if (noscriptHtml) {
+    html = html.replace(/<body>/, `<body>${noscriptHtml}`);
+  }
+
   return html;
 }
 
@@ -95,33 +100,46 @@ function readCategories() {
   while ((match = categoryRegex.exec(content)) !== null) {
     const name = match[1];
     const slug = match[2];
-    // Count songs by extracting numbers from the songs array
     const songsStr = match[4];
-    // Count range calls and individual numbers
+
+    // Expand range() calls into individual numbers
+    const songNumbers = [];
     const rangeMatches = [...songsStr.matchAll(/range\((\d+),\s*(\d+)\)/g)];
-    let songCount = 0;
     for (const r of rangeMatches) {
-      songCount += Number(r[2]) - Number(r[1]) + 1;
+      const start = Number(r[1]);
+      const end = Number(r[2]);
+      for (let i = start; i <= end; i++) {
+        songNumbers.push(i);
+      }
     }
-    // Count individual numbers (not inside range())
+    // Add individual numbers (not inside range())
     const withoutRanges = songsStr.replace(/\.\.\.range\(\d+,\s*\d+\)/g, '');
     const individualNums = withoutRanges.match(/\b\d+\b/g);
     if (individualNums) {
-      songCount += individualNums.length;
+      for (const n of individualNums) {
+        songNumbers.push(Number(n));
+      }
     }
 
-    categories.push({ name, slug, songCount });
+    categories.push({ name, slug, songCount: songNumbers.length, songNumbers });
   }
 
   return categories;
 }
 
-// --- Count songs per playlist -----------------------------------------------
+// --- Read song names per playlist -------------------------------------------
 
-function countSongs(filePath) {
+function readSongList(filePath) {
   const content = fs.readFileSync(filePath, 'utf8');
-  const matches = content.match(/\{\s*"?number"?\s*:\s*("[\w]+"|[\d]+)\s*,\s*"?name"?\s*:/g);
-  return matches ? matches.length : 0;
+  const songs = [];
+  const songRegex = /\{\s*"?number"?\s*:\s*("[\w]+"|[\d]+)\s*,\s*"?name"?\s*:\s*"([^"]+)"/g;
+  let match;
+  while ((match = songRegex.exec(content)) !== null) {
+    const number = match[1].replace(/^"|"$/g, '');
+    const name = match[2];
+    songs.push({ number, name });
+  }
+  return songs;
 }
 
 // --- main -------------------------------------------------------------------
@@ -145,9 +163,21 @@ const playlists = [
 ];
 
 for (const playlist of playlists) {
-  const songCount = countSongs(playlist.file);
-  const description = `Browse all ${songCount} songs in the ${playlist.name} hymnbook. Rwandan church worship songs with full lyrics.`;
+  const songs = readSongList(playlist.file);
+  const description = `Browse all ${songs.length} songs in the ${playlist.name} hymnbook. Rwandan church worship songs with full lyrics.`;
   const canonicalUrl = `${BASE_URL}/home/playlist/${playlist.id}`;
+
+  // Build noscript with song list for crawlers
+  let noscript = `<noscript><article>`;
+  noscript += `<h1>${escapeHtml(playlist.name)}</h1>`;
+  noscript += `<p>${escapeHtml(description)}</p><ol>`;
+  for (const song of songs) {
+    const songUrl = `${BASE_URL}/song/${playlist.id}/${encodeURIComponent(song.number)}`;
+    noscript += `<li><a href="${songUrl}">${escapeHtml(song.number)}. ${escapeHtml(song.name)}</a></li>`;
+  }
+  noscript += `</ol>`;
+  noscript += `<nav><a href="${BASE_URL}">Indirimbo</a></nav>`;
+  noscript += `</article></noscript>`;
 
   const dir = path.join(distDir, 'home', 'playlist', playlist.id);
   fs.mkdirSync(dir, { recursive: true });
@@ -158,6 +188,7 @@ for (const playlist of playlists) {
     description,
     canonicalUrl,
     keywords: playlist.keywords,
+    noscriptHtml: noscript,
   });
 
   fs.writeFileSync(path.join(dir, 'index.html'), html);
@@ -166,11 +197,27 @@ for (const playlist of playlists) {
 
 // Generate category pages
 const categories = readCategories();
+// Read gushimisha songs for category song name lookups
+const gushimishaSongs = readSongList(path.join(__dirname, '../constants/gushimisha-songs.ts'));
+const gushimishaSongMap = new Map(gushimishaSongs.map((s) => [String(s.number), s.name]));
 
 for (const category of categories) {
   const description = `Browse ${category.name} hymns from Gushimisha Imana hymnbook. ${category.songCount} worship songs with full lyrics.`;
   const canonicalUrl = `${BASE_URL}/home/category/${category.slug}`;
   const keywords = `${category.name}, gushimisha imana, indirimbo, indirimbo zo gushimisha imana, rwandan hymns, worship songs`;
+
+  // Build noscript with song list for crawlers
+  let noscript = `<noscript><article>`;
+  noscript += `<h1>${escapeHtml(category.name)} - Gushimisha Imana</h1>`;
+  noscript += `<p>${escapeHtml(description)}</p><ol>`;
+  for (const songNum of category.songNumbers) {
+    const songName = gushimishaSongMap.get(String(songNum)) || `Indirimbo ${songNum}`;
+    const songUrl = `${BASE_URL}/song/gushimisha/${encodeURIComponent(songNum)}`;
+    noscript += `<li><a href="${songUrl}">${escapeHtml(String(songNum))}. ${escapeHtml(songName)}</a></li>`;
+  }
+  noscript += `</ol>`;
+  noscript += `<nav><a href="${BASE_URL}/home/playlist/gushimisha">Gushimisha Imana</a> | <a href="${BASE_URL}">Indirimbo</a></nav>`;
+  noscript += `</article></noscript>`;
 
   const dir = path.join(distDir, 'home', 'category', category.slug);
   fs.mkdirSync(dir, { recursive: true });
@@ -181,6 +228,7 @@ for (const category of categories) {
     description,
     canonicalUrl,
     keywords,
+    noscriptHtml: noscript,
   });
 
   fs.writeFileSync(path.join(dir, 'index.html'), html);

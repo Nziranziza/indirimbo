@@ -120,7 +120,7 @@ export function CollapsibleHeaderScrollView({
   return (
     <ThemedView style={styles.container}>
       {/* Collapsible header area */}
-      <Animated.View style={[styles.headerBackground, headerAnimatedStyle]}>
+      <Animated.View pointerEvents="none" style={[styles.headerBackground, headerAnimatedStyle]}>
         <Animated.View
           style={[
             styles.largeTitleContainer,

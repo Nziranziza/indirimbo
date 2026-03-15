@@ -168,7 +168,8 @@ export function LyricsContent({ content, style, tintColor }: LyricsContentProps)
 
 const styles = StyleSheet.create({
   repeatContainer: {
-    paddingRight: 40,
+    marginRight: -20,
+    paddingRight: 60,
     position: 'relative',
     justifyContent: 'center',
     overflow: 'visible',
@@ -183,7 +184,7 @@ const styles = StyleSheet.create({
   },
   badge: {
     position: 'absolute',
-    right: 4,
+    right: 24,
     top: '50%',
     transform: [{ translateY: '-50%' }],
     borderRadius: 12,

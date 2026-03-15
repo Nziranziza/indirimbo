@@ -83,6 +83,25 @@ if (!html.includes('spa-redirect')) {
   html = html.replace('</head>', `${spaRedirectScript}\n</head>`);
 }
 
+// Inject noscript block with crawlable homepage content
+const homepageNoscript = `
+<noscript><article>
+<h1>Indirimbo - z'Agakiza no Gushimisha Imana</h1>
+<p>Browse and search Rwandan church hymns from Agakiza and Gushimisha Imana hymnbooks. Find lyrics, save favorites, and share worship songs.</p>
+<h2>Hymnbooks</h2>
+<ul>
+<li><a href="${BASE_URL}/home/playlist/agakiza">Agakiza</a> - Indirimbo z'Agakiza</li>
+<li><a href="${BASE_URL}/home/playlist/gushimisha">Gushimisha Imana</a> - Indirimbo zo Gushimisha Imana</li>
+</ul>
+<nav>
+<a href="${BASE_URL}/about">About</a> |
+<a href="${BASE_URL}/privacy-policy">Privacy Policy</a> |
+<a href="${BASE_URL}/terms-of-service">Terms of Service</a>
+</nav>
+</article></noscript>`;
+
+html = html.replace(/<body>/, `<body>${homepageNoscript}`);
+
 // Write the fixed HTML back
 fs.writeFileSync(indexPath, html);
 
@@ -140,4 +159,9 @@ if (fs.existsSync(notFoundPath)) {
   fs.writeFileSync(notFoundPath, notFoundHtml);
 }
 
-console.log('✅ Fixed asset paths and injected SEO meta tags in all HTML files');
+// Ensure dist/robots.txt has the correct production domain
+const robotsTxtPath = path.join(distDir, 'robots.txt');
+const robotsTxt = `User-agent: *\nAllow: /\n\nSitemap: ${BASE_URL}/sitemap.xml\n`;
+fs.writeFileSync(robotsTxtPath, robotsTxt);
+
+console.log('✅ Fixed asset paths, injected SEO meta tags, and updated robots.txt');

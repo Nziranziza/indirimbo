@@ -825,7 +825,7 @@ const styles = StyleSheet.create({
   },
   verseContainer: {
     marginBottom: 24,
-    overflow: "hidden",
+    overflow: "visible",
   },
   chorusContainer: {
     marginTop: -4,

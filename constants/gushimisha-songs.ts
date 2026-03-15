@@ -60,7 +60,7 @@ export const songs: NewSong[] = [
       {
         "type": "verse",
         "number": 4,
-        "content": "Dushim’ Imana y’ ubuntu,\nTuyishime twebwe twese:\nDushime Data wa twese\nN’ Umwana n’ Umwuuka Wera"
+        "content": "Dushim’ Imana y’ ubuntu,\nTuyishime twebwe twese:\nDushime Data wa twese\nN’ Umwana n’ Umwuka Wera"
       }
     ]
   },
@@ -9081,7 +9081,7 @@ export const songs: NewSong[] = [
       {
         "type": "verse",
         "number": 3,
-        "content": "Tugende turira, tubibir’ Umwami:\nNiba tubabazwa n’ abarimbuka,\nTuzahozwa n’ aza, dushir’ agahinda:\nNi dutund’ imibaa tuzanezerwa!"
+        "content": "Tugende turira, tubibir’ Umwami:\nNiba tubabazwa n’ abarimbuka,\nTuzahozwa n’ aza, dushir’ agahinda:\nNi dutund’ imiba tuzanezerwa!"
       }
     ]
   },

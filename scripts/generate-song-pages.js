@@ -39,12 +39,27 @@ function readSongs(filePath) {
     const number = match[1].replace(/^"|"$/g, '');
     const name = match[2];
 
-    // Find the first verse or chorus (whichever comes first)
+    // Extract the body array for this song (from current match to the next song or end)
     const afterMatch = content.slice(match.index);
-    const firstSectionMatch = afterMatch.match(/"?type"?\s*:\s*"(?:verse|chorus)"[\s\S]*?"?content"?\s*:\s*"([^"]+)"/);
-    const firstVerse = firstSectionMatch ? firstSectionMatch[1].replace(/\\n/g, '\n') : '';
+    // Find the closing of this song's body array
+    const bodyEnd = afterMatch.indexOf('],');
+    const songBlock = bodyEnd !== -1 ? afterMatch.slice(0, bodyEnd) : afterMatch;
 
-    songs.push({ number, name, firstVerse });
+    // Extract all verse/chorus sections
+    const sections = [];
+    const sectionRegex = /"?type"?\s*:\s*"(verse|chorus)"(?:\s*,\s*"?number"?\s*:\s*(\d+))?\s*,\s*"?content"?\s*:\s*"([^"]+)"/g;
+    let sectionMatch;
+    while ((sectionMatch = sectionRegex.exec(songBlock)) !== null) {
+      sections.push({
+        type: sectionMatch[1],
+        number: sectionMatch[2] ? Number(sectionMatch[2]) : undefined,
+        content: sectionMatch[3].replace(/\\n/g, '\n'),
+      });
+    }
+
+    const firstVerse = sections.length > 0 ? sections[0].content : '';
+
+    songs.push({ number, name, firstVerse, sections });
   }
 
   return songs;
@@ -65,6 +80,33 @@ function buildDescription(song, playlistName) {
     return song.firstVerse.replace(/\n/g, ' ');
   }
   return `${song.name} - ${playlistName} hymn #${song.number}`;
+}
+
+function buildNoscriptContent(song, playlist, playlistName) {
+  const playlistShort = playlist === 'agakiza' ? 'Gakiza' : 'Gushimisha Imana';
+  let noscript = `<noscript><article>`;
+  noscript += `<h1>${escapeHtml(song.name)}</h1>`;
+  noscript += `<p>Indirimbo ya ${escapeHtml(String(song.number))} mu ${escapeHtml(playlistShort)}</p>`;
+
+  for (const section of song.sections) {
+    const label = section.type === 'chorus'
+      ? 'Amasakramentu'
+      : `${section.number || ''}`;
+    if (section.type === 'chorus') {
+      noscript += `<p><strong>Amasakramentu:</strong><br/>`;
+    } else {
+      noscript += `<p><strong>${escapeHtml(String(label))}.</strong> `;
+    }
+    noscript += escapeHtml(section.content).replace(/\n/g, '<br/>');
+    noscript += `</p>`;
+  }
+
+  noscript += `<nav>`;
+  noscript += `<a href="${BASE_URL}/home/playlist/${playlist}">${escapeHtml(playlistName)}</a>`;
+  noscript += ` | <a href="${BASE_URL}">Indirimbo</a>`;
+  noscript += `</nav>`;
+  noscript += `</article></noscript>`;
+  return noscript;
 }
 
 function generateSongHtml(song, playlist, playlistName) {
@@ -108,6 +150,10 @@ function generateSongHtml(song, playlist, playlistName) {
 
   // Inject song-specific meta tags right after <head>
   html = html.replace(/<head>/, `<head>${songMeta}`);
+
+  // Inject noscript block with full lyrics right after <body>
+  const noscript = buildNoscriptContent(song, playlist, playlistName);
+  html = html.replace(/<body>/, `<body>${noscript}`);
 
   return html;
 }

@@ -2,7 +2,7 @@ import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { useColors } from '@/hooks/use-colors';
 import React from 'react';
-import { Platform, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import Animated, {
   Extrapolation,
   interpolate,
@@ -113,7 +113,7 @@ export function TabCollapsibleScrollView({
   return (
     <ThemedView style={styles.container}>
       {/* Collapsible header */}
-      <Animated.View style={[styles.header, headerAnimatedStyle]}>
+      <Animated.View pointerEvents="none" style={[styles.header, headerAnimatedStyle]}>
         {/* Large title (original header look) */}
         <Animated.View
           style={[

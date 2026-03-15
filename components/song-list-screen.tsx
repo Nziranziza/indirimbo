@@ -157,7 +157,7 @@ export function SongListScreen({ title, iconName, songs, playlist }: SongListScr
   return (
     <ThemedView style={styles.container}>
       {/* Animated gradient background */}
-      <Animated.View style={[styles.gradientWrapper, headerAnimatedStyle]}>
+      <Animated.View pointerEvents="none" style={[styles.gradientWrapper, headerAnimatedStyle]}>
         <LinearGradient
           colors={['transparent', colors.tint]}
           start={{ x: 0, y: 1 }}

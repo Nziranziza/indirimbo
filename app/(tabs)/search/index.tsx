@@ -182,6 +182,7 @@ export default function SearchScreen() {
   const debounceTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const searchBarRef = useRef<SearchBarCommands>(null);
   const searchInputRef = useRef<SearchInputRef>(null);
+  const [isInputFocused, setIsInputFocused] = useState(false);
   const [recentSearches, setRecentSearches] = useState<RecentSearch[]>([]);
   const [recentSongs, setRecentSongs] = useState<RecentSong[]>([]);
 
@@ -363,25 +364,34 @@ export default function SearchScreen() {
     <>
       <Head>
         <title>Search Songs | Indirimbo</title>
-        <meta name="description" content="Search Rwandan hymns and worship songs by title, number, or lyrics across Gushimisha Imana and Agakiza hymnbooks." />
+        <meta
+          name="description"
+          content="Search Rwandan hymns and worship songs by title, number, or lyrics across Gushimisha Imana and Agakiza hymnbooks."
+        />
       </Head>
       {isIOS && (
         <>
-          <Stack.Screen options={{ title: 'Search' }} />
+          <Stack.Screen options={{ title: "Search" }} />
           <Stack.SearchBar
             ref={searchBarRef as any}
             placeholder="Search by title, number, or lyrics..."
             onChangeText={(e: { nativeEvent: { text: string } }) =>
-              setSearchQuery(e.nativeEvent.text)}
+              setSearchQuery(e.nativeEvent.text)
+            }
             autoCapitalize="none"
             hideWhenScrolling={false}
+            onFocus={() => setIsInputFocused(true)}
+            onBlur={() => setIsInputFocused(false)}
+            onCancelButtonPress={() => setIsInputFocused(false)}
           />
         </>
       )}
       <ThemedView style={styles.container}>
         {!isIOS && (
           <>
-            <ThemedView style={[styles.header, { paddingTop: insets.top + 20 }]}>
+            <ThemedView
+              style={[styles.header, { paddingTop: insets.top + 20 }]}
+            >
               <ThemedText type="title">Search</ThemedText>
             </ThemedView>
             <SearchInput
@@ -390,15 +400,22 @@ export default function SearchScreen() {
               onChangeText={setSearchQuery}
               placeholder="Search by title, number, or lyrics..."
               style={styles.searchInput}
+              onFocus={() => setIsInputFocused(true)}
+              onBlur={() => setIsInputFocused(false)}
             />
           </>
         )}
         {debouncedSearchQuery.trim() ? (
           <FlatList
             data={searchResults}
-            keyExtractor={(item, index) => `${item.playlist}-${item.song.number}-${index}`}
+            keyExtractor={(item, index) =>
+              `${item.playlist}-${item.song.number}-${index}`
+            }
             contentInsetAdjustmentBehavior="automatic"
-            contentContainerStyle={[styles.scrollContent, { paddingBottom: insets.bottom + 90 }]}
+            contentContainerStyle={[
+              styles.scrollContent,
+              { paddingBottom: insets.bottom + 90 },
+            ]}
             keyboardShouldPersistTaps="handled"
             keyboardDismissMode="on-drag"
             initialNumToRender={8}
@@ -407,7 +424,11 @@ export default function SearchScreen() {
             removeClippedSubviews={true}
             ListEmptyComponent={
               <ThemedView style={styles.emptyState}>
-                <IconSymbol name="magnifyingglass" size={48} color={colors.icon + '40'} />
+                <IconSymbol
+                  name="magnifyingglass"
+                  size={48}
+                  color={colors.icon + "40"}
+                />
                 <ThemedText style={styles.emptyText}>No songs found</ThemedText>
               </ThemedView>
             }
@@ -425,55 +446,113 @@ export default function SearchScreen() {
         ) : (
           <SectionList
             sections={recentSections}
-            keyExtractor={(item, index) => `${item.type}-${item.type === 'search' ? item.query : `${item.playlist}-${item.songNumber}`}-${index}`}
+            keyExtractor={(item, index) =>
+              `${item.type}-${item.type === "search" ? item.query : `${item.playlist}-${item.songNumber}`}-${index}`
+            }
             contentInsetAdjustmentBehavior="automatic"
-            contentContainerStyle={[styles.scrollContent, { paddingBottom: insets.bottom + 90 }]}
+            contentContainerStyle={[
+              styles.scrollContent,
+              { paddingBottom: insets.bottom + 90 },
+            ]}
             keyboardShouldPersistTaps="handled"
             keyboardDismissMode="on-drag"
             renderSectionHeader={() => null}
-            SectionSeparatorComponent={({ trailingItem, trailingSection }) => (!trailingItem && trailingSection) ? <View style={{ height: 16 }} /> : null}
+            SectionSeparatorComponent={({ trailingItem, trailingSection }) =>
+              !trailingItem && trailingSection ? (
+                <View style={{ height: 16 }} />
+              ) : null
+            }
             ListHeaderComponent={
-              <View style={styles.recentHeader}>
-                <ThemedText type="defaultSemiBold" style={styles.recentTitle}>Recent</ThemedText>
-                {recentSearches.length > 0 && (
-                  <TouchableOpacity onPress={handleClearRecentSearches} activeOpacity={0.7}>
-                    <ThemedText style={[styles.clearAllText, { color: colors.tint }]}>Clear all</ThemedText>
-                  </TouchableOpacity>
+              <>
+                {Platform.OS === 'ios' && parseInt(String(Platform.Version), 10) >= 26 && isInputFocused && (
+                  <ThemedText type="title" style={{ marginBottom: 20 }}>Search</ThemedText>
                 )}
-              </View>
+                <View style={styles.recentHeader}>
+                  <ThemedText type="defaultSemiBold" style={styles.recentTitle}>
+                    Recent
+                  </ThemedText>
+                  {recentSearches.length > 0 && (
+                    <TouchableOpacity
+                      onPress={handleClearRecentSearches}
+                      activeOpacity={0.7}
+                    >
+                      <ThemedText
+                        style={[styles.clearAllText, { color: colors.tint }]}
+                      >
+                        Clear all
+                      </ThemedText>
+                    </TouchableOpacity>
+                  )}
+                </View>
+              </>
             }
             renderItem={({ item, index, section }) => {
-              if (item.type === 'search') {
+              if (item.type === "search") {
                 const isLast = index === section.data.length - 1;
                 return (
                   <TouchableOpacity
-                    style={[styles.recentItem, !isLast && { borderBottomWidth: StyleSheet.hairlineWidth, borderBottomColor: colors.icon + '20' }]}
+                    style={[
+                      styles.recentItem,
+                      !isLast && {
+                        borderBottomWidth: StyleSheet.hairlineWidth,
+                        borderBottomColor: colors.icon + "20",
+                      },
+                    ]}
                     onPress={() => handleRecentSearchTap(item.query)}
-                    activeOpacity={0.7}>
-                    <IconSymbol name="clock.arrow.circlepath" size={18} color={colors.icon} />
-                    <ThemedText style={styles.recentQuery} numberOfLines={1}>{item.query}</ThemedText>
+                    activeOpacity={0.7}
+                  >
+                    <IconSymbol
+                      name="clock.arrow.circlepath"
+                      size={18}
+                      color={colors.icon}
+                    />
+                    <ThemedText style={styles.recentQuery} numberOfLines={1}>
+                      {item.query}
+                    </ThemedText>
                     <TouchableOpacity
                       onPress={() => handleRemoveRecentSearch(item.query)}
                       activeOpacity={0.7}
-                      hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}>
-                      <IconSymbol name="xmark" size={14} color={colors.icon + '60'} />
+                      hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}
+                    >
+                      <IconSymbol
+                        name="xmark"
+                        size={14}
+                        color={colors.icon + "60"}
+                      />
                     </TouchableOpacity>
                   </TouchableOpacity>
                 );
               }
               const playlistSongs = allSongs[item.playlist] || [];
-              const song = playlistSongs.find(s => String(s.number) === String(item.songNumber));
+              const song = playlistSongs.find(
+                (s) => String(s.number) === String(item.songNumber),
+              );
               return (
                 <TouchableOpacity
-                  style={[styles.recentSongCard, { borderColor: colors.icon + '20' }]}
-                  onPress={() => handleSongPress(item.playlist, item.songNumber)}
-                  activeOpacity={0.7}>
+                  style={[
+                    styles.recentSongCard,
+                    { borderColor: colors.icon + "20" },
+                  ]}
+                  onPress={() =>
+                    handleSongPress(item.playlist, item.songNumber)
+                  }
+                  activeOpacity={0.7}
+                >
                   <SongNumberBadge number={item.songNumber} />
                   <View style={styles.recentSongInfo}>
-                    <ThemedText style={[styles.playlistLabel, { color: colors.icon, opacity: 0.7 }]}>
+                    <ThemedText
+                      style={[
+                        styles.playlistLabel,
+                        { color: colors.icon, opacity: 0.7 },
+                      ]}
+                    >
                       {getPlaylistName(item.playlist)}
                     </ThemedText>
-                    <ThemedText type="defaultSemiBold" style={styles.recentSongName} numberOfLines={2}>
+                    <ThemedText
+                      type="defaultSemiBold"
+                      style={styles.recentSongName}
+                      numberOfLines={2}
+                    >
                       {song?.name || item.songName}
                     </ThemedText>
                   </View>
@@ -482,7 +561,11 @@ export default function SearchScreen() {
             }}
             ListEmptyComponent={
               <ThemedView style={styles.emptyState}>
-                <IconSymbol name="magnifyingglass" size={48} color={colors.icon + '40'} />
+                <IconSymbol
+                  name="magnifyingglass"
+                  size={48}
+                  color={colors.icon + "40"}
+                />
                 <ThemedText style={styles.emptyTitle}>Search Songs</ThemedText>
                 <ThemedText style={styles.emptyText}>
                   Search across all playlists by song name, number, or lyrics
