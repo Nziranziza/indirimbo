@@ -2,6 +2,7 @@ import { CollapsibleHeaderScrollView } from '@/components/collapsible-header-scr
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { IconSymbol } from '@/components/ui/icon-symbol';
+import type { IconSymbolName } from '@/components/ui/icon-symbol';
 import { APP_STORE_URL, APP_UNIVERSAL_LINK_URL, PLAY_STORE_URL } from '@/constants/app-links';
 import { useColors } from '@/hooks/use-colors';
 import { Redirect } from 'expo-router';
@@ -155,10 +156,10 @@ function GooglePlayIcon({ size = 22 }: { size?: number }) {
   );
 }
 
-function FeatureRow({ icon, text, colors }: { icon: string; text: string; colors: any }) {
+function FeatureRow({ icon, text, colors }: { icon: IconSymbolName; text: string; colors: ReturnType<typeof useColors> }) {
   return (
     <View style={styles.featureRow}>
-      <IconSymbol name={icon as any} size={18} color={colors.tint} />
+      <IconSymbol name={icon} size={18} color={colors.tint} />
       <ThemedText style={styles.featureText}>{text}</ThemedText>
     </View>
   );

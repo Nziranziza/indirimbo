@@ -1,6 +1,6 @@
 import { IconSymbol } from '@/components/ui/icon-symbol';
 import { useColors } from '@/hooks/use-colors';
-import { Pressable, StyleSheet, TextInput, TouchableOpacity, View } from 'react-native';
+import { Pressable, StyleSheet, TextInput } from 'react-native';
 import { forwardRef, useImperativeHandle, useRef } from 'react';
 
 export interface SearchInputRef {
@@ -36,6 +36,7 @@ export const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
           },
           style
         ]}
+        accessibilityRole="search"
         onPress={() => inputRef.current?.focus()}>
         <IconSymbol name="magnifyingglass" size={20} color={colors.icon} />
         <TextInput
@@ -46,6 +47,7 @@ export const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
           value={value}
           onChangeText={onChangeText}
           returnKeyType="search"
+          accessibilityLabel="Search songs"
           autoFocus={autoFocus}
           onFocus={onFocus}
           onBlur={onBlur}
@@ -56,6 +58,8 @@ export const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
               e.stopPropagation();
               onChangeText('');
             }}
+            accessibilityLabel="Clear search"
+            accessibilityRole="button"
             hitSlop={{ top: 16, bottom: 16, left: 16, right: 16 }}>
             <IconSymbol name="xmark.circle.fill" size={20} color={colors.icon} />
           </Pressable>
@@ -64,6 +68,8 @@ export const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
     );
   }
 );
+
+SearchInput.displayName = 'SearchInput';
 
 const styles = StyleSheet.create({
   container: {

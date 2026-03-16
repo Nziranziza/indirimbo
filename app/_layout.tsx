@@ -21,7 +21,7 @@ export const unstable_settings = {
 function SEOHead() {
   return (
     <Head>
-      <title>Indirimbo - z'Agakiza no Gushimisha Imana</title>
+      <title>Indirimbo - z&apos;Agakiza no Gushimisha Imana</title>
       <meta name="description" content="Browse and search Rwandan church hymns from Agakiza and Gushimisha Imana hymnbooks. Find lyrics, save favorites, and share worship songs." />
       <meta name="keywords" content="indirimbo, agakiza, gushimisha imana, indirimbo z'agakiza, indirimbo zo gushimisha imana, rwandan hymns, worship songs, church hymns, kinyarwanda, rwanda" />
       <meta name="theme-color" content="#0a7ea4" />

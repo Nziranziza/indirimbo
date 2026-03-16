@@ -54,6 +54,8 @@ export function BackToTopButton({ scrollY, onPress }: BackToTopButtonProps) {
         <TouchableOpacity
           onPress={onPress}
           activeOpacity={0.8}
+          accessibilityLabel="Scroll to top"
+          accessibilityRole="button"
           style={[styles.touchable, { backgroundColor: colors.tint }]}>
           <View pointerEvents="none">
             <IconSymbol name="arrow.up" size={24} color={colors.background} />

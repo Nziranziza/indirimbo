@@ -1,21 +1,23 @@
 import { CollapsibleHeaderScrollView } from '@/components/collapsible-header-scroll-view';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
-import { IconSymbol } from '@/components/ui/icon-symbol';
 import { FloatingShareButton } from '@/components/ui/floating-share-button';
+import { IconSymbol } from '@/components/ui/icon-symbol';
+import type { IconSymbolName } from '@/components/ui/icon-symbol';
+import { InfoCard } from '@/components/ui/info-card';
 import { useColors } from '@/hooks/use-colors';
 import Constants from 'expo-constants';
 import { router } from 'expo-router';
 import Head from 'expo-router/head';
 import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 
-export default function AboutScreen() {
+function FeatureItem({ icon, title, description }: { icon: IconSymbolName; title: string; description: string }) {
   const colors = useColors();
 
-  const FeatureItem = ({ icon, title, description }: { icon: string; title: string; description: string }) => (
+  return (
     <View style={styles.featureItem}>
       <View style={[styles.featureIcon, { backgroundColor: colors.tint + '15' }]}>
-        <IconSymbol name={icon as any} size={24} color={colors.tint} />
+        <IconSymbol name={icon} size={24} color={colors.tint} />
       </View>
       <View style={styles.featureContent}>
         <ThemedText type="defaultSemiBold" style={styles.featureTitle}>{title}</ThemedText>
@@ -23,12 +25,17 @@ export default function AboutScreen() {
       </View>
     </View>
   );
+}
+
+export default function AboutScreen() {
+  const colors = useColors();
 
   return (
     <>
     <Head>
       <title>About | Indirimbo</title>
       <meta name="description" content="Indirimbo brings Rwandan hymns and worship songs to your fingertips. Browse Gushimisha Imana and Agakiza hymnbooks." />
+      <link rel="canonical" href="https://indirimbo.rw/about" />
     </Head>
     <CollapsibleHeaderScrollView
       title="About Indirimbo"
@@ -41,6 +48,7 @@ export default function AboutScreen() {
           <Image
             source={require('@/assets/images/icon.png')}
             style={styles.appIcon}
+            accessibilityLabel="Indirimbo app icon"
           />
           <ThemedText type="title" style={styles.appName}>
             Indirimbo
@@ -53,7 +61,7 @@ export default function AboutScreen() {
       {/* Description */}
       <ThemedView
         style={[
-          styles.card,
+          styles.descriptionCard,
           { borderColor: colors.tint + '30', backgroundColor: colors.tint + '08' },
         ]}>
         <ThemedText style={styles.description}>
@@ -69,69 +77,19 @@ export default function AboutScreen() {
           Features
         </ThemedText>
 
-        <FeatureItem
-          icon="music.note.list"
-          title="Complete Hymnbooks"
-          description="Access songs from Gushimisha Imana and Agakiza hymnbooks, with all verses and choruses."
-        />
-
-        <FeatureItem
-          icon="magnifyingglass"
-          title="Powerful Search"
-          description="Find any song instantly by number, title, or even words from the lyrics."
-        />
-
-        <FeatureItem
-          icon="heart"
-          title="Favorites"
-          description="Save your most-used songs for quick access during worship or practice."
-        />
-
-        <FeatureItem
-          icon="clock"
-          title="Recent Songs"
-          description="Quickly return to songs you've recently viewed."
-        />
-
-        <FeatureItem
-          icon="textformat.size"
-          title="Adjustable Text"
-          description="Customize the font size for comfortable reading on any device."
-        />
-
-        <FeatureItem
-          icon="chart.bar.fill"
-          title="Song Navigation"
-          description="Visual heatmap shows all verses and choruses. Tap any section to jump directly to it."
-        />
-
-        <FeatureItem
-          icon="square.and.arrow.up"
-          title="Easy Sharing"
-          description="Share songs with friends, family, or your worship team."
-        />
-
-        <FeatureItem
-          icon="icloud.slash"
-          title="Works Offline"
-          description="All songs are stored on your device. No internet needed after installation."
-        />
-
-        <FeatureItem
-          icon="moon"
-          title="Dark Mode"
-          description="Easy on the eyes with automatic dark mode support."
-        />
+        <FeatureItem icon="music.note.list" title="Complete Hymnbooks" description="Access songs from Gushimisha Imana and Agakiza hymnbooks, with all verses and choruses." />
+        <FeatureItem icon="magnifyingglass" title="Powerful Search" description="Find any song instantly by number, title, or even words from the lyrics." />
+        <FeatureItem icon="heart" title="Favorites" description="Save your most-used songs for quick access during worship or practice." />
+        <FeatureItem icon="clock" title="Recent Songs" description="Quickly return to songs you've recently viewed." />
+        <FeatureItem icon="textformat.size" title="Adjustable Text" description="Customize the font size for comfortable reading on any device." />
+        <FeatureItem icon="chart.bar.fill" title="Song Navigation" description="Visual heatmap shows all verses and choruses. Tap any section to jump directly to it." />
+        <FeatureItem icon="square.and.arrow.up" title="Easy Sharing" description="Share songs with friends, family, or your worship team." />
+        <FeatureItem icon="icloud.slash" title="Works Offline" description="All songs are stored on your device. No internet needed after installation." />
+        <FeatureItem icon="moon" title="Dark Mode" description="Easy on the eyes with automatic dark mode support." />
       </ThemedView>
 
       {/* Playlists */}
-      <ThemedView style={[styles.card, { borderColor: colors.icon + '20', backgroundColor: colors.background }]}>
-        <View style={styles.cardHeader}>
-          <IconSymbol name="music.mic" size={20} color={colors.tint} />
-          <ThemedText type="defaultSemiBold" style={styles.cardTitle}>
-            Available Hymnbooks
-          </ThemedText>
-        </View>
+      <InfoCard icon="music.mic" title="Available Hymnbooks">
         <View style={styles.playlistItem}>
           <ThemedText type="defaultSemiBold">Gushimisha Imana</ThemedText>
           <ThemedText style={styles.playlistDescription}>
@@ -144,12 +102,14 @@ export default function AboutScreen() {
             Traditional hymns focused on salvation and spiritual themes.
           </ThemedText>
         </View>
-      </ThemedView>
+      </InfoCard>
 
       {/* Call to Action */}
       <ThemedView style={styles.ctaSection}>
         <TouchableOpacity
           onPress={() => router.push('/(tabs)/home')}
+          accessibilityLabel="Start exploring songs"
+          accessibilityRole="button"
           activeOpacity={0.8}
           style={[styles.ctaButton, { backgroundColor: colors.tint }]}>
           <IconSymbol name="play.fill" size={20} color={colors.tintForeground} />
@@ -159,21 +119,15 @@ export default function AboutScreen() {
 
       {/* Footer Links */}
       <ThemedView style={styles.footerLinks}>
-        <TouchableOpacity
-          onPress={() => router.push('/support')}
-          activeOpacity={0.7}>
+        <TouchableOpacity onPress={() => router.push('/support')} accessibilityRole="link" activeOpacity={0.7}>
           <ThemedText style={[styles.footerLink, { color: colors.tint }]}>Support</ThemedText>
         </TouchableOpacity>
         <ThemedText style={styles.footerDot}>•</ThemedText>
-        <TouchableOpacity
-          onPress={() => router.push('/privacy-policy')}
-          activeOpacity={0.7}>
+        <TouchableOpacity onPress={() => router.push('/privacy-policy')} accessibilityRole="link" activeOpacity={0.7}>
           <ThemedText style={[styles.footerLink, { color: colors.tint }]}>Privacy Policy</ThemedText>
         </TouchableOpacity>
         <ThemedText style={styles.footerDot}>•</ThemedText>
-        <TouchableOpacity
-          onPress={() => router.push('/terms-of-service')}
-          activeOpacity={0.7}>
+        <TouchableOpacity onPress={() => router.push('/terms-of-service')} accessibilityRole="link" activeOpacity={0.7}>
           <ThemedText style={[styles.footerLink, { color: colors.tint }]}>Terms</ThemedText>
         </TouchableOpacity>
       </ThemedView>
@@ -206,19 +160,10 @@ const styles = StyleSheet.create({
     opacity: 0.7,
     textAlign: 'center',
   },
-  card: {
+  descriptionCard: {
     padding: 16,
     borderRadius: 12,
     borderWidth: 1,
-  },
-  cardHeader: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 10,
-    marginBottom: 12,
-  },
-  cardTitle: {
-    fontSize: 16,
   },
   description: {
     fontSize: 16,

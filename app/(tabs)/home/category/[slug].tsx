@@ -1,19 +1,11 @@
 import { SongListScreen } from '@/components/song-list-screen';
-import { IconSymbol } from '@/components/ui/icon-symbol';
+import type { IconSymbolName } from '@/components/ui/icon-symbol';
 import { gushimishaCategories } from '@/constants/gushimisha-categories';
+import type { Song } from '@/constants/types';
 import { useSongs } from '@/contexts/songs-context';
 import { useLocalSearchParams } from 'expo-router';
 import Head from 'expo-router/head';
-import { ComponentProps, useMemo } from 'react';
-
-type IconSymbolName = ComponentProps<typeof IconSymbol>['name'];
-
-interface Song {
-  number: number | string;
-  name: string;
-  url: string;
-  body: { type: 'verse' | 'chorus'; number?: number; content: string }[];
-}
+import { useMemo } from 'react';
 
 export default function CategoryScreen() {
   const { slug } = useLocalSearchParams<{ slug: string }>();
@@ -43,6 +35,7 @@ export default function CategoryScreen() {
         <meta property="og:image" content="https://indirimbo.rw/og-image.jpg" />
         <meta property="og:url" content={`https://indirimbo.rw/home/category/${slug}`} />
         <meta name="keywords" content={`${categoryName}, gushimisha imana, indirimbo, indirimbo zo gushimisha imana, rwandan hymns, worship songs`} />
+        <link rel="canonical" href={`https://indirimbo.rw/home/category/${slug}`} />
       </Head>
       <SongListScreen
         title={categoryName}

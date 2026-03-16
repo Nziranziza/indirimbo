@@ -30,6 +30,16 @@ if (normalizedBasePath) {
   console.log('ℹ️  No BASE_PATH set; leaving asset paths unchanged');
 }
 
+// Inject preload hint for the main entry JS bundle (speeds up resource discovery)
+const entryScriptMatch = html.match(/src="([^"]*entry-[^"]*\.js)"/);
+if (entryScriptMatch) {
+  const entryScriptSrc = entryScriptMatch[1];
+  const preloadTag = `<link rel="preload" href="${entryScriptSrc}" as="script" />`;
+  if (!html.includes('rel="preload"')) {
+    html = html.replace('</head>', `  ${preloadTag}\n</head>`);
+  }
+}
+
 // Replace empty title with default SEO title
 html = html.replace(
   /<title data-rh="true"><\/title>/,

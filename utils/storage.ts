@@ -30,7 +30,7 @@ export interface RecentSearch {
 
 export type FontSize = 'small' | 'medium' | 'large';
 export type ThemePreference = 'light' | 'dark' | 'auto';
-export type TintColorKey = 'blue' | 'purple' | 'green' | 'teal' | 'orange' | 'pink' | 'indigo' | 'emerald' | 'red' | 'yellow' | 'cyan' | 'rose';
+export type { TintColorKey } from '@/constants/theme';
 
 // Favorites
 export async function getFavorites(): Promise<FavoriteSong[]> {
