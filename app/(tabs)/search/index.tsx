@@ -108,6 +108,7 @@ export default function SearchScreen() {
           name="description"
           content="Search Rwandan hymns and worship songs by title, number, or lyrics across Gushimisha Imana and Agakiza hymnbooks."
         />
+        <link rel="canonical" href="https://indirimbo.rw/search" />
       </Head>
       {isIOS && (
         <>

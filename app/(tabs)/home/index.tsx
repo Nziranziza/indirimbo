@@ -58,6 +58,7 @@ export default function HomeScreen() {
         <title>Indirimbo - z&apos;Agakiza no Gushimisha Imana</title>
         <meta name="description" content="Shakisha indirimbo z'agakiza n'izo gushimisha Imana. Igitabo cy'indirimbo zo mu matorero, amagambo yose y'indirimbo z'abarokore. Find Rwandan worship songs with full lyrics." />
         <meta name="keywords" content="indirimbo, indirimbo zo mugitabo, indirimbo z'agakiza, indirimbo zo gushimisha imana, igitabo cy'indirimbo, indirimbo z'abarokore, indirimbo zo guhimbaza imana, rwandan hymns, worship songs" />
+        <link rel="canonical" href="https://indirimbo.rw" />
       </Head>
 
       <LinearGradient

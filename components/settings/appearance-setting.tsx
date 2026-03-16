@@ -30,6 +30,9 @@ export function AppearanceSetting({ themePreference, onThemeChange }: Appearance
                 backgroundColor: isSelected ? colors.tint + '10' : 'transparent',
               },
             ]}
+            accessibilityLabel={`${option.label} theme: ${option.description}`}
+            accessibilityRole="radio"
+            accessibilityState={{ selected: isSelected }}
             activeOpacity={0.7}
           >
             <View style={styles.optionContent}>

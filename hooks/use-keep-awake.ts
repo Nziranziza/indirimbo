@@ -17,7 +17,7 @@ export function useKeepAwake(lineCount: number) {
 
   const resetKeepAwake = useCallback(() => {
     if (timerRef.current) clearTimeout(timerRef.current);
-    activateKeepAwakeAsync(KEEP_AWAKE_TAG);
+    activateKeepAwakeAsync(KEEP_AWAKE_TAG).catch(console.error);
     timerRef.current = setTimeout(() => {
       deactivateKeepAwake(KEEP_AWAKE_TAG);
     }, estimatedDuration);

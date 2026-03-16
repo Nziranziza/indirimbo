@@ -28,6 +28,8 @@ export const SearchResultItem = React.memo(function SearchResultItem({
     <TouchableOpacity
       style={[styles.songCard, { borderColor: colors.icon + '20' }]}
       onPress={() => onPress(playlist, song.number)}
+      accessibilityLabel={`${song.name}, ${playlistTitle} number ${song.number}`}
+      accessibilityRole="button"
       activeOpacity={0.7}>
       <View style={styles.songCardContent}>
         <View style={styles.songCardTop}>

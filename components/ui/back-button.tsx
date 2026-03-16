@@ -34,6 +34,8 @@ export function BackButton({ onPress, fallbackHref, color, style, hitSlop }: Bac
       onPress={onPress ?? (() => handleBack(fallback))}
       style={[styles.backButton, style]}
       activeOpacity={0.7}
+      accessibilityLabel="Go back"
+      accessibilityRole="button"
       hitSlop={hitSlop ?? { left: 20, right: 10, top: 10, bottom: 10 }}>
       <IconSymbol name="arrow.left" size={24} color={color ?? colors.tint} />
     </TouchableOpacity>
@@ -42,8 +44,8 @@ export function BackButton({ onPress, fallbackHref, color, style, hitSlop }: Bac
 
 const styles = StyleSheet.create({
   backButton: {
-    width: 40,
-    height: 40,
+    width: 44,
+    height: 44,
     justifyContent: 'center',
     marginLeft: -8,
   },

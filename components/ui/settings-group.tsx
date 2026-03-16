@@ -9,18 +9,16 @@ interface SettingsGroupProps {
   readonly icon: IconSymbolName;
   readonly title: string;
   readonly description: string;
-  readonly isLast?: boolean;
   readonly children: React.ReactNode;
 }
 
-export function SettingsGroup({ icon, title, description, isLast = false, children }: SettingsGroupProps) {
+export function SettingsGroup({ icon, title, description, children }: SettingsGroupProps) {
   const colors = useColors();
 
   return (
     <ThemedView
       style={[
         styles.groupContainer,
-        isLast && styles.lastGroupContainer,
         {
           backgroundColor: colors.background,
           borderColor: colors.icon + '15',
@@ -51,9 +49,6 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     borderWidth: 1,
     padding: 20,
-    marginBottom: 0,
-  },
-  lastGroupContainer: {
     marginBottom: 0,
   },
   groupHeader: {

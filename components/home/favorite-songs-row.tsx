@@ -32,6 +32,8 @@ export function FavoriteSongsRow({ favoriteSongs, allSongs, onSongPress }: Favor
         </ThemedText>
         <TouchableOpacity
           onPress={handleViewAll}
+          accessibilityLabel="See all favorites"
+          accessibilityRole="button"
           activeOpacity={0.7}
           style={[styles.viewMoreButton, { backgroundColor: colors.tint + '20' }]}>
           <ThemedText style={[styles.viewMoreText, { color: colors.tint }]}>
@@ -56,6 +58,8 @@ export function FavoriteSongsRow({ favoriteSongs, allSongs, onSongPress }: Favor
                 key={`${favorite.playlist}-${favorite.songNumber}-${index}`}
                 style={[styles.card, { borderColor: colors.icon + '20' }]}
                 onPress={() => onSongPress(favorite.playlist, favorite.songNumber)}
+                accessibilityLabel={`${song?.name || favorite.songName}, ${playlistTitle}`}
+                accessibilityRole="button"
                 activeOpacity={0.7}>
                 <SongNumberBadge number={favorite.songNumber} style={{ alignSelf: 'flex-start' }} />
                 <View style={styles.songInfo}>

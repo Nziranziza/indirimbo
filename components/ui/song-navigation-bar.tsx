@@ -41,6 +41,8 @@ export function SongNavigationBar({
         ]}
         onPress={onPrevious}
         disabled={isFirst}
+        accessibilityLabel="Previous song"
+        accessibilityRole="button"
         activeOpacity={0.7}
         hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}
       >
@@ -65,6 +67,8 @@ export function SongNavigationBar({
         ]}
         onPress={onNext}
         disabled={isLast}
+        accessibilityLabel="Next song"
+        accessibilityRole="button"
         activeOpacity={0.7}
         hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}
       >

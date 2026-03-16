@@ -74,6 +74,7 @@ export default function FavoritesTabScreen() {
       <Head>
         <title>Favorites | Indirimbo</title>
         <meta name="description" content="Your favorite Rwandan hymns and worship songs from Gushimisha Imana and Agakiza hymnbooks." />
+        <link rel="canonical" href="https://indirimbo.rw/favorites" />
       </Head>
       <TabCollapsibleScrollView
         title="Favorites"
@@ -88,6 +89,8 @@ export default function FavoritesTabScreen() {
             </ThemedText>
             <TouchableOpacity
               onPress={() => router.push('/(tabs)/home')}
+              accessibilityLabel="Start exploring songs"
+              accessibilityRole="button"
               activeOpacity={0.8}
               style={[styles.ctaButton, { backgroundColor: colors.tint }]}>
               <IconSymbol name="play.fill" size={20} color={colors.tintForeground} />
@@ -105,6 +108,8 @@ export default function FavoritesTabScreen() {
                 key={`${favorite.playlist}-${favorite.songNumber}-${index}`}
                 style={[styles.songCard, { borderColor: colors.icon + '20' }]}
                 onPress={() => handleSongPress(favorite)}
+                accessibilityLabel={`${song?.name || favorite.songName}, ${playlistTitle}`}
+                accessibilityRole="button"
                 activeOpacity={0.7}>
                 <SongNumberBadge number={favorite.songNumber} />
                 <View style={styles.songInfo}>
@@ -125,6 +130,8 @@ export default function FavoritesTabScreen() {
                 <TouchableOpacity
                   onPress={() => handleRemoveFavorite(favorite.playlist, favorite.songNumber)}
                   style={styles.favoriteButton}
+                  accessibilityLabel="Remove from favorites"
+                  accessibilityRole="button"
                   activeOpacity={0.7}>
                   <IconSymbol name="heart.fill" size={24} color="#FF3B30" />
                 </TouchableOpacity>

@@ -30,6 +30,8 @@ export function SettingsLinkRow({
           ? { borderBottomWidth: 0 }
           : { borderBottomColor: colors.icon + '10' },
       ]}
+      accessibilityLabel={label}
+      accessibilityRole="button"
       activeOpacity={0.7}>
       <View style={styles.linkContent}>
         <IconSymbol name={icon} size={20} color={colors.icon} />

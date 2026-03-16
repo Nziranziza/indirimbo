@@ -88,6 +88,7 @@ export default function SettingsScreen() {
           name="description"
           content="Customize your Indirimbo reading experience. Adjust text size, theme, and accent color."
         />
+        <link rel="canonical" href="https://indirimbo.rw/settings" />
       </Head>
       <TabCollapsibleScrollView
         title="Settings"
@@ -170,7 +171,6 @@ export default function SettingsScreen() {
           icon="info.circle.fill"
           title="Legal & Information"
           description="About the app, support, and legal policies"
-          isLast
         >
           <ThemedView style={styles.linksContainer}>
             <SettingsLinkRow

@@ -263,6 +263,8 @@ export default function SongScreen() {
           <TouchableOpacity
             onPress={handleShare}
             style={[styles.headerActionButton, { borderColor: colors.icon + "30" }]}
+            accessibilityLabel="Share song"
+            accessibilityRole="button"
             activeOpacity={0.7}
             hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
           >
@@ -271,6 +273,8 @@ export default function SongScreen() {
           <TouchableOpacity
             onPress={handleToggleFavorite}
             style={styles.headerActionButton}
+            accessibilityLabel={isFav ? "Remove from favorites" : "Add to favorites"}
+            accessibilityRole="button"
             activeOpacity={0.7}
             hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
           >
@@ -314,14 +318,14 @@ export default function SongScreen() {
                 )}
                 {item.type === "verse" && item.number && currentSong.body.filter((b) => b.type === "verse" || b.type === "chorus").length > 1 && (
                   <ThemedView style={styles.verseHeader}>
-                    <ThemedText style={[styles.verseLabel, { color: colors.icon }]}>
+                    <ThemedText style={[styles.verseLabel, { color: colors.icon }]} accessibilityRole="header">
                       Verse {item.number}
                     </ThemedText>
                   </ThemedView>
                 )}
                 {item.type === "chorus" && (
                   <View style={styles.chorusHeader}>
-                    <ThemedText style={[styles.chorusLabel, { color: colors.tint }]}>
+                    <ThemedText style={[styles.chorusLabel, { color: colors.tint }]} accessibilityRole="header">
                       Chorus
                     </ThemedText>
                   </View>

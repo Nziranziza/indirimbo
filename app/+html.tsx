@@ -2,14 +2,15 @@ import { ScrollViewStyleReset } from 'expo-router/html';
 
 export default function Root({ children }: { children: React.ReactNode }) {
   return (
-    <html>
+    <html lang="en">
       <head>
         <meta charSet="utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta
           name="viewport"
-          content="width=device-width, initial-scale=1, shrink-to-fit=no"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no, viewport-fit=cover"
         />
+        <meta name="color-scheme" content="light dark" />
 
         <ScrollViewStyleReset />
       </head>

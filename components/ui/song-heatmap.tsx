@@ -215,8 +215,7 @@ export function SongHeatmap({
 
   const viewportHeight = (scrollViewHeight / contentHeight) * 100;
   const heatmapHeight = scrollViewHeight;
-  const filteredBody = songBody.filter((item) => item && item.type);
-  const lastIndex = filteredBody.length - 1;
+  const lastIndex = songBody.length - 1;
 
   return (
     <View

@@ -16,6 +16,9 @@ export function Collapsible({ children, title }: PropsWithChildren & { title: st
       <TouchableOpacity
         style={styles.heading}
         onPress={() => setIsOpen((value) => !value)}
+        accessibilityLabel={title}
+        accessibilityRole="button"
+        accessibilityState={{ expanded: isOpen }}
         activeOpacity={0.8}>
         <IconSymbol
           name="arrow.right"

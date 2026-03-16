@@ -18,6 +18,7 @@ export default function SupportScreen() {
     <Head>
       <title>Support | Indirimbo</title>
       <meta name="description" content="Get help with using Indirimbo. Find FAQs, usage guide, and contact information for the Rwandan hymnal app." />
+      <link rel="canonical" href="https://indirimbo.rw/support" />
     </Head>
     <CollapsibleHeaderScrollView
       title="Support"
@@ -71,7 +72,7 @@ export default function SupportScreen() {
         </ThemedText>
         <BulletItem>The song name and number</BulletItem>
         <BulletItem>Description of the issue</BulletItem>
-        <BulletItem>Your device type and iOS version</BulletItem>
+        <BulletItem>Your device type and OS version</BulletItem>
       </InfoCard>
 
       {/* Contact Us */}

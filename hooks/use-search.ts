@@ -58,6 +58,7 @@ export function useSearch(allSongs: Record<string, Song[]>, debouncedQuery: stri
         threshold: 0.35,
         ignoreLocation: true,
         useExtendedSearch: true,
+        includeScore: true,
       }, index);
       setFuseInstance(instance);
     });

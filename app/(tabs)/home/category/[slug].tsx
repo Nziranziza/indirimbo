@@ -35,6 +35,7 @@ export default function CategoryScreen() {
         <meta property="og:image" content="https://indirimbo.rw/og-image.jpg" />
         <meta property="og:url" content={`https://indirimbo.rw/home/category/${slug}`} />
         <meta name="keywords" content={`${categoryName}, gushimisha imana, indirimbo, indirimbo zo gushimisha imana, rwandan hymns, worship songs`} />
+        <link rel="canonical" href={`https://indirimbo.rw/home/category/${slug}`} />
       </Head>
       <SongListScreen
         title={categoryName}

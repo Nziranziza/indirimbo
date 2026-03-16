@@ -35,6 +35,7 @@ export default function AboutScreen() {
     <Head>
       <title>About | Indirimbo</title>
       <meta name="description" content="Indirimbo brings Rwandan hymns and worship songs to your fingertips. Browse Gushimisha Imana and Agakiza hymnbooks." />
+      <link rel="canonical" href="https://indirimbo.rw/about" />
     </Head>
     <CollapsibleHeaderScrollView
       title="About Indirimbo"
@@ -47,6 +48,7 @@ export default function AboutScreen() {
           <Image
             source={require('@/assets/images/icon.png')}
             style={styles.appIcon}
+            accessibilityLabel="Indirimbo app icon"
           />
           <ThemedText type="title" style={styles.appName}>
             Indirimbo
@@ -106,6 +108,8 @@ export default function AboutScreen() {
       <ThemedView style={styles.ctaSection}>
         <TouchableOpacity
           onPress={() => router.push('/(tabs)/home')}
+          accessibilityLabel="Start exploring songs"
+          accessibilityRole="button"
           activeOpacity={0.8}
           style={[styles.ctaButton, { backgroundColor: colors.tint }]}>
           <IconSymbol name="play.fill" size={20} color={colors.tintForeground} />
@@ -115,15 +119,15 @@ export default function AboutScreen() {
 
       {/* Footer Links */}
       <ThemedView style={styles.footerLinks}>
-        <TouchableOpacity onPress={() => router.push('/support')} activeOpacity={0.7}>
+        <TouchableOpacity onPress={() => router.push('/support')} accessibilityRole="link" activeOpacity={0.7}>
           <ThemedText style={[styles.footerLink, { color: colors.tint }]}>Support</ThemedText>
         </TouchableOpacity>
         <ThemedText style={styles.footerDot}>•</ThemedText>
-        <TouchableOpacity onPress={() => router.push('/privacy-policy')} activeOpacity={0.7}>
+        <TouchableOpacity onPress={() => router.push('/privacy-policy')} accessibilityRole="link" activeOpacity={0.7}>
           <ThemedText style={[styles.footerLink, { color: colors.tint }]}>Privacy Policy</ThemedText>
         </TouchableOpacity>
         <ThemedText style={styles.footerDot}>•</ThemedText>
-        <TouchableOpacity onPress={() => router.push('/terms-of-service')} activeOpacity={0.7}>
+        <TouchableOpacity onPress={() => router.push('/terms-of-service')} accessibilityRole="link" activeOpacity={0.7}>
           <ThemedText style={[styles.footerLink, { color: colors.tint }]}>Terms</ThemedText>
         </TouchableOpacity>
       </ThemedView>

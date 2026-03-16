@@ -55,6 +55,7 @@ export default function PlaylistScreen() {
         <meta property="og:image" content="https://indirimbo.rw/og-image.jpg" />
         <meta property="og:url" content={`https://indirimbo.rw/home/playlist/${name}`} />
         <meta name="keywords" content={`${playlistTitle}, indirimbo, ${name === 'agakiza' ? 'agakiza, indirimbo z\'agakiza' : 'gushimisha imana, indirimbo zo gushimisha imana'}, rwandan hymns, worship songs`} />
+        <link rel="canonical" href={`https://indirimbo.rw/home/playlist/${name}`} />
       </Head>
       <SongListScreen
         title={playlistTitle}

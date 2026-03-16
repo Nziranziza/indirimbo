@@ -122,6 +122,8 @@ export function SongListScreen({ title, iconName, songs, playlist }: SongListScr
         <TouchableOpacity
           style={[styles.songCard, { borderColor: colors.icon + '20' }]}
           onPress={() => handleSongPress(song.number)}
+          accessibilityLabel={`${song.name}, number ${song.number}`}
+          accessibilityRole="button"
           activeOpacity={0.7}>
           <SongNumberBadge number={song.number} />
           <ThemedView style={styles.songInfo}>

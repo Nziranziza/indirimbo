@@ -72,6 +72,8 @@ export function FloatingShareButton({ inTabs = false }: { inTabs?: boolean }) {
       <TouchableOpacity
         onPress={handlePress}
         activeOpacity={0.85}
+        accessibilityLabel="Share app"
+        accessibilityRole="button"
         style={styles.touchable}>
         <View style={styles.iconContainer}>
           <IconSymbol name="square.and.arrow.up" size={24} color={colors.tintForeground} weight="semibold" />

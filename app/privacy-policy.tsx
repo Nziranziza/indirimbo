@@ -13,6 +13,7 @@ export default function PrivacyPolicyScreen() {
     <Head>
       <title>Privacy Policy | Indirimbo</title>
       <meta name="description" content="Privacy policy for the Indirimbo app. Learn how we handle your information." />
+      <link rel="canonical" href="https://indirimbo.rw/privacy-policy" />
     </Head>
     <CollapsibleHeaderScrollView
       title="Privacy Policy"

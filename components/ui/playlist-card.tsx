@@ -28,6 +28,8 @@ export function PlaylistCard({ playlistId, iconName, onPress }: PlaylistCardProp
         }
       ]}
       onPress={onPress}
+      accessibilityLabel={playlist.name}
+      accessibilityRole="button"
       activeOpacity={0.7}>
       <ThemedView
         style={[

@@ -13,6 +13,7 @@ export default function TermsOfServiceScreen() {
     <Head>
       <title>Terms of Service | Indirimbo</title>
       <meta name="description" content="Terms of service for the Indirimbo app. Guidelines for using the Rwandan hymnal app." />
+      <link rel="canonical" href="https://indirimbo.rw/terms-of-service" />
     </Head>
     <CollapsibleHeaderScrollView
       title="Terms of Service"

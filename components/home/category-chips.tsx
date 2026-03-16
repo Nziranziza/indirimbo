@@ -20,6 +20,8 @@ export function CategoryChips() {
           <TouchableOpacity
             key={category.name}
             style={[styles.chip, { borderColor: colors.tint + '40' }]}
+            accessibilityLabel={category.name}
+            accessibilityRole="button"
             activeOpacity={0.7}
             onPress={() => {
               router.push({

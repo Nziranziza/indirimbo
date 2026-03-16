@@ -93,6 +93,8 @@ export function RecentItemsList({
             {recentSearches.length > 0 && (
               <TouchableOpacity
                 onPress={onClearSearches}
+                accessibilityLabel="Clear all recent searches"
+                accessibilityRole="button"
                 activeOpacity={0.7}
               >
                 <ThemedText
@@ -118,6 +120,8 @@ export function RecentItemsList({
                 },
               ]}
               onPress={() => onSearchTap(item.query)}
+              accessibilityLabel={`Search for ${item.query}`}
+              accessibilityRole="button"
               activeOpacity={0.7}
             >
               <IconSymbol
@@ -130,6 +134,8 @@ export function RecentItemsList({
               </ThemedText>
               <TouchableOpacity
                 onPress={() => onRemoveSearch(item.query)}
+                accessibilityLabel={`Remove ${item.query} from recent searches`}
+                accessibilityRole="button"
                 activeOpacity={0.7}
                 hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}
               >
@@ -153,6 +159,8 @@ export function RecentItemsList({
               { borderColor: colors.icon + '20' },
             ]}
             onPress={() => onSongPress(item.playlist, item.songNumber)}
+            accessibilityLabel={`${song?.name || item.songName}, ${getPlaylistName(item.playlist)}`}
+            accessibilityRole="button"
             activeOpacity={0.7}
           >
             <SongNumberBadge number={item.songNumber} />

@@ -27,7 +27,7 @@ const MAPPING = {
   'music.note.list': 'queue-music',
   'music.mic': 'mic',
   'arrow.up': 'arrow-upward',
-  'square.and.arrow.up': 'share',
+  'square.and.arrow.up': 'ios-share',
   'magnifyingglass': 'search',
   'xmark.circle.fill': 'cancel',
   'xmark.circle': 'cancel',
