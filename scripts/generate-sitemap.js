@@ -45,11 +45,11 @@ const categorySlugs = extractCategorySlugs(categoriesPath);
 
 // Static pages
 const staticPages = [
-  { url: '', priority: '1.0', changefreq: 'weekly' },
-  { url: '/about', priority: '0.6', changefreq: 'monthly' },
-  { url: '/support', priority: '0.4', changefreq: 'monthly' },
-  { url: '/privacy-policy', priority: '0.3', changefreq: 'yearly' },
-  { url: '/terms-of-service', priority: '0.3', changefreq: 'yearly' },
+  { url: '/', priority: '1.0', changefreq: 'weekly' },
+  { url: '/about/', priority: '0.6', changefreq: 'monthly' },
+  { url: '/support/', priority: '0.4', changefreq: 'monthly' },
+  { url: '/privacy-policy/', priority: '0.3', changefreq: 'yearly' },
+  { url: '/terms-of-service/', priority: '0.3', changefreq: 'yearly' },
 ];
 
 let xml = `<?xml version="1.0" encoding="UTF-8"?>
@@ -71,7 +71,7 @@ for (const page of staticPages) {
 const playlistIds = ['agakiza', 'gushimisha'];
 for (const id of playlistIds) {
   xml += `  <url>
-    <loc>${BASE_URL}/home/playlist/${id}</loc>
+    <loc>${BASE_URL}/home/playlist/${id}/</loc>
     <lastmod>${today}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -82,7 +82,7 @@ for (const id of playlistIds) {
 // Add category pages
 for (const slug of categorySlugs) {
   xml += `  <url>
-    <loc>${BASE_URL}/home/category/${slug}</loc>
+    <loc>${BASE_URL}/home/category/${slug}/</loc>
     <lastmod>${today}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -93,7 +93,7 @@ for (const slug of categorySlugs) {
 // Add song pages
 for (const num of gushimishaNumbers) {
   xml += `  <url>
-    <loc>${BASE_URL}/song/gushimisha/${encodeURIComponent(num)}</loc>
+    <loc>${BASE_URL}/song/gushimisha/${encodeURIComponent(num)}/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -102,7 +102,7 @@ for (const num of gushimishaNumbers) {
 
 for (const num of agakizaNumbers) {
   xml += `  <url>
-    <loc>${BASE_URL}/song/agakiza/${encodeURIComponent(num)}</loc>
+    <loc>${BASE_URL}/song/agakiza/${encodeURIComponent(num)}/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>

@@ -51,8 +51,8 @@ function generatePage({ title, ogTitle, description, canonicalUrl, keywords, nos
   <meta property="og:title" content="${escapedOgTitle}" />
   <meta property="og:description" content="${escapedDescription}" />
   <meta property="og:image" content="${OG_IMAGE}" />
-  <meta property="og:image:width" content="1024" />
-  <meta property="og:image:height" content="1024" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
   <meta property="og:image:type" content="image/jpeg" />
   <meta property="og:url" content="${canonicalUrl}" />
   <meta property="og:locale" content="rw_RW" />
@@ -165,7 +165,7 @@ const playlists = [
 for (const playlist of playlists) {
   const songs = readSongList(playlist.file);
   const description = `Browse all ${songs.length} songs in the ${playlist.name} hymnbook. Rwandan church worship songs with full lyrics.`;
-  const canonicalUrl = `${BASE_URL}/home/playlist/${playlist.id}`;
+  const canonicalUrl = `${BASE_URL}/home/playlist/${playlist.id}/`;
 
   // Build noscript with song list for crawlers
   let noscript = `<noscript><article>`;
@@ -203,7 +203,7 @@ const gushimishaSongMap = new Map(gushimishaSongs.map((s) => [String(s.number), 
 
 for (const category of categories) {
   const description = `Browse ${category.name} hymns from Gushimisha Imana hymnbook. ${category.songCount} worship songs with full lyrics.`;
-  const canonicalUrl = `${BASE_URL}/home/category/${category.slug}`;
+  const canonicalUrl = `${BASE_URL}/home/category/${category.slug}/`;
   const keywords = `${category.name}, gushimisha imana, indirimbo, indirimbo zo gushimisha imana, rwandan hymns, worship songs`;
 
   // Build noscript with song list for crawlers

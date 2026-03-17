@@ -1,3 +1,4 @@
+import { PageHead } from '@/components/page-head';
 import { TabCollapsibleScrollView } from '@/components/tab-collapsible-scroll-view';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
@@ -9,7 +10,6 @@ import { useColors } from '@/hooks/use-colors';
 import { useHydrated } from '@/hooks/use-hydrated';
 import { getFavorites, removeFavorite, type FavoriteSong } from '@/utils/storage';
 import { useFocusEffect, useRouter } from 'expo-router';
-import Head from 'expo-router/head';
 import { useCallback, useState } from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import type { Song } from '@/constants/types';
@@ -71,11 +71,11 @@ export default function FavoritesTabScreen() {
 
   return (
     <ThemedView style={styles.container}>
-      <Head>
-        <title>Favorites | Indirimbo</title>
-        <meta name="description" content="Your favorite Rwandan hymns and worship songs from Gushimisha Imana and Agakiza hymnbooks." />
-        <link rel="canonical" href="https://indirimbo.rw/favorites" />
-      </Head>
+      <PageHead
+        title="Favorites | Indirimbo"
+        description="Your favorite Rwandan hymns and worship songs from Gushimisha Imana and Agakiza hymnbooks."
+        canonicalPath="/favorites"
+      />
       <TabCollapsibleScrollView
         title="Favorites"
         subtitle="Your favorite songs"

@@ -1,10 +1,10 @@
+import { PageHead } from '@/components/page-head';
 import { SongListScreen } from '@/components/song-list-screen';
 import type { IconSymbolName } from '@/components/ui/icon-symbol';
 import { gushimishaCategories } from '@/constants/gushimisha-categories';
 import type { Song } from '@/constants/types';
 import { useSongs } from '@/contexts/songs-context';
 import { useLocalSearchParams } from 'expo-router';
-import Head from 'expo-router/head';
 import { useMemo } from 'react';
 
 export default function CategoryScreen() {
@@ -27,16 +27,12 @@ export default function CategoryScreen() {
 
   return (
     <>
-      <Head>
-        <title>{`${categoryName} - Gushimisha Imana | Indirimbo`}</title>
-        <meta name="description" content={`Browse ${categoryName} hymns from Gushimisha Imana hymnbook. ${songs.length} worship songs with full lyrics.`} />
-        <meta property="og:title" content={`${categoryName} - Gushimisha Imana | Indirimbo`} />
-        <meta property="og:description" content={`Browse ${categoryName} hymns from Gushimisha Imana hymnbook. ${songs.length} worship songs with full lyrics.`} />
-        <meta property="og:image" content="https://indirimbo.rw/og-image.jpg" />
-        <meta property="og:url" content={`https://indirimbo.rw/home/category/${slug}`} />
-        <meta name="keywords" content={`${categoryName}, gushimisha imana, indirimbo, indirimbo zo gushimisha imana, rwandan hymns, worship songs`} />
-        <link rel="canonical" href={`https://indirimbo.rw/home/category/${slug}`} />
-      </Head>
+      <PageHead
+        title={`${categoryName} - Gushimisha Imana | Indirimbo`}
+        description={`Browse ${categoryName} hymns from Gushimisha Imana hymnbook. ${songs.length} worship songs with full lyrics.`}
+        canonicalPath={`/home/category/${slug}/`}
+        keywords={`${categoryName}, gushimisha imana, indirimbo, indirimbo zo gushimisha imana, rwandan hymns, worship songs`}
+      />
       <SongListScreen
         title={categoryName}
         iconName={categoryIcon}

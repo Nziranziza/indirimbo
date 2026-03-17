@@ -1,3 +1,4 @@
+import { PageHead } from '@/components/page-head';
 import { TabCollapsibleScrollView } from '@/components/tab-collapsible-scroll-view';
 import { ThemedView } from '@/components/themed-view';
 import { AccentColorSetting } from '@/components/settings/accent-color-setting';
@@ -21,7 +22,6 @@ import {
 } from '@/utils/storage';
 import * as Haptics from 'expo-haptics';
 import { router, useFocusEffect } from 'expo-router';
-import Head from 'expo-router/head';
 import { useCallback, useState } from 'react';
 import { Linking, Platform, Share, StyleSheet } from 'react-native';
 
@@ -82,14 +82,11 @@ export default function SettingsScreen() {
 
   return (
     <ThemedView style={styles.container}>
-      <Head>
-        <title>Settings | Indirimbo</title>
-        <meta
-          name="description"
-          content="Customize your Indirimbo reading experience. Adjust text size, theme, and accent color."
-        />
-        <link rel="canonical" href="https://indirimbo.rw/settings" />
-      </Head>
+      <PageHead
+        title="Settings | Indirimbo"
+        description="Customize your Indirimbo reading experience. Adjust text size, theme, and accent color."
+        canonicalPath="/settings"
+      />
       <TabCollapsibleScrollView
         title="Settings"
         subtitle="Customize your reading experience"

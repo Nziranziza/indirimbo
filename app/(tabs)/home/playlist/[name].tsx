@@ -1,10 +1,10 @@
+import { PageHead } from '@/components/page-head';
 import { SongListScreen } from '@/components/song-list-screen';
 import type { IconSymbolName } from '@/components/ui/icon-symbol';
 import { getPlaylistName } from '@/constants/playlists';
 import type { Song } from '@/constants/types';
 import { useSongs } from '@/contexts/songs-context';
 import { useLocalSearchParams, usePathname } from 'expo-router';
-import Head from 'expo-router/head';
 import { useMemo } from 'react';
 
 export default function PlaylistScreen() {
@@ -47,16 +47,12 @@ export default function PlaylistScreen() {
 
   return (
     <>
-      <Head>
-        <title>{`${playlistTitle} | Indirimbo`}</title>
-        <meta name="description" content={`Browse all ${songs.length} songs in the ${playlistTitle} hymnbook. Rwandan church worship songs with full lyrics.`} />
-        <meta property="og:title" content={`${playlistTitle} | Indirimbo`} />
-        <meta property="og:description" content={`Browse all ${songs.length} songs in the ${playlistTitle} hymnbook. Rwandan church worship songs with full lyrics.`} />
-        <meta property="og:image" content="https://indirimbo.rw/og-image.jpg" />
-        <meta property="og:url" content={`https://indirimbo.rw/home/playlist/${name}`} />
-        <meta name="keywords" content={`${playlistTitle}, indirimbo, ${name === 'agakiza' ? 'agakiza, indirimbo z\'agakiza' : 'gushimisha imana, indirimbo zo gushimisha imana'}, rwandan hymns, worship songs`} />
-        <link rel="canonical" href={`https://indirimbo.rw/home/playlist/${name}`} />
-      </Head>
+      <PageHead
+        title={`${playlistTitle} | Indirimbo`}
+        description={`Browse all ${songs.length} songs in the ${playlistTitle} hymnbook. Rwandan church worship songs with full lyrics.`}
+        canonicalPath={`/home/playlist/${name}/`}
+        keywords={`${playlistTitle}, indirimbo, ${name === 'agakiza' ? "agakiza, indirimbo z'agakiza" : 'gushimisha imana, indirimbo zo gushimisha imana'}, rwandan hymns, worship songs`}
+      />
       <SongListScreen
         title={playlistTitle}
         iconName={iconName}

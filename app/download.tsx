@@ -6,7 +6,7 @@ import type { IconSymbolName } from '@/components/ui/icon-symbol';
 import { APP_STORE_URL, APP_UNIVERSAL_LINK_URL, PLAY_STORE_URL } from '@/constants/app-links';
 import { useColors } from '@/hooks/use-colors';
 import { Redirect } from 'expo-router';
-import Head from 'expo-router/head';
+import { PageHead } from '@/components/page-head';
 import { Image, Linking, Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
 import Svg, { Defs, LinearGradient, Path, Stop } from 'react-native-svg';
 
@@ -21,16 +21,12 @@ export default function DownloadScreen() {
 
   return (
     <>
-      <Head>
-        <title>Download Indirimbo - Rwandan Hymns App</title>
-        <meta name="description" content="Download Indirimbo for iOS and Android. Browse Rwandan church hymns from Agakiza and Gushimisha Imana hymnbooks. Free on the App Store and Google Play." />
-        <meta name="keywords" content="indirimbo download, indirimbo app, rwandan hymns app, agakiza app, gushimisha app, kinyarwanda worship songs" />
-        <meta property="og:title" content="Download Indirimbo - Rwandan Hymns App" />
-        <meta property="og:description" content="Get Indirimbo for iOS and Android. Browse Rwandan church hymns, save favorites, and share worship songs." />
-        <meta property="og:url" content={`${BASE_URL}/download`} />
-        <meta property="og:type" content="website" />
-        <link rel="canonical" href={`${BASE_URL}/download`} />
-      </Head>
+      <PageHead
+        title="Download Indirimbo - Rwandan Hymns App"
+        description="Download Indirimbo for iOS and Android. Browse Rwandan church hymns from Agakiza and Gushimisha Imana hymnbooks. Free on the App Store and Google Play."
+        canonicalPath="/download"
+        keywords="indirimbo download, indirimbo app, rwandan hymns app, agakiza app, gushimisha app, kinyarwanda worship songs"
+      />
 
       <CollapsibleHeaderScrollView
         title="Download"
