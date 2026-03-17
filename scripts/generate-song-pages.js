@@ -114,7 +114,7 @@ function generateSongHtml(song, playlist, playlistName) {
   const title = escapeHtml(`${song.name} | Indirimbo ya ${song.number} mu ${playlistShort}`);
   const ogTitle = escapeHtml(`${song.name} | Indirimbo ya ${song.number} mu ${playlistShort}`);
   const description = escapeHtml(buildDescription(song, playlistName));
-  const canonicalUrl = `${BASE_URL}/song/${playlist}/${encodeURIComponent(song.number)}`;
+  const canonicalUrl = `${BASE_URL}/song/${playlist}/${encodeURIComponent(song.number)}/`;
 
   // Song-specific meta tags to inject
   const songMeta = `
@@ -124,8 +124,8 @@ function generateSongHtml(song, playlist, playlistName) {
   <meta property="og:title" content="${ogTitle}" />
   <meta property="og:description" content="${description}" />
   <meta property="og:image" content="${OG_IMAGE}" />
-  <meta property="og:image:width" content="1024" />
-  <meta property="og:image:height" content="1024" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
   <meta property="og:image:type" content="image/jpeg" />
   <meta property="og:url" content="${canonicalUrl}" />
   <meta property="og:locale" content="rw_RW" />

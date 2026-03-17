@@ -1,3 +1,4 @@
+import { PageHead } from '@/components/page-head';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { IconSymbol } from '@/components/ui/icon-symbol';
@@ -19,7 +20,6 @@ import {
   type RecentSong,
 } from '@/utils/storage';
 import { Stack, useFocusEffect, useRouter } from 'expo-router';
-import Head from 'expo-router/head';
 import React, { useCallback, useMemo, useRef, useState } from 'react';
 import { FlatList, Platform, StyleSheet } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -102,14 +102,11 @@ export default function SearchScreen() {
 
   return (
     <>
-      <Head>
-        <title>Search Songs | Indirimbo</title>
-        <meta
-          name="description"
-          content="Search Rwandan hymns and worship songs by title, number, or lyrics across Gushimisha Imana and Agakiza hymnbooks."
-        />
-        <link rel="canonical" href="https://indirimbo.rw/search" />
-      </Head>
+      <PageHead
+        title="Search Songs | Indirimbo"
+        description="Search Rwandan hymns and worship songs by title, number, or lyrics across Gushimisha Imana and Agakiza hymnbooks."
+        canonicalPath="/search"
+      />
       {isIOS && (
         <>
           <Stack.Screen options={{ title: "Search" }} />

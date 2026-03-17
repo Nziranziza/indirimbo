@@ -53,8 +53,8 @@ function generatePage({ title, description, canonicalUrl, keywords }) {
   <meta property="og:title" content="${escapedTitle}" />
   <meta property="og:description" content="${escapedDescription}" />
   <meta property="og:image" content="${OG_IMAGE}" />
-  <meta property="og:image:width" content="1024" />
-  <meta property="og:image:height" content="1024" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
   <meta property="og:image:type" content="image/jpeg" />
   <meta property="og:url" content="${canonicalUrl}" />
   <meta property="og:locale" content="rw_RW" />
@@ -145,9 +145,7 @@ const spaPages = [
 let totalPages = 0;
 
 for (const page of spaPages) {
-  const canonicalUrl = `${BASE_URL}/${page.path}`;
-  const dir = path.join(distDir, page.path);
-  fs.mkdirSync(dir, { recursive: true });
+  const canonicalUrl = `${BASE_URL}/${page.path}/`;
 
   const html = generatePage({
     title: page.title,
@@ -156,7 +154,19 @@ for (const page of spaPages) {
     keywords: page.keywords,
   });
 
+  // Fix the flat .html file that expo export generated (e.g. dist/about.html)
+  // with page-specific meta tags (expo leaves them with empty/generic tags).
+  const flatFile = path.join(distDir, `${page.path}.html`);
+  if (fs.existsSync(flatFile)) {
+    fs.writeFileSync(flatFile, html);
+  }
+
+  // Also create a directory-based index.html (e.g. dist/about/index.html)
+  // so both /about and /about/ serve correct meta tags.
+  const dir = path.join(distDir, page.path);
+  fs.mkdirSync(dir, { recursive: true });
   fs.writeFileSync(path.join(dir, 'index.html'), html);
+
   totalPages++;
 }
 

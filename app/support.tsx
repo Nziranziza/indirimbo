@@ -6,7 +6,7 @@ import { FloatingShareButton } from '@/components/ui/floating-share-button';
 import { InfoCard } from '@/components/ui/info-card';
 import { useColors } from '@/hooks/use-colors';
 import { router } from 'expo-router';
-import Head from 'expo-router/head';
+import { PageHead } from '@/components/page-head';
 import { IconSymbol } from '@/components/ui/icon-symbol';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 
@@ -15,11 +15,11 @@ export default function SupportScreen() {
 
   return (
     <>
-    <Head>
-      <title>Support | Indirimbo</title>
-      <meta name="description" content="Get help with using Indirimbo. Find FAQs, usage guide, and contact information for the Rwandan hymnal app." />
-      <link rel="canonical" href="https://indirimbo.rw/support" />
-    </Head>
+    <PageHead
+      title="Support | Indirimbo"
+      description="Get help with using Indirimbo. Find FAQs, usage guide, and contact information for the Rwandan hymnal app."
+      canonicalPath="/support/"
+    />
     <CollapsibleHeaderScrollView
       title="Support"
       subtitle="Get help with using Indirimbo"

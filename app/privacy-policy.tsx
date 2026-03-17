@@ -4,17 +4,17 @@ import { BulletItem } from '@/components/ui/bullet-item';
 import { ContactSection } from '@/components/ui/contact-section';
 import { FloatingShareButton } from '@/components/ui/floating-share-button';
 import { InfoCard } from '@/components/ui/info-card';
-import Head from 'expo-router/head';
+import { PageHead } from '@/components/page-head';
 import { StyleSheet } from 'react-native';
 
 export default function PrivacyPolicyScreen() {
   return (
     <>
-    <Head>
-      <title>Privacy Policy | Indirimbo</title>
-      <meta name="description" content="Privacy policy for the Indirimbo app. Learn how we handle your information." />
-      <link rel="canonical" href="https://indirimbo.rw/privacy-policy" />
-    </Head>
+    <PageHead
+      title="Privacy Policy | Indirimbo"
+      description="Privacy policy for the Indirimbo app. Learn how we handle your information."
+      canonicalPath="/privacy-policy/"
+    />
     <CollapsibleHeaderScrollView
       title="Privacy Policy"
       subtitle="How we handle information in the app"

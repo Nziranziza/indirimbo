@@ -4,17 +4,17 @@ import { BulletItem } from '@/components/ui/bullet-item';
 import { ContactSection } from '@/components/ui/contact-section';
 import { FloatingShareButton } from '@/components/ui/floating-share-button';
 import { InfoCard } from '@/components/ui/info-card';
-import Head from 'expo-router/head';
+import { PageHead } from '@/components/page-head';
 import { StyleSheet } from 'react-native';
 
 export default function TermsOfServiceScreen() {
   return (
     <>
-    <Head>
-      <title>Terms of Service | Indirimbo</title>
-      <meta name="description" content="Terms of service for the Indirimbo app. Guidelines for using the Rwandan hymnal app." />
-      <link rel="canonical" href="https://indirimbo.rw/terms-of-service" />
-    </Head>
+    <PageHead
+      title="Terms of Service | Indirimbo"
+      description="Terms of service for the Indirimbo app. Guidelines for using the Rwandan hymnal app."
+      canonicalPath="/terms-of-service/"
+    />
     <CollapsibleHeaderScrollView
       title="Terms of Service"
       subtitle="Guidelines for using the app"

@@ -56,16 +56,16 @@ const seoMetaTags = `
   <meta property="og:title" content="Indirimbo - z'Agakiza no Gushimisha Imana" />
   <meta property="og:description" content="Browse and search Rwandan church hymns from Agakiza and Gushimisha Imana hymnbooks. Find lyrics, save favorites, and share worship songs." />
   <meta property="og:image" content="${BASE_URL}/og-image.jpg" />
-  <meta property="og:image:width" content="1024" />
-  <meta property="og:image:height" content="1024" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
   <meta property="og:image:type" content="image/jpeg" />
-  <meta property="og:url" content="${BASE_URL}" />
+  <meta property="og:url" content="${BASE_URL}/" />
   <meta property="og:locale" content="rw_RW" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Indirimbo - z'Agakiza no Gushimisha Imana" />
   <meta name="twitter:description" content="Browse and search Rwandan church hymns from Agakiza and Gushimisha Imana hymnbooks." />
   <meta name="twitter:image" content="${BASE_URL}/og-image.jpg" />
-  <link rel="canonical" href="${BASE_URL}" />
+  <link rel="canonical" href="${BASE_URL}/" />
   <meta name="apple-itunes-app" content="app-id=6758376573" />
 `;
 

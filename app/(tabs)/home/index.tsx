@@ -1,5 +1,6 @@
 import { CategoryChips } from '@/components/home/category-chips';
 import { FavoriteSongsRow } from '@/components/home/favorite-songs-row';
+import { PageHead } from '@/components/page-head';
 import { RecentSongsList } from '@/components/home/recent-songs-list';
 import { TabScrollView } from '@/components/tab-scroll-view';
 import { ThemedText } from '@/components/themed-text';
@@ -13,7 +14,6 @@ import { useHydrated } from '@/hooks/use-hydrated';
 import { getFavorites, getRecentSongs, type FavoriteSong, type RecentSong } from '@/utils/storage';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useFocusEffect, useRouter } from 'expo-router';
-import Head from 'expo-router/head';
 import { useCallback, useMemo, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -54,12 +54,12 @@ export default function HomeScreen() {
 
   return (
     <ThemedView style={styles.container}>
-      <Head>
-        <title>Indirimbo - z&apos;Agakiza no Gushimisha Imana</title>
-        <meta name="description" content="Shakisha indirimbo z'agakiza n'izo gushimisha Imana. Igitabo cy'indirimbo zo mu matorero, amagambo yose y'indirimbo z'abarokore. Find Rwandan worship songs with full lyrics." />
-        <meta name="keywords" content="indirimbo, indirimbo zo mugitabo, indirimbo z'agakiza, indirimbo zo gushimisha imana, igitabo cy'indirimbo, indirimbo z'abarokore, indirimbo zo guhimbaza imana, rwandan hymns, worship songs" />
-        <link rel="canonical" href="https://indirimbo.rw" />
-      </Head>
+      <PageHead
+        title="Indirimbo - z'Agakiza no Gushimisha Imana"
+        description="Shakisha indirimbo z'agakiza n'izo gushimisha Imana. Igitabo cy'indirimbo zo mu matorero, amagambo yose y'indirimbo z'abarokore. Find Rwandan worship songs with full lyrics."
+        canonicalPath=""
+        keywords="indirimbo, indirimbo zo mugitabo, indirimbo z'agakiza, indirimbo zo gushimisha imana, igitabo cy'indirimbo, indirimbo z'abarokore, indirimbo zo guhimbaza imana, rwandan hymns, worship songs"
+      />
 
       <LinearGradient
         colors={

@@ -23,7 +23,7 @@ import {
 } from "@/utils/storage";
 import * as Haptics from "expo-haptics";
 import { useLocalSearchParams, useRouter, type Href } from "expo-router";
-import Head from "expo-router/head";
+import { PageHead } from "@/components/page-head";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   LayoutChangeEvent,
@@ -222,13 +222,12 @@ export default function SongScreen() {
 
   return (
     <ThemedView style={styles.container}>
-      <Head>
-        <title>{`${currentSong.name} | Indirimbo ya ${currentSong.number} mu ${playlist === "agakiza" ? "Gakiza" : "Gushimisha Imana"}`}</title>
-        <meta name="description" content={seoDescription} />
-        <meta property="og:title" content={`${currentSong.name} | Indirimbo ya ${currentSong.number} mu ${playlist === "agakiza" ? "Gakiza" : "Gushimisha Imana"}`} />
-        <meta property="og:description" content={seoDescription} />
-        <meta name="keywords" content={`${currentSong.name}, indirimbo ya ${currentSong.number}, ${playlistTitle}, indirimbo, indirimbo zo mugitabo, ${playlist === "agakiza" ? "indirimbo z'agakiza, indirimbo z'abarokore" : "indirimbo zo gushimisha imana"}`} />
-      </Head>
+      <PageHead
+        title={`${currentSong.name} | Indirimbo ya ${currentSong.number} mu ${playlist === "agakiza" ? "Gakiza" : "Gushimisha Imana"}`}
+        description={seoDescription}
+        canonicalPath={`/song/${playlist}/${currentSong.number}`}
+        keywords={`${currentSong.name}, indirimbo ya ${currentSong.number}, ${playlistTitle}, indirimbo, indirimbo zo mugitabo, ${playlist === "agakiza" ? "indirimbo z'agakiza, indirimbo z'abarokore" : "indirimbo zo gushimisha imana"}`}
+      />
       <ThemedView style={[styles.header, { paddingTop: insets.top + 16 }]}>
         <BackButton
           color={colors.text}

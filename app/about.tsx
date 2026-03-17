@@ -8,7 +8,7 @@ import { InfoCard } from '@/components/ui/info-card';
 import { useColors } from '@/hooks/use-colors';
 import Constants from 'expo-constants';
 import { router } from 'expo-router';
-import Head from 'expo-router/head';
+import { PageHead } from '@/components/page-head';
 import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 
 function FeatureItem({ icon, title, description }: { icon: IconSymbolName; title: string; description: string }) {
@@ -32,11 +32,11 @@ export default function AboutScreen() {
 
   return (
     <>
-    <Head>
-      <title>About | Indirimbo</title>
-      <meta name="description" content="Indirimbo brings Rwandan hymns and worship songs to your fingertips. Browse Gushimisha Imana and Agakiza hymnbooks." />
-      <link rel="canonical" href="https://indirimbo.rw/about" />
-    </Head>
+    <PageHead
+      title="About | Indirimbo"
+      description="Indirimbo brings Rwandan hymns and worship songs to your fingertips. Browse Gushimisha Imana and Agakiza hymnbooks."
+      canonicalPath="/about/"
+    />
     <CollapsibleHeaderScrollView
       title="About Indirimbo"
       headerMaxHeight={240}
