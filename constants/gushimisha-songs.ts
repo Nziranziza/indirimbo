@@ -8367,7 +8367,7 @@ export const songs: NewSong[] = [
       {
         "type": "verse",
         "number": 6,
-        "content": "Rwihanganira byose;\nRwizigira n’ abandi;\nNta n’ ikibi rukeka\nKu muntu wese"
+        "content": "Rwihanganira byose;\nRwizigira n’ abandi;\nNta n’ ikibi rukeka\nK'umuntu wese"
       },
       {
         "type": "verse",
