@@ -9,7 +9,6 @@ const __dirname = path.dirname(__filename);
 
 const distDir = path.join(__dirname, '../dist');
 const indexPath = path.join(distDir, 'index.html');
-const notFoundPath = path.join(distDir, '404.html');
 
 // Read the index.html file
 let html = fs.readFileSync(indexPath, 'utf8');
@@ -73,26 +72,6 @@ if (!html.includes('og:title')) {
   html = html.replace('</head>', `${seoMetaTags}\n</head>`);
 }
 
-const spaRedirectScript = `
-  <script>
-    (function () {
-      var params = new URLSearchParams(window.location.search);
-      var redirect = params.get('spa-redirect');
-      if (!redirect) {
-        return;
-      }
-      params.delete('spa-redirect');
-      var remaining = params.toString();
-      var newUrl = redirect + (remaining ? (redirect.indexOf('?') === -1 ? '?' : '&') + remaining : '');
-      window.history.replaceState(null, '', newUrl);
-    })();
-  </script>
-`;
-
-if (!html.includes('spa-redirect')) {
-  html = html.replace('</head>', `${spaRedirectScript}\n</head>`);
-}
-
 // Inject noscript block with crawlable homepage content
 const homepageNoscript = `
 <noscript><article>
@@ -140,11 +119,6 @@ const fixHtmlFile = (filePath) => {
     pageHtml = pageHtml.replace(/href="\/favicon\.ico"/g, `href="${normalizedBasePath}/favicon.ico"`);
   }
 
-  // Add SPA redirect script
-  if (!pageHtml.includes('spa-redirect')) {
-    pageHtml = pageHtml.replace('</head>', `${spaRedirectScript}\n</head>`);
-  }
-
   fs.writeFileSync(filePath, pageHtml);
 };
 
@@ -162,12 +136,6 @@ const walkDir = (dir) => {
 };
 
 walkDir(distDir);
-
-if (fs.existsSync(notFoundPath)) {
-  let notFoundHtml = fs.readFileSync(notFoundPath, 'utf8');
-  notFoundHtml = notFoundHtml.replace(/__BASE_PATH__/g, normalizedBasePath);
-  fs.writeFileSync(notFoundPath, notFoundHtml);
-}
 
 // Ensure dist/robots.txt has the correct production domain
 const robotsTxtPath = path.join(distDir, 'robots.txt');
