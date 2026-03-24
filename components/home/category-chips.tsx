@@ -25,7 +25,7 @@ export function CategoryChips() {
             activeOpacity={0.7}
             onPress={() => {
               router.push({
-                pathname: '/(tabs)/home/category/[slug]',
+                pathname: '/(tabs)/(home)/category/[slug]',
                 params: { slug: category.slug },
               });
             }}>

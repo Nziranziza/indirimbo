@@ -21,7 +21,7 @@ import {
 } from '@/utils/storage';
 import { Stack, useFocusEffect, useRouter } from 'expo-router';
 import React, { useCallback, useMemo, useRef, useState } from 'react';
-import { FlatList, Platform, StyleSheet } from 'react-native';
+import { FlatList, Platform, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import type { SearchBarCommands } from 'react-native-screens';
 
@@ -160,6 +160,17 @@ export default function SearchScreen() {
             maxToRenderPerBatch={5}
             windowSize={3}
             removeClippedSubviews={true}
+            ListHeaderComponent={
+              <View>
+                {Platform.OS === "ios" &&
+                  parseInt(String(Platform.Version), 10) >= 26 &&
+                  isInputFocused && (
+                    <ThemedText type="title" style={{ marginBottom: 20 }}>
+                      Search
+                    </ThemedText>
+                  )}
+              </View>
+            }
             ListEmptyComponent={
               <ThemedView style={styles.emptyState}>
                 <IconSymbol

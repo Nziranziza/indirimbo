@@ -9067,7 +9067,7 @@ export const songs: NewSong[] = [
       {
         "type": "verse",
         "number": 1,
-        "content": "Biba mu gitondo imbuto z’ ineza;\nJy’ ubiba ku manywa n’ ikigoroba\nRindira ko zera, . baze basarure,\nTuzatund’ imiba, tunezerewe"
+        "content": "Biba mu gitondo imbuto z’ ineza;\nJy’ ubiba ku manywa n’ ikigoroba\nRindira ko zera, baze basarure,\nTuzatund’ imiba, tunezerewe"
       },
       {
         "type": "chorus",
@@ -12525,7 +12525,7 @@ export const songs: NewSong[] = [
       },
       {
         "type": "chorus",
-        "content": "Tuzabon’ ihyishimo,\nIbyishim’ ibyishimo\nTuzabon’ inshuti zacu,\nTutakibasha gutahdukana. ,"
+        "content": "Tuzabon’ ibyishimo,\nIbyishim’ ibyishimo\nTuzabon’ inshuti zacu,\nTutakibasha gutahdukana. ,"
       },
       {
         "type": "verse",
@@ -12597,7 +12597,7 @@ export const songs: NewSong[] = [
       {
         "type": "verse",
         "number": 10,
-        "content": ". . . . nanjye ndajyayo!. . . . Bamp’ ikiba nza"
+        "content": ". . . . nanjye ndajyayo!. . . . Bamp’ ikibanza"
       },
       {
         "type": "verse",
@@ -12740,7 +12740,7 @@ export const songs: NewSong[] = [
       {
         "type": "verse",
         "number": 2,
-        "content": ". Ni Wowe, Yesu, wanshatse\nMu mwijima wa Satani,\nUbwo nari muri wo,\nWowe, Mucunguzi wanjye,\nWankuye mu bwenge buke\nKubw’ urukundo rwawe"
+        "content": "Ni wowe, Yesu, wanshatse\nMu mwijima wa Satani,\nUbwo nari muri wo,\nWowe, Mucunguzi wanjye,\nWankuye mu bwenge buke\nKubw’ urukundo rwawe"
       },
       {
         "type": "verse",
@@ -12877,13 +12877,13 @@ export const songs: NewSong[] = [
   },
   {
     "number": 408,
-    "name": "abakijijwe mwese",
+    "name": "Abakijijwe mwese",
     "url": "https://indirimbo.rw/song/gushimisha/408",
     "body": [
       {
         "type": "verse",
         "number": 1,
-        "content": "abakijijwe mwese,\nAbo dufatanije. m\nUze none twibaze\nIbyo twakora"
+        "content": "Abakijijwe mwese,\nAbo dufatanije. \nMuze none twibaze\nIbyo twakora"
       },
       {
         "type": "chorus",
@@ -12902,7 +12902,7 @@ export const songs: NewSong[] = [
       {
         "type": "verse",
         "number": 4,
-        "content": "Dor’ abadakijijwe\nBaragwiriye base:\nBazakizwa bate se,\nBataburiwe?"
+        "content": "Dor’ abadakijijwe\nBaragwiriye bose:\nBazakizwa bate se,\nBataburiwe?"
       },
       {
         "type": "verse",
@@ -13035,7 +13035,7 @@ export const songs: NewSong[] = [
       {
         "type": "verse",
         "number": 5,
-        "content": "N’ abo mu Rwanda rwacu, —Bamusingize\nBang’ ingeso za. kera, —Bamuyoboka,\nBati: Ngwin’ utwimemo,\nUr’ Umwami w’ ijuru"
+        "content": "N’ abo mu Rwanda rwacu, —Bamusingize\nBang’ ingeso za kera, — bamuyoboka,\nBati: Ngwin’ utwimemo,\nUr’ Umwami w’ ijuru"
       },
       {
         "type": "verse",

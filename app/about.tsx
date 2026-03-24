@@ -107,7 +107,7 @@ export default function AboutScreen() {
       {/* Call to Action */}
       <ThemedView style={styles.ctaSection}>
         <TouchableOpacity
-          onPress={() => router.push('/(tabs)/home')}
+          onPress={() => router.push('/(tabs)/(home)')}
           accessibilityLabel="Start exploring songs"
           accessibilityRole="button"
           activeOpacity={0.8}

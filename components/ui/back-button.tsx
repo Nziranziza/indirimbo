@@ -27,7 +27,7 @@ function handleBack(fallback: Href) {
 
 export function BackButton({ onPress, fallbackHref, color, style, hitSlop }: BackButtonProps) {
   const colors = useColors();
-  const fallback = fallbackHref ?? '/(tabs)/home';
+  const fallback = fallbackHref ?? '/(tabs)/(home)';
 
   return (
     <TouchableOpacity

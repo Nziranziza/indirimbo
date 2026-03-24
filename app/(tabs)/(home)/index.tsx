@@ -89,7 +89,7 @@ export default function HomeScreen() {
               iconName="music.mic"
               onPress={() => {
                 router.push({
-                  pathname: '/(tabs)/home/playlist/[name]',
+                  pathname: '/(tabs)/(home)/playlist/[name]',
                   params: { name: 'gushimisha' },
                 });
               }}
@@ -99,7 +99,7 @@ export default function HomeScreen() {
               iconName="music.note.list"
               onPress={() => {
                 router.push({
-                  pathname: '/(tabs)/home/playlist/[name]',
+                  pathname: '/(tabs)/(home)/playlist/[name]',
                   params: { name: 'agakiza' },
                 });
               }}

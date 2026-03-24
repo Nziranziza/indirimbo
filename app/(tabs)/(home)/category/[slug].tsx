@@ -30,7 +30,7 @@ export default function CategoryScreen() {
       <PageHead
         title={`${categoryName} - Gushimisha Imana | Indirimbo`}
         description={`Browse ${categoryName} hymns from Gushimisha Imana hymnbook. ${songs.length} worship songs with full lyrics.`}
-        canonicalPath={`/home/category/${slug}/`}
+        canonicalPath={`/category/${slug}/`}
         keywords={`${categoryName}, gushimisha imana, indirimbo, indirimbo zo gushimisha imana, rwandan hymns, worship songs`}
       />
       <SongListScreen
