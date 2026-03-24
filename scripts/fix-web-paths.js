@@ -100,8 +100,8 @@ const homepageNoscript = `
 <p>Browse and search Rwandan church hymns from Agakiza and Gushimisha Imana hymnbooks. Find lyrics, save favorites, and share worship songs.</p>
 <h2>Hymnbooks</h2>
 <ul>
-<li><a href="${BASE_URL}/home/playlist/agakiza">Agakiza</a> - Indirimbo z'Agakiza</li>
-<li><a href="${BASE_URL}/home/playlist/gushimisha">Gushimisha Imana</a> - Indirimbo zo Gushimisha Imana</li>
+<li><a href="${BASE_URL}/playlist/agakiza">Agakiza</a> - Indirimbo z'Agakiza</li>
+<li><a href="${BASE_URL}/playlist/gushimisha">Gushimisha Imana</a> - Indirimbo zo Gushimisha Imana</li>
 </ul>
 <nav>
 <a href="${BASE_URL}/about">About</a> |

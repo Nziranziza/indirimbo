@@ -16,7 +16,7 @@ export default function DownloadScreen() {
   const colors = useColors();
 
   if (Platform.OS !== 'web') {
-    return <Redirect href="/(tabs)/home" />;
+    return <Redirect href="/(tabs)/(home)" />;
   }
 
   return (

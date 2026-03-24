@@ -88,7 +88,7 @@ export default function FavoritesTabScreen() {
               Tap the heart icon on any song to add it to favorites
             </ThemedText>
             <TouchableOpacity
-              onPress={() => router.push('/(tabs)/home')}
+              onPress={() => router.push('/(tabs)/(home)')}
               accessibilityLabel="Start exploring songs"
               accessibilityRole="button"
               activeOpacity={0.8}

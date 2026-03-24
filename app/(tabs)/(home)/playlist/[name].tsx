@@ -50,7 +50,7 @@ export default function PlaylistScreen() {
       <PageHead
         title={`${playlistTitle} | Indirimbo`}
         description={`Browse all ${songs.length} songs in the ${playlistTitle} hymnbook. Rwandan church worship songs with full lyrics.`}
-        canonicalPath={`/home/playlist/${name}/`}
+        canonicalPath={`/playlist/${name}/`}
         keywords={`${playlistTitle}, indirimbo, ${name === 'agakiza' ? "agakiza, indirimbo z'agakiza" : 'gushimisha imana, indirimbo zo gushimisha imana'}, rwandan hymns, worship songs`}
       />
       <SongListScreen

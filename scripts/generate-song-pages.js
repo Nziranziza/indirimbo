@@ -102,7 +102,7 @@ function buildNoscriptContent(song, playlist, playlistName) {
   }
 
   noscript += `<nav>`;
-  noscript += `<a href="${BASE_URL}/home/playlist/${playlist}">${escapeHtml(playlistName)}</a>`;
+  noscript += `<a href="${BASE_URL}/playlist/${playlist}">${escapeHtml(playlistName)}</a>`;
   noscript += ` | <a href="${BASE_URL}">Indirimbo</a>`;
   noscript += `</nav>`;
   noscript += `</article></noscript>`;

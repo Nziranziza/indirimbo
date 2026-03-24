@@ -165,7 +165,7 @@ const playlists = [
 for (const playlist of playlists) {
   const songs = readSongList(playlist.file);
   const description = `Browse all ${songs.length} songs in the ${playlist.name} hymnbook. Rwandan church worship songs with full lyrics.`;
-  const canonicalUrl = `${BASE_URL}/home/playlist/${playlist.id}/`;
+  const canonicalUrl = `${BASE_URL}/playlist/${playlist.id}/`;
 
   // Build noscript with song list for crawlers
   let noscript = `<noscript><article>`;
@@ -179,7 +179,7 @@ for (const playlist of playlists) {
   noscript += `<nav><a href="${BASE_URL}">Indirimbo</a></nav>`;
   noscript += `</article></noscript>`;
 
-  const dir = path.join(distDir, 'home', 'playlist', playlist.id);
+  const dir = path.join(distDir, 'playlist', playlist.id);
   fs.mkdirSync(dir, { recursive: true });
 
   const html = generatePage({
@@ -203,7 +203,7 @@ const gushimishaSongMap = new Map(gushimishaSongs.map((s) => [String(s.number), 
 
 for (const category of categories) {
   const description = `Browse ${category.name} hymns from Gushimisha Imana hymnbook. ${category.songCount} worship songs with full lyrics.`;
-  const canonicalUrl = `${BASE_URL}/home/category/${category.slug}/`;
+  const canonicalUrl = `${BASE_URL}/category/${category.slug}/`;
   const keywords = `${category.name}, gushimisha imana, indirimbo, indirimbo zo gushimisha imana, rwandan hymns, worship songs`;
 
   // Build noscript with song list for crawlers
@@ -216,10 +216,10 @@ for (const category of categories) {
     noscript += `<li><a href="${songUrl}">${escapeHtml(String(songNum))}. ${escapeHtml(songName)}</a></li>`;
   }
   noscript += `</ol>`;
-  noscript += `<nav><a href="${BASE_URL}/home/playlist/gushimisha">Gushimisha Imana</a> | <a href="${BASE_URL}">Indirimbo</a></nav>`;
+  noscript += `<nav><a href="${BASE_URL}/playlist/gushimisha">Gushimisha Imana</a> | <a href="${BASE_URL}">Indirimbo</a></nav>`;
   noscript += `</article></noscript>`;
 
-  const dir = path.join(distDir, 'home', 'category', category.slug);
+  const dir = path.join(distDir, 'category', category.slug);
   fs.mkdirSync(dir, { recursive: true });
 
   const html = generatePage({

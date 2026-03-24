@@ -22,7 +22,7 @@ import {
   type FontSize,
 } from "@/utils/storage";
 import * as Haptics from "expo-haptics";
-import { useLocalSearchParams, useRouter, type Href } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import { PageHead } from "@/components/page-head";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
@@ -232,18 +232,21 @@ export default function SongScreen() {
         <BackButton
           color={colors.text}
           style={styles.backButton}
-          fallbackHref={`/(tabs)/home/playlist/${playlist}` as Href}
+          fallbackHref={{ pathname: '/(tabs)/(home)/playlist/[name]', params: { name: playlist } }}
         />
         <TouchableOpacity
-          onPress={() =>
-            Platform.OS === "web"
-              ? typeof window !== "undefined" && window.history.length > 1
+          onPress={() => {
+            const fallback = { pathname: '/(tabs)/(home)/playlist/[name]' as const, params: { name: playlist } };
+            if (Platform.OS === "web") {
+              typeof window !== "undefined" && window.history.length > 1
                 ? window.history.back()
-                : router.replace(`/(tabs)/home/playlist/${playlist}` as Href)
-              : router.canGoBack()
-              ? router.back()
-              : router.replace(`/(tabs)/home/playlist/${playlist}` as Href)
-          }
+                : router.replace(fallback);
+            } else {
+              router.canGoBack()
+                ? router.back()
+                : router.replace(fallback);
+            }
+          }}
           activeOpacity={0.7}
         >
           <SongNumberBadge number={currentSong.number} size="large" style={styles.songNumberBadge} />

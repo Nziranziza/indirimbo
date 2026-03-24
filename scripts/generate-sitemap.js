@@ -71,7 +71,7 @@ for (const page of staticPages) {
 const playlistIds = ['agakiza', 'gushimisha'];
 for (const id of playlistIds) {
   xml += `  <url>
-    <loc>${BASE_URL}/home/playlist/${id}/</loc>
+    <loc>${BASE_URL}/playlist/${id}/</loc>
     <lastmod>${today}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -82,7 +82,7 @@ for (const id of playlistIds) {
 // Add category pages
 for (const slug of categorySlugs) {
   xml += `  <url>
-    <loc>${BASE_URL}/home/category/${slug}/</loc>
+    <loc>${BASE_URL}/category/${slug}/</loc>
     <lastmod>${today}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>

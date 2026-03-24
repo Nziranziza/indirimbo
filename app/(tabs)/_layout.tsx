@@ -9,6 +9,10 @@ export default function TabLayout() {
     <NativeTabs
       tintColor={colors.tint}
       backgroundColor={colors.bottomTabBackground}
+      iconColor={{
+        default: colors.tabIconDefault,
+        selected: colors.tint,
+      }}
       indicatorColor={`${colors.tint}20`}
       rippleColor={`${colors.tint}20`}
       labelStyle={{
@@ -19,7 +23,7 @@ export default function TabLayout() {
       minimizeBehavior="onScrollDown"
       labelVisibilityMode="labeled"
       >
-      <NativeTabs.Trigger name="home">
+      <NativeTabs.Trigger name="(home)">
         <NativeTabs.Trigger.Icon
           sf={{ default: 'music.note.list', selected: 'music.note.list' }}
           md="queue_music"
