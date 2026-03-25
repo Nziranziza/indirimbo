@@ -1,3 +1,4 @@
+import { TintColorKey } from '@/constants/theme';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const FAVORITES_KEY = '@indirimbo:favorites';
@@ -6,6 +7,7 @@ const FONT_SIZE_KEY = '@indirimbo:font_size';
 const THEME_PREFERENCE_KEY = '@indirimbo:theme_preference';
 const TINT_COLOR_KEY = '@indirimbo:tint_color';
 const RECENT_SEARCHES_KEY = '@indirimbo:recent_searches';
+const ENGAGEMENT_KEY = '@indirimbo:engagement';
 const MAX_RECENT_SONGS = 20;
 const MAX_RECENT_SEARCHES = 5;
 
@@ -27,6 +29,30 @@ export interface RecentSearch {
   query: string;
   timestamp: number;
 }
+
+export interface EngagementState {
+  readonly totalSongViews: number;
+  readonly appOpenCount: number;
+  readonly distinctDaysUsed: readonly string[];
+  readonly lastPromptShownAt: number | null;
+  readonly ratePromptDismissCount: number;
+  readonly hasRated: boolean;
+  readonly lastRatePromptAt: number | null;
+  readonly lastShareAppPromptAt: number | null;
+  readonly lastShareSongPromptAt: number | null;
+}
+
+const DEFAULT_ENGAGEMENT_STATE: EngagementState = {
+  totalSongViews: 0,
+  appOpenCount: 0,
+  distinctDaysUsed: [],
+  lastPromptShownAt: null,
+  ratePromptDismissCount: 0,
+  hasRated: false,
+  lastRatePromptAt: null,
+  lastShareAppPromptAt: null,
+  lastShareSongPromptAt: null,
+};
 
 export type FontSize = 'small' | 'medium' | 'large';
 export type ThemePreference = 'light' | 'dark' | 'auto';
@@ -214,4 +240,40 @@ export async function clearRecentSearches(): Promise<void> {
   } catch (error) {
     console.error('Error clearing recent searches:', error);
   }
+}
+
+// Engagement State
+export async function getEngagementState(): Promise<EngagementState> {
+  try {
+    const data = await AsyncStorage.getItem(ENGAGEMENT_KEY);
+    return data ? { ...DEFAULT_ENGAGEMENT_STATE, ...JSON.parse(data) } : DEFAULT_ENGAGEMENT_STATE;
+  } catch (error) {
+    console.error('Error getting engagement state:', error);
+    return DEFAULT_ENGAGEMENT_STATE;
+  }
+}
+
+export async function updateEngagementState(
+  updater: (prev: EngagementState) => Partial<EngagementState>,
+): Promise<void> {
+  try {
+    const current = await getEngagementState();
+    const updates = updater(current);
+    await AsyncStorage.setItem(ENGAGEMENT_KEY, JSON.stringify({ ...current, ...updates }));
+  } catch (error) {
+    console.error('Error updating engagement state:', error);
+  }
+}
+
+export async function recordAppOpen(): Promise<void> {
+  await updateEngagementState((prev) => {
+    const today = new Date().toISOString().split('T')[0];
+    const distinctDaysUsed = prev.distinctDaysUsed.includes(today)
+      ? prev.distinctDaysUsed
+      : [...prev.distinctDaysUsed, today];
+    return {
+      appOpenCount: prev.appOpenCount + 1,
+      distinctDaysUsed,
+    };
+  });
 }

@@ -1,17 +1,18 @@
 import { ThemedText } from "@/components/themed-text";
 import { ThemedView } from "@/components/themed-view";
 import { BackButton } from "@/components/ui/back-button";
+import { EngagementPrompt } from "@/components/ui/engagement-prompt";
 import { IconSymbol } from "@/components/ui/icon-symbol";
 import { LyricsContent } from "@/components/ui/lyrics-content";
 import { SongHeatmap } from "@/components/ui/song-heatmap";
 import { SongNavigationBar } from "@/components/ui/song-navigation-bar";
 import { SongNumberBadge } from "@/components/ui/song-number-badge";
-import { APP_UNIVERSAL_LINK_URL } from "@/constants/app-links";
 import { getPlaylistName } from "@/constants/playlists";
 import type { Song } from "@/constants/types";
 import { FONT_SIZES } from "@/constants/typography";
 import { useSongs } from "@/contexts/songs-context";
 import { useColors } from "@/hooks/use-colors";
+import { useEngagement } from "@/hooks/use-engagement";
 import { useKeepAwake } from "@/hooks/use-keep-awake";
 import {
   addFavorite,
@@ -21,6 +22,7 @@ import {
   removeFavorite,
   type FontSize,
 } from "@/utils/storage";
+import { shareSong } from "@/utils/share";
 import * as Haptics from "expo-haptics";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { PageHead } from "@/components/page-head";
@@ -28,7 +30,6 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   LayoutChangeEvent,
   Platform,
-  Share,
   StyleSheet,
   TouchableOpacity,
   View,
@@ -47,6 +48,7 @@ export default function SongScreen() {
     songNumber: string;
   }>();
   const [isFav, setIsFav] = useState(false);
+  const [didFavoriteThisSession, setDidFavoriteThisSession] = useState(false);
   const [fontSize, setFontSize] = useState<FontSize>("medium");
   const [sectionPositions, setSectionPositions] = useState<
     { y: number; height: number; type: "verse" | "chorus"; index: number }[]
@@ -84,10 +86,18 @@ export default function SongScreen() {
 
   const { resetKeepAwake } = useKeepAwake(lineCount);
 
+  const { prompt, showPrompt, handleAccept, handleDismiss } = useEngagement({
+    currentSongName: currentSong?.name,
+    currentSongPlaylist: playlist,
+    currentSongNumber: currentSong?.number,
+    didFavoriteThisSession,
+  });
+
   useEffect(() => {
     if (currentSong && playlist) {
       isFavorite(playlist, currentSong.number).then(setIsFav);
       getFontSize().then(setFontSize);
+      setDidFavoriteThisSession(false);
     }
   }, [currentSong, playlist]);
 
@@ -153,6 +163,7 @@ export default function SongScreen() {
           songName: currentSong.name,
         });
         setIsFav(true);
+        setDidFavoriteThisSession(true);
       }
       if (process.env.EXPO_OS === "ios") {
         Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
@@ -166,13 +177,8 @@ export default function SongScreen() {
 
   const handleShare = async () => {
     if (!currentSong || !playlist) return;
-    const songUrl = `${APP_UNIVERSAL_LINK_URL}/song/${encodeURIComponent(playlist)}/${encodeURIComponent(String(currentSong.number))}`;
-    const shareMessage = `${currentSong.name} • ${playlistTitle} #${currentSong.number}`;
     try {
-      await Share.share(
-        { message: `${shareMessage}\n${songUrl}`, title: shareMessage },
-        { dialogTitle: "Share song" },
-      );
+      await shareSong({ songName: currentSong.name, playlist, songNumber: currentSong.number });
     } catch (error) {
       console.error("Error sharing song:", error);
     }
@@ -186,9 +192,19 @@ export default function SongScreen() {
         <ThemedView style={[styles.header, { paddingTop: insets.top + 16 }]}>
           <BackButton color={colors.text} style={styles.backButton} />
         </ThemedView>
-        <ThemedView style={styles.emptyState}>
-          <ThemedText>No songs available</ThemedText>
-        </ThemedView>
+        <View style={styles.contentContainer}>
+          <Animated.ScrollView
+            ref={scrollViewRef}
+            style={styles.scrollView}
+            contentContainerStyle={styles.scrollContent}
+            onScroll={handleScroll}
+            scrollEventThrottle={16}
+          >
+            <ThemedView style={styles.emptyState}>
+              <ThemedText>No songs available</ThemedText>
+            </ThemedView>
+          </Animated.ScrollView>
+        </View>
       </ThemedView>
     );
   }
@@ -358,6 +374,16 @@ export default function SongScreen() {
         songBody={currentSong.body}
         onSectionPress={handleSectionPress}
       />
+
+      {showPrompt && prompt && (
+        <EngagementPrompt
+          type={prompt.type}
+          songName={prompt.songName}
+          bottomInset={insets.bottom}
+          onAccept={handleAccept}
+          onDismiss={handleDismiss}
+        />
+      )}
 
       <SongNavigationBar
         currentIndex={currentIndex}

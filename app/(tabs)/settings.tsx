@@ -8,9 +8,9 @@ import { FloatingShareButton } from '@/components/ui/floating-share-button';
 import { SettingsGroup } from '@/components/ui/settings-group';
 import { SettingsLinkRow } from '@/components/ui/settings-link-row';
 import {
-  APP_STORE_URL,
+  APP_STORE_REVIEW_URL,
   APP_UNIVERSAL_LINK_URL,
-  PLAY_STORE_URL,
+  PLAY_STORE_REVIEW_URL,
 } from '@/constants/app-links';
 import { useColorScheme, useTheme } from '@/contexts/theme-context';
 import {
@@ -74,9 +74,12 @@ export default function SettingsScreen() {
   };
 
   const handleRateApp = async () => {
-    const url = Platform.OS === 'ios' ? APP_STORE_URL : PLAY_STORE_URL;
-    if (url) {
+    const url = Platform.OS === 'ios' ? APP_STORE_REVIEW_URL : PLAY_STORE_REVIEW_URL;
+    if (!url) return;
+    try {
       await Linking.openURL(url);
+    } catch (error) {
+      console.error('Failed to open review URL:', error);
     }
   };
 
