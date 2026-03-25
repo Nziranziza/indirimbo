@@ -2,6 +2,7 @@ import { DarkTheme, DefaultTheme, ThemeProvider as NavigationThemeProvider } fro
 import { Stack } from 'expo-router';
 import Head from 'expo-router/head';
 import { StatusBar } from 'expo-status-bar';
+import { useEffect } from 'react';
 import { Platform, StyleSheet, View } from 'react-native';
 import 'react-native-reanimated';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
@@ -11,6 +12,7 @@ import { AppInstallBanner } from '@/components/ui/app-install-banner';
 import { SongsProvider } from '@/contexts/songs-context';
 import { ThemeProvider, useColorScheme } from '@/contexts/theme-context';
 import { useHydrated } from '@/hooks/use-hydrated';
+import { recordAppOpen } from '@/utils/storage';
 
 const BASE_URL = 'https://indirimbo.rw';
 
@@ -38,6 +40,10 @@ function SEOHead() {
 
 function RootLayoutContent() {
   const colorScheme = useColorScheme();
+
+  useEffect(() => {
+    recordAppOpen().catch(console.error);
+  }, []);
 
   return (
     <NavigationThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>

@@ -48,7 +48,7 @@ export const songs: NewSong[] = [
         type: "verse",
         number: 1,
         content:
-          "Nari naramenyerey’ ibyaha\nSinari nz’ ijambo ry’ Umukiza\nSinari nz’ inkoni yakubiswe\nKubera jye we",
+          "Nari naramenyerey’ ibyaha\nSinari nz’ ijambo ry’ Umukiza\nSinari nz’ inkoni yakubiswe\nKubera jyewe",
       },
       {
         type: "chorus",
@@ -71,14 +71,14 @@ export const songs: NewSong[] = [
   },
   {
     number: 3,
-    name: "Nari narazimiriyekure, nibagiwe Yesu",
+    name: "Nari narazimiriye kure, nibagiwe Yesu",
     url: "https://indirimbo.rw/song/agakiza/1",
     body: [
       {
         type: "verse",
         number: 1,
         content:
-          "Nari narazimiriyekure, nibagiwe Yesu,\nNyuma Yes’ ambwiz’ ijwi rye, rinzanir’ umunezero",
+          "Nari narazimiriye kure, nibagiwe Yesu,\nNyuma Yes’ ambwiz’ ijwi rye, rinzanir’ umunezero",
       },
       {
         type: "chorus",
@@ -314,7 +314,7 @@ export const songs: NewSong[] = [
         type: "verse",
         number: 2,
         content:
-          "Ni ho naboney’ ubuntu bwawe bu tangaje\nNo mur’ mvo musaraba, ha vuyemw umucyo",
+          "Ni ho naboney’ ubuntu bwawe butangaje\nNo mur’ mvo musaraba, ha vuyemw umucyo",
       },
       {
         type: "verse",
@@ -326,7 +326,7 @@ export const songs: NewSong[] = [
         type: "verse",
         number: 4,
         content:
-          "Munsi y’ uwo musaraba handi ndir’ iteka\nNgukunde kuv’ uyu munsi ngez’ iteka ryose",
+          "Munsi y’ uwo musaraba handindir’ iteka\nNgukunde kuv’ uyu munsi ngez’ iteka ryose",
       },
     ],
   },
