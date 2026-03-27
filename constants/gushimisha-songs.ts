@@ -2388,7 +2388,7 @@ export const songs: NewSong[] = [
       {
         "type": "verse",
         "number": 5,
-        "content": "Mugenzi, har’ ibiki\nMu rnutima wawe?\nN’ inzira nyinshi, mbese?\nCyangwa n’ urutare?\nCyangwa n’ imbibe inziza?\nMbe harafumbiwe?\nWeramw imbuto nziza,\nCyangw’ umez’ amahwa?"
+        "content": "Mugenzi, har’ ibiki\nMu mutima wawe?\nN’ inzira nyinshi, mbese?\nCyangwa n’ urutare?\nCyangwa n’ imbibe inziza?\nMbe harafumbiwe?\nWeramw imbuto nziza,\nCyangw’ umez’ amahwa?"
       },
       {
         "type": "verse",
@@ -8789,7 +8789,7 @@ export const songs: NewSong[] = [
       {
         "type": "verse",
         "number": 5,
-        "content": "Amaso n’ aremb’ uzambonekere,\nNzabon’ ubwiza bwawe bwo mw ijuru,\nNzasiga vub’ umwijirna wo mw isi,\nNo mw ipfa ryanjye, tuzagumane!"
+        "content": "Amaso n’ aremb’ uzambonekere,\nNzabon’ ubwiza bwawe bwo mw ijuru,\nNzasiga vub’ umwijima wo mw isi,\nNo mw ipfa ryanjye, tuzagumane!"
       }
     ]
   },
@@ -8852,7 +8852,7 @@ export const songs: NewSong[] = [
       {
         "type": "verse",
         "number": 3,
-        "content": "Ni hacur’ umwijirna\nUtugotesh’ umucyo!\nWeyur’ ibikingiriza\nImitima yacu twese,\nTukubone"
+        "content": "Ni hacur’ umwijima\nUtugotesh’ umucyo!\nWeyur’ ibikingiriza\nImitima yacu twese,\nTukubone"
       },
       {
         "type": "verse",
@@ -11531,7 +11531,7 @@ export const songs: NewSong[] = [
       {
         "type": "verse",
         "number": 1,
-        "content": "Ngutuy’ ubugingo bwanjye,\nYesu, Mwana w’ lrnana;\nUbwakire n’ urukundo,\nNgo bub’ ubwaw’ iteka\nNkuzaniy’ ibyaha byanjye\nN’ umutim’ unangiwe:\nMu maraso wamviriye,\nUnyoze, Mucunguzi"
+        "content": "Ngutuy’ ubugingo bwanjye,\nYesu, Mwana w’ Imana;\nUbwakire n’ urukundo,\nNgo bub’ ubwaw’ iteka\nNkuzaniy’ ibyaha byanjye\nN’ umutim’ unangiwe:\nMu maraso wamviriye,\nUnyoze, Mucunguzi"
       },
       {
         "type": "verse",

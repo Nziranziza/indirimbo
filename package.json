@@ -13,7 +13,8 @@
     "lint": "expo lint",
     "release": "npx eas-cli build --platform all --profile release",
     "submit:android": "npx eas-cli submit --platform android",
-    "submit:ios": "npx eas-cli submit --platform ios"
+    "submit:ios": "npx eas-cli submit --platform ios",
+    "update": "npx eas-cli update --channel production"
   },
   "dependencies": {
     "@expo/vector-icons": "^15.0.3",
@@ -37,6 +38,7 @@
     "expo-store-review": "~55.0.9",
     "expo-symbols": "~55.0.5",
     "expo-system-ui": "~55.0.9",
+    "expo-updates": "~55.0.15",
     "expo-web-browser": "~55.0.9",
     "fuse.js": "^7.1.0",
     "react": "19.2.0",

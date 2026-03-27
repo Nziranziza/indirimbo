@@ -85,6 +85,7 @@
       "expo-font",
       "expo-image",
       "expo-web-browser",
+      "expo-updates",
       [
         "expo-build-properties",
         {
@@ -95,6 +96,12 @@
         }
       ]
     ],
+    "updates": {
+      "url": "https://u.expo.dev/42352c61-6285-46aa-9faa-ee33c490e5c7"
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true,
