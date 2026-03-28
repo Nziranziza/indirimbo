@@ -15,7 +15,7 @@ import { fileURLToPath } from 'node:url';
 import { songs as gushimishaSongs } from '../constants/gushimisha-songs';
 import { songs as agakizaSongs } from '../constants/agakiza-songs';
 import { gushimishaCategories } from '../constants/gushimisha-categories';
-import { escapeHtml } from './utils';
+import { escapeHtml, buildJsonLdTag, stripJsonLd } from './utils';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -36,9 +36,10 @@ interface PageOptions {
   canonicalUrl: string;
   keywords: string;
   noscriptHtml?: string;
+  jsonLdTags?: string;
 }
 
-function generatePage({ title, ogTitle, description, canonicalUrl, keywords, noscriptHtml }: PageOptions): string {
+function generatePage({ title, ogTitle, description, canonicalUrl, keywords, noscriptHtml, jsonLdTags }: PageOptions): string {
   const escapedTitle = escapeHtml(title);
   const escapedOgTitle = escapeHtml(ogTitle);
   const escapedDescription = escapeHtml(description);
@@ -79,6 +80,14 @@ function generatePage({ title, ogTitle, description, canonicalUrl, keywords, nos
 
   // Inject specific meta tags right after <head>
   html = html.replace(/<head>/, `<head>${metaTags}`);
+
+  // Strip inherited JSON-LD from homepage template
+  html = stripJsonLd(html);
+
+  // Inject page-specific JSON-LD
+  if (jsonLdTags) {
+    html = html.replace('</head>', `${jsonLdTags}\n</head>`);
+  }
 
   // Remove the homepage noscript block injected by fix-web-paths.ts
   html = html.replace(/<noscript><article>[\s\S]*?<\/article><\/noscript>/, '');
@@ -130,6 +139,33 @@ for (const playlist of playlists) {
   const dir = path.join(distDir, 'playlist', playlist.id);
   fs.mkdirSync(dir, { recursive: true });
 
+  const collectionJsonLd = buildJsonLdTag({
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: playlist.name,
+    description,
+    url: canonicalUrl,
+    mainEntity: {
+      '@type': 'ItemList',
+      numberOfItems: playlist.songs.length,
+      itemListElement: playlist.songs.map((song, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        name: song.name,
+        url: `${BASE_URL}/song/${playlist.id}/${encodeURIComponent(song.number)}/`,
+      })),
+    },
+  });
+
+  const breadcrumbJsonLd = buildJsonLdTag({
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Indirimbo', item: `${BASE_URL}/` },
+      { '@type': 'ListItem', position: 2, name: playlist.name, item: canonicalUrl },
+    ],
+  });
+
   const html = generatePage({
     title: `${playlist.name} | Indirimbo`,
     ogTitle: `${playlist.name} | Indirimbo`,
@@ -137,6 +173,7 @@ for (const playlist of playlists) {
     canonicalUrl,
     keywords: playlist.keywords,
     noscriptHtml: noscript,
+    jsonLdTags: `${collectionJsonLd}\n${breadcrumbJsonLd}`,
   });
 
   fs.writeFileSync(path.join(dir, 'index.html'), html);
@@ -167,6 +204,33 @@ for (const category of gushimishaCategories) {
   const dir = path.join(distDir, 'category', category.slug);
   fs.mkdirSync(dir, { recursive: true });
 
+  const collectionJsonLd = buildJsonLdTag({
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: `${category.name} - Gushimisha Imana`,
+    description,
+    url: canonicalUrl,
+    mainEntity: {
+      '@type': 'ItemList',
+      numberOfItems: category.songs.length,
+      itemListElement: category.songs.map((songNum, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        name: gushimishaSongMap.get(String(songNum)) || `Indirimbo ${songNum}`,
+        url: `${BASE_URL}/song/gushimisha/${encodeURIComponent(songNum)}/`,
+      })),
+    },
+  });
+
+  const breadcrumbJsonLd = buildJsonLdTag({
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Indirimbo', item: `${BASE_URL}/` },
+      { '@type': 'ListItem', position: 2, name: `${category.name} - Gushimisha Imana`, item: canonicalUrl },
+    ],
+  });
+
   const html = generatePage({
     title: `${category.name} - Gushimisha Imana | Indirimbo`,
     ogTitle: `${category.name} - Gushimisha Imana | Indirimbo`,
@@ -174,6 +238,7 @@ for (const category of gushimishaCategories) {
     canonicalUrl,
     keywords,
     noscriptHtml: noscript,
+    jsonLdTags: `${collectionJsonLd}\n${breadcrumbJsonLd}`,
   });
 
   fs.writeFileSync(path.join(dir, 'index.html'), html);

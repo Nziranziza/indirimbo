@@ -16,7 +16,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { escapeHtml } from './utils';
+import { escapeHtml, buildJsonLdTag, stripJsonLd } from './utils';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -36,9 +36,10 @@ interface PageOptions {
   canonicalUrl: string;
   keywords: string;
   noscriptHtml: string;
+  jsonLdTags?: string;
 }
 
-function generatePage({ title, description, canonicalUrl, keywords, noscriptHtml }: PageOptions): string {
+function generatePage({ title, description, canonicalUrl, keywords, noscriptHtml, jsonLdTags }: PageOptions): string {
   const escapedTitle = escapeHtml(title);
   const escapedDescription = escapeHtml(description);
   const escapedKeywords = escapeHtml(keywords);
@@ -79,6 +80,14 @@ function generatePage({ title, description, canonicalUrl, keywords, noscriptHtml
   // Inject specific meta tags right after <head>
   html = html.replace(/<head>/, `<head>${metaTags}`);
 
+  // Strip inherited JSON-LD from homepage template
+  html = stripJsonLd(html);
+
+  // Inject page-specific JSON-LD
+  if (jsonLdTags) {
+    html = html.replace('</head>', `${jsonLdTags}\n</head>`);
+  }
+
   // Remove the homepage noscript block injected by fix-web-paths.ts
   html = html.replace(/<noscript><article>[\s\S]*?<\/article><\/noscript>/, '');
 
@@ -96,6 +105,7 @@ const spaPages: Array<{
   description: string;
   keywords: string;
   noscriptHtml: string;
+  extraJsonLd?: object;
 }> = [
   {
     path: 'about',
@@ -130,6 +140,36 @@ const spaPages: Array<{
     title: 'Support | Indirimbo',
     description: 'Get help with using Indirimbo. Find FAQs, usage guide, and contact information for the Rwandan hymnal app.',
     keywords: 'indirimbo support, help, FAQ, contact',
+    extraJsonLd: {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: [
+        {
+          '@type': 'Question',
+          name: 'How do I find a specific song?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'Use the search bar on the home screen. You can search by song number, title, or even words from the lyrics.',
+          },
+        },
+        {
+          '@type': 'Question',
+          name: 'Can I use the app offline?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'Yes! All songs are stored locally on your device. Once the app is installed, you can access all hymns without an internet connection.',
+          },
+        },
+        {
+          '@type': 'Question',
+          name: 'How do I change the text size?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'Go to Settings and adjust the font size to small, medium, or large based on your preference.',
+          },
+        },
+      ],
+    },
     noscriptHtml: `<noscript><article>
 <h1>Support</h1>
 <h2>Getting Started</h2>
@@ -291,12 +331,27 @@ let totalPages = 0;
 for (const page of spaPages) {
   const canonicalUrl = `${BASE_URL}/${page.path}/`;
 
+  const breadcrumbJsonLd = buildJsonLdTag({
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Indirimbo', item: `${BASE_URL}/` },
+      { '@type': 'ListItem', position: 2, name: page.title.split(' | ')[0].split(' - ')[0], item: canonicalUrl },
+    ],
+  });
+
+  let jsonLdTags = breadcrumbJsonLd;
+  if (page.extraJsonLd) {
+    jsonLdTags += `\n${buildJsonLdTag(page.extraJsonLd)}`;
+  }
+
   const html = generatePage({
     title: page.title,
     description: page.description,
     canonicalUrl,
     keywords: page.keywords,
     noscriptHtml: page.noscriptHtml,
+    jsonLdTags,
   });
 
   // Fix the flat .html file that expo export generated (e.g. dist/about.html)

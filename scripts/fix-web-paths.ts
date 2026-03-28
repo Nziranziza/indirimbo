@@ -12,6 +12,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { buildJsonLdTag } from './utils';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -98,6 +99,31 @@ const homepageNoscript = `
 </article></noscript>`;
 
 html = html.replace(/<body>/, `<body>${homepageNoscript}`);
+
+// Inject JSON-LD structured data for homepage
+const websiteJsonLd = buildJsonLdTag({
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'Indirimbo',
+  url: `${BASE_URL}/`,
+  description: 'Browse and search Rwandan church hymns from Agakiza and Gushimisha Imana hymnbooks.',
+  inLanguage: 'rw',
+  potentialAction: {
+    '@type': 'SearchAction',
+    target: `${BASE_URL}/search?q={search_term_string}`,
+    'query-input': 'required name=search_term_string',
+  },
+});
+
+const organizationJsonLd = buildJsonLdTag({
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'Indirimbo',
+  url: `${BASE_URL}/`,
+  logo: `${BASE_URL}/og-image.jpg`,
+});
+
+html = html.replace('</head>', `${websiteJsonLd}\n${organizationJsonLd}\n</head>`);
 
 // Write the fixed HTML back
 fs.writeFileSync(indexPath, html);
