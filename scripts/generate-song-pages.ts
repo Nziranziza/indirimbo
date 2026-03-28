@@ -14,7 +14,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { songs as gushimishaSongs, type NewSong } from '../constants/gushimisha-songs';
 import { songs as agakizaSongs } from '../constants/agakiza-songs';
-import { escapeHtml } from './utils';
+import { escapeHtml, buildJsonLdTag, stripJsonLd } from './utils';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -101,6 +101,37 @@ function generateSongHtml(song: NewSong, playlist: string, playlistName: string)
 
   // Inject song-specific meta tags right after <head>
   html = html.replace(/<head>/, `<head>${songMeta}`);
+
+  // Strip inherited JSON-LD from homepage template
+  html = stripJsonLd(html);
+
+  // Inject song-specific JSON-LD
+  const lyricsText = song.body.map((s) => s.content).join('\n\n');
+  const creativeWorkJsonLd = buildJsonLdTag({
+    '@context': 'https://schema.org',
+    '@type': 'CreativeWork',
+    name: song.name,
+    text: lyricsText,
+    inLanguage: 'rw',
+    url: canonicalUrl,
+    isPartOf: {
+      '@type': 'CreativeWork',
+      name: playlistName,
+      url: `${BASE_URL}/playlist/${playlist}/`,
+    },
+  });
+
+  const breadcrumbJsonLd = buildJsonLdTag({
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Indirimbo', item: `${BASE_URL}/` },
+      { '@type': 'ListItem', position: 2, name: playlistName, item: `${BASE_URL}/playlist/${playlist}/` },
+      { '@type': 'ListItem', position: 3, name: song.name, item: canonicalUrl },
+    ],
+  });
+
+  html = html.replace('</head>', `${creativeWorkJsonLd}\n${breadcrumbJsonLd}\n</head>`);
 
   // Remove the homepage noscript block injected by fix-web-paths.ts
   html = html.replace(/<noscript><article>[\s\S]*?<\/article><\/noscript>/, '');
