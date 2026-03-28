@@ -1,22 +1,23 @@
-#!/usr/bin/env node
-
 /**
  * Generates static HTML pages for playlists and categories at:
  *   dist/playlist/<name>/index.html
- *   dist/category/<index>/index.html
+ *   dist/category/<slug>/index.html
  *
  * Each page is a copy of the built index.html with:
  *   - Playlist/category-specific OG meta tags (for WhatsApp/social crawlers)
  *
- * This script must run AFTER fix-web-paths.js (so index.html is fully ready).
+ * This script must run AFTER fix-web-paths.ts (so index.html is fully ready).
  */
 
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { songs as gushimishaSongs } from '../constants/gushimisha-songs';
+import { songs as agakizaSongs } from '../constants/agakiza-songs';
+import { gushimishaCategories } from '../constants/gushimisha-categories';
+import { escapeHtml } from './utils';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const BASE_URL = 'https://indirimbo.rw';
 const OG_IMAGE = `${BASE_URL}/og-image.jpg`;
@@ -28,16 +29,16 @@ const templateHtml = fs.readFileSync(indexPath, 'utf8');
 
 // --- helpers ----------------------------------------------------------------
 
-function escapeHtml(str) {
-  return str
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#39;');
+interface PageOptions {
+  title: string;
+  ogTitle: string;
+  description: string;
+  canonicalUrl: string;
+  keywords: string;
+  noscriptHtml?: string;
 }
 
-function generatePage({ title, ogTitle, description, canonicalUrl, keywords, noscriptHtml }) {
+function generatePage({ title, ogTitle, description, canonicalUrl, keywords, noscriptHtml }: PageOptions): string {
   const escapedTitle = escapeHtml(title);
   const escapedOgTitle = escapeHtml(ogTitle);
   const escapedDescription = escapeHtml(description);
@@ -79,67 +80,15 @@ function generatePage({ title, ogTitle, description, canonicalUrl, keywords, nos
   // Inject specific meta tags right after <head>
   html = html.replace(/<head>/, `<head>${metaTags}`);
 
+  // Remove the homepage noscript block injected by fix-web-paths.ts
+  html = html.replace(/<noscript><article>[\s\S]*?<\/article><\/noscript>/, '');
+
   // Inject noscript block with crawlable content right after <body>
   if (noscriptHtml) {
     html = html.replace(/<body>/, `<body>${noscriptHtml}`);
   }
 
   return html;
-}
-
-// --- Read category data -----------------------------------------------------
-
-function readCategories() {
-  const filePath = path.join(__dirname, '../constants/gushimisha-categories.ts');
-  const content = fs.readFileSync(filePath, 'utf8');
-  const categories = [];
-
-  // Parse each category object: { name: "...", slug: "...", icon: "...", songs: [...] }
-  const categoryRegex = /\{\s*\n\s*name:\s*"([^"]+)",\s*\n\s*slug:\s*"([^"]+)",\s*\n\s*icon:\s*"([^"]+)",\s*\n\s*songs:\s*\[([^\]]*)\]/g;
-  let match;
-  while ((match = categoryRegex.exec(content)) !== null) {
-    const name = match[1];
-    const slug = match[2];
-    const songsStr = match[4];
-
-    // Expand range() calls into individual numbers
-    const songNumbers = [];
-    const rangeMatches = [...songsStr.matchAll(/range\((\d+),\s*(\d+)\)/g)];
-    for (const r of rangeMatches) {
-      const start = Number(r[1]);
-      const end = Number(r[2]);
-      for (let i = start; i <= end; i++) {
-        songNumbers.push(i);
-      }
-    }
-    // Add individual numbers (not inside range())
-    const withoutRanges = songsStr.replace(/\.\.\.range\(\d+,\s*\d+\)/g, '');
-    const individualNums = withoutRanges.match(/\b\d+\b/g);
-    if (individualNums) {
-      for (const n of individualNums) {
-        songNumbers.push(Number(n));
-      }
-    }
-
-    categories.push({ name, slug, songCount: songNumbers.length, songNumbers });
-  }
-
-  return categories;
-}
-
-// --- Read song names per playlist -------------------------------------------
-
-function readSongList(filePath) {
-  const content = fs.readFileSync(filePath, 'utf8');
-  const songs = [];
-  const songRegex = /\{\s*"?number"?\s*:\s*("[\w]+"|[\d]+)\s*,\s*"?name"?\s*:\s*"([^"]+)"/g;
-  let match;
-  while ((match = songRegex.exec(content)) !== null) {
-    const number = match[1].replace(/^"|"$/g, '');
-    const name = match[2];
-    songs.push({ number, name });
-  }
-  return songs;
 }
 
 // --- main -------------------------------------------------------------------
@@ -151,29 +100,28 @@ const playlists = [
   {
     id: 'gushimisha',
     name: 'Gushimisha Imana',
-    file: path.join(__dirname, '../constants/gushimisha-songs.ts'),
+    songs: gushimishaSongs,
     keywords: 'gushimisha imana, indirimbo zo gushimisha imana, rwandan hymns, worship songs, kinyarwanda',
   },
   {
     id: 'agakiza',
     name: 'Agakiza',
-    file: path.join(__dirname, '../constants/agakiza-songs.ts'),
-    keywords: 'agakiza, indirimbo z\'agakiza, rwandan hymns, worship songs, kinyarwanda',
+    songs: agakizaSongs,
+    keywords: "agakiza, indirimbo z'agakiza, rwandan hymns, worship songs, kinyarwanda",
   },
 ];
 
 for (const playlist of playlists) {
-  const songs = readSongList(playlist.file);
-  const description = `Browse all ${songs.length} songs in the ${playlist.name} hymnbook. Rwandan church worship songs with full lyrics.`;
+  const description = `Browse all ${playlist.songs.length} songs in the ${playlist.name} hymnbook. Rwandan church worship songs with full lyrics.`;
   const canonicalUrl = `${BASE_URL}/playlist/${playlist.id}/`;
 
   // Build noscript with song list for crawlers
   let noscript = `<noscript><article>`;
   noscript += `<h1>${escapeHtml(playlist.name)}</h1>`;
   noscript += `<p>${escapeHtml(description)}</p><ol>`;
-  for (const song of songs) {
+  for (const song of playlist.songs) {
     const songUrl = `${BASE_URL}/song/${playlist.id}/${encodeURIComponent(song.number)}`;
-    noscript += `<li><a href="${songUrl}">${escapeHtml(song.number)}. ${escapeHtml(song.name)}</a></li>`;
+    noscript += `<li><a href="${songUrl}">${escapeHtml(String(song.number))}. ${escapeHtml(song.name)}</a></li>`;
   }
   noscript += `</ol>`;
   noscript += `<nav><a href="${BASE_URL}">Indirimbo</a></nav>`;
@@ -196,13 +144,10 @@ for (const playlist of playlists) {
 }
 
 // Generate category pages
-const categories = readCategories();
-// Read gushimisha songs for category song name lookups
-const gushimishaSongs = readSongList(path.join(__dirname, '../constants/gushimisha-songs.ts'));
 const gushimishaSongMap = new Map(gushimishaSongs.map((s) => [String(s.number), s.name]));
 
-for (const category of categories) {
-  const description = `Browse ${category.name} hymns from Gushimisha Imana hymnbook. ${category.songCount} worship songs with full lyrics.`;
+for (const category of gushimishaCategories) {
+  const description = `Browse ${category.name} hymns from Gushimisha Imana hymnbook. ${category.songs.length} worship songs with full lyrics.`;
   const canonicalUrl = `${BASE_URL}/category/${category.slug}/`;
   const keywords = `${category.name}, gushimisha imana, indirimbo, indirimbo zo gushimisha imana, rwandan hymns, worship songs`;
 
@@ -210,7 +155,7 @@ for (const category of categories) {
   let noscript = `<noscript><article>`;
   noscript += `<h1>${escapeHtml(category.name)} - Gushimisha Imana</h1>`;
   noscript += `<p>${escapeHtml(description)}</p><ol>`;
-  for (const songNum of category.songNumbers) {
+  for (const songNum of category.songs) {
     const songName = gushimishaSongMap.get(String(songNum)) || `Indirimbo ${songNum}`;
     const songUrl = `${BASE_URL}/song/gushimisha/${encodeURIComponent(songNum)}`;
     noscript += `<li><a href="${songUrl}">${escapeHtml(String(songNum))}. ${escapeHtml(songName)}</a></li>`;
@@ -235,4 +180,4 @@ for (const category of categories) {
   totalPages++;
 }
 
-console.log(`✅ Generated ${totalPages} static pages (${playlists.length} playlists + ${categories.length} categories) with OG tags`);
+console.log(`✅ Generated ${totalPages} static pages (${playlists.length} playlists + ${gushimishaCategories.length} categories) with OG tags`);
