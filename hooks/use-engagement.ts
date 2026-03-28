@@ -58,14 +58,13 @@ function evaluatePrompt(
   didFavoriteThisSession: boolean,
   isWeb: boolean,
 ): EngagementPromptType | null {
-  const now = Date.now();
-
   // Share Song: user just favorited — always eligible, bypasses global cooldown
   if (didFavoriteThisSession) {
     return 'share_song';
   }
+  const now = Date.now();
 
-  // Global cooldown: 7 days since any prompt (for rate/share_app only)
+  // Global cooldown: 7 days since any prompt
   if (state.lastPromptShownAt && now - state.lastPromptShownAt < SEVEN_DAYS) {
     return null;
   }
@@ -157,10 +156,10 @@ export function useEngagement({
         const promptType = evaluatePrompt(state, favorites.length, didFavoriteThisSession, isWeb);
 
         if (promptType) {
-          hasEvaluatedRef.current = true;
           if (promptType === 'share_song') {
             hasShownShareSongRef.current = true;
           } else {
+            hasEvaluatedRef.current = true;
             promptShownThisSession = true;
           }
 
@@ -172,11 +171,15 @@ export function useEngagement({
           setPrompt(newPrompt);
           setShowPrompt(true);
 
-          await updateEngagementState(() => ({ lastPromptShownAt: Date.now() }));
+          if (promptType !== 'share_song') {
+            await updateEngagementState(() => ({ lastPromptShownAt: Date.now() }));
+          }
 
           if (process.env.EXPO_OS === 'ios') {
             Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success).catch(console.error);
           }
+        } else {
+          hasEvaluatedRef.current = true;
         }
       } catch (error) {
         console.error('Error evaluating engagement prompt:', error);
