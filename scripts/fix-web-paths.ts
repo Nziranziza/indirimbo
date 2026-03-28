@@ -1,11 +1,19 @@
-#!/usr/bin/env node
+/**
+ * Post-build script that prepares the base index.html template:
+ *   - Fixes asset paths for custom BASE_PATH deployments
+ *   - Injects preload hint for the main entry JS bundle
+ *   - Sets default SEO meta tags for the homepage
+ *   - Adds a noscript block with crawlable homepage content
+ *   - Generates robots.txt
+ *
+ * This script must run BEFORE generate-song-pages.ts and other page generators.
+ */
 
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const distDir = path.join(__dirname, '../dist');
 const indexPath = path.join(distDir, 'index.html');
@@ -95,7 +103,7 @@ html = html.replace(/<body>/, `<body>${homepageNoscript}`);
 fs.writeFileSync(indexPath, html);
 
 // Also fix all other HTML pages in dist/
-const fixHtmlFile = (filePath) => {
+const fixHtmlFile = (filePath: string): void => {
   if (filePath === indexPath) return; // Already handled
   if (!filePath.endsWith('.html')) return;
 
@@ -123,7 +131,7 @@ const fixHtmlFile = (filePath) => {
 };
 
 // Recursively find all HTML files in dist
-const walkDir = (dir) => {
+const walkDir = (dir: string): void => {
   const entries = fs.readdirSync(dir, { withFileTypes: true });
   for (const entry of entries) {
     const fullPath = path.join(dir, entry.name);

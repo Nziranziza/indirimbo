@@ -1,23 +1,22 @@
-#!/usr/bin/env node
-
 /**
  * Generates static HTML pages for each song at:
  *   dist/song/<playlist>/<number>/index.html
  *
  * Each page is a copy of the built index.html with:
  *   - Song-specific OG meta tags (for WhatsApp/social crawlers)
- *   - A history.replaceState call to silently rewrite the URL to the
- *     query-param format the SPA expects (no visible redirect)
+ *   - A noscript block with full lyrics for search engine crawlers
  *
- * This script must run AFTER fix-web-paths.js (so index.html is fully ready).
+ * This script must run AFTER fix-web-paths.ts (so index.html is fully ready).
  */
 
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { songs as gushimishaSongs, type NewSong } from '../constants/gushimisha-songs';
+import { songs as agakizaSongs } from '../constants/agakiza-songs';
+import { escapeHtml } from './utils';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const BASE_URL = 'https://indirimbo.rw';
 const OG_IMAGE = `${BASE_URL}/og-image.jpg`;
@@ -29,73 +28,25 @@ const templateHtml = fs.readFileSync(indexPath, 'utf8');
 
 // --- helpers ----------------------------------------------------------------
 
-function readSongs(filePath) {
-  const content = fs.readFileSync(filePath, 'utf8');
-  const songs = [];
-
-  const songRegex = /\{\s*"?number"?\s*:\s*("[\w]+"|[\d]+)\s*,\s*"?name"?\s*:\s*"([^"]+)"/g;
-  let match;
-  while ((match = songRegex.exec(content)) !== null) {
-    const number = match[1].replace(/^"|"$/g, '');
-    const name = match[2];
-
-    // Extract the body array for this song (from current match to the next song or end)
-    const afterMatch = content.slice(match.index);
-    // Find the closing of this song's body array
-    const bodyEnd = afterMatch.indexOf('],');
-    const songBlock = bodyEnd !== -1 ? afterMatch.slice(0, bodyEnd) : afterMatch;
-
-    // Extract all verse/chorus sections
-    const sections = [];
-    const sectionRegex = /"?type"?\s*:\s*"(verse|chorus)"(?:\s*,\s*"?number"?\s*:\s*(\d+))?\s*,\s*"?content"?\s*:\s*"([^"]+)"/g;
-    let sectionMatch;
-    while ((sectionMatch = sectionRegex.exec(songBlock)) !== null) {
-      sections.push({
-        type: sectionMatch[1],
-        number: sectionMatch[2] ? Number(sectionMatch[2]) : undefined,
-        content: sectionMatch[3].replace(/\\n/g, '\n'),
-      });
-    }
-
-    const firstVerse = sections.length > 0 ? sections[0].content : '';
-
-    songs.push({ number, name, firstVerse, sections });
+function buildDescription(song: NewSong): string {
+  const firstSection = song.body[0];
+  if (firstSection) {
+    return firstSection.content.replace(/\n/g, ' ');
   }
-
-  return songs;
+  return `${song.name} - hymn #${song.number}`;
 }
 
-function escapeHtml(str) {
-  return str
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#39;');
-}
-
-function buildDescription(song, playlistName) {
-  if (song.firstVerse) {
-    // Use the full first verse/chorus, replacing newlines with spaces
-    return song.firstVerse.replace(/\n/g, ' ');
-  }
-  return `${song.name} - ${playlistName} hymn #${song.number}`;
-}
-
-function buildNoscriptContent(song, playlist, playlistName) {
+function buildNoscriptContent(song: NewSong, playlist: string, playlistName: string): string {
   const playlistShort = playlist === 'agakiza' ? 'Gakiza' : 'Gushimisha Imana';
   let noscript = `<noscript><article>`;
   noscript += `<h1>${escapeHtml(song.name)}</h1>`;
-  noscript += `<p>Indirimbo ya ${escapeHtml(String(song.number))} mu ${escapeHtml(playlistShort)}</p>`;
+  noscript += `<h2>Indirimbo ya ${escapeHtml(String(song.number))} mu ${escapeHtml(playlistShort)}</h2>`;
 
-  for (const section of song.sections) {
-    const label = section.type === 'chorus'
-      ? 'Amasakramentu'
-      : `${section.number || ''}`;
+  for (const section of song.body) {
     if (section.type === 'chorus') {
       noscript += `<p><strong>Amasakramentu:</strong><br/>`;
     } else {
-      noscript += `<p><strong>${escapeHtml(String(label))}.</strong> `;
+      noscript += `<p><strong>${escapeHtml(String(section.number || ''))}.</strong> `;
     }
     noscript += escapeHtml(section.content).replace(/\n/g, '<br/>');
     noscript += `</p>`;
@@ -109,11 +60,11 @@ function buildNoscriptContent(song, playlist, playlistName) {
   return noscript;
 }
 
-function generateSongHtml(song, playlist, playlistName) {
+function generateSongHtml(song: NewSong, playlist: string, playlistName: string): string {
   const playlistShort = playlist === 'agakiza' ? 'Gakiza' : 'Gushimisha Imana';
   const title = escapeHtml(`${song.name} | Indirimbo ya ${song.number} mu ${playlistShort}`);
   const ogTitle = escapeHtml(`${song.name} | Indirimbo ya ${song.number} mu ${playlistShort}`);
-  const description = escapeHtml(buildDescription(song, playlistName));
+  const description = escapeHtml(buildDescription(song));
   const canonicalUrl = `${BASE_URL}/song/${playlist}/${encodeURIComponent(song.number)}/`;
 
   // Song-specific meta tags to inject
@@ -151,6 +102,9 @@ function generateSongHtml(song, playlist, playlistName) {
   // Inject song-specific meta tags right after <head>
   html = html.replace(/<head>/, `<head>${songMeta}`);
 
+  // Remove the homepage noscript block injected by fix-web-paths.ts
+  html = html.replace(/<noscript><article>[\s\S]*?<\/article><\/noscript>/, '');
+
   // Inject noscript block with full lyrics right after <body>
   const noscript = buildNoscriptContent(song, playlist, playlistName);
   html = html.replace(/<body>/, `<body>${noscript}`);
@@ -161,24 +115,14 @@ function generateSongHtml(song, playlist, playlistName) {
 // --- main -------------------------------------------------------------------
 
 const playlists = [
-  {
-    id: 'gushimisha',
-    name: 'Gushimisha Imana',
-    file: path.join(__dirname, '../constants/gushimisha-songs.ts'),
-  },
-  {
-    id: 'agakiza',
-    name: 'Agakiza',
-    file: path.join(__dirname, '../constants/agakiza-songs.ts'),
-  },
+  { id: 'gushimisha', name: 'Gushimisha Imana', songs: gushimishaSongs },
+  { id: 'agakiza', name: 'Agakiza', songs: agakizaSongs },
 ];
 
 let totalPages = 0;
 
 for (const playlist of playlists) {
-  const songs = readSongs(playlist.file);
-
-  for (const song of songs) {
+  for (const song of playlist.songs) {
     const dir = path.join(distDir, 'song', playlist.id, String(song.number));
     fs.mkdirSync(dir, { recursive: true });
 
