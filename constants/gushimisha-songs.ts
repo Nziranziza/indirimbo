@@ -300,7 +300,7 @@ export const songs: NewSong[] = [
       {
         "type": "verse",
         "number": 3,
-        "content": "Ni Data wa twese mwiza\nAz’ intege nke zacu;\nNukw aturinde Satani\nDuhimbaz’ imbabazi ze\nZitarangir’ iteka"
+        "content": "Ni Data wa twese mwiza\nAz’ intege nke zacu;\nNukw aradukuyakuya\nNgw aturinde Satani\nDuhimbaz’ imbabazi ze\nZitarangir’ iteka"
       },
       {
         "type": "verse",
