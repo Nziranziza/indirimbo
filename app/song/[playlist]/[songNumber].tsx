@@ -189,8 +189,8 @@ export default function SongScreen() {
   if (!currentSong || allSongs.length === 0) {
     return (
       <ThemedView style={styles.container}>
-        <ThemedView style={[styles.header, { paddingTop: insets.top + 16 }]}>
-          <BackButton color={colors.text} style={styles.backButton} />
+        <ThemedView style={[styles.header, { paddingTop: insets.top + 8 }]}>
+          <BackButton color={colors.text}  />
         </ThemedView>
         <View style={styles.contentContainer}>
           <Animated.ScrollView
@@ -234,7 +234,7 @@ export default function SongScreen() {
     ? firstSection.content.replace(/\n/g, " ")
     : `${currentSong.name} - ${playlistTitle} hymn #${currentSong.number}`;
 
-  const headerHeight = insets.top + 16 + 48 + 16;
+  const headerHeight = insets.top + 8 + 40 + 8;
 
   return (
     <ThemedView style={styles.container}>
@@ -244,10 +244,9 @@ export default function SongScreen() {
         canonicalPath={`/song/${playlist}/${currentSong.number}`}
         keywords={`${currentSong.name}, indirimbo ya ${currentSong.number}, ${playlistTitle}, indirimbo, indirimbo zo mugitabo, ${playlist === "agakiza" ? "indirimbo z'agakiza, indirimbo z'abarokore" : "indirimbo zo gushimisha imana"}`}
       />
-      <ThemedView style={[styles.header, { paddingTop: insets.top + 16 }]}>
+      <ThemedView style={[styles.header, { paddingTop: insets.top + 8 }]}>
         <BackButton
           color={colors.text}
-          style={styles.backButton}
           fallbackHref={{ pathname: '/(tabs)/(home)/playlist/[name]', params: { name: playlist } }}
         />
         <TouchableOpacity
@@ -265,7 +264,7 @@ export default function SongScreen() {
           }}
           activeOpacity={0.7}
         >
-          <SongNumberBadge number={currentSong.number} size="large" style={styles.songNumberBadge} />
+          <SongNumberBadge number={currentSong.number} size="small" style={styles.songNumberBadge} />
         </TouchableOpacity>
         <ThemedView style={styles.headerCenter}>
           <ThemedText type="subtitle" style={styles.playlistLabel}>
@@ -404,12 +403,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    paddingHorizontal: 20,
-    paddingBottom: 16,
-  },
-  backButton: {
-    padding: 8,
-    marginLeft: -8,
+    paddingLeft: 12,
+    paddingRight: 20,
+    paddingBottom: 8,
   },
   headerActionButton: {
     padding: 8,
@@ -425,14 +421,18 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   playlistLabel: {
-    fontSize: 14,
+    fontSize: 12,
+    fontWeight: "500",
+    lineHeight: 14,
+    marginBottom: 2,
     opacity: 0.7,
   },
   titleRow: {
     flexDirection: "row",
   },
   songTitle: {
-    fontSize: 20,
+    fontSize: 17,
+    lineHeight: 20,
     flex: 1,
   },
   contentContainer: {
