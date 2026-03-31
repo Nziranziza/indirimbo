@@ -1,7 +1,3 @@
-// Song data extracted from bibiliya.com
-// Generated on: 2026-02-11T07:33:12.628Z
-// Source: https://bibiliya.com/songs/gushimisha
-
 export interface NewSong {
   number: number | string;
   name: string;
@@ -7545,7 +7541,7 @@ export const songs: NewSong[] = [
       {
         "type": "verse",
         "number": 3,
-        "content": "Intumwa zagusizeyo,\nS’arakuzinukwa\nNatwe nta bwo twashobora\nKubigereranya"
+        "content": "Intumwa zagusizeyo,\nZ’arakuzinukwa\nNatwe nta bwo twashobora\nKubigereranya"
       },
       {
         "type": "verse",
@@ -8109,7 +8105,7 @@ export const songs: NewSong[] = [
       {
         "type": "verse",
         "number": 5,
-        "content": "Turi mu ma boko ye:\nKoko, nta wamutunyaga!\nNaho yaba Satani,\nCyangw’ ibyago, cyangw’ urupfu\nHaleluya!"
+        "content": "Turi mu maboko ye:\nKoko, nta wamutunyaga!\nNaho yaba Satani,\nCyangw’ ibyago, cyangw’ urupfu\nHaleluya!"
       },
       {
         "type": "verse",

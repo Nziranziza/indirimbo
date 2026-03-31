@@ -120,6 +120,19 @@ Song lyrics are in `constants/agakiza-songs.ts` and `constants/gushimisha-songs.
 - Use `Platform.select()` or platform file extensions for divergent implementations
 - Avoid platform-only APIs without a fallback
 
+### Git Conventions
+- Branch names: `type/short-description` in kebab-case (e.g., `fix/song-lyrics-corrections`, `feat/dark-mode`)
+- Commit messages: use [Conventional Commits](https://www.conventionalcommits.org/) format with a short title and a bulleted body summarizing the key changes (not every individual diff — let `git diff` speak for itself)
+- Example:
+  ```
+  fix: correct typos and formatting in Agakiza and Gushimisha song lyrics
+
+  - Remove auto-generated comments from both song data files
+  - Fix incorrect word splits and joins across ~30 songs
+  - Fix spelling typos in several song lyrics
+  - Reformat verse line breaks for song 64
+  ```
+
 ### Code Quality
 - No commented-out code in committed files — delete it, git has history
 - No magic numbers — extract into named constants with clear meaning

@@ -1,7 +1,3 @@
-// Song data extracted from bibiliya.com
-// Generated on: 2026-02-11T10:15:14.590Z
-// Source: https://bibiliya.com/songs/agakiza
-
 export interface NewSong {
   number: number | string;
   name: string;
@@ -1017,7 +1013,7 @@ export const songs: NewSong[] = [
         type: "verse",
         number: 3,
         content:
-          "Umpe kur’ayo mazi y’ ubugingo bw’ iteka,\nAmar’ inyota mfite, sinzongere kuvoma\nYesu yumva\nNingoga uwo Musamaria\n/: Ngwino kukw iyo mpano ituruka mw ijuru\nWayi habw’ uyu munsi.: /",
+          "Umpe kur’ayo mazi y’ ubugingo bw’ iteka,\nAmar’ inyota mfite, sinzongere kuvoma\nYesu yumva\nNingoga uwo Musamaria\n/: Ngwino kukw iyo mpano ituruka mw ijuru\nWayihabw’ uyu munsi.: /",
       },
       {
         type: "verse",
@@ -1053,7 +1049,7 @@ export const songs: NewSong[] = [
         type: "verse",
         number: 3,
         content:
-          "Yabay’ igitambo gikwiye\nYaba barijw’ i Gologota\nYapfiriye bose bo mw isi\nDuhabw’ agakizak’ Imana",
+          "Yabay’ igitambo gikwiye\nYababarijw’ i Gologota\nYapfiriye bose bo mw isi\nDuhabw’ agakizak’ Imana",
       },
       {
         type: "verse",
@@ -1132,14 +1128,14 @@ export const songs: NewSong[] = [
   },
   {
     number: 35,
-    name: "Ni Yesu wangize kub’ umuva ndimwe we",
+    name: "Ni Yesu wangize kub’ umuvandimwe we",
     url: "https://indirimbo.rw/song/agakiza/1",
     body: [
       {
         type: "verse",
         number: 1,
         content:
-          "Ni Yesu wangize kub’ umuva ndimwe we\nIman’ ishimwe cyane\nKand’ ibyo mfite byose ni we wabimpaye\nIman’ ishimwe cyane\nKandi yarambabariy’ angir’ imbohore\nYamviriy’ amaraso yo mu mutima we\nNdanezerewe cyane kuko yanshunguye\nIman’ ishimwe cyane",
+          "Ni Yesu wangize kub’ umuvandimwe we\nIman’ ishimwe cyane\nKand’ ibyo mfite byose ni we wabimpaye\nIman’ ishimwe cyane\nKandi yarambabariy’ angir’ imbohore\nYamviriy’ amaraso yo mu mutima we\nNdanezerewe cyane kuko yanshunguye\nIman’ ishimwe cyane",
       },
       {
         type: "verse",
@@ -1224,7 +1220,7 @@ export const songs: NewSong[] = [
   },
   {
     number: 38,
-    name: "Nowa ku ki wubak’ iyo nkuge",
+    name: "Nowa kuki wubak’ iyo nkuge",
     url: "https://indirimbo.rw/song/agakiza/1",
     body: [
       {
@@ -1334,7 +1330,7 @@ export const songs: NewSong[] = [
         type: "verse",
         number: 1,
         content:
-          "Iyo ndebeshej’ ukwizera,\nNezererw’ Umukiza wanjye\nMbon’ ubutunzi bwinshi cyane,\nBufitwe na Dat’ Uhoraho\nHaleluya, ndane zerewe,\nKukw anyobor’ iminsi yose,\nIyo mfit’ intege nke cyane,\nAmbumbatiz’amaboko ye",
+          "Iyo ndebeshej’ ukwizera,\nNezererw’ Umukiza wanjye\nMbon’ ubutunzi bwinshi cyane,\nBufitwe na Dat’ Uhoraho\nHaleluya, ndanezerewe,\nKukw anyobor’ iminsi yose,\nIyo mfit’ intege nke cyane,\nAmbumbatiz’amaboko ye",
       },
       {
         type: "verse",
@@ -1508,7 +1504,7 @@ export const songs: NewSong[] = [
         type: "verse",
         number: 2,
         content:
-          "Mu rugendo nta bwo nabimenya byose,\nAriko nzi ko nzabimenya\nNi ku ki turizwa n’ ibyago biriho,\nKand’ ari byo mu gihe gito",
+          "Mu rugendo nta bwo nabimenya byose,\nAriko nzi ko nzabimenya\nNi kuki turizwa n’ ibyago biriho,\nKand’ ari byo mu gihe gito",
       },
       {
         type: "verse",
@@ -1926,7 +1922,7 @@ export const songs: NewSong[] = [
         type: "verse",
         number: 2,
         content:
-          "Ni byiza gukund’ iyo Mana, Kuko yaducunguye\nKandi ni byiza ko mb’ uwayo, Bindinda kuzimira\nTuzahoran’ umunezero no Mu gihe byose bizahinduka\nHaleluya, haleluya, Haleluya, ashimwe",
+          "Ni byiza gukund’ iyo Mana, Kuko yaducunguye\nKandi ni byiza ko mb’ uwayo, Bindinda kuzimira\nTuzahoran’ umunezero no Mu bihe byose bizahinduka\nHaleluya, haleluya, Haleluya, ashimwe",
       },
       {
         type: "verse",
@@ -1944,7 +1940,7 @@ export const songs: NewSong[] = [
         type: "verse",
         number: 5,
         content:
-          "Ubw’ ari byiza mur’ iyi si Kwizer’ Umwami Yesu\nBizamera bite mw ijuru Tubony’ uburanga bwe\nN’ ukuri tuzanezerwa cyane Tubony’ u bwiza bwe budashira\nHaleluya, haleluya, Haleluya, ashimwe!",
+          "Ubw’ ari byiza mur’ iyi si Kwizer’ Umwami Yesu\nBizamera bite mw ijuru Tubony’ uburanga bwe\nN’ ukuri tuzanezerwa cyane Tubony’ ubwiza bwe budashira\nHaleluya, haleluya, Haleluya, ashimwe!",
       },
     ],
   },
@@ -1962,7 +1958,7 @@ export const songs: NewSong[] = [
       {
         type: "chorus",
         content:
-          "Yesu, Mwana w’ intama, twese turagushima\nWadutunganirij’ ubugingo buhoraho\nKandi\nWaduhinduye hub’ intumwa z’ Imana\nNo mu mazina yose nta rihwanye n’ iryawe",
+          "Yesu, Mwana w’ intama, twese turagushima\nWadutunganirij’ ubugingo buhoraho\nKandi\nWaduhinduye kub’ intumwa z’ Imana\nNo mu mazina yose nta rihwanye n’ iryawe",
       },
       {
         type: "verse",
@@ -1992,7 +1988,7 @@ export const songs: NewSong[] = [
       {
         type: "chorus",
         content:
-          "Umucyo wac’ umurike, imbere ya bene wacu\nKugira ng’ umunt’ umw’ umwe\nAbon’ inzir’ itu nganye",
+          "Umucyo wac’ umurike, imbere ya bene wacu\nKugira ng’ umunt’ umw’ umwe\nAbon’ inzir’ itunganye",
       },
       {
         type: "verse",
@@ -2017,7 +2013,7 @@ export const songs: NewSong[] = [
         type: "verse",
         number: 1,
         content:
-          "Birakomeye gusobanukirwa\nUbuntu bw’ Iman’ Ihoraho\nNari nuzuy’ ibyaha byinshi\nCyane Ariko yarambabariye",
+          "Birakomeye gusobanukirwa\nUbuntu bw’ Iman’ Ihoraho\nNari nuzuy’ ibyaha byinshi\nCyane ariko yarambabariye",
       },
       {
         type: "chorus",
@@ -2059,36 +2055,36 @@ export const songs: NewSong[] = [
         type: "verse",
         number: 1,
         content:
-          "Kubw’ urukundo rwinshi rwa tumy’ aza kunshaka,\nAnshyira ku bitugu anjyana mu rugo rwe\nHaririmbw’ indirimbo nziza\nZiririmbwa na maraika",
+          "Kubw’ urukundo rwinshi\nRwa tumy’ aza kunshaka,\nAnshyira ku bitugu\nAnjyana mu rugo rwe\nHaririmbw’ indirimbo nziza\nZiririmbwa na malayika",
       },
       {
         type: "chorus",
         content:
-          "Yaj’ aje kunshaka kugira ngw ankize\nYamvanye mu musayo w’ urupfu\nYanshyize mu rugo rwe r w’ intama",
+          "Yaj’ aje kunshaka kugira ngw ankize\nYamvanye mu musayo w’ urupfu\nYanshyize mu rugo rwe rw’ intama",
       },
       {
         type: "verse",
         number: 2,
         content:
-          "Yesu, Mwungeri mwiza, Yanzu ye mu mutima\nAherakw ambwir’ ati, Mwana Wanjye nakunze\nUko ni kw iryo jwi rye ryiza Ryahojej’ umutima wanjye",
+          "Yesu, Mwungeri mwiza,\nYanzuye mu mutima\nAherakw ambwir’ ati,\nMwana Wanjye nakunze\nUko ni kw iryo jwi rye ryiza\nRyahojej’ umutima wanjye",
       },
       {
         type: "verse",
         number: 3,
         content:
-          "Nta bwo nakwibagirwa ko ya vuy’ amaraso\nUbwo bamwambikaga na rya kamba ry’ amahwa,\nKandi ku musaraba\nNi ho Nshimir’ Umwami Yesu Kristo",
+          "Nta bwo nakwibagirwa\nKo yavuy’ amaraso\nUbwo bamwambikaga\nNa rya kamba ry’ amahwa,\nKandi ku musaraba ni ho\nNshimir’ Umwami Yesu Kristo",
       },
       {
         type: "verse",
         number: 4,
         content:
-          "Ubu nsigaye ngendera mu mucyo w’ ukuri\nMfit’ amasezerano mur’ iyo nzira ncamo,\nNzahora nshim’ U mwami\nYesu Iteka ryose nezerewe",
+          "Ubu nsigaye ngendera\nMu mucyo w’ ukuri\nMfit’ amasezerano\nMur’ iyo nzira ncamo,\nNzahora nshim’ Umwami\nYesu iteka ryose nezerewe",
       },
       {
         type: "verse",
         number: 5,
         content:
-          "Ibihe birihuta ndindiriy’ igitondo,\nUbw’ uzampamagara unyinjiza mw ijuru\nNzahagarar’ imbere yawe Nezerewe kandi ndirimba",
+          "Ibihe birihuta\nNdindiriy’ igitondo,\nUbw’ uzampamagara\nUnyinjiza mw ijuru\nNzahagarar’ imbere yawe\nNezerewe kandi ndirimba",
       },
     ],
   },
@@ -2138,7 +2134,7 @@ export const songs: NewSong[] = [
         type: "verse",
         number: 3,
         content:
-          "Mwami Yesu uranyobore, Ntsi ndir’ ibingerageza\nByinshi bishaka kunshuka Ndetse no kumpumy’ amaso\nMwami Yesu uranyobore, Mpozwe n’ amahoro yawe",
+          "Mwami Yesu uranyobore, Ntsindir’ ibingerageza\nByinshi bishaka kunshuka Ndetse no kumpumy’ amaso\nMwami Yesu uranyobore, Mpozwe n’ amahoro yawe",
       },
     ],
   },
@@ -2156,19 +2152,19 @@ export const songs: NewSong[] = [
       {
         type: "chorus",
         content:
-          "Yemwe bantu mwese muririmbe,\nMuririmbe byumvikane!\nMut’ i cyubahiro n’ icy’ Imana\nN’ amahoro mw isi",
+          "Yemwe bantu mwese muririmbe,\nMuririmbe byumvikane!\nMut’ icyubahiro n’ icy’ Imana\nN’ amahoro mw isi",
       },
       {
         type: "verse",
         number: 2,
         content:
-          "Nta bwo mfit’ ifeza n’ izahabu\nByo kukuzanira Mwami\nNguhay’ umutima wanjye, Yesu,\nUwute gek’ uk’ ushaka",
+          "Nta bwo mfit’ ifeza n’ izahabu\nByo kukuzanira Mwami\nNguhay’ umutima wanjye, Yesu,\nUwutegek’ uk’ ushaka",
       },
       {
         type: "verse",
         number: 3,
         content:
-          "Muze twese, duhimbaz’ Imana\nKo yatwerets’ urukundo\nYatwohe rerej’ Umucunguzi\nUmwana we Yesu Kristo",
+          "Muze twese, duhimbaz’ Imana\nKo yatwerets’ urukundo\nYatwohererej’ Umucunguzi\nUmwana we Yesu Kristo",
       },
     ],
   },
@@ -2193,7 +2189,7 @@ export const songs: NewSong[] = [
         type: "verse",
         number: 3,
         content:
-          "Mbumbatiwe n’ Umukiza\nMu ma boko y’ urukundo\nUrwo rukundo rw’ ankunda\nSimfit’ uko naruvuga\nNi we wampay’ imbaraga,\nZifash’ umutima wanjye\nYes’ ubu ni w’ unyobora\nMu rugendo rwanjye rwose",
+          "Mbumbatiwe n’ Umukiza\nMu maboko y’ urukundo\nUrwo rukundo rw’ ankunda\nSimfit’ uko naruvuga\nNi we wampay’ imbaraga,\nZifash’ umutima wanjye\nYes’ ubu ni w’ unyobora\nMu rugendo rwanjye rwose",
       },
     ],
   },
@@ -2266,7 +2262,7 @@ export const songs: NewSong[] = [
         type: "verse",
         number: 3,
         content:
-          "Ba bapfu btangira kuvuga bati Kw amatara yac’ ataka!\nBati: Nyamuneka, nshuti zacu, Nimuduhe ku mavuta yanyu\nNa bo bati: Ntabwo yadukwira, Nimugende mujye kwigurira\nBafat’ inzir’ ubwo baragenda Bajya gushak’ aho bagurira",
+          "Ba bapfu batangira kuvuga bati Kw amatara yac’ ataka!\nBati: Nyamuneka, nshuti zacu, Nimuduhe ku mavuta yanyu\nNa bo bati: Ntabwo yadukwira, Nimugende mujye kwigurira\nBafat’ inzir’ ubwo baragenda Bajya gushak’ aho bagurira",
       },
       {
         type: "verse",
@@ -2278,7 +2274,7 @@ export const songs: NewSong[] = [
         type: "verse",
         number: 5,
         content:
-          "Nta bwo tuz’ umubsi cyangw’ igihe, Tube maso n’ amatara yacu\nYes’ ashobora kutwuzuriza Amavuta mu mitima yacu\nMwene Data, wumv’ izi nyigisho Zituruka k’ Umukiza wacu\nUkwiriye kwitegura kumusanganir’ ubw’ agaruka",
+          "Nta bwo tuz’ umunsi cyangw’ igihe, Tube maso n’ amatara yacu\nYes’ ashobora kutwuzuriza Amavuta mu mitima yacu\nMwene Data, wumv’ izi nyigisho Zituruka k’ Umukiza wacu\nUkwiriye kwitegura kumusanganir’ ubw’ agaruka",
       },
     ],
   },
@@ -2316,18 +2312,18 @@ export const songs: NewSong[] = [
         type: "verse",
         number: 1,
         content:
-          "Igihugu cyiza kiradutegereje mw ijuru,\nKizicarwamo n’ ab towe na Yesu\nKand’ iminsi turimo nayo nikw ihita ningoga\nUwi hangany’ azaragw’ icyo gihugu",
+          "Igihugu cyiza kiradutegereje mw ijuru,\nKizicarwamo n’ abatowe na Yesu\nKand’ iminsi turimo nayo nikw ihita ningoga\nUwihangany’ azaragw’ icyo gihugu",
       },
       {
         type: "chorus",
         content:
-          "Dor’ ubwami bw’ Imana buregreje!\nDor’ ubwami bw’ Imana buregereje!\nMutima wanjyue ba maso,\nUtungan’iminsi\nDor’ ubwami bw’ Imana buregereje!",
+          "Dor’ ubwami bw’ Imana buregereje!\nDor’ ubwami bw’ Imana buregereje!\nMutima wanjye ba maso,\nUtungan’iminsi\nDor’ ubwami bw’ Imana buregereje!",
       },
       {
         type: "verse",
         number: 2,
         content:
-          "Twizeye rwose kuzabon’ icyo gi hug’ uko kiri,\nDutegereje gus’ uwaducunguye\nIbimenyetso bitwereka kw agiye kugaruka,\nBitwereka ko wa munsi wegereje",
+          "Twizeye rwose kuzabon’ icyo gihug’ uko kiri,\nDutegereje gus’ uwaducunguye\nIbimenyetso bitwereka kw agiye kugaruka,\nBitwereka ko wa munsi wegereje",
       },
       {
         type: "verse",
@@ -2393,7 +2389,7 @@ export const songs: NewSong[] = [
       {
         type: "chorus",
         content:
-          "Agakiza kacu, agakiza kacu\nKa teguwe na Yesu Kristo\nNiwinjire mu mazi yihinduriza\nBetesid’ iri hano none",
+          "Agakiza kacu, agakiza kacu\nKateguwe na Yesu Kristo\nNiwinjire mu mazi yihinduriza\nBetesid’ iri hano none",
       },
       {
         type: "verse",
@@ -2471,7 +2467,7 @@ export const songs: NewSong[] = [
         type: "verse",
         number: 2,
         content:
-          "Wihan’ ibyo byaha byawe,\nWezwe no mu maraso ye\nKand’ ara kwambik’ ukuri\nKugez’ ubw’ azakujyana,",
+          "Wihan’ ibyo byaha byawe,\nWezwe no mu maraso ye\nKand’ arakwambik’ ukuri\nKugez’ ubw’ azakujyana,",
       },
       {
         type: "verse",
@@ -2489,7 +2485,7 @@ export const songs: NewSong[] = [
         type: "verse",
         number: 5,
         content:
-          "Wiyegurir’ Umukiza,\nMuh’ ubwe nge n’ umutima,\nKukw ashaka gu tunganya\nUbugingo bwawe bwose",
+          "Wiyegurir’ Umukiza,\nMuh’ ubwe nge n’ umutima,\nKukw ashaka gutunganya\nUbugingo bwawe bwose",
       },
     ],
   },
@@ -2520,7 +2516,7 @@ export const songs: NewSong[] = [
         type: "verse",
         number: 4,
         content:
-          "Mbese ni kiguzi ki dutanga\nKwinjira mur’ uwo murwa mwiza\nNta kiguzi na kimwe twatanga,\nYesu yishyuriy’ i Gologota",
+          "Mbese ni kiguzi kidutanga\nKwinjira mur’ uwo murwa mwiza\nNta kiguzi na kimwe twatanga,\nYesu yishyuriy’ i Gologota",
       },
     ],
   },
@@ -2557,13 +2553,13 @@ export const songs: NewSong[] = [
         type: "verse",
         number: 5,
         content:
-          "Mwami Yesu, duh’ Umwuka Wera\nUmuduhuhireh’ uyu munsi\nShayur’ abarohamye mu byaha,\nUbamurikire bagaruke",
+          "Mwami Yesu, duh’ Umwuka Wera\nUmuduhuhireh’ uyu munsi\nSayur’ abarohamye mu byaha,\nUbamurikire bagaruke",
       },
       {
         type: "verse",
         number: 6,
         content:
-          "Ugurur’ ijur’ ugush’ imvura,\nAhu magaye nko mu butayu\nUhahindure kub’ ahatoshye\nHavuz’ impundu z’ umunezero",
+          "Ugurur’ ijur’ ugush’ imvura,\nAhumagaye nko mu butayu\nUhahindure kub’ ahatoshye\nHavuz’ impundu z’ umunezero",
       },
       {
         type: "verse",
@@ -2588,7 +2584,7 @@ export const songs: NewSong[] = [
         type: "verse",
         number: 2,
         content:
-          "Ntukarogwe mur’ iyi si\nNtuka rek’ Imana yawe\nMu makuba no mu byago\nKurikir’ Umwami Yesu\n/: Buri munsi, buri munsi\nAguha ku nesha byose.: /",
+          "Ntukarogwe mur’ iyi si\nNtukarek’ Imana yawe\nMu makuba no mu byago\nKurikir’ Umwami Yesu\n/: Buri munsi, buri munsi\nAguha kunesha byose.: /",
       },
       {
         type: "verse",
@@ -2793,7 +2789,7 @@ export const songs: NewSong[] = [
         type: "verse",
         number: 4,
         content:
-          "Habab’ umunezero mwinshi mw ijuru Umunyabyaha yihannye\nNone Yesu naw’ aragutegereje Kugira ngo wezwe mw iriba\n/: Ngwino we zwe, ngwino wezwe, Amaraso y’ a rakweza rwose.: /",
+          "Habab’ umunezero mwinshi mw ijuru Umunyabyaha yihannye\nNone Yesu naw’ aragutegereje Kugira ngo wezwe mw iriba\n/: Ngwino wezwe, ngwino wezwe, Amaraso y’ a rakweza rwose.: /",
       },
       {
         type: "verse",
@@ -2805,13 +2801,13 @@ export const songs: NewSong[] = [
         type: "verse",
         number: 6,
         content:
-          "Kandi mumenyc ko ngiye kuza vuba\nNzaba nzanywe no guhemba Ibikwiranye n’ umurimo w’ umuntu\n/: Nimukomez’ icyo mwahawe. Kor’ ibyiza, kugira ngo Uzahembw’ ibikwiranye na byo.: /",
+          "Kandi mumenye ko ngiye kuza vuba\nNzaba nzanywe no guhemba Ibikwiranye n’ umurimo w’ umuntu\n/: Nimukomez’ icyo mwahawe. Kor’ ibyiza, kugira ngo Uzahembw’ ibikwiranye na byo.: /",
       },
       {
         type: "verse",
         number: 7,
         content:
-          "Najyanywe no kubatcgurir’ aha nyu, Kugira ngo muzabeho\nHariy’ ibyicaro byinshi kandi byiza Mukwiriye kuzabyicaramo\n/: Nimusenge cyane cyanc Kugira ngo mutazaburayo.: /",
+          "Najyanywe no kubategurir’ ahanyu, Kugira ngo muzabeho\nHariy’ ibyicaro byinshi kandi byiza Mukwiriye kuzabyicaramo\n/: Nimusenge cyane cyane Kugira ngo mutazaburayo.: /",
       },
     ],
   },
@@ -3849,7 +3845,7 @@ export const songs: NewSong[] = [
         type: "verse",
         number: 3,
         content:
-          "Umwami Yesu n’ Umucunguzi\nYadupfiriye ku musaraba\nByavuye ku ki? Ku rukundo rwe\nRwatumy’ atanga ubugingo bwe",
+          "Umwami Yesu n’ Umucunguzi\nYadupfiriye ku musaraba\nByavuye kuki? Ku rukundo rwe\nRwatumy’ atanga ubugingo bwe",
       },
       {
         type: "verse",
