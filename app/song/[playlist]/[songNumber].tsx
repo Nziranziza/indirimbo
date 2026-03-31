@@ -247,6 +247,7 @@ export default function SongScreen() {
       <ThemedView style={[styles.header, { paddingTop: insets.top + 8 }]}>
         <BackButton
           color={colors.text}
+          style={styles.backButton}
           fallbackHref={{ pathname: '/(tabs)/(home)/playlist/[name]', params: { name: playlist } }}
         />
         <TouchableOpacity
@@ -264,7 +265,7 @@ export default function SongScreen() {
           }}
           activeOpacity={0.7}
         >
-          <SongNumberBadge number={currentSong.number} size="small" style={styles.songNumberBadge} />
+          <SongNumberBadge number={currentSong.number} size="large" style={styles.songNumberBadge} />
         </TouchableOpacity>
         <ThemedView style={styles.headerCenter}>
           <ThemedText type="subtitle" style={styles.playlistLabel}>
@@ -318,6 +319,7 @@ export default function SongScreen() {
           alwaysBounceVertical={true}
           onScrollBeginDrag={resetKeepAwake}
         >
+          <View style={{ height: 8 }}/>
           {currentSong.body?.filter((item) => item && item.type).map((item, index) => (
             <View
               key={index}
@@ -406,6 +408,9 @@ const styles = StyleSheet.create({
     paddingLeft: 12,
     paddingRight: 20,
     paddingBottom: 8,
+  },
+  backButton: {
+    marginLeft: -4
   },
   headerActionButton: {
     padding: 8,
