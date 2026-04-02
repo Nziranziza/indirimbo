@@ -41,6 +41,25 @@ import Animated, {
 } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
+const BOOK_NAMES: Record<string, string> = {
+  "S.Sgt.": "Segertoner",
+  "T.t. Sgt.": "Segertoner",
+  "Mel. Sgt.": "Segertoner",
+  "Sgt.": "Segertoner",
+  "Ny.": "Nyimbo za Wokovu",
+  "M.A.": "Maran Ata",
+  "R.S.": "Redemption Songs",
+  "R.H.": "Redemption Hymns",
+};
+
+function expandBookCodes(codes: string): string {
+  let result = codes;
+  for (const [abbr, full] of Object.entries(BOOK_NAMES)) {
+    result = result.replaceAll(abbr, full);
+  }
+  return result;
+}
+
 export default function SongScreen() {
   const router = useRouter();
   const { playlist, songNumber } = useLocalSearchParams<{
@@ -309,7 +328,7 @@ export default function SongScreen() {
         <Animated.ScrollView
           ref={scrollViewRef}
           style={styles.scrollView}
-          contentContainerStyle={styles.scrollContent}
+          contentContainerStyle={[styles.scrollContent, !currentSong.references && { paddingBottom: 100 }]}
           onScroll={handleScroll}
           scrollEventThrottle={16}
           onContentSizeChange={(_w, h) => setContentHeight(h)}
@@ -363,6 +382,15 @@ export default function SongScreen() {
               </ThemedView>
             </View>
           )) || []}
+          {currentSong.references && currentSong.references.length > 0 && (
+            <View style={styles.referencesContainer}>
+              {currentSong.references.map((ref, i) => (
+                <ThemedText key={i} style={styles.referenceEntry}>
+                  {ref.title ? `${ref.title} ` : ''}{ref.codes ? (ref.title ? ref.codes : expandBookCodes(ref.codes)) : ''}
+                </ThemedText>
+              ))}
+            </View>
+          )}
         </Animated.ScrollView>
       </View>
 
@@ -440,6 +468,15 @@ const styles = StyleSheet.create({
     lineHeight: 20,
     flex: 1,
   },
+  referencesContainer: {
+    marginTop: "auto",
+    paddingTop: 40,
+  },
+  referenceEntry: {
+    fontSize: 12,
+    lineHeight: 18,
+    opacity: 0.5,
+  },
   contentContainer: {
     flex: 1,
     position: "relative",
@@ -448,9 +485,10 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   scrollContent: {
+    flexGrow: 1,
     padding: 20,
     paddingTop: 0,
-    paddingBottom: 100,
+    paddingBottom: 20,
   },
   songNumberBadge: {
     marginRight: 10,
