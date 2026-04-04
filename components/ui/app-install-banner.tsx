@@ -1,6 +1,9 @@
+import { Image } from 'expo-image';
 import { useEffect, useMemo, useState } from 'react';
 import { Linking, Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
+import { GooglePlayIcon } from '@/components/ui/google-play-icon';
+import { IconSymbol } from '@/components/ui/icon-symbol';
 import { APP_STORE_URL, PLAY_STORE_URL } from '@/constants/app-links';
 import { useColors } from '@/hooks/use-colors';
 
@@ -126,40 +129,49 @@ export function AppInstallBanner() {
     return null;
   }
 
-  const title = canOpenApp ? 'Open Indirimbo in the app' : 'Get the Indirimbo app';
-  const subtitle = canOpenApp
-    ? 'Continue where you left off in the app.'
-    : 'Install the app for the best experience.';
-  const primaryLabel = canOpenApp ? 'Open app' : 'Get app';
+  const storeName = platform === 'ios' ? 'App Store' : 'Google Play';
 
   return (
     <View style={[styles.container, { backgroundColor: colors.bottomTabBackground, borderColor: colors.icon + '20' }]}>
-      <View style={styles.content}>
-        <Text style={[styles.title, { color: colors.text }]}>{title}</Text>
-        <Text style={[styles.subtitle, { color: colors.icon }]}>{subtitle}</Text>
-      </View>
-      <View style={styles.actions}>
-        {!canOpenApp && storeUrl && (
-          <TouchableOpacity
-            onPress={handleInstall}
-            style={[styles.buttonBase, styles.secondaryButton, { borderColor: colors.icon + '30' }]}
-            activeOpacity={0.7}>
-            <Text style={[styles.secondaryText, { color: colors.text }]}>Install</Text>
-          </TouchableOpacity>
+      <TouchableOpacity
+        onPress={canOpenApp ? handleOpenApp : handleInstall}
+        activeOpacity={0.7}
+        style={styles.row}
+      >
+        <Image
+          source={require('@/assets/images/icon.png')}
+          style={styles.appIcon}
+          contentFit="cover"
+        />
+        <View style={styles.textColumn}>
+          <View style={styles.storeRow}>
+            {platform === 'ios' ? (
+              <IconSymbol name="apple.logo" size={12} color={colors.icon} />
+            ) : (
+              <GooglePlayIcon size={12} />
+            )}
+            <Text style={[styles.storeLabel, { color: colors.icon }]}>
+              {storeName}
+            </Text>
+          </View>
+          <Text style={[styles.appName, { color: colors.text }]}>Indirimbo</Text>
+          <Text style={[styles.tagline, { color: colors.icon }]}>Agakiza no Gushimisha Imana</Text>
+        </View>
+        {canOpenApp ? (
+          <View style={[styles.actionButton, { backgroundColor: colors.tint }]}>
+            <Text style={styles.actionButtonText}>OPEN</Text>
+          </View>
+        ) : (
+          <IconSymbol name="arrow.down.circle.fill" size={28} color={colors.tint} />
         )}
         <TouchableOpacity
-          onPress={canOpenApp ? handleOpenApp : handleInstall}
-          style={[styles.buttonBase, styles.primaryButton, { backgroundColor: colors.tint }]}
-          activeOpacity={0.8}>
-          <Text style={styles.primaryText}>{primaryLabel}</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
           onPress={() => setIsVisible(false)}
-          style={[styles.buttonBase, styles.closeButton, { borderColor: colors.icon + '30' }]}
-          activeOpacity={0.7}>
-          <Text style={[styles.closeText, { color: colors.text }]}>Not now</Text>
+          activeOpacity={0.7}
+          style={styles.closeButton}
+        >
+          <IconSymbol name="xmark.circle.fill" size={20} color={colors.icon} />
         </TouchableOpacity>
-      </View>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -167,53 +179,53 @@ export function AppInstallBanner() {
 const styles = StyleSheet.create({
   container: {
     borderBottomWidth: 1,
-    paddingHorizontal: 16,
     paddingVertical: 12,
-    gap: 12,
+    paddingHorizontal: 16,
   },
-  content: {
-    gap: 4,
-  },
-  title: {
-    fontSize: 16,
-    fontWeight: '600',
-  },
-  subtitle: {
-    fontSize: 13,
-  },
-  actions: {
+  row: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 8,
-    flexWrap: 'wrap',
+    gap: 12,
   },
-  buttonBase: {
-    minHeight: 36,
-    paddingHorizontal: 12,
-    paddingVertical: 8,
+  appIcon: {
+    width: 40,
+    height: 40,
     borderRadius: 10,
-    justifyContent: 'center',
+  },
+  textColumn: {
+    flex: 1,
+    gap: 1,
+  },
+  storeRow: {
+    flexDirection: 'row',
     alignItems: 'center',
+    gap: 4,
   },
-  primaryButton: {
+  storeLabel: {
+    fontSize: 11,
+    fontWeight: '500',
+    textTransform: 'capitalize',
+    letterSpacing: 0.3,
   },
-  primaryText: {
+  appName: {
+    fontSize: 15,
+    fontWeight: '600',
+  },
+  tagline: {
+    fontSize: 12,
+  },
+  actionButton: {
+    paddingHorizontal: 16,
+    paddingVertical: 6,
+    borderRadius: 14,
+  },
+  actionButtonText: {
     color: '#FFFFFF',
     fontSize: 13,
-    fontWeight: '600',
-  },
-  secondaryButton: {
-    borderWidth: 1,
-  },
-  secondaryText: {
-    fontSize: 13,
-    fontWeight: '600',
+    fontWeight: '700',
+    letterSpacing: 0.5,
   },
   closeButton: {
-    borderWidth: 1,
-  },
-  closeText: {
-    fontSize: 12,
-    fontWeight: '600',
+    padding: 4,
   },
 });
