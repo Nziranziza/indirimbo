@@ -272,14 +272,10 @@ export default function SongScreen() {
         <TouchableOpacity
           onPress={() => {
             const fallback = { pathname: '/(tabs)/(home)/playlist/[name]' as const, params: { name: playlist } };
-            if (Platform.OS === "web") {
-              typeof window !== "undefined" && window.history.length > 1
-                ? window.history.back()
-                : router.replace(fallback);
+            if (Platform.OS === 'web') {
+              router.replace(fallback);
             } else {
-              router.canGoBack()
-                ? router.back()
-                : router.replace(fallback);
+              router.canGoBack() ? router.back() : router.replace(fallback);
             }
           }}
           activeOpacity={0.7}

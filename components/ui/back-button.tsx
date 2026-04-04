@@ -13,11 +13,7 @@ interface BackButtonProps {
 
 function handleBack(fallback: Href) {
   if (Platform.OS === 'web') {
-    if (typeof window !== 'undefined' && window.history.length > 1) {
-      window.history.back();
-    } else {
-      router.replace(fallback);
-    }
+    router.replace(fallback);
   } else if (router.canGoBack()) {
     router.back();
   } else {
