@@ -9,6 +9,11 @@ export const PLAYLISTS = {
     name: 'Agakiza',
     description: 'Songs of salvation',
   },
+  'cantiques-kirundi': {
+    id: 'cantiques-kirundi',
+    name: 'Cantiques Kirundi',
+    description: 'Indirimbo zo Guhimbaza Imana',
+  },
 } as const;
 
 export type PlaylistId = keyof typeof PLAYLISTS;

@@ -14,13 +14,16 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { songs as gushimishaSongs } from '../constants/gushimisha-songs';
 import { songs as agakizaSongs } from '../constants/agakiza-songs';
+import { songs as kirundiSongs } from '../constants/cantiques-kirundi-songs';
 import { gushimishaCategories } from '../constants/gushimisha-categories';
+import { cantiquesKirundiCategories } from '../constants/cantiques-kirundi-categories';
 import { escapeHtml, buildJsonLdTag, stripJsonLd } from './utils';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const BASE_URL = 'https://indirimbo.rw';
 const OG_IMAGE = `${BASE_URL}/og-image.jpg`;
+const OG_IMAGE_KIRUNDI = `${BASE_URL}/og-image-kirundi.jpg`;
 const distDir = path.join(__dirname, '../dist');
 const indexPath = path.join(distDir, 'index.html');
 
@@ -35,15 +38,17 @@ interface PageOptions {
   description: string;
   canonicalUrl: string;
   keywords: string;
+  ogImage?: string;
   noscriptHtml?: string;
   jsonLdTags?: string;
 }
 
-function generatePage({ title, ogTitle, description, canonicalUrl, keywords, noscriptHtml, jsonLdTags }: PageOptions): string {
+function generatePage({ title, ogTitle, description, canonicalUrl, keywords, ogImage, noscriptHtml, jsonLdTags }: PageOptions): string {
   const escapedTitle = escapeHtml(title);
   const escapedOgTitle = escapeHtml(ogTitle);
   const escapedDescription = escapeHtml(description);
   const escapedKeywords = escapeHtml(keywords);
+  const image = ogImage ?? OG_IMAGE;
 
   const metaTags = `
   <meta name="description" content="${escapedDescription}" />
@@ -52,7 +57,7 @@ function generatePage({ title, ogTitle, description, canonicalUrl, keywords, nos
   <meta property="og:type" content="website" />
   <meta property="og:title" content="${escapedOgTitle}" />
   <meta property="og:description" content="${escapedDescription}" />
-  <meta property="og:image" content="${OG_IMAGE}" />
+  <meta property="og:image" content="${image}" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta property="og:image:type" content="image/jpeg" />
@@ -61,7 +66,7 @@ function generatePage({ title, ogTitle, description, canonicalUrl, keywords, nos
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="${escapedOgTitle}" />
   <meta name="twitter:description" content="${escapedDescription}" />
-  <meta name="twitter:image" content="${OG_IMAGE}" />
+  <meta name="twitter:image" content="${image}" />
   <link rel="canonical" href="${canonicalUrl}" />
   <meta name="apple-itunes-app" content="app-id=6758376573" />`;
 
@@ -118,10 +123,16 @@ const playlists = [
     songs: agakizaSongs,
     keywords: "agakiza, indirimbo z'agakiza, rwandan hymns, worship songs, kinyarwanda",
   },
+  {
+    id: 'cantiques-kirundi',
+    name: 'Cantiques Kirundi',
+    songs: kirundiSongs,
+    keywords: 'cantiques kirundi, indirimbo zo guhimbaza imana, burundian hymns, worship songs, kirundi',
+  },
 ];
 
 for (const playlist of playlists) {
-  const description = `Browse all ${playlist.songs.length} songs in the ${playlist.name} hymnbook. Rwandan church worship songs with full lyrics.`;
+  const description = `Browse all ${playlist.songs.length} songs in the ${playlist.name} hymnbook. ${playlist.id === 'cantiques-kirundi' ? 'Burundian' : 'Rwandan'} church worship songs with full lyrics.`;
   const canonicalUrl = `${BASE_URL}/playlist/${playlist.id}/`;
 
   // Build noscript with song list for crawlers
@@ -172,6 +183,7 @@ for (const playlist of playlists) {
     description,
     canonicalUrl,
     keywords: playlist.keywords,
+    ogImage: playlist.id === 'cantiques-kirundi' ? OG_IMAGE_KIRUNDI : undefined,
     noscriptHtml: noscript,
     jsonLdTags: `${collectionJsonLd}\n${breadcrumbJsonLd}`,
   });
@@ -181,68 +193,85 @@ for (const playlist of playlists) {
 }
 
 // Generate category pages
-const gushimishaSongMap = new Map(gushimishaSongs.map((s) => [String(s.number), s.name]));
+const categoryPlaylists = [
+  {
+    playlistId: 'gushimisha',
+    playlistName: 'Gushimisha Imana',
+    categories: gushimishaCategories,
+    songMap: new Map(gushimishaSongs.map((s) => [String(s.number), s.name])),
+  },
+  {
+    playlistId: 'cantiques-kirundi',
+    playlistName: 'Cantiques Kirundi',
+    categories: cantiquesKirundiCategories,
+    songMap: new Map(kirundiSongs.map((s) => [String(s.number), s.name])),
+  },
+];
 
-for (const category of gushimishaCategories) {
-  const description = `Browse ${category.name} hymns from Gushimisha Imana hymnbook. ${category.songs.length} worship songs with full lyrics.`;
-  const canonicalUrl = `${BASE_URL}/category/${category.slug}/`;
-  const keywords = `${category.name}, gushimisha imana, indirimbo, indirimbo zo gushimisha imana, rwandan hymns, worship songs`;
+for (const { playlistId, playlistName, categories, songMap } of categoryPlaylists) {
+  for (const category of categories) {
+    const description = `Browse ${category.name} hymns from ${playlistName} hymnbook. ${category.songs.length} worship songs with full lyrics.`;
+    const canonicalUrl = `${BASE_URL}/category/${category.slug}/`;
+    const keywords = `${category.name}, ${playlistName.toLowerCase()}, indirimbo, ${playlistId === 'cantiques-kirundi' ? 'burundian hymns' : 'rwandan hymns'}, worship songs`;
 
-  // Build noscript with song list for crawlers
-  let noscript = `<noscript><article>`;
-  noscript += `<h1>${escapeHtml(category.name)} - Gushimisha Imana</h1>`;
-  noscript += `<p>${escapeHtml(description)}</p><ol>`;
-  for (const songNum of category.songs) {
-    const songName = gushimishaSongMap.get(String(songNum)) || `Indirimbo ${songNum}`;
-    const songUrl = `${BASE_URL}/song/gushimisha/${encodeURIComponent(songNum)}`;
-    noscript += `<li><a href="${songUrl}">${escapeHtml(String(songNum))}. ${escapeHtml(songName)}</a></li>`;
+    // Build noscript with song list for crawlers
+    let noscript = `<noscript><article>`;
+    noscript += `<h1>${escapeHtml(category.name)} - ${escapeHtml(playlistName)}</h1>`;
+    noscript += `<p>${escapeHtml(description)}</p><ol>`;
+    for (const songNum of category.songs) {
+      const songName = songMap.get(String(songNum)) || `Indirimbo ${songNum}`;
+      const songUrl = `${BASE_URL}/song/${playlistId}/${encodeURIComponent(songNum)}`;
+      noscript += `<li><a href="${songUrl}">${escapeHtml(String(songNum))}. ${escapeHtml(songName)}</a></li>`;
+    }
+    noscript += `</ol>`;
+    noscript += `<nav><a href="${BASE_URL}/playlist/${playlistId}">${escapeHtml(playlistName)}</a> | <a href="${BASE_URL}">Indirimbo</a></nav>`;
+    noscript += `</article></noscript>`;
+
+    const dir = path.join(distDir, 'category', category.slug);
+    fs.mkdirSync(dir, { recursive: true });
+
+    const collectionJsonLd = buildJsonLdTag({
+      '@context': 'https://schema.org',
+      '@type': 'CollectionPage',
+      name: `${category.name} - ${playlistName}`,
+      description,
+      url: canonicalUrl,
+      mainEntity: {
+        '@type': 'ItemList',
+        numberOfItems: category.songs.length,
+        itemListElement: category.songs.map((songNum, i) => ({
+          '@type': 'ListItem',
+          position: i + 1,
+          name: songMap.get(String(songNum)) || `Indirimbo ${songNum}`,
+          url: `${BASE_URL}/song/${playlistId}/${encodeURIComponent(songNum)}/`,
+        })),
+      },
+    });
+
+    const breadcrumbJsonLd = buildJsonLdTag({
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Indirimbo', item: `${BASE_URL}/` },
+        { '@type': 'ListItem', position: 2, name: `${category.name} - ${playlistName}`, item: canonicalUrl },
+      ],
+    });
+
+    const html = generatePage({
+      title: `${category.name} - ${playlistName} | Indirimbo`,
+      ogTitle: `${category.name} - ${playlistName} | Indirimbo`,
+      description,
+      canonicalUrl,
+      keywords,
+      ogImage: playlistId === 'cantiques-kirundi' ? OG_IMAGE_KIRUNDI : undefined,
+      noscriptHtml: noscript,
+      jsonLdTags: `${collectionJsonLd}\n${breadcrumbJsonLd}`,
+    });
+
+    fs.writeFileSync(path.join(dir, 'index.html'), html);
+    totalPages++;
   }
-  noscript += `</ol>`;
-  noscript += `<nav><a href="${BASE_URL}/playlist/gushimisha">Gushimisha Imana</a> | <a href="${BASE_URL}">Indirimbo</a></nav>`;
-  noscript += `</article></noscript>`;
-
-  const dir = path.join(distDir, 'category', category.slug);
-  fs.mkdirSync(dir, { recursive: true });
-
-  const collectionJsonLd = buildJsonLdTag({
-    '@context': 'https://schema.org',
-    '@type': 'CollectionPage',
-    name: `${category.name} - Gushimisha Imana`,
-    description,
-    url: canonicalUrl,
-    mainEntity: {
-      '@type': 'ItemList',
-      numberOfItems: category.songs.length,
-      itemListElement: category.songs.map((songNum, i) => ({
-        '@type': 'ListItem',
-        position: i + 1,
-        name: gushimishaSongMap.get(String(songNum)) || `Indirimbo ${songNum}`,
-        url: `${BASE_URL}/song/gushimisha/${encodeURIComponent(songNum)}/`,
-      })),
-    },
-  });
-
-  const breadcrumbJsonLd = buildJsonLdTag({
-    '@context': 'https://schema.org',
-    '@type': 'BreadcrumbList',
-    itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Indirimbo', item: `${BASE_URL}/` },
-      { '@type': 'ListItem', position: 2, name: `${category.name} - Gushimisha Imana`, item: canonicalUrl },
-    ],
-  });
-
-  const html = generatePage({
-    title: `${category.name} - Gushimisha Imana | Indirimbo`,
-    ogTitle: `${category.name} - Gushimisha Imana | Indirimbo`,
-    description,
-    canonicalUrl,
-    keywords,
-    noscriptHtml: noscript,
-    jsonLdTags: `${collectionJsonLd}\n${breadcrumbJsonLd}`,
-  });
-
-  fs.writeFileSync(path.join(dir, 'index.html'), html);
-  totalPages++;
 }
 
-console.log(`✅ Generated ${totalPages} static pages (${playlists.length} playlists + ${gushimishaCategories.length} categories) with OG tags`);
+const totalCategories = categoryPlaylists.reduce((sum, p) => sum + p.categories.length, 0);
+console.log(`✅ Generated ${totalPages} static pages (${playlists.length} playlists + ${totalCategories} categories) with OG tags`);

@@ -5,6 +5,7 @@ import { FloatingShareButton } from '@/components/ui/floating-share-button';
 import { IconSymbol } from '@/components/ui/icon-symbol';
 import type { IconSymbolName } from '@/components/ui/icon-symbol';
 import { InfoCard } from '@/components/ui/info-card';
+import { useSongbookPreference } from '@/contexts/songbook-preference-context';
 import { useColors } from '@/hooks/use-colors';
 import Constants from 'expo-constants';
 import { router } from 'expo-router';
@@ -29,12 +30,15 @@ function FeatureItem({ icon, title, description }: { icon: IconSymbolName; title
 
 export default function AboutScreen() {
   const colors = useColors();
+  const { isBurundi } = useSongbookPreference();
 
   return (
     <>
     <PageHead
       title="About | Indirimbo"
-      description="Indirimbo brings Rwandan hymns and worship songs to your fingertips. Browse Gushimisha Imana and Agakiza hymnbooks."
+      description={isBurundi
+        ? 'Indirimbo brings hymns and worship songs to your fingertips. Browse Cantiques Kirundi, Gushimisha Imana, and Agakiza hymnbooks.'
+        : 'Indirimbo brings Rwandan hymns and worship songs to your fingertips. Browse Gushimisha Imana and Agakiza hymnbooks.'}
       canonicalPath="/about/"
     />
     <CollapsibleHeaderScrollView
@@ -54,7 +58,7 @@ export default function AboutScreen() {
             Indirimbo
           </ThemedText>
           <ThemedText style={styles.tagline}>
-            Gushimisha Imana & Agakiza
+            {isBurundi ? 'Cantiques Kirundi, Gushimisha & Agakiza' : 'Gushimisha Imana & Agakiza'}
           </ThemedText>
         </View>
       }>
@@ -65,9 +69,9 @@ export default function AboutScreen() {
           { borderColor: colors.tint + '30', backgroundColor: colors.tint + '08' },
         ]}>
         <ThemedText style={styles.description}>
-          Indirimbo brings the beloved hymns and worship songs of Rwandan churches to your fingertips.
-          Whether you&apos;re leading worship, singing along at church, or practicing at home,
-          Indirimbo is your perfect companion.
+          {isBurundi
+            ? "Indirimbo brings the beloved hymns and worship songs of Rwandan and Burundian churches to your fingertips. Whether you're leading worship, singing along at church, or practicing at home, Indirimbo is your perfect companion."
+            : "Indirimbo brings the beloved hymns and worship songs of Rwandan churches to your fingertips. Whether you're leading worship, singing along at church, or practicing at home, Indirimbo is your perfect companion."}
         </ThemedText>
       </ThemedView>
 
@@ -77,7 +81,9 @@ export default function AboutScreen() {
           Features
         </ThemedText>
 
-        <FeatureItem icon="music.note.list" title="Complete Hymnbooks" description="Access songs from Gushimisha Imana and Agakiza hymnbooks, with all verses and choruses." />
+        <FeatureItem icon="music.note.list" title="Complete Hymnbooks" description={isBurundi
+          ? 'Access songs from Cantiques Kirundi, Gushimisha Imana, and Agakiza hymnbooks, with all verses and choruses.'
+          : 'Access songs from Gushimisha Imana and Agakiza hymnbooks, with all verses and choruses.'} />
         <FeatureItem icon="magnifyingglass" title="Powerful Search" description="Find any song instantly by number, title, or even words from the lyrics." />
         <FeatureItem icon="heart" title="Favorites" description="Save your most-used songs for quick access during worship or practice." />
         <FeatureItem icon="clock" title="Recent Songs" description="Quickly return to songs you've recently viewed." />
@@ -90,6 +96,14 @@ export default function AboutScreen() {
 
       {/* Playlists */}
       <InfoCard icon="music.mic" title="Available Hymnbooks">
+        {isBurundi && (
+          <View style={styles.playlistItem}>
+            <ThemedText type="defaultSemiBold">Cantiques Kirundi</ThemedText>
+            <ThemedText style={styles.playlistDescription}>
+              Indirimbo zo Guhimbaza Imana — hymns and worship songs in Kirundi.
+            </ThemedText>
+          </View>
+        )}
         <View style={styles.playlistItem}>
           <ThemedText type="defaultSemiBold">Gushimisha Imana</ThemedText>
           <ThemedText style={styles.playlistDescription}>

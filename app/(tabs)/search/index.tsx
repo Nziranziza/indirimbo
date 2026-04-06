@@ -5,11 +5,10 @@ import { IconSymbol } from '@/components/ui/icon-symbol';
 import { SearchResultItem } from '@/components/ui/search-result-item';
 import { SearchInput, type SearchInputRef } from '@/components/ui/search-input';
 import { RecentItemsList } from '@/components/search/recent-items-list';
-import type { Song } from '@/constants/types';
-import { useSongs } from '@/contexts/songs-context';
 import { useColors } from '@/hooks/use-colors';
 import { useDebounce } from '@/hooks/use-debounce';
 import { useSearch } from '@/hooks/use-search';
+import { useSongbooks } from '@/hooks/use-songbooks';
 import {
   addRecentSearch,
   clearRecentSearches,
@@ -20,7 +19,7 @@ import {
   type RecentSong,
 } from '@/utils/storage';
 import { Stack, useFocusEffect, useRouter } from 'expo-router';
-import React, { useCallback, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import { FlatList, Platform, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import type { SearchBarCommands } from 'react-native-screens';
@@ -43,13 +42,9 @@ export default function SearchScreen() {
 
   const isIOS = Platform.OS === 'ios';
 
-  const { agakiza, gushimisha } = useSongs();
-  const allSongs = useMemo<Record<string, Song[]>>(() => ({
-    agakiza: agakiza as Song[],
-    gushimisha: gushimisha as Song[],
-  }), [agakiza, gushimisha]);
+  const { visibleSongs } = useSongbooks();
 
-  const searchResults = useSearch(allSongs, debouncedSearchQuery);
+  const searchResults = useSearch(visibleSongs, debouncedSearchQuery);
 
   // Load recent data on focus; auto-focus unless returning from a song
   useFocusEffect(
@@ -196,7 +191,7 @@ export default function SearchScreen() {
           <RecentItemsList
             recentSearches={recentSearches}
             recentSongs={recentSongs}
-            allSongs={allSongs}
+            allSongs={visibleSongs}
             colors={colors}
             isInputFocused={isInputFocused}
             bottomInset={insets.bottom}

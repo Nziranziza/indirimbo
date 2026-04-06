@@ -14,12 +14,14 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { songs as gushimishaSongs, type NewSong } from '../constants/gushimisha-songs';
 import { songs as agakizaSongs } from '../constants/agakiza-songs';
+import { songs as kirundiSongs } from '../constants/cantiques-kirundi-songs';
 import { escapeHtml, buildJsonLdTag, stripJsonLd } from './utils';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const BASE_URL = 'https://indirimbo.rw';
 const OG_IMAGE = `${BASE_URL}/og-image.jpg`;
+const OG_IMAGE_KIRUNDI = `${BASE_URL}/og-image-kirundi.jpg`;
 const distDir = path.join(__dirname, '../dist');
 const indexPath = path.join(distDir, 'index.html');
 
@@ -36,11 +38,18 @@ function buildDescription(song: NewSong): string {
   return `${song.name} - hymn #${song.number}`;
 }
 
+// "mu Gakiza" (Kinyarwanda — "a-" prefix dropped after "mu") vs "muri Cantiques Kirundi" (Kirundi)
+function getPlaylistLabel(playlist: string): { preposition: string; name: string } {
+  if (playlist === 'agakiza') return { preposition: 'mu', name: 'Gakiza' };
+  if (playlist === 'cantiques-kirundi') return { preposition: 'muri', name: 'Cantiques Kirundi' };
+  return { preposition: 'mu', name: 'Gushimisha Imana' };
+}
+
 function buildNoscriptContent(song: NewSong, playlist: string, playlistName: string): string {
-  const playlistShort = playlist === 'agakiza' ? 'Gakiza' : 'Gushimisha Imana';
+  const { preposition, name: shortName } = getPlaylistLabel(playlist);
   let noscript = `<noscript><article>`;
   noscript += `<h1>${escapeHtml(song.name)}</h1>`;
-  noscript += `<h2>Indirimbo ya ${escapeHtml(String(song.number))} mu ${escapeHtml(playlistShort)}</h2>`;
+  noscript += `<h2>Indirimbo ya ${escapeHtml(String(song.number))} ${preposition} ${escapeHtml(shortName)}</h2>`;
 
   for (const section of song.body) {
     if (section.type === 'chorus') {
@@ -61,11 +70,12 @@ function buildNoscriptContent(song: NewSong, playlist: string, playlistName: str
 }
 
 function generateSongHtml(song: NewSong, playlist: string, playlistName: string): string {
-  const playlistShort = playlist === 'agakiza' ? 'Gakiza' : 'Gushimisha Imana';
-  const title = escapeHtml(`${song.name} | Indirimbo ya ${song.number} mu ${playlistShort}`);
-  const ogTitle = escapeHtml(`${song.name} | Indirimbo ya ${song.number} mu ${playlistShort}`);
+  const { preposition, name: shortName } = getPlaylistLabel(playlist);
+  const title = escapeHtml(`${song.name} | Indirimbo ya ${song.number} ${preposition} ${shortName}`);
+  const ogTitle = escapeHtml(`${song.name} | Indirimbo ya ${song.number} ${preposition} ${shortName}`);
   const description = escapeHtml(buildDescription(song));
   const canonicalUrl = `${BASE_URL}/song/${playlist}/${encodeURIComponent(song.number)}/`;
+  const ogImage = playlist === 'cantiques-kirundi' ? OG_IMAGE_KIRUNDI : OG_IMAGE;
 
   // Song-specific meta tags to inject
   const songMeta = `
@@ -74,7 +84,7 @@ function generateSongHtml(song: NewSong, playlist: string, playlistName: string)
   <meta property="og:type" content="website" />
   <meta property="og:title" content="${ogTitle}" />
   <meta property="og:description" content="${description}" />
-  <meta property="og:image" content="${OG_IMAGE}" />
+  <meta property="og:image" content="${ogImage}" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta property="og:image:type" content="image/jpeg" />
@@ -83,7 +93,7 @@ function generateSongHtml(song: NewSong, playlist: string, playlistName: string)
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="${ogTitle}" />
   <meta name="twitter:description" content="${description}" />
-  <meta name="twitter:image" content="${OG_IMAGE}" />
+  <meta name="twitter:image" content="${ogImage}" />
   <link rel="canonical" href="${canonicalUrl}" />
   <meta name="apple-itunes-app" content="app-id=6758376573" />`;
 
@@ -112,7 +122,7 @@ function generateSongHtml(song: NewSong, playlist: string, playlistName: string)
     '@type': 'CreativeWork',
     name: song.name,
     text: lyricsText,
-    inLanguage: 'rw',
+    inLanguage: playlist === 'cantiques-kirundi' ? 'rn' : 'rw',
     url: canonicalUrl,
     isPartOf: {
       '@type': 'CreativeWork',
@@ -148,6 +158,7 @@ function generateSongHtml(song: NewSong, playlist: string, playlistName: string)
 const playlists = [
   { id: 'gushimisha', name: 'Gushimisha Imana', songs: gushimishaSongs },
   { id: 'agakiza', name: 'Agakiza', songs: agakizaSongs },
+  { id: 'cantiques-kirundi', name: 'Cantiques Kirundi', songs: kirundiSongs },
 ];
 
 let totalPages = 0;

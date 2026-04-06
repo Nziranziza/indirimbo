@@ -10,7 +10,9 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { songs as gushimishaSongs } from '../constants/gushimisha-songs';
 import { songs as agakizaSongs } from '../constants/agakiza-songs';
+import { songs as kirundiSongs } from '../constants/cantiques-kirundi-songs';
 import { gushimishaCategories } from '../constants/gushimisha-categories';
+import { cantiquesKirundiCategories } from '../constants/cantiques-kirundi-categories';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -42,7 +44,7 @@ for (const page of staticPages) {
 }
 
 // Add playlist pages
-const playlistIds = ['agakiza', 'gushimisha'];
+const playlistIds = ['agakiza', 'gushimisha', 'cantiques-kirundi'];
 for (const id of playlistIds) {
   xml += `  <url>
     <loc>${BASE_URL}/playlist/${id}/</loc>
@@ -54,7 +56,8 @@ for (const id of playlistIds) {
 }
 
 // Add category pages
-for (const category of gushimishaCategories) {
+const allCategories = [...gushimishaCategories, ...cantiquesKirundiCategories];
+for (const category of allCategories) {
   xml += `  <url>
     <loc>${BASE_URL}/category/${category.slug}/</loc>
     <lastmod>${today}</lastmod>
@@ -68,6 +71,7 @@ for (const category of gushimishaCategories) {
 const songPlaylists = [
   { slug: 'gushimisha', songs: gushimishaSongs },
   { slug: 'agakiza', songs: agakizaSongs },
+  { slug: 'cantiques-kirundi', songs: kirundiSongs },
 ];
 
 for (const { slug, songs } of songPlaylists) {
@@ -92,4 +96,4 @@ if (fs.existsSync(path.join(__dirname, '../dist'))) {
   fs.writeFileSync(distPath, xml);
 }
 
-console.log(`✅ Generated sitemap.xml with ${staticPages.length} static pages, ${playlistIds.length} playlists, ${gushimishaCategories.length} categories, ${gushimishaSongs.length} gushimisha songs, and ${agakizaSongs.length} agakiza songs`);
+console.log(`✅ Generated sitemap.xml with ${staticPages.length} static pages, ${playlistIds.length} playlists, ${allCategories.length} categories, ${gushimishaSongs.length} gushimisha songs, ${agakizaSongs.length} agakiza songs, and ${kirundiSongs.length} kirundi songs`);
