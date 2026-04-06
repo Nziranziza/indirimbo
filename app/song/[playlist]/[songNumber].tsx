@@ -231,6 +231,7 @@ export default function SongScreen() {
   const handlePrevious = () => {
     if (currentIndex > 0) {
       const prevSong = allSongs[currentIndex - 1];
+      setSectionPositions([]);
       router.replace({
         pathname: `/song/[playlist]/[songNumber]`,
         params: { playlist, songNumber: String(prevSong.number), direction: "back" },
@@ -241,6 +242,7 @@ export default function SongScreen() {
   const handleNext = () => {
     if (currentIndex < allSongs.length - 1) {
       const nextSong = allSongs[currentIndex + 1];
+      setSectionPositions([]);
       router.replace({
         pathname: `/song/[playlist]/[songNumber]`,
         params: { playlist, songNumber: String(nextSong.number), direction: "forward" },
@@ -337,7 +339,7 @@ export default function SongScreen() {
           <View style={{ height: 8 }}/>
           {currentSong.body?.filter((item) => item && item.type).map((item, index) => (
             <View
-              key={index}
+              key={`${playlist}-${currentSongNumber}-${item.type}-${item.number ?? index}`}
               ref={(ref: View | null) => { sectionRefs.current[index] = ref; }}
               onLayout={(event) => measureSection(index, event)}
             >
