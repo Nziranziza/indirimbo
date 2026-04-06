@@ -102,6 +102,10 @@ const MAPPING = {
   'bell.fill': 'notifications',
   'building.fill': 'church',
   'leaf': 'grass',
+  'book.fill': 'menu-book',
+  'books.vertical.fill': 'library-books',
+  'music.quarternote.3': 'music-note',
+  'plus.circle': 'add-circle-outline',
 } as IconMapping;
 
 // Fallback icon for unmapped icons

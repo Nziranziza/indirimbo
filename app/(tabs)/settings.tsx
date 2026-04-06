@@ -3,6 +3,7 @@ import { TabCollapsibleScrollView } from '@/components/tab-collapsible-scroll-vi
 import { ThemedView } from '@/components/themed-view';
 import { AccentColorSetting } from '@/components/settings/accent-color-setting';
 import { AppearanceSetting } from '@/components/settings/appearance-setting';
+import { SongbookSetting } from '@/components/settings/songbook-setting';
 import { TextSizeSetting } from '@/components/settings/text-size-setting';
 import { FloatingShareButton } from '@/components/ui/floating-share-button';
 import { SettingsGroup } from '@/components/ui/settings-group';
@@ -12,11 +13,13 @@ import {
   APP_UNIVERSAL_LINK_URL,
   PLAY_STORE_REVIEW_URL,
 } from '@/constants/app-links';
+import { useSongbookPreference } from '@/contexts/songbook-preference-context';
 import { useColorScheme, useTheme } from '@/contexts/theme-context';
 import {
   getFontSize,
   setFontSize,
   type FontSize,
+  type SongbookPreference,
   type ThemePreference,
   type TintColorKey,
 } from '@/utils/storage';
@@ -34,6 +37,7 @@ export default function SettingsScreen() {
     setTintColor: setTintColorContext,
   } = useTheme();
   const colorScheme = useColorScheme();
+  const { isBurundi, songbookPreference, updateSongbookPreference } = useSongbookPreference();
 
   useFocusEffect(
     useCallback(() => {
@@ -58,6 +62,13 @@ export default function SettingsScreen() {
 
   const handleTintColorChange = async (newColor: TintColorKey) => {
     await setTintColorContext(newColor);
+    if (process.env.EXPO_OS === 'ios') {
+      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    }
+  };
+
+  const handleSongbookChange = async (newPreference: SongbookPreference) => {
+    await updateSongbookPreference(newPreference);
     if (process.env.EXPO_OS === 'ios') {
       Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
     }
@@ -94,7 +105,7 @@ export default function SettingsScreen() {
         title="Settings"
         subtitle="Customize your reading experience"
         contentGap={20}
-        extraBottomPadding={80}
+
       >
         <SettingsGroup
           icon="textformat.size"
@@ -107,6 +118,19 @@ export default function SettingsScreen() {
             colorScheme={colorScheme === 'dark' ? 'dark' : 'light'}
           />
         </SettingsGroup>
+
+        {isBurundi && (
+          <SettingsGroup
+            icon="books.vertical.fill"
+            title="Songbook"
+            description="Choose which songbooks to display"
+          >
+            <SongbookSetting
+              songbookPreference={songbookPreference}
+              onSongbookChange={handleSongbookChange}
+            />
+          </SettingsGroup>
+        )}
 
         <SettingsGroup
           icon="paintbrush.fill"

@@ -277,3 +277,45 @@ export async function recordAppOpen(): Promise<void> {
     };
   });
 }
+
+// Songbook Preference (Burundi onboarding)
+export type SongbookPreference = 'kirundi' | 'kinyarwanda' | 'all';
+
+const SONGBOOK_PREFERENCE_KEY = '@indirimbo:songbook_preference';
+const ONBOARDING_COMPLETED_KEY = '@indirimbo:onboarding_completed';
+
+export async function getSongbookPreference(): Promise<SongbookPreference | null> {
+  try {
+    const preference = await AsyncStorage.getItem(SONGBOOK_PREFERENCE_KEY);
+    return (preference as SongbookPreference) ?? null;
+  } catch (error) {
+    console.error('Error getting songbook preference:', error);
+    return null;
+  }
+}
+
+export async function setSongbookPreference(preference: SongbookPreference): Promise<void> {
+  try {
+    await AsyncStorage.setItem(SONGBOOK_PREFERENCE_KEY, preference);
+  } catch (error) {
+    console.error('Error setting songbook preference:', error);
+  }
+}
+
+export async function getOnboardingCompleted(): Promise<boolean> {
+  try {
+    const value = await AsyncStorage.getItem(ONBOARDING_COMPLETED_KEY);
+    return value === 'true';
+  } catch (error) {
+    console.error('Error getting onboarding status:', error);
+    return false;
+  }
+}
+
+export async function setOnboardingCompleted(): Promise<void> {
+  try {
+    await AsyncStorage.setItem(ONBOARDING_COMPLETED_KEY, 'true');
+  } catch (error) {
+    console.error('Error setting onboarding status:', error);
+  }
+}

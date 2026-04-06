@@ -50,10 +50,24 @@ const BOOK_NAMES: Record<string, string> = {
   "M.A.": "Maran Ata",
   "R.S.": "Redemption Songs",
   "R.H.": "Redemption Hymns",
+  "G.B.": "Golden Bells",
+  "T.H.": "Tabernacle Hymns",
+  "M.S.": "Manuscript",
 };
 
+function normalizeBookCodes(codes: string): string {
+  return codes
+    .replace(/([A-Z])\.\s+([A-Z])/g, "$1.$2")  // "G. B" → "G.B"
+    .replace(/([A-Z])\.([A-Z])(?!\.)/g, "$1.$2.");  // "T.H" → "T.H.", "M.S" → "M.S."
+}
+
 function expandBookCodes(codes: string): string {
-  let result = codes;
+  // Expand "r NUMBER" cross-references (Kirundi songs referencing Cantiques Kinyarwanda)
+  const crossRef = codes.match(/^r\s+(\d+)$/);
+  if (crossRef) {
+    return `Cantiques Kinyarwanda ${crossRef[1]}`;
+  }
+  let result = normalizeBookCodes(codes);
   for (const [abbr, full] of Object.entries(BOOK_NAMES)) {
     result = result.replaceAll(abbr, full);
   }
@@ -80,11 +94,13 @@ export default function SongScreen() {
   const colors = useColors();
   const insets = useSafeAreaInsets();
 
-  const { agakiza, gushimisha } = useSongs();
-  const allSongs: Song[] =
-    playlist === "agakiza"
-      ? (agakiza as Song[])
-      : (gushimisha as Song[]);
+  const { agakiza, gushimisha, cantiquesKirundi } = useSongs();
+  const songsByPlaylist: Record<string, Song[]> = useMemo(() => ({
+    agakiza,
+    gushimisha,
+    'cantiques-kirundi': cantiquesKirundi,
+  }), [agakiza, gushimisha, cantiquesKirundi]);
+  const allSongs: Song[] = songsByPlaylist[playlist ?? ''] ?? [];
 
   const currentSongNumber = songNumber || "1";
   let currentSong = allSongs.find((s) => String(s.number) === String(currentSongNumber));
@@ -260,10 +276,11 @@ export default function SongScreen() {
   return (
     <ThemedView style={styles.container}>
       <PageHead
-        title={`${currentSong.name} | Indirimbo ya ${currentSong.number} mu ${playlist === "agakiza" ? "Gakiza" : "Gushimisha Imana"}`}
+        title={`${currentSong.name} | Indirimbo ya ${currentSong.number} ${playlist === 'cantiques-kirundi' ? 'muri' : 'mu'} ${playlistTitle}`}
         description={seoDescription}
         canonicalPath={`/song/${playlist}/${currentSong.number}`}
-        keywords={`${currentSong.name}, indirimbo ya ${currentSong.number}, ${playlistTitle}, indirimbo, indirimbo zo mugitabo, ${playlist === "agakiza" ? "indirimbo z'agakiza, indirimbo z'abarokore" : "indirimbo zo gushimisha imana"}`}
+        keywords={`${currentSong.name}, indirimbo ya ${currentSong.number}, ${playlistTitle}, ${playlist === 'cantiques-kirundi' ? 'cantiques kirundi, indirimbo zo guhimbaza imana, burundian hymns' : "indirimbo, indirimbo zo mugitabo, rwandan hymns"}, worship songs`}
+        playlist={playlist}
       />
       <ThemedView style={[styles.header, { paddingTop: insets.top + 8 }]}>
         <BackButton
@@ -277,7 +294,7 @@ export default function SongScreen() {
             if (Platform.OS === 'web') {
               router.replace(fallback);
             } else {
-              router.canGoBack() ? router.back() : router.replace(fallback);
+              if (router.canGoBack()) { router.back(); } else { router.replace(fallback); }
             }
           }}
           activeOpacity={0.7}

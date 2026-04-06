@@ -6,15 +6,16 @@ import { TabScrollView } from '@/components/tab-scroll-view';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { PlaylistCard } from '@/components/ui/playlist-card';
-import type { Song } from '@/constants/types';
-import { useSongs } from '@/contexts/songs-context';
+import type { IconSymbolName } from '@/components/ui/icon-symbol';
+import type { PlaylistId } from '@/constants/playlists';
 import { useColorScheme } from '@/contexts/theme-context';
 import { useColors } from '@/hooks/use-colors';
 import { useHydrated } from '@/hooks/use-hydrated';
+import { useSongbooks } from '@/hooks/use-songbooks';
 import { getFavorites, getRecentSongs, type FavoriteSong, type RecentSong } from '@/utils/storage';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useFocusEffect, useRouter } from 'expo-router';
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -25,6 +26,12 @@ const getGreeting = (): string => {
   return 'Good evening';
 };
 
+const PLAYLIST_ICONS: Record<string, IconSymbolName> = {
+  gushimisha: 'music.mic',
+  agakiza: 'music.note.list',
+  'cantiques-kirundi': 'book.fill',
+};
+
 export default function HomeScreen() {
   const router = useRouter();
   const colors = useColors();
@@ -32,14 +39,9 @@ export default function HomeScreen() {
   const isDark = colorScheme === 'dark';
   const insets = useSafeAreaInsets();
   const hasHydrated = useHydrated();
+  const { visiblePlaylistIds, showCategoryChips, allSongsForFavorites } = useSongbooks();
   const [recentSongs, setRecentSongs] = useState<RecentSong[]>([]);
   const [favoriteSongs, setFavoriteSongs] = useState<FavoriteSong[]>([]);
-  const { agakiza, gushimisha } = useSongs();
-
-  const allSongs = useMemo<Record<string, Song[]>>(() => ({
-    agakiza: agakiza as Song[],
-    gushimisha: gushimisha as Song[],
-  }), [agakiza, gushimisha]);
 
   useFocusEffect(
     useCallback(() => {
@@ -80,36 +82,29 @@ export default function HomeScreen() {
       </View>
 
       <TabScrollView contentContainerStyle={styles.scrollContent}>
-        <CategoryChips />
+        {showCategoryChips && <CategoryChips />}
 
         <View style={styles.playlistSection}>
           <ThemedView style={styles.playlistContainer}>
-            <PlaylistCard
-              playlistId="gushimisha"
-              iconName="music.mic"
-              onPress={() => {
-                router.push({
-                  pathname: '/(tabs)/(home)/playlist/[name]',
-                  params: { name: 'gushimisha' },
-                });
-              }}
-            />
-            <PlaylistCard
-              playlistId="agakiza"
-              iconName="music.note.list"
-              onPress={() => {
-                router.push({
-                  pathname: '/(tabs)/(home)/playlist/[name]',
-                  params: { name: 'agakiza' },
-                });
-              }}
-            />
+            {visiblePlaylistIds.map((id) => (
+              <PlaylistCard
+                key={id}
+                playlistId={id as PlaylistId}
+                iconName={PLAYLIST_ICONS[id] ?? 'music.note.list'}
+                onPress={() => {
+                  router.push({
+                    pathname: '/(tabs)/(home)/playlist/[name]',
+                    params: { name: id },
+                  });
+                }}
+              />
+            ))}
           </ThemedView>
 
           {hasHydrated && favoriteSongs.length > 0 && (
             <FavoriteSongsRow
               favoriteSongs={favoriteSongs}
-              allSongs={allSongs}
+              allSongs={allSongsForFavorites}
               onSongPress={handleSongPress}
             />
           )}
@@ -117,7 +112,7 @@ export default function HomeScreen() {
           {hasHydrated && recentSongs.length > 0 && (
             <RecentSongsList
               recentSongs={recentSongs}
-              allSongs={allSongs}
+              allSongs={allSongsForFavorites}
               onSongPress={handleSongPress}
             />
           )}

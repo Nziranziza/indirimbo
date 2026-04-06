@@ -2,7 +2,7 @@
   "expo": {
     "name": "Indirimbo",
     "slug": "indirimbo",
-    "version": "1.2.0",
+    "version": "1.3.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "indirimbo",
@@ -94,7 +94,8 @@
             "enableShrinkResourcesInReleaseBuilds": true
           }
         }
-      ]
+      ],
+      "expo-localization"
     ],
     "updates": {
       "url": "https://u.expo.dev/42352c61-6285-46aa-9faa-ee33c490e5c7"

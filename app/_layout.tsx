@@ -9,6 +9,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import { ThemedView } from '@/components/themed-view';
 import { AppInstallBanner } from '@/components/ui/app-install-banner';
+import { SongbookPreferenceProvider } from '@/contexts/songbook-preference-context';
 import { SongsProvider } from '@/contexts/songs-context';
 import { ThemeProvider, useColorScheme } from '@/contexts/theme-context';
 import { useHydrated } from '@/hooks/use-hydrated';
@@ -95,6 +96,14 @@ function RootLayoutContent() {
           }}
         />
         <Stack.Screen
+          name="onboarding"
+          options={{
+            headerShown: false,
+            animation: 'fade',
+            gestureEnabled: false,
+          }}
+        />
+        <Stack.Screen
           name="modal"
           options={{
             presentation: 'modal',
@@ -116,6 +125,7 @@ export default function RootLayout() {
   const inner = (
     <SafeAreaProvider>
       <SongsProvider>
+      <SongbookPreferenceProvider>
       <ThemeProvider>
         {Platform.OS === 'web' ? (
           <ThemedView style={{ flex: 1}}>
@@ -128,6 +138,7 @@ export default function RootLayout() {
           content
         )}
       </ThemeProvider>
+      </SongbookPreferenceProvider>
       </SongsProvider>
     </SafeAreaProvider>
   );

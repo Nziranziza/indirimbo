@@ -5,14 +5,13 @@ import { ThemedView } from '@/components/themed-view';
 import { IconSymbol } from '@/components/ui/icon-symbol';
 import { SongNumberBadge } from '@/components/ui/song-number-badge';
 import { getPlaylistName } from '@/constants/playlists';
-import { useSongs } from '@/contexts/songs-context';
 import { useColors } from '@/hooks/use-colors';
 import { useHydrated } from '@/hooks/use-hydrated';
+import { useSongbooks } from '@/hooks/use-songbooks';
 import { getFavorites, removeFavorite, type FavoriteSong } from '@/utils/storage';
 import { useFocusEffect, useRouter } from 'expo-router';
 import { useCallback, useState } from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
-import type { Song } from '@/constants/types';
 
 export default function FavoritesTabScreen() {
   const router = useRouter();
@@ -40,11 +39,7 @@ export default function FavoritesTabScreen() {
     loadFavorites();
   };
 
-  const { agakiza, gushimisha } = useSongs();
-  const allSongs: Record<string, Song[]> = {
-    agakiza: agakiza as Song[],
-    gushimisha: gushimisha as Song[],
-  };
+  const { allSongsForFavorites: allSongs } = useSongbooks();
 
   const formatDate = (timestamp: number): string => {
     const date = new Date(timestamp);

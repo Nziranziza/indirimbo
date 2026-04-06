@@ -37,21 +37,32 @@ export default function PlaylistScreen() {
     return 'agakiza';
   }, [params.name, pathname]);
 
-  const { agakiza, gushimisha } = useSongs();
+  const { agakiza, gushimisha, cantiquesKirundi } = useSongs();
   const songs = useMemo(() => {
-    return (name === 'agakiza' ? agakiza : gushimisha) as Song[];
-  }, [name, agakiza, gushimisha]);
+    const songsByPlaylist: Record<string, Song[]> = {
+      agakiza,
+      gushimisha,
+      'cantiques-kirundi': cantiquesKirundi,
+    };
+    return songsByPlaylist[name] ?? [];
+  }, [name, agakiza, gushimisha, cantiquesKirundi]);
 
   const playlistTitle = getPlaylistName(name);
-  const iconName: IconSymbolName = name === 'agakiza' ? 'music.note.list' : 'music.mic';
+  const PLAYLIST_ICONS: Record<string, IconSymbolName> = {
+    agakiza: 'music.note.list',
+    gushimisha: 'music.mic',
+    'cantiques-kirundi': 'book.fill',
+  };
+  const iconName: IconSymbolName = PLAYLIST_ICONS[name] ?? 'music.note.list';
 
   return (
     <>
       <PageHead
         title={`${playlistTitle} | Indirimbo`}
-        description={`Browse all ${songs.length} songs in the ${playlistTitle} hymnbook. Rwandan church worship songs with full lyrics.`}
+        description={`Browse all ${songs.length} songs in the ${playlistTitle} hymnbook. ${name === 'cantiques-kirundi' ? 'Burundian' : 'Rwandan'} church worship songs with full lyrics.`}
         canonicalPath={`/playlist/${name}/`}
-        keywords={`${playlistTitle}, indirimbo, ${name === 'agakiza' ? "agakiza, indirimbo z'agakiza" : 'gushimisha imana, indirimbo zo gushimisha imana'}, rwandan hymns, worship songs`}
+        keywords={`${playlistTitle}, indirimbo, ${name === 'agakiza' ? "agakiza, indirimbo z'agakiza" : name === 'cantiques-kirundi' ? "cantiques kirundi, indirimbo zo guhimbaza imana" : 'gushimisha imana, indirimbo zo gushimisha imana'}, ${name === 'cantiques-kirundi' ? 'burundian hymns' : 'rwandan hymns'}, worship songs`}
+        playlist={name}
       />
       <SongListScreen
         title={playlistTitle}

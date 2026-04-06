@@ -4,6 +4,7 @@ import { BulletItem } from '@/components/ui/bullet-item';
 import { ContactSection } from '@/components/ui/contact-section';
 import { FloatingShareButton } from '@/components/ui/floating-share-button';
 import { InfoCard } from '@/components/ui/info-card';
+import { useSongbookPreference } from '@/contexts/songbook-preference-context';
 import { useColors } from '@/hooks/use-colors';
 import { router } from 'expo-router';
 import { PageHead } from '@/components/page-head';
@@ -12,12 +13,15 @@ import { StyleSheet, TouchableOpacity } from 'react-native';
 
 export default function SupportScreen() {
   const colors = useColors();
+  const { isBurundi } = useSongbookPreference();
 
   return (
     <>
     <PageHead
       title="Support | Indirimbo"
-      description="Get help with using Indirimbo. Find FAQs, usage guide, and contact information for the Rwandan hymnal app."
+      description={isBurundi
+        ? 'Get help with using Indirimbo. Find FAQs, usage guide, and contact information for the hymnal app.'
+        : 'Get help with using Indirimbo. Find FAQs, usage guide, and contact information for the Rwandan hymnal app.'}
       canonicalPath="/support/"
     />
     <CollapsibleHeaderScrollView
@@ -28,13 +32,17 @@ export default function SupportScreen() {
       {/* Getting Started */}
       <InfoCard icon="sparkles" title="Getting Started" isHighlighted>
         <ThemedText style={styles.paragraph}>
-          Indirimbo is a hymns and worship songs app for Rwandan churches. Browse songs from popular hymnbooks, search by title or lyrics, and save your favorites.
+          {isBurundi
+            ? 'Indirimbo is a hymns and worship songs app for Rwandan and Burundian churches. Browse songs from popular hymnbooks, search by title or lyrics, and save your favorites.'
+            : 'Indirimbo is a hymns and worship songs app for Rwandan churches. Browse songs from popular hymnbooks, search by title or lyrics, and save your favorites.'}
         </ThemedText>
       </InfoCard>
 
       {/* How to Use */}
       <InfoCard icon="book" title="How to Use">
-        <BulletItem>Browse songs by selecting a playlist (Gushimisha Imana or Agakiza)</BulletItem>
+        <BulletItem>{isBurundi
+          ? 'Browse songs by selecting a songbook (Cantiques Kirundi, Gushimisha Imana, or Agakiza)'
+          : 'Browse songs by selecting a playlist (Gushimisha Imana or Agakiza)'}</BulletItem>
         <BulletItem>Use the search bar to find songs by title, number, or lyrics</BulletItem>
         <BulletItem>Tap the heart icon to save songs to your favorites</BulletItem>
         <BulletItem>Share songs with friends using the share button</BulletItem>
