@@ -204,16 +204,13 @@ export function SongHeatmap({
 }: SongHeatmapProps) {
   const colors = useColors();
 
-  if (
-    sectionPositions.length === 0 ||
-    contentHeight <= 0 ||
-    scrollViewHeight <= 0 ||
-    contentHeight <= scrollViewHeight
-  ) {
-    return null;
-  }
+  const isVisible =
+    sectionPositions.length === songBody.length &&
+    contentHeight > 0 &&
+    scrollViewHeight > 0 &&
+    contentHeight > scrollViewHeight;
 
-  const viewportHeight = (scrollViewHeight / contentHeight) * 100;
+  const viewportHeight = isVisible ? (scrollViewHeight / contentHeight) * 100 : 0;
   const heatmapHeight = scrollViewHeight;
   const lastIndex = songBody.length - 1;
 
@@ -226,10 +223,11 @@ export function SongHeatmap({
           backgroundColor: colors.background + 'F0',
           top: headerHeight,
           height: heatmapHeight,
+          opacity: isVisible ? 0.7 : 0,
         },
       ]}
     >
-      {sectionPositions
+      {isVisible && sectionPositions
         .map((position, index) => {
           const section = songBody[index];
           if (!section || !position) return null;
@@ -243,7 +241,7 @@ export function SongHeatmap({
 
           return (
             <AnimatedHeatmapBar
-              key={index}
+              key={`${section.type}-${section.number ?? index}`}
               position={position}
               contentHeight={contentHeight}
               scrollViewHeight={scrollViewHeight}
@@ -257,7 +255,7 @@ export function SongHeatmap({
           );
         })
         .filter(Boolean)}
-      {viewportHeight > 0 && viewportHeight < 100 && (
+      {isVisible && viewportHeight > 0 && viewportHeight < 100 && (
         <AnimatedViewportIndicator
           contentHeight={contentHeight}
           scrollViewHeight={scrollViewHeight}
@@ -279,7 +277,6 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     overflow: 'visible',
     zIndex: 0,
-    opacity: 0.7,
   },
   heatmapBar: {
     position: 'absolute',
