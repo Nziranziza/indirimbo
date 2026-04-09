@@ -18,7 +18,7 @@ export default function TermsOfServiceScreen() {
     <CollapsibleHeaderScrollView
       title="Terms of Service"
       subtitle="Guidelines for using the app"
-      extraBottomPadding={80}
+      hasFab
       fallbackHref="/(tabs)/settings">
       <ThemedText style={[styles.date, { opacity: 0.5 }]}>
         Last Updated: February 1, 2026

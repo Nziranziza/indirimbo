@@ -1,29 +1,23 @@
+import { useBottomPadding } from '@/hooks/use-bottom-padding';
 import { ScrollView, ScrollViewProps, StyleSheet } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 interface TabScrollViewProps extends ScrollViewProps {
   children: React.ReactNode;
-  extraBottomPadding?: number;
+  hasFab?: boolean;
 }
 
-/**
- * A ScrollView component that automatically handles bottom padding for native tabs
- * Use this instead of regular ScrollView in tab screens to ensure content is not hidden behind the tab bar
- */
 export function TabScrollView({
   children,
   contentContainerStyle,
-  extraBottomPadding = 0,
+  hasFab = false,
   style,
   ...props
 }: TabScrollViewProps) {
-  const insets = useSafeAreaInsets();
+  const paddingBottom = useBottomPadding({ inTabs: true, hasFab });
   return (
     <ScrollView
       style={[styles.scrollView, style]}
-      contentContainerStyle={[contentContainerStyle, {
-        paddingBottom: insets.bottom + 90 + extraBottomPadding,
-      }]}
+      contentContainerStyle={[contentContainerStyle, { paddingBottom }]}
       showsVerticalScrollIndicator={true}
       scrollEnabled={true}
       keyboardShouldPersistTaps="handled"

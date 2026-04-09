@@ -193,7 +193,7 @@ const styles = StyleSheet.create({
   },
   emptyText: {
     fontSize: 18,
-    fontWeight: '600',
+    fontWeight: '700',
   },
   emptySubtext: {
     fontSize: 14,

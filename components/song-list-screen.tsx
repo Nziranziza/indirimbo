@@ -4,6 +4,7 @@ import { BackButton } from '@/components/ui/back-button';
 import { BackToTopButton } from '@/components/ui/back-to-top-button';
 import { IconSymbol } from '@/components/ui/icon-symbol';
 import { SongNumberBadge } from '@/components/ui/song-number-badge';
+import { useBottomPadding } from '@/hooks/use-bottom-padding';
 import { useColors } from '@/hooks/use-colors';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useRouter } from 'expo-router';
@@ -35,7 +36,7 @@ export function SongListScreen({ title, iconName, songs, playlist }: SongListScr
   const router = useRouter();
   const colors = useColors();
   const insets = useSafeAreaInsets();
-  const bottomPadding = insets.bottom;
+  const paddingBottom = useBottomPadding({ inTabs: true, hasFab: true });
 
   const scrollY = useSharedValue(0);
   const flatListRef = useRef<Animated.FlatList<Song>>(null);
@@ -197,7 +198,8 @@ export function SongListScreen({ title, iconName, songs, playlist }: SongListScr
           styles.listContent,
           {
             paddingTop: HEADER_MAX_HEIGHT + insets.top + 16,
-            paddingBottom: bottomPadding + 90,
+            paddingBottom,
+            gap: 12,
           },
         ]}
         onLayout={(e) => { containerHeight.current = e.nativeEvent.layout.height; }}
@@ -292,7 +294,6 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     borderWidth: 1,
     gap: 12,
-    marginBottom: 12,
   },
   songInfo: {
     flex: 1,

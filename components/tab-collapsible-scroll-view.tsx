@@ -1,5 +1,6 @@
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
+import { useBottomPadding } from '@/hooks/use-bottom-padding';
 import { useColors } from '@/hooks/use-colors';
 import React from 'react';
 import { StyleSheet } from 'react-native';
@@ -22,7 +23,7 @@ interface TabCollapsibleScrollViewProps {
   subtitle?: string;
   children: React.ReactNode;
   contentGap?: number;
-  extraBottomPadding?: number;
+  hasFab?: boolean;
 }
 
 export function TabCollapsibleScrollView({
@@ -30,10 +31,11 @@ export function TabCollapsibleScrollView({
   subtitle,
   children,
   contentGap = 12,
-  extraBottomPadding = 0,
+  hasFab = false,
 }: TabCollapsibleScrollViewProps) {
   const colors = useColors();
   const insets = useSafeAreaInsets();
+  const paddingBottom = useBottomPadding({ inTabs: true, hasFab });
   const scrollY = useSharedValue(0);
 
   const scrollHandler = useAnimatedScrollHandler({
@@ -168,7 +170,7 @@ export function TabCollapsibleScrollView({
           styles.scrollContent,
           {
             paddingTop: EXPANDED_HEIGHT,
-            paddingBottom: insets.bottom + 90 + extraBottomPadding,
+            paddingBottom,
             gap: contentGap,
           },
         ]}
