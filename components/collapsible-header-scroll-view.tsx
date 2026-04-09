@@ -1,5 +1,6 @@
 import { ThemedView } from '@/components/themed-view';
 import { BackButton } from '@/components/ui/back-button';
+import { useBottomPadding } from '@/hooks/use-bottom-padding';
 import { useColors } from '@/hooks/use-colors';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
@@ -22,7 +23,7 @@ interface CollapsibleHeaderScrollViewProps {
   headerContent?: React.ReactNode;
   headerMaxHeight?: number;
   contentGap?: number;
-  extraBottomPadding?: number;
+  hasFab?: boolean;
   fallbackHref?: Href;
   children: React.ReactNode;
 }
@@ -33,13 +34,14 @@ export function CollapsibleHeaderScrollView({
   headerContent,
   headerMaxHeight = DEFAULT_HEADER_MAX_HEIGHT,
   contentGap = 12,
-  extraBottomPadding = 0,
+  hasFab = false,
   fallbackHref,
   children,
 }: CollapsibleHeaderScrollViewProps) {
   const HEADER_SCROLL_DISTANCE = headerMaxHeight - HEADER_MIN_HEIGHT;
   const colors = useColors();
   const insets = useSafeAreaInsets();
+  const paddingBottom = useBottomPadding({ hasFab });
   const scrollY = useSharedValue(0);
 
   const scrollHandler = useAnimatedScrollHandler({
@@ -177,7 +179,7 @@ export function CollapsibleHeaderScrollView({
           styles.scrollContent,
           {
             paddingTop: headerMaxHeight + insets.top + 16,
-            paddingBottom: insets.bottom + 20 + extraBottomPadding,
+            paddingBottom,
             gap: contentGap,
           },
         ]}

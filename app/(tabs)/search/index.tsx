@@ -147,7 +147,7 @@ export default function SearchScreen() {
             contentInsetAdjustmentBehavior="automatic"
             contentContainerStyle={[
               styles.scrollContent,
-              { paddingBottom: insets.bottom + 90 },
+              { paddingBottom: 0 },
             ]}
             keyboardShouldPersistTaps="handled"
             keyboardDismissMode="on-drag"

@@ -27,7 +27,7 @@ export default function SupportScreen() {
     <CollapsibleHeaderScrollView
       title="Support"
       subtitle="Get help with using Indirimbo"
-      extraBottomPadding={80}
+      hasFab
       fallbackHref="/(tabs)/settings">
       {/* Getting Started */}
       <InfoCard icon="sparkles" title="Getting Started" isHighlighted>

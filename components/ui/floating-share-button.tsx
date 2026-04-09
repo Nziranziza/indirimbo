@@ -1,15 +1,15 @@
 import { APP_UNIVERSAL_LINK_URL } from '@/constants/app-links';
 import { useColors } from '@/hooks/use-colors';
+import { useFabBottom } from '@/hooks/use-fab-bottom';
 import * as Haptics from 'expo-haptics';
 import { useFocusEffect } from 'expo-router';
 import { useCallback } from 'react';
-import { Platform, Share, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Share, StyleSheet, TouchableOpacity, View } from 'react-native';
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
   withTiming,
 } from 'react-native-reanimated';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { IconSymbol } from './icon-symbol';
 
@@ -19,7 +19,7 @@ const COLLAPSE_DELAY = 3000;
 
 export function FloatingShareButton({ inTabs = false }: { inTabs?: boolean }) {
   const colors = useColors();
-  const insets = useSafeAreaInsets();
+  const bottom = useFabBottom(inTabs);
   const expanded = useSharedValue(1);
 
   useFocusEffect(
@@ -54,10 +54,6 @@ export function FloatingShareButton({ inTabs = false }: { inTabs?: boolean }) {
       );
     } catch {}
   };
-
-  const bottom = inTabs
-    ? (Platform.OS === 'ios' ? insets.bottom + 16 : 16)
-    : Math.max(insets.bottom, 16) + 16;
 
   return (
     <Animated.View

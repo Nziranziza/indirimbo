@@ -45,7 +45,7 @@ export default function AboutScreen() {
       title="About Indirimbo"
       headerMaxHeight={240}
       contentGap={20}
-      extraBottomPadding={80}
+      hasFab
       fallbackHref="/(tabs)/settings"
       headerContent={
         <View style={styles.heroSection}>

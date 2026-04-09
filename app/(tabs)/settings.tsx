@@ -105,7 +105,7 @@ export default function SettingsScreen() {
         title="Settings"
         subtitle="Customize your reading experience"
         contentGap={20}
-
+        hasFab
       >
         <SettingsGroup
           icon="textformat.size"

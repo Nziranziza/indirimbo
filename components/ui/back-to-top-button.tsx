@@ -1,13 +1,14 @@
 import { IconSymbol } from '@/components/ui/icon-symbol';
 import { useColors } from '@/hooks/use-colors';
-import { Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { useFabBottom } from '@/hooks/use-fab-bottom';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import Animated, {
   Extrapolation,
   interpolate,
   SharedValue,
   useAnimatedStyle,
 } from 'react-native-reanimated';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+
 
 interface BackToTopButtonProps {
   scrollY: SharedValue<number>;
@@ -16,8 +17,7 @@ interface BackToTopButtonProps {
 
 export function BackToTopButton({ scrollY, onPress }: BackToTopButtonProps) {
   const colors = useColors();
-  const insets = useSafeAreaInsets();
-  const bottom = Platform.OS === 'ios' ? insets.bottom + 16 : 16;
+  const bottom = useFabBottom(true);
 
   const animatedStyle = useAnimatedStyle(() => {
     'worklet';
