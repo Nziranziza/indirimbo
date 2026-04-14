@@ -31,19 +31,18 @@ export const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
         style={[
           styles.container,
           {
-            backgroundColor: colors.background,
-            borderColor: colors.icon + '20'
+            backgroundColor: colors.icon + '1A',
           },
           style
         ]}
         accessibilityRole="search"
         onPress={() => inputRef.current?.focus()}>
-        <IconSymbol name="magnifyingglass" size={20} color={colors.icon} />
+        <IconSymbol name="magnifyingglass" size={30} color={colors.icon} style={styles.icon} weight="thin" />
         <TextInput
           ref={inputRef}
           style={[styles.input, { color: colors.text }]}
           placeholder={placeholder}
-          placeholderTextColor={colors.icon + '80'}
+          placeholderTextColor={colors.icon + 'CC'}
           value={value}
           onChangeText={onChangeText}
           returnKeyType="search"
@@ -75,19 +74,16 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: 16,
-    paddingVertical: 12,
+    paddingHorizontal: 8,
+    paddingVertical: 4,
     borderRadius: 12,
-    gap: 12,
-    borderWidth: 1,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.1,
-    shadowRadius: 2,
-    elevation: 2,
   },
   input: {
     flex: 1,
-    fontSize: 16,
+    fontSize: 18,
+  },
+  icon: {
+    width: 30,
+    height: 30,
   },
 });

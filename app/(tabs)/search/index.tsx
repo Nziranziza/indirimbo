@@ -6,6 +6,7 @@ import { SearchResultItem } from '@/components/ui/search-result-item';
 import { SearchInput, type SearchInputRef } from '@/components/ui/search-input';
 import { RecentItemsList } from '@/components/search/recent-items-list';
 import { useColors } from '@/hooks/use-colors';
+import { useColorScheme } from '@/contexts/theme-context';
 import { useDebounce } from '@/hooks/use-debounce';
 import { useSearch } from '@/hooks/use-search';
 import { useSongbooks } from '@/hooks/use-songbooks';
@@ -31,9 +32,10 @@ let _navigatedToSong = false;
 export default function SearchScreen() {
   const router = useRouter();
   const colors = useColors();
+  const colorScheme = useColorScheme();
   const insets = useSafeAreaInsets();
   const [searchQuery, setSearchQuery] = useState('');
-  const debouncedSearchQuery = useDebounce(searchQuery, 300);
+  const [debouncedSearchQuery, flushSearch] = useDebounce(searchQuery, 150);
   const searchBarRef = useRef<SearchBarCommands>(null);
   const searchInputRef = useRef<SearchInputRef>(null);
   const [isInputFocused, setIsInputFocused] = useState(false);
@@ -83,7 +85,8 @@ export default function SearchScreen() {
     if (isIOS) {
       searchBarRef.current?.setText(query);
     }
-  }, [isIOS]);
+    flushSearch(query);
+  }, [isIOS, flushSearch]);
 
   const handleRemoveRecentSearch = useCallback((query: string) => {
     removeRecentSearch(query).then(() =>
@@ -107,7 +110,7 @@ export default function SearchScreen() {
           <Stack.Screen options={{ title: "Search" }} />
           <Stack.SearchBar
             ref={searchBarRef as any}
-            placeholder="Search by title, number, or lyrics..."
+            placeholder="Title, Number or Lyrics"
             onChangeText={(e: { nativeEvent: { text: string } }) =>
               setSearchQuery(e.nativeEvent.text)
             }
@@ -131,7 +134,7 @@ export default function SearchScreen() {
               ref={searchInputRef}
               value={searchQuery}
               onChangeText={setSearchQuery}
-              placeholder="Search by title, number, or lyrics..."
+              placeholder="Title, Number or Lyrics"
               style={styles.searchInput}
               onFocus={() => setIsInputFocused(true)}
               onBlur={() => setIsInputFocused(false)}
@@ -167,14 +170,23 @@ export default function SearchScreen() {
               </View>
             }
             ListEmptyComponent={
-              <ThemedView style={styles.emptyState}>
-                <IconSymbol
-                  name="magnifyingglass"
-                  size={48}
-                  color={colors.icon + '40'}
-                />
-                <ThemedText style={styles.emptyText}>No songs found</ThemedText>
-              </ThemedView>
+              debouncedSearchQuery.trim().length < 2 ? (
+                <ThemedView style={styles.emptyState}>
+                  <ThemedText style={[styles.emptyHint, { color: colors.icon }]}>
+                    Keep typing to search...
+                  </ThemedText>
+                </ThemedView>
+              ) : (
+                <ThemedView style={styles.emptyState}>
+                  <ThemedText style={styles.emptyEmoji}>{colorScheme === 'dark' ? '🤷🏼' : '🤷🏾'}</ThemedText>
+                  <ThemedText style={[styles.emptyTitle, { color: colors.text }]}>
+                    No songs found
+                  </ThemedText>
+                  <ThemedText style={[styles.emptySubtext, { color: colors.icon }]}>
+                    Try a different title, number, or lyrics
+                  </ThemedText>
+                </ThemedView>
+              )
             }
             renderItem={({ item: result }) => (
               <SearchResultItem
@@ -225,12 +237,21 @@ const styles = StyleSheet.create({
   emptyState: {
     alignItems: 'center',
     paddingVertical: 60,
-    gap: 12,
+    gap: 8,
   },
-  emptyText: {
-    fontSize: 16,
-    opacity: 0.6,
-    textAlign: 'center',
-    paddingHorizontal: 40,
+  emptyHint: {
+    fontSize: 15,
+  },
+  emptyEmoji: {
+    fontSize: 48,
+    lineHeight: 58,
+    marginBottom: 4,
+  },
+  emptyTitle: {
+    fontSize: 18,
+    fontWeight: '600',
+  },
+  emptySubtext: {
+    fontSize: 14,
   },
 });
