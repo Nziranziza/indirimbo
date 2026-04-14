@@ -2,6 +2,7 @@ import { ThemedText } from "@/components/themed-text";
 import { ThemedView } from "@/components/themed-view";
 import { BackButton } from "@/components/ui/back-button";
 import { EngagementPrompt } from "@/components/ui/engagement-prompt";
+import { FavoriteSuggestionTooltip } from "@/components/ui/favorite-suggestion-tooltip";
 import { IconSymbol } from "@/components/ui/icon-symbol";
 import { LyricsContent } from "@/components/ui/lyrics-content";
 import { SongHeatmap } from "@/components/ui/song-heatmap";
@@ -13,6 +14,7 @@ import { FONT_SIZES } from "@/constants/typography";
 import { useSongs } from "@/contexts/songs-context";
 import { useColors } from "@/hooks/use-colors";
 import { useEngagement } from "@/hooks/use-engagement";
+import { useFavoriteSuggestion } from "@/hooks/use-favorite-suggestion";
 import { useKeepAwake } from "@/hooks/use-keep-awake";
 import {
   addFavorite,
@@ -28,6 +30,7 @@ import { useLocalSearchParams, useRouter } from "expo-router";
 import { PageHead } from "@/components/page-head";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
+  Dimensions,
   LayoutChangeEvent,
   Platform,
   StyleSheet,
@@ -88,9 +91,12 @@ export default function SongScreen() {
   >([]);
   const [contentHeight, setContentHeight] = useState(0);
   const [scrollViewHeight, setScrollViewHeight] = useState(0);
+  // Default: paddingRight(20) + border(1) + buttonPadding(8) + halfIcon(11) - cardMargin(12) = 28
+  const [arrowRightOffset, setArrowRightOffset] = useState(28);
   const animatedScrollY = useSharedValue(0);
   const scrollViewRef = useRef<Animated.ScrollView>(null);
   const sectionRefs = useRef<(View | null)[]>([]);
+  const favoriteButtonRef = useRef<View>(null);
   const colors = useColors();
   const insets = useSafeAreaInsets();
 
@@ -126,6 +132,12 @@ export default function SongScreen() {
     currentSongPlaylist: playlist,
     currentSongNumber: currentSong?.number,
     didFavoriteThisSession,
+  });
+
+  const { showSuggestion, handleDismissSuggestion } = useFavoriteSuggestion({
+    playlist,
+    songNumber: currentSong?.number,
+    isFavorite: isFav,
   });
 
   useEffect(() => {
@@ -220,6 +232,17 @@ export default function SongScreen() {
   };
 
   const fontSizeStyles = useMemo(() => FONT_SIZES[fontSize], [fontSize]);
+
+  const measureFavoriteButton = useCallback(() => {
+    favoriteButtonRef.current?.measureInWindow((x, _y, width) => {
+      if (x > 0) {
+        const screenWidth = Dimensions.get('window').width;
+        const buttonCenterFromRight = screenWidth - (x + width / 2);
+        const cardRightMargin = 12;
+        setArrowRightOffset(buttonCenterFromRight - cardRightMargin);
+      }
+    });
+  }, []);
 
   if (!currentSong || allSongs.length === 0) {
     return (
@@ -323,6 +346,8 @@ export default function SongScreen() {
             <IconSymbol name="square.and.arrow.up" size={22} color={colors.icon} />
           </TouchableOpacity>
           <TouchableOpacity
+            ref={favoriteButtonRef as React.RefObject<View>}
+            onLayout={measureFavoriteButton}
             onPress={handleToggleFavorite}
             style={styles.headerActionButton}
             accessibilityLabel={isFav ? "Remove from favorites" : "Add to favorites"}
@@ -419,13 +444,20 @@ export default function SongScreen() {
         onSectionPress={handleSectionPress}
       />
 
-      {showPrompt && prompt && (
+      {showPrompt && prompt ? (
         <EngagementPrompt
           type={prompt.type}
           songName={prompt.songName}
           bottomInset={insets.bottom}
           onAccept={handleAccept}
           onDismiss={handleDismiss}
+        />
+      ) : showSuggestion && arrowRightOffset > 0 && (
+        <FavoriteSuggestionTooltip
+          headerHeight={headerHeight}
+          arrowRightOffset={arrowRightOffset}
+          onDismiss={handleDismissSuggestion}
+          onAddToFavorites={handleToggleFavorite}
         />
       )}
 

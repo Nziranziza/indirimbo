@@ -8,6 +8,9 @@ const THEME_PREFERENCE_KEY = '@indirimbo:theme_preference';
 const TINT_COLOR_KEY = '@indirimbo:tint_color';
 const RECENT_SEARCHES_KEY = '@indirimbo:recent_searches';
 const ENGAGEMENT_KEY = '@indirimbo:engagement';
+const SONG_VIEW_COUNTS_KEY = '@indirimbo:song_view_counts';
+const FAVORITE_SUGGESTIONS_DISMISSED_KEY = '@indirimbo:favorite_suggestions_dismissed';
+const FAVORITE_SUGGESTION_STATE_KEY = '@indirimbo:favorite_suggestion_state';
 const MAX_RECENT_SONGS = 20;
 const MAX_RECENT_SEARCHES = 5;
 
@@ -317,5 +320,104 @@ export async function setOnboardingCompleted(): Promise<void> {
     await AsyncStorage.setItem(ONBOARDING_COMPLETED_KEY, 'true');
   } catch (error) {
     console.error('Error setting onboarding status:', error);
+  }
+}
+
+// Song View Counts (for favorite suggestions)
+function songKey(playlist: string, songNumber: number | string): string {
+  return `${playlist}:${songNumber}`;
+}
+
+export async function incrementSongViewCount(
+  playlist: string,
+  songNumber: number | string,
+): Promise<number> {
+  try {
+    const key = songKey(playlist, songNumber);
+    const data = await AsyncStorage.getItem(SONG_VIEW_COUNTS_KEY);
+    const counts: Record<string, number> = data ? JSON.parse(data) : {};
+    counts[key] = (counts[key] ?? 0) + 1;
+    await AsyncStorage.setItem(SONG_VIEW_COUNTS_KEY, JSON.stringify(counts));
+    return counts[key];
+  } catch (error) {
+    console.error('Error incrementing song view count:', error);
+    return 0;
+  }
+}
+
+export async function isFavoriteSuggestionDismissed(
+  playlist: string,
+  songNumber: number | string,
+): Promise<boolean> {
+  try {
+    const key = songKey(playlist, songNumber);
+    const data = await AsyncStorage.getItem(FAVORITE_SUGGESTIONS_DISMISSED_KEY);
+    const dismissed: readonly string[] = data ? JSON.parse(data) : [];
+    return dismissed.includes(key);
+  } catch (error) {
+    console.error('Error checking favorite suggestion dismissal:', error);
+    return false;
+  }
+}
+
+export async function dismissFavoriteSuggestion(
+  playlist: string,
+  songNumber: number | string,
+): Promise<void> {
+  try {
+    const key = songKey(playlist, songNumber);
+    const data = await AsyncStorage.getItem(FAVORITE_SUGGESTIONS_DISMISSED_KEY);
+    const dismissed: string[] = data ? JSON.parse(data) : [];
+    if (!dismissed.includes(key)) {
+      dismissed.push(key);
+      await AsyncStorage.setItem(FAVORITE_SUGGESTIONS_DISMISSED_KEY, JSON.stringify(dismissed));
+    }
+  } catch (error) {
+    console.error('Error dismissing favorite suggestion:', error);
+  }
+}
+
+// Favorite Suggestion Global State (cooldown + max dismissals)
+interface FavoriteSuggestionState {
+  readonly globalDismissCount: number;
+  readonly lastShownAt: number | null;
+}
+
+const DEFAULT_FAVORITE_SUGGESTION_STATE: FavoriteSuggestionState = {
+  globalDismissCount: 0,
+  lastShownAt: null,
+};
+
+export async function getFavoriteSuggestionState(): Promise<FavoriteSuggestionState> {
+  try {
+    const data = await AsyncStorage.getItem(FAVORITE_SUGGESTION_STATE_KEY);
+    return data ? { ...DEFAULT_FAVORITE_SUGGESTION_STATE, ...JSON.parse(data) } : DEFAULT_FAVORITE_SUGGESTION_STATE;
+  } catch (error) {
+    console.error('Error getting favorite suggestion state:', error);
+    return DEFAULT_FAVORITE_SUGGESTION_STATE;
+  }
+}
+
+export async function recordFavoriteSuggestionShown(): Promise<void> {
+  try {
+    const state = await getFavoriteSuggestionState();
+    await AsyncStorage.setItem(
+      FAVORITE_SUGGESTION_STATE_KEY,
+      JSON.stringify({ ...state, lastShownAt: Date.now() }),
+    );
+  } catch (error) {
+    console.error('Error recording favorite suggestion shown:', error);
+  }
+}
+
+export async function recordFavoriteSuggestionDismissed(): Promise<void> {
+  try {
+    const state = await getFavoriteSuggestionState();
+    await AsyncStorage.setItem(
+      FAVORITE_SUGGESTION_STATE_KEY,
+      JSON.stringify({ ...state, globalDismissCount: state.globalDismissCount + 1 }),
+    );
+  } catch (error) {
+    console.error('Error recording favorite suggestion dismissed:', error);
   }
 }
