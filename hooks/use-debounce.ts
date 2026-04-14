@@ -1,8 +1,10 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
-export function useDebounce<T>(value: T, delay: number): T {
+export function useDebounce<T>(value: T, delay: number): [T, (nextValue?: T) => void] {
   const [debouncedValue, setDebouncedValue] = useState(value);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const latestValue = useRef(value);
+  latestValue.current = value;
 
   useEffect(() => {
     if (timerRef.current) {
@@ -20,5 +22,13 @@ export function useDebounce<T>(value: T, delay: number): T {
     };
   }, [value, delay]);
 
-  return debouncedValue;
+  const flush = useCallback((nextValue?: T) => {
+    if (timerRef.current) {
+      clearTimeout(timerRef.current);
+      timerRef.current = null;
+    }
+    setDebouncedValue(nextValue ?? latestValue.current);
+  }, []);
+
+  return [debouncedValue, flush];
 }
