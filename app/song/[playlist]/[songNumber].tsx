@@ -8,6 +8,7 @@ import { LyricsContent } from "@/components/ui/lyrics-content";
 import { SongHeatmap } from "@/components/ui/song-heatmap";
 import { SongNavigationBar } from "@/components/ui/song-navigation-bar";
 import { SongNumberBadge } from "@/components/ui/song-number-badge";
+import { BOOK_CODE_LOOKUP } from "@/constants/book-names";
 import { getPlaylistName } from "@/constants/playlists";
 import type { Song } from "@/constants/types";
 import { FONT_SIZES } from "@/constants/typography";
@@ -44,20 +45,6 @@ import Animated, {
 } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-const BOOK_NAMES: Record<string, string> = {
-  "S.Sgt.": "Segertoner",
-  "T.t. Sgt.": "Segertoner",
-  "Mel. Sgt.": "Segertoner",
-  "Sgt.": "Segertoner",
-  "Ny.": "Nyimbo za Wokovu",
-  "M.A.": "Maran Ata",
-  "R.S.": "Redemption Songs",
-  "R.H.": "Redemption Hymns",
-  "G.B.": "Golden Bells",
-  "T.H.": "Tabernacle Hymns",
-  "M.S.": "Manuscript",
-};
-
 function normalizeBookCodes(codes: string): string {
   return codes
     .replace(/([A-Z])\.\s+([A-Z])/g, "$1.$2")  // "G. B" → "G.B"
@@ -71,7 +58,7 @@ function expandBookCodes(codes: string): string {
     return `Cantiques Kinyarwanda ${crossRef[1]}`;
   }
   let result = normalizeBookCodes(codes);
-  for (const [abbr, full] of Object.entries(BOOK_NAMES)) {
+  for (const [abbr, full] of Object.entries(BOOK_CODE_LOOKUP)) {
     result = result.replaceAll(abbr, full);
   }
   return result;
@@ -422,9 +409,14 @@ export default function SongScreen() {
               </ThemedView>
             </View>
           )) || []}
-          {currentSong.references && currentSong.references.length > 0 && (
+          {(currentSong.key || (currentSong.references && currentSong.references.length > 0)) && (
             <View style={styles.referencesContainer}>
-              {currentSong.references.map((ref, i) => (
+              {currentSong.key && (
+                <ThemedText style={styles.referenceEntry}>
+                  Tonalité : {currentSong.key}
+                </ThemedText>
+              )}
+              {currentSong.references?.map((ref, i) => (
                 <ThemedText key={i} style={styles.referenceEntry}>
                   {ref.title ? `${ref.title} ` : ''}{ref.codes ? (ref.title ? ref.codes : expandBookCodes(ref.codes)) : ''}
                 </ThemedText>
@@ -468,6 +460,7 @@ export default function SongScreen() {
         onNext={handleNext}
         bottomInset={insets.bottom}
       />
+
     </ThemedView>
   );
 }

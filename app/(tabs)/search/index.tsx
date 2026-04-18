@@ -1,7 +1,6 @@
 import { PageHead } from '@/components/page-head';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
-import { IconSymbol } from '@/components/ui/icon-symbol';
 import { SearchResultItem } from '@/components/ui/search-result-item';
 import { SearchInput, type SearchInputRef } from '@/components/ui/search-input';
 import { RecentItemsList } from '@/components/search/recent-items-list';
@@ -228,7 +227,7 @@ const styles = StyleSheet.create({
   },
   header: {
     paddingHorizontal: 20,
-    paddingBottom: 12,
+    paddingBottom: 14,
   },
   searchInput: {
     marginHorizontal: 20,

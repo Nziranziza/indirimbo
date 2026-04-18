@@ -203,6 +203,12 @@ export default function SettingsScreen() {
               onPress={() => router.push('/about')}
             />
             <SettingsLinkRow
+              icon="book.fill"
+              label="Song Book References"
+              onPress={() => router.push('/book-references')}
+              badge="New"
+            />
+            <SettingsLinkRow
               icon="questionmark.circle.fill"
               label="Help & Support"
               onPress={() => router.push('/support')}

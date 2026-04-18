@@ -6,6 +6,7 @@ import { IconSymbol } from '@/components/ui/icon-symbol';
 import { SongNumberBadge } from '@/components/ui/song-number-badge';
 import { useBottomPadding } from '@/hooks/use-bottom-padding';
 import { useColors } from '@/hooks/use-colors';
+import { useColorScheme } from '@/contexts/theme-context';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useRouter } from 'expo-router';
 import React, { useCallback, useRef, useState } from 'react';
@@ -35,6 +36,9 @@ interface SongListScreenProps {
 export function SongListScreen({ title, iconName, songs, playlist }: SongListScreenProps) {
   const router = useRouter();
   const colors = useColors();
+  const colorScheme = useColorScheme();
+  const isDark = colorScheme === 'dark';
+  const gradientBase = isDark ? 'transparent' : colors.tint + '00';
   const insets = useSafeAreaInsets();
   const paddingBottom = useBottomPadding({ inTabs: true, hasFab: true });
 
@@ -150,7 +154,7 @@ export function SongListScreen({ title, iconName, songs, playlist }: SongListScr
       {/* Animated gradient background */}
       <Animated.View pointerEvents="none" style={[styles.gradientWrapper, headerAnimatedStyle]}>
         <LinearGradient
-          colors={['transparent', colors.tint]}
+          colors={[gradientBase, colors.tint]}
           start={{ x: 0, y: 1 }}
           end={{ x: 0, y: 0 }}
           style={StyleSheet.absoluteFill}
@@ -229,6 +233,7 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     zIndex: 1,
+    overflow: 'hidden',
   },
   navBar: {
     position: 'absolute',

@@ -7,6 +7,7 @@ export interface Song {
   readonly number: number | string;
   readonly name: string;
   readonly url: string;
+  readonly key?: string;
   readonly references?: readonly SongReference[];
   readonly body: readonly {
     readonly type: 'verse' | 'chorus';
