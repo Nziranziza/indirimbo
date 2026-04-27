@@ -55,7 +55,7 @@ export function SongListScreen({ title, iconName, songs, playlist }: SongListScr
 
   const handleSongPress = useCallback(
     (songNumber: number | string) => {
-      router.push(`/song/${playlist}/${songNumber}`);
+      router.navigate(`/song/${playlist}/${songNumber}`);
     },
     [router, playlist]
   );

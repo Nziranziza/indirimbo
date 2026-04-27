@@ -51,7 +51,7 @@ export default function HomeScreen() {
   );
 
   const handleSongPress = useCallback((playlist: string, songNumber: number | string) => {
-    router.push(`/song/${playlist}/${songNumber}`);
+    router.navigate(`/song/${playlist}/${songNumber}`);
   }, [router]);
 
   return (
@@ -92,7 +92,7 @@ export default function HomeScreen() {
                 playlistId={id as PlaylistId}
                 iconName={PLAYLIST_ICONS[id] ?? 'music.note.list'}
                 onPress={() => {
-                  router.push({
+                  router.navigate({
                     pathname: '/(tabs)/(home)/playlist/[name]',
                     params: { name: id },
                   });

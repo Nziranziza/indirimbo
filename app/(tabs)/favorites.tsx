@@ -31,7 +31,7 @@ export default function FavoritesTabScreen() {
   };
 
   const handleSongPress = (favorite: FavoriteSong) => {
-    router.push(`/song/${favorite.playlist}/${favorite.songNumber}`);
+    router.navigate(`/song/${favorite.playlist}/${favorite.songNumber}`);
   };
 
   const handleRemoveFavorite = async (playlist: string, songNumber: number | string) => {
@@ -83,7 +83,7 @@ export default function FavoritesTabScreen() {
               Tap the heart icon on any song to add it to favorites
             </ThemedText>
             <TouchableOpacity
-              onPress={() => router.push('/(tabs)/(home)')}
+              onPress={() => router.navigate('/(tabs)/(home)')}
               accessibilityLabel="Start exploring songs"
               accessibilityRole="button"
               activeOpacity={0.8}

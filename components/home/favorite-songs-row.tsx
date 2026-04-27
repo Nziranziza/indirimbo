@@ -21,7 +21,7 @@ export function FavoriteSongsRow({ favoriteSongs, allSongs, onSongPress }: Favor
   const colors = useColors();
 
   const handleViewAll = useCallback(() => {
-    router.push('/(tabs)/favorites');
+    router.navigate('/(tabs)/favorites');
   }, [router]);
 
   return (

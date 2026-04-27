@@ -76,7 +76,7 @@ export default function SearchScreen() {
         getRecentSearches().then(setRecentSearches)
       );
     }
-    router.push(`/song/${playlist}/${songNumber}`);
+    router.navigate(`/song/${playlist}/${songNumber}`);
   }, [router, debouncedSearchQuery]);
 
   const handleRecentSearchTap = useCallback((query: string) => {

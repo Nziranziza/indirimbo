@@ -89,14 +89,14 @@ export default function SupportScreen() {
       {/* Links */}
       <InfoCard icon="link" title="Legal">
         <TouchableOpacity
-          onPress={() => router.push('/privacy-policy')}
+          onPress={() => router.navigate('/privacy-policy')}
           activeOpacity={0.7}
           style={styles.linkItem}>
           <ThemedText style={{ color: colors.tint }}>Privacy Policy</ThemedText>
           <IconSymbol name="arrow.right" size={16} color={colors.tint} />
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={() => router.push('/terms-of-service')}
+          onPress={() => router.navigate('/terms-of-service')}
           activeOpacity={0.7}
           style={[styles.linkItem, styles.linkItemLast]}>
           <ThemedText style={{ color: colors.tint }}>Terms of Service</ThemedText>

@@ -184,7 +184,7 @@ export default function SettingsScreen() {
               <SettingsLinkRow
                 icon="arrow.down.circle.fill"
                 label="Download the App"
-                onPress={() => router.push('/download')}
+                onPress={() => router.navigate('/download')}
                 isLast
               />
             )}
@@ -200,28 +200,28 @@ export default function SettingsScreen() {
             <SettingsLinkRow
               icon="music.note.list"
               label="About Indirimbo"
-              onPress={() => router.push('/about')}
+              onPress={() => router.navigate('/about')}
             />
             <SettingsLinkRow
               icon="book.fill"
               label="Song Book References"
-              onPress={() => router.push('/book-references')}
+              onPress={() => router.navigate('/book-references')}
               badge="New"
             />
             <SettingsLinkRow
               icon="questionmark.circle.fill"
               label="Help & Support"
-              onPress={() => router.push('/support')}
+              onPress={() => router.navigate('/support')}
             />
             <SettingsLinkRow
               icon="lock.shield.fill"
               label="Privacy Policy"
-              onPress={() => router.push('/privacy-policy')}
+              onPress={() => router.navigate('/privacy-policy')}
             />
             <SettingsLinkRow
               icon="doc.text.fill"
               label="Terms of Service"
-              onPress={() => router.push('/terms-of-service')}
+              onPress={() => router.navigate('/terms-of-service')}
               isLast
             />
           </ThemedView>
