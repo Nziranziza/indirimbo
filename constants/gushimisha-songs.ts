@@ -5,6 +5,9 @@ export interface NewSong {
   key?: string;
   references?: { codes: string }[];
   sharedMelody?: number[];
+  origin?: string;
+  subcategory?: string;
+  bibleRef?: string;
   body: { type: 'verse' | 'chorus'; number?: number; content: string }[];
 }
 
@@ -2589,7 +2592,7 @@ export const songs: NewSong[] = [
       {
         "type": "verse",
         "number": 3,
-        "content": "Kwiza hos’ ubutumwa bwe\nBg’ aya magambo meza\nMuz’ arabababarira,\nMwumv’ amagambo ye\nYesu ni We Mukiza,\nUtubeshahw iteka."
+        "content": "Kwiza hos’ ubutumwa bwe\nBw’ aya magambo meza\nMuz’ arabababarira,\nMwumv’ amagambo ye\nYesu ni We Mukiza,\nUtubeshahw iteka."
       }
     ]
   },
@@ -2656,36 +2659,36 @@ export const songs: NewSong[] = [
       {
         "type": "verse",
         "number": 1,
-        "content": "Teg’ amatwi, wumve—Ijwi rya Yesu\nArakongorera, —-Akwinginga."
+        "content": "Teg’ amatwi, wumve—Ijwi rya Yesu\nArakongorera, —Akwinginga."
       },
       {
         "type": "chorus",
-        "content": "Ati: Wemere—-Ko nkurokora:\nNi . . . jye. . . Mucunguzi—-Ntiwaza se?"
+        "content": "Ati: Wemere—Ko nkurokora:\nNi . . . jye. . . Mucunguzi—Ntiwaza se?"
       },
       {
         "type": "verse",
         "number": 2,
-        "content": "Umvir’ ijwi ryiza—-Rigusaba ngo,\nNganyir’ amaganya, —-Nyikorere."
+        "content": "Umvir’ ijwi ryiza—Rigusaba ngo,\nNganyir’ amaganya, —Nyikorere."
       },
       {
         "type": "verse",
         "number": 3,
-        "content": "Umuhungireho, —-Umwihishemo\nArakuruhura—-Unaniwe."
+        "content": "Umuhungireho, —Umwihishemo\nArakuruhura—Unaniwe."
       },
       {
         "type": "verse",
         "number": 4,
-        "content": "Ni wowe yazize—-Ku Musaraba\nEmer’ aguture—Ibyo byaha!"
+        "content": "Ni wowe yazize—Ku Musaraba\nEmer’ aguture—Ibyo byaha!"
       },
       {
         "type": "verse",
         "number": 5,
-        "content": "Ur’ uw’ intege nke: —-W’ arakomeye!\nUmwiyegurire, —-Usugire."
+        "content": "Ur’ uw’ intege nke: —W’ arakomeye!\nUmwiyegurire, —Usugire."
       },
       {
         "type": "verse",
         "number": 6,
-        "content": "Ubwo yakuguze, —-Non’ umwinjize\nMu mutima wawe, —-Akwimemo."
+        "content": "Ubwo yakuguze, —Non’ umwinjize\nMu mutima wawe, —Akwimemo."
       }
     ]
   },
@@ -7251,7 +7254,7 @@ export const songs: NewSong[] = [
   },
   {
     "number": 217,
-    "name": "Mw’ isi nd’ umushyitsi; —-Si ho nzab’ iteka",
+    "name": "Mw’ isi nd’ umushyitsi; —Si ho nzab’ iteka",
     "url": "https://indirimbo.rw/song/gushimisha/217",
     "key": "la bémol",
     "references": [{"codes":"U.258"}, {"codes":"G.6"}],
@@ -7260,27 +7263,27 @@ export const songs: NewSong[] = [
       {
         "type": "verse",
         "number": 1,
-        "content": "Mw’ isi nd’ umushyitsi; —-Si ho nzab’ iteka;\nNzayivamo, ntahe—-Mw ijuru kwa Data."
+        "content": "Mw’ isi nd’ umushyitsi; —Si ho nzab’ iteka;\nNzayivamo, ntahe—Mw ijuru kwa Data."
       },
       {
         "type": "verse",
         "number": 2,
-        "content": "Kandi nzamusanga—-Kuntebe y’ ubwiza\nNa W azanyakira. Amp’ u buntu bwinshi."
+        "content": "Kandi nzamusanga—Kuntebe y’ ubwiza\nNa W azanyakira. Amp’ u buntu bwinshi."
       },
       {
         "type": "verse",
         "number": 3,
-        "content": "Maze, mban’ iteka—-Na We, nta gahinda\nSinzaruh’ ukundi:—Hariy’ amahoro."
+        "content": "Maze, mban’ iteka—Na We, nta gahinda\nSinzaruh’ ukundi:—Hariy’ amahoro."
       },
       {
         "type": "verse",
         "number": 4,
-        "content": "Mpore muhimbaza, —-Nikubit’ imbere\nY’ uwo Mutabazi—-Wankuye mu rupfu."
+        "content": "Mpore muhimbaza, —Nikubit’ imbere\nY’ uwo Mutabazi—Wankuye mu rupfu."
       },
       {
         "type": "verse",
         "number": 5,
-        "content": "None, mfit’ ubwuzu—-Bwo kuzahagera,\nNgo mve mur’iyi si—Njye mu mucyo wawe."
+        "content": "None, mfit’ ubwuzu—Bwo kuzahagera,\nNgo mve mur’iyi si—Njye mu mucyo wawe."
       }
     ]
   },
@@ -8651,7 +8654,7 @@ export const songs: NewSong[] = [
   },
   {
     "number": 257,
-    "name": "Shimwa, Mukiza—-Utuzukiye",
+    "name": "Shimwa, Mukiza—Utuzukiye",
     "url": "https://indirimbo.rw/song/gushimisha/257",
     "key": "si",
     "references": [{"codes":"V.44"}],
@@ -8659,21 +8662,21 @@ export const songs: NewSong[] = [
       {
         "type": "verse",
         "number": 1,
-        "content": "ShImwa, Mukiza—-UtuzukIye!\nTuguhimbarize—-Ko wanesheje!\nImana yashatse, —-Mu gihe cyayo,\nGutsindish’ urupfu—-Umucunguzi."
+        "content": "ShImwa, Mukiza—UtuzukIye!\nTuguhimbarize—Ko wanesheje!\nImana yashatse, —Mu gihe cyayo,\nGutsindish’ urupfu—Umucunguzi."
       },
       {
         "type": "chorus",
-        "content": "Shimwa, Mukiza—-Utuzukiye!\nTuguhimbarize—-Ko wanesheje!"
+        "content": "Shimwa, Mukiza—Utuzukiye!\nTuguhimbarize—Ko wanesheje!"
       },
       {
         "type": "verse",
         "number": 2,
-        "content": "Nimumurebe: —-Ni We, ni Yesu\nMwe gushidikanya: —-Ni We Shobuja!\nMunezerwe mwese, —-Bantu b’ Umwami,\nNimuvuge, muti: —-Yatuzukiye!"
+        "content": "Nimumurebe: —Ni We, ni Yesu\nMwe gushidikanya: —Ni We Shobuja!\nMunezerwe mwese, —Bantu b’ Umwami,\nNimuvuge, muti: —Yatuzukiye!"
       },
       {
         "type": "verse",
         "number": 3,
-        "content": "Nta cyo ngitinya: —Yesu ntagipfa\nNi We mpora nshima: -—N’ uw’ amahoro\nAramfash’ iteka; —-Arankomeza\nMu kubaho kwanjye, -—Nta cyo ngitinya."
+        "content": "Nta cyo ngitinya: —Yesu ntagipfa\nNi We mpora nshima: —N’ uw’ amahoro\nAramfash’ iteka; —Arankomeza\nMu kubaho kwanjye, —Nta cyo ngitinya."
       }
     ]
   },
@@ -9133,7 +9136,7 @@ export const songs: NewSong[] = [
       {
         "type": "verse",
         "number": 2,
-        "content": "Uwo munsi, hazazurw’ abapfiriye muri We,\nBave mu bituro nk’ Umucunguzi\nBazahurira mw ijuru n’ abazaba bariho\nNzaba mpari nanjye—-sinzaburayo!"
+        "content": "Uwo munsi, hazazurw’ abapfiriye muri We,\nBave mu bituro nk’ Umucunguzi\nBazahurira mw ijuru n’ abazaba bariho\nNzaba mpari nanjye—sinzaburayo!"
       },
       {
         "type": "verse",
@@ -9370,6 +9373,8 @@ export const songs: NewSong[] = [
     "number": 278,
     "name": "Mukiza, ni Wowe zuba ryanjye",
     "url": "https://indirimbo.rw/song/gushimisha/278",
+    "key": "fa",
+    "references": [{"codes":"U.42"}, {"codes":"A.31"}, {"codes":"G.599(2)"}, {"codes":"T.309"}, {"codes":"V.1"}],
     "body": [
       {
         "type": "verse",
@@ -9379,27 +9384,27 @@ export const songs: NewSong[] = [
       {
         "type": "verse",
         "number": 2,
-        "content": "Kand’ iyo mbony’ ibitotsi byiza,\nBikanduhur’ umubir’ urushye,\nNibuke yuko mw ijuru,\nNzahora nkwiseguye, Yesu"
+        "content": "Kand’ iyo mbony’ ibitotsi byiza,\nBikanduhur’ umubir’ urushye,\nNibuke yuko mw ijuru,\nNzahora nkwiseguye, Yesu."
       },
       {
         "type": "verse",
         "number": 3,
-        "content": "Tujye tuguman’ umunsi wire,\nKuko ntabaho tutari kumwe;\nTugumane na n’ ijoro;\nTutabanye, natinya gupfa"
+        "content": "Tujye tuguman’ umunsi wire,\nKuko ntabaho tutari kumwe;\nTugumane na n’ ijoro;\nTutabanye, natinya gupfa."
       },
       {
         "type": "verse",
         "number": 4,
-        "content": "Niba hagiz’ uwasuzuguye\nIjwi ry’ Imana kur’ uyu munsi,\nTangira none, Mukiza,\nKumuyobor’ inzira nziza"
+        "content": "Niba hagiz’ uwasuzuguye\nIjwi ry’ Imana kur’ uyu munsi,\nTangira none, Mukiza,\nKumuyobor’ inzira nziza."
       },
       {
         "type": "verse",
         "number": 5,
-        "content": "Mwam’ abarwayi, mubane maso,\nUh’ abaken’ imigisha myinshi,\nKand’ abapfushije na bo,\nMwam’ ubasinzirize neza"
+        "content": "Mwam’ abarwayi, mubane maso,\nUh’ abaken’ imigisha myinshi,\nKand’ abapfushije na bo,\nMwam’ ubasinzirize neza."
       },
       {
         "type": "verse",
         "number": 6,
-        "content": "Kandi, Yesu, tuzakangukane,\nDukor’ imirimo, turi kumwe,\nNyuma tuzajye mw ijuru\nTugoswe n’ urukundo rwawe"
+        "content": "Kandi, Yesu, tuzakangukane,\nDukor’ imirimo, turi kumwe,\nNyuma tuzajye mw ijuru\nTugoswe n’ urukundo rwawe."
       }
     ]
   },
@@ -9407,11 +9412,13 @@ export const songs: NewSong[] = [
     "number": 279,
     "name": "Dor’ umuns’ urakuze",
     "url": "https://indirimbo.rw/song/gushimisha/279",
+    "key": "la bémol",
+    "references": [{"codes":"A.30"}, {"codes":"G.609"}, {"codes":"C.26"}],
     "body": [
       {
         "type": "verse",
         "number": 1,
-        "content": "Dor’ umuns’ urakuze:\nReb’ aho rirengeye!\nReb’ ukwezi n’ inyenyeri:\nDore, biragaragaye,\nBitwakira"
+        "content": "Dor’ umuns’ urakuze:\nReb’ aho rirengeye!\nReb’ ukwezi n’ inyenyeri:\nDore, biragaragaye,\nBitwakira."
       },
       {
         "type": "chorus",
@@ -9420,12 +9427,12 @@ export const songs: NewSong[] = [
       {
         "type": "verse",
         "number": 2,
-        "content": "Rurema, Nyirigira,\nNgwino, turakwifuza\nTwes’ utwuzuz’ urukundo,\nUtugir’ ubwoko bwawe,\nTukuramye"
+        "content": "Rurema, Nyirigira,\nNgwino, turakwifuza\nTwes’ utwuzuz’ urukundo,\nUtugir’ ubwoko bwawe,\nTukuramye."
       },
       {
         "type": "verse",
         "number": 3,
-        "content": "Ni hacur’ umwijima\nUtugotesh’ umucyo!\nWeyur’ ibikingiriza\nImitima yacu twese,\nTukubone"
+        "content": "Ni hacur’ umwijima\nUtugotesh’ umucyo!\nWeyur’ ibikingiriza\nImitima yacu twese,\nTukubone."
       },
       {
         "type": "verse",
@@ -9438,11 +9445,13 @@ export const songs: NewSong[] = [
     "number": 280,
     "name": "Imins’ irahita vuba",
     "url": "https://indirimbo.rw/song/gushimisha/280",
+    "key": "do dièse",
+    "references": [{"codes":"S.802"}],
     "body": [
       {
         "type": "verse",
         "number": 1,
-        "content": "Imins’ irahita vuba,\nIrahita yihuta\nUkw ihita, benshi bapfa\nBatameny’ Umukiza\nHari twakora:\nTugikoran’ umwete:\nDutabar’ ubu vuba,\nImins’ itarashira"
+        "content": "Imins’ irahita vuba,\nIrahita yihuta\nUkw ihita, benshi bapfa\nBatameny’ Umukiza\nHari twakora:\nTugikoran’ umwete:\nDutabar’ ubu vuba,\nImins’ itarashira."
       },
       {
         "type": "chorus",
@@ -9451,32 +9460,32 @@ export const songs: NewSong[] = [
       {
         "type": "verse",
         "number": 2,
-        "content": "None, bib’ imbuto nziza\nMu mitima y’ abantu;\nHanagura n’ amarira\nY ’ abanyamibabaro\nRenger’ abapfakazi,\nKand’ ubyuts’ abaguye,\nUhumure n’ impumyi,\nIbiseb’ ubivure"
+        "content": "None, bib’ imbuto nziza\nMu mitima y’ abantu;\nHanagura n’ amarira\nY’ abanyamibabaro\nRenger’ abapfakazi,\nKand’ ubyuts’ abaguye,\nUhumure n’ impumyi,\nIbiseb’ ubivure."
       },
       {
         "type": "verse",
         "number": 3,
-        "content": "Iby’ uzabishobor’ ute?\nNtibizakunanira,\nNib’ ufit’ Umwuka Wera\nN’ urukundo rw’ Imana:\nIbiduh’ itimanye,\nTubishatse byukuri\nTuyisengan’ umwete,\nDukor’ iby’ imbabazi"
+        "content": "Iby’ uzabishobor’ ute?\nNtibizakunanira,\nNib’ ufit’ Umwuka Wera\nN’ urukundo rw’ Imana:\nIbiduh’ itimanye,\nTubishatse byukuri\nTuyisengan’ umwete,\nDukor’ iby’ imbabazi."
       },
       {
         "type": "verse",
         "number": 4,
-        "content": "Icy’ Umwami Yes’ ashaka\nN’ ukugendana natwe,\nNgo yikiriz’ abarushye\nBamutey’ umugongo\nKandi yaravuz’ ati:\nUzanyizera wese\nAzabwir’ irimisozi\nNgo nitabwe mu nyanja"
+        "content": "Icy’ Umwami Yes’ ashaka\nN’ ukugendana natwe,\nNgo yikiriz’ abarushye\nBamutey’ umugongo\nKandi yaravuz’ ati:\nUzanyizera wese\nAzabwir’ imisozi\nNgo nitabwe mu nyanja."
       },
       {
         "type": "verse",
         "number": 5,
-        "content": "We gutiny’ ibir’ imbere:\nYes’ azagushoboza\nUmuh’ umutima wawe,\nAwutegeke rwose!\nIsi yubahe Yesu!\nYadutsindiy’ urupfu\nN’ abadayimoni bose\nUbu ni We dufite"
+        "content": "We gutiny’ ibir’ imbere:\nYes’ azagushoboza\nUmuh’ umutima wawe,\nAwutegeke rwose!\nIsi yubahe Yesu!\nYadutsindiy’ urupfu\nN’ abadayimoni bose\nUbu ni We dufite."
       },
       {
         "type": "verse",
         "number": 6,
-        "content": "Sigaho kwizera guke:\nNa wa wundi yakizwa!\nWibuke ko Paulo na we\nYar’ umwanzi w’ ibyiza;\nYamufash’ atunguwe,\nYemera gukizw’ ubwo,\nAb’ intumwa ya Yesu,\nYamamaz’ ubuntu bwe"
+        "content": "Sigaho kwizera guke:\nNa wa wundi yakizwa!\nWibuke ko Paulo na we\nYar’ umwanzi w’ ibyiza;\nYamufash’ atunguwe,\nYemera gukizw’ ubwo,\nAb’ intumwa ya Yesu,\nYamamaz’ ubuntu bwe."
       },
       {
         "type": "verse",
         "number": 7,
-        "content": "Tyo n’ ubu, mugende mwese,\nMuri kumwe na Yesu;\nMubamwerek; abakize,\nBos’ abazabyemera\nKandi mwe gucogora\nCyangwa se kunanirwa,\nMutarabasohoza\nKu Mukiz’ ubifuza"
+        "content": "Cyo n’ ubu, mugende mwese,\nMuri kumwe na Yesu;\nMubamwerek’ abakize,\nBos’ abazabyemera\nKandi mwe gucogora\nCyangwa se kunanirwa,\nMutarabasohoza\nKu Mukiz’ ubifuza."
       }
     ]
   },
@@ -9484,6 +9493,8 @@ export const songs: NewSong[] = [
     "number": 281,
     "name": "Ngiy’ inkuru twumvise",
     "url": "https://indirimbo.rw/song/gushimisha/281",
+    "key": "ré",
+    "references": [{"codes":"A.97"}, {"codes":"G.620"}, {"codes":"T.123"}],
     "body": [
       {
         "type": "verse",
@@ -9503,7 +9514,7 @@ export const songs: NewSong[] = [
       {
         "type": "verse",
         "number": 4,
-        "content": "Banyarwanda, mumenye\nYuko Yes’ akiza!\nNimwihane, mwemere\nYuko Yes’ akiza!\nUmvish’ abacuruzi,\nNo mu nkik’ ubivuge,\nN’ i bUzungu n’ i bwami,\nYuko Yes’ akiza!"
+        "content": "Banyarwanda, mumenye\nYuko Yes’ akiza!\nNimwihane, mwemere\nYuko Yes’ akiza!\nUmvish’ abacuruzi,\nNo mu nkik’ ubivuge,\nN’ i b’uzungu n’ i bwami,\nYuko Yes’ akiza!"
       }
     ]
   },
@@ -9511,6 +9522,8 @@ export const songs: NewSong[] = [
     "number": 282,
     "name": "Abantu benshi cyane",
     "url": "https://indirimbo.rw/song/gushimisha/282",
+    "key": "si bémol",
+    "references": [{"codes":"G.422"}, {"codes":"G.627"}],
     "body": [
       {
         "type": "verse",
@@ -9519,22 +9532,22 @@ export const songs: NewSong[] = [
       },
       {
         "type": "chorus",
-        "content": "Nimuze, tubashake\nTwe tubatarure!\nBizatunezeza cyane,\nTuzany’ intam’ imwe"
+        "content": "Nimuze, tubashake\nTwe tubatarure!\nBizatunezeza cyane,\nTuzany’ intam’ imwe."
       },
       {
         "type": "verse",
         "number": 2,
-        "content": "Hemeye nde kugenda\nGushak’ inzimizi,\nNtiyite ku makuba\nNo kubiruhanya,\nNgw agir’ umwete mwinshi\nNk’ ushak’ itungo rye,\nAgend’ ashak’ intama\nYesu yapfiriye"
+        "content": "Hemeye nde kugenda\nGushak’ inzimizi,\nNtiyite ku makuba\nNo kubiruhanya,\nNgw agir’ umwete mwinshi\nNk’ ushak’ itungo rye,\nAgend’ ashak’ intama\nYesu yapfiriye."
       },
       {
         "type": "verse",
         "number": 3,
-        "content": "Nubw’ uri mu mahoro,\nMbese, wumv’ ufite\nIshyaka rikujyana\nGushak’ iza Yesu?\nNahw ar’ aboroheje\nCyangw’ abagayitse\nN’ abantu b’ igiciro\nMu maso ya Yesu"
+        "content": "Nubw’ uri mu mahoro,\nMbese, wumv’ ufite\nIshyaka rikujyana\nGushak’ iza Yesu?\nNahw ar’ aboroheje\nCyangw’ abagayitse\nN’ abantu b’ igiciro\nMu maso ya Yesu."
       },
       {
         "type": "verse",
         "number": 4,
-        "content": "No kw irembo ry’ urugo\nYes’ arahagaze,\nAhamagar’ intama,\nAzugururiye. Abuz’ abazicyura:\nNi wow’ abwir’ ati:\nUshak’ intama zanjye,\nIzo napfiriye!"
+        "content": "No kw irembo ry’ urugo\nYes’ arahagaze,\nAhamagar’ intama,\nAzugururiye.\nAbuz’ abazicyura:\nNi wow’ abwir’ ati:\nUshak’ intama zanjye,\nIzo napfiriye!"
       },
       {
         "type": "verse",
@@ -9547,15 +9560,17 @@ export const songs: NewSong[] = [
     "number": 283,
     "name": "N’ ijwi ry’ umwungeri twumva",
     "url": "https://indirimbo.rw/song/gushimisha/283",
+    "key": "mi bémol",
+    "references": [{"codes":"A.75"}, {"codes":"V.161"}, {"codes":"S.752"}],
     "body": [
       {
         "type": "verse",
         "number": 1,
-        "content": "N’ ijwi ry’ umwungeri twumva;\nAri mw ishyamb’ ashak’ ize,\nZose zagiye intatane,\nZavuye mu ruhongore"
+        "content": "N’ ijwi ry’ umwungeri twumva;\nAri mw ishyamb’ ashak’ ize,\nZose zagiye intatane,\nZavuye mu ruhongore."
       },
       {
         "type": "chorus",
-        "content": "Tarura, tarura\nIzo ntama ze zazimiye;\nTarura, tarura\nIzo ntama uzimushyire"
+        "content": "Tarura, tarura\nIzo ntama ze zazimiye;\nTarura, tarura\nIzo ntam’ uzimushyire."
       },
       {
         "type": "verse",
@@ -9565,24 +9580,26 @@ export const songs: NewSong[] = [
       {
         "type": "verse",
         "number": 3,
-        "content": "Abantu bazimiye\nBageze kure mu byaha\nYesu ngo, Gend’ ubazane,\nBaz’ ababere umwungeri"
+        "content": "Abantu bazimiye\nBageze kure mu byaha\nYesu ngo, Gend’ ubazane,\nBaz’ ababere umwungeri."
       }
     ]
   },
   {
     "number": 284,
-    "name": "Har ’ intama urwenda n’ icyenda",
+    "name": "Har’ intam’ urwenda n’ icyenda",
     "url": "https://indirimbo.rw/song/gushimisha/284",
+    "key": "mi bémol",
+    "references": [{"codes":"G.222"}, {"codes":"T.231"}, {"codes":"P.498"}],
     "body": [
       {
         "type": "verse",
         "number": 1,
-        "content": "Har ’ intama urwenda n’ icyenda\nZari hamwe mu rwuri;\nArikw imwe yar’ izimiye,\nIvuye ku Mwungeri,\nMu bihanamang’ izerera,\n|:Itaye umwungeri wayo mwiza.:|x2"
+        "content": "Har’ intam’ urwenda n’ icyenda\nZari hamwe mu rwuri;\nArikw imwe yar’ izimiye,\nIvuye ku Mwungeri,\nMu bihanamang’ izerera,\n|:Itaye umwungeri wayo mwiza.:|x2"
       },
       {
         "type": "verse",
         "number": 2,
-        "content": "Iz’ ufit’ urwenda n’ icyenda,\nMbese, ntizihagije?\nUwo Mwunger’ ati:\nSigaho! na yo n’ iyanjye!\nNaho\nYab’ igeze kure he,\n|:Ngiye gushak’ iyo ntama yanjye.:|x2"
+        "content": "Iz’ ufit’ urwenda n’ icyenda,\nMbese, ntizihagije?\nUwo Mwunger’ ati: Sigaho!\nIyo na yo n’ iyanjye!\nNaho yab’ igeze kure he,\n|:Ngiye gushak’ iyo ntama yanjye.:|x2"
       },
       {
         "type": "verse",
@@ -9605,11 +9622,13 @@ export const songs: NewSong[] = [
     "number": 285,
     "name": "Kiz’ abarimbuka; renger’ abapfa",
     "url": "https://indirimbo.rw/song/gushimisha/285",
+    "key": "fa",
+    "references": [{"codes":"A.76"}, {"codes":"G.433"}, {"codes":"T.166"}, {"codes":"R.253"}],
     "body": [
       {
         "type": "verse",
         "number": 1,
-        "content": "Kiz’ abarimbuka; renger’ abapfa;\nBakiz’ ibyaha n’ urupfu rubi!\nShak’ abazimiye; byuts’ abaguye;\nMenyesha bose ko Yes’ akiza"
+        "content": "Kiz’ abarimbuka; renger’ abapfa;\nBakiz’ ibyaha n’ urupfu rubi!\nShak’ abazimiye; byuts’ abaguye;\nMenyesha bose ko Yes’ akiza."
       },
       {
         "type": "chorus",
@@ -9618,12 +9637,12 @@ export const songs: NewSong[] = [
       {
         "type": "verse",
         "number": 2,
-        "content": "Abamushungera, na bo ntabanga;\nAtegerej’ abihana neza\nBahate bihane, bizere Yesu\nUjy’ ubasabira ngo bakizwe"
+        "content": "Abamushungera, na bo ntabanga;\nAtegerej’ abihana neza\nBahate bihane, bizere Yesu\nUjy’ ubasabira ngo bakizwe."
       },
       {
         "type": "verse",
         "number": 3,
-        "content": "Toz’ abazimiye, be kuzuyaza,\nBarek’ irari ridakwiriye:\nNon’ ubakangure, bisubiremo,\nBagarukir’ Uwabacunguye"
+        "content": "Toz’ abazimiye, be kuzuyaza,\nBarek’ irari ridakwiriye:\nNon’ ubakangure, bisubiremo,\nBagarukir’ Uwabacunguye."
       },
       {
         "type": "verse",
@@ -9636,11 +9655,13 @@ export const songs: NewSong[] = [
     "number": 286,
     "name": "Biba mu gitondo imbuto z’ ineza",
     "url": "https://indirimbo.rw/song/gushimisha/286",
+    "key": "sol",
+    "references": [{"codes":"A.74"}, {"codes":"G.438"}, {"codes":"F.61"}],
     "body": [
       {
         "type": "verse",
         "number": 1,
-        "content": "Biba mu gitondo imbuto z’ ineza;\nJy’ ubiba ku manywa n’ ikigoroba\nRindira ko zera, baze basarure,\nTuzatund’ imiba, tunezerewe"
+        "content": "Biba mu gitondo imbuto z’ ineza;\nJy’ ubiba ku manywa n’ ikigoroba\nRindira ko zera, baze basarure,\nTuzatund’ imiba, tunezerewe."
       },
       {
         "type": "chorus",
@@ -9649,7 +9670,7 @@ export const songs: NewSong[] = [
       {
         "type": "verse",
         "number": 2,
-        "content": "Bib’ izuba riva; biba mu kibunda:\nNtugatiny’ ibihu n’ imbeho nyinshi\nAmasarura n’ imirimo bishize,\nTuzatund’ imiba, tunezerewe"
+        "content": "Bib’ izuba riva; biba mu kibunda:\nNtugatiny’ ibihu n’ imbeho nyinshi\nAmasarura n’ imirimo bishize,\nTuzatund’ imiba, tunezerewe."
       },
       {
         "type": "verse",
@@ -9662,47 +9683,51 @@ export const songs: NewSong[] = [
     "number": 287,
     "name": "Yes’ azaganz’ ibihugu byose",
     "url": "https://indirimbo.rw/song/gushimisha/287",
+    "key": "do",
+    "references": [{"codes":"T.282"}, {"codes":"K.341"}, {"codes":"P.627"}],
     "body": [
       {
         "type": "verse",
         "number": 1,
-        "content": "Yes’ azaganz’ ibihugu byose,\nIyo biva bikagera\nNdetse n’ iyi si yos’ izab’ ubwami bwe,\nAri we Mwami w’ abami"
+        "content": "Yes’ azaganz’ ibihugu byose,\nIyo biva bikagera\nNdetse n’ iyi si yos’ izab’ ubwami bwe,\nAri we Mwami w’ abami."
       },
       {
         "type": "verse",
         "number": 2,
-        "content": "Bazamusenga badacogora;\nBazamusingiz’ iteka\nIzina rye rizababer’ impumuro,\nIkwire mw is’ isandare"
+        "content": "Bazamusenga badacogora;\nBazamusingiz’ iteka\nIzina rye rizababer’ impumuro,\nIkwire mw is’ isandare."
       },
       {
         "type": "verse",
         "number": 3,
-        "content": "Twihute, twamamaz’ ibye hose,\nMu moko yose yo mw isi,\nNgw indimi zose zizavug’ ishimwe rye,\nZemere yukw ar’ Umwami"
+        "content": "Twihute, twamamaz’ ibye hose,\nMu moko yose yo mw isi,\nNgw indimi zose zizavug’ ishimwe rye,\nZemere yukw ar’ Umwami."
       },
       {
         "type": "verse",
         "number": 4,
-        "content": "Ku ngoma ye, n’ amahirwe masa:\nImboh’ arazibobora,\nKand’ abakene na b’ akabakenura,\nIndushy’ akaziruhumu"
+        "content": "Ku ngoma ye, n’ amahirwe masa:\nImboh’ arazibobora,\nKand’ abakene na b’ akabakenura,\nIndushy’ akaziruhumu."
       },
       {
         "type": "verse",
         "number": 5,
-        "content": "Nimuze mwese, mwa byaremwe mwe\nMwubah’ Umwami w’ abami;\nNam we bamarayika, turirimbane,\nTut’ Urakaz’ uhimbazwe"
+        "content": "Nimuze mwese, mwa byaremwe mwe\nMwubah’ Umwami w’ abami;\nNam we bamarayika, turirimbane,\nTut’ Urakaz’ uhimbazwe."
       }
     ]
   },
   {
     "number": 288,
-    "name": "Urukundo rwa Yesu",
+    "name": "Urukundo rwa Yesu.",
     "url": "https://indirimbo.rw/song/gushimisha/288",
+    "key": "si bémol",
+    "references": [{"codes":"U.253(2)"}, {"codes":"A.15"}, {"codes":"G.661"}],
     "body": [
       {
         "type": "verse",
         "number": 1,
-        "content": "Urukundo rwa Yesu\nNzi ko rwatugezeho\nRudukuraho rwose\nUrubanza rwo gupfa"
+        "content": "Urukundo rwa Yesu\nNzi ko rwatugezeho\nRudukuraho rwose\nUrubanza rwo gupfa."
       },
       {
         "type": "chorus",
-        "content": "|:Yes’ arankunda,:|x3\nKuko yamfiriye"
+        "content": "|:Yes’ arankunda,:|x3\nKuko yamfiriye."
       },
       {
         "type": "verse",
@@ -9712,12 +9737,12 @@ export const songs: NewSong[] = [
       {
         "type": "verse",
         "number": 3,
-        "content": "Nkuko yadukunz’ atyo,\nAkadupfira twese,\nNatwe dukunde dutyo\nAbakiri mu byaha"
+        "content": "Nkuko yadukunz’ atyo,\nAkadupfira twese,\nNatwe dukunde dutyo\nAbakiri mu byaha."
       },
       {
         "type": "verse",
         "number": 4,
-        "content": "Nuk’ ubw’ azagaruka,\nAje kwim’ ingoma ye,\nTuzumv’ ijwi ry’ Umwami,\nAti: Mwakoze neza"
+        "content": "Nuk’ ubw’ azagaruka,\nAje kwim’ ingoma ye,\nTuzumv’ ijwi ry’ Umwami,\nAti: Mwakoze neza."
       }
     ]
   },
@@ -9725,41 +9750,43 @@ export const songs: NewSong[] = [
     "number": 289,
     "name": "Igitabo cy’ Imana",
     "url": "https://indirimbo.rw/song/gushimisha/289",
+    "key": "sol dièse",
+    "references": [{"codes":"U.96"}, {"codes":"G.349"}, {"codes":"G.580"}],
     "body": [
       {
         "type": "verse",
         "number": 1,
-        "content": "Igitabo cy’ Imana,\nNdagikunda, n’ icyanjye:\nNi cyo kimbwir’ ukuri,\nYuko nd’ umunyabyaha"
+        "content": "Igitabo cy’ Imana,\nNdagikunda, n’ icyanjye:\nNi cyo kimbwir’ ukuri,\nYuko nd’ umunyabyaha."
       },
       {
         "type": "verse",
         "number": 2,
-        "content": "Kinyigish’ urukundo\nRw’ Umucunguzi wanjye:\nIyo nyoby’ inzira ye,\nVuba kirantarura"
+        "content": "Kinyigish’ urukundo\nRw’ Umucunguzi wanjye:\nIyo nyoby’ inzira ye,\nVuba kirantarura."
       },
       {
         "type": "verse",
         "number": 3,
-        "content": "Iyo ntewe n’ ibyago,\nKimar’ umubabaro;\nNigishwa na cyo yuko\nNd’ umusuhuke mw isi"
+        "content": "Iyo ntewe n’ ibyago,\nKimar’ umubabaro;\nNigishwa na cyo yuko\nNd’ umusuhuke mw isi."
       },
       {
         "type": "verse",
         "number": 4,
-        "content": "Igitabo cy’ Imana\nKimbwira yuk’ umuntu\nAzanesha n’ urupfu,\nYizey’ Umucunguzi"
+        "content": "Igitabo cy’ Imana\nKimbwira yuk’ umuntu\nAzanesha n’ urupfu,\nYizey’ Umucunguzi."
       },
       {
         "type": "verse",
         "number": 5,
-        "content": "Kimbwira k’ utihana,\nAgapfan’ ibyaha bye,\nAzarimbuka koko,\nNtabane n’ Uwiteka"
+        "content": "Kimbwira k’ utihana,\nAgapfan’ ibyaha bye,\nAzarimbuka koko,\nNtabane n’ Uwiteka."
       },
       {
         "type": "verse",
         "number": 6,
-        "content": "Kandi nigishwa na cyo\nKw’ abakunzi ba Yesu\nBazahabw’ ibyishimo\nBitazashir’ iteka"
+        "content": "Kandi nigishwa na cyo\nKw’ abakunzi ba Yesu\nBazahabw’ ibyishimo\nBitazashir’ iteka."
       },
       {
         "type": "verse",
         "number": 7,
-        "content": "Igitabo cy’ Imana\nGihora kinyigisha\nAmagamb’ ahebuje:\nNdagikundir’ ukuri"
+        "content": "Igitabo cy’ Imana\nGihora kinyigisha\nAmagamb’ ahebuje:\nNdagikundir’ ukuri."
       }
     ]
   },
@@ -9767,16 +9794,18 @@ export const songs: NewSong[] = [
     "number": 290,
     "name": "Ijambo ryaw’ urimfungurire",
     "url": "https://indirimbo.rw/song/gushimisha/290",
+    "key": "sol",
+    "references": [{"codes":"G.572"}, {"codes":"T.276"}, {"codes":"F.148"}],
     "body": [
       {
         "type": "verse",
         "number": 1,
-        "content": "Ijambo ryaw’ urimfungurire,\nNkuko wahagije bya bihumbi,\nYes’ ubasaturiy’ umutsima,\nNonub’ umpaze nanjy’ uridengere"
+        "content": "Ijambo ryaw’ urimfungurire,\nNkuko wahagije bya bihumbi,\nYes’ ubasaturiy’ umutsima,\nNon’ ub’ umpaze nanjy’ uridengere."
       },
       {
         "type": "verse",
         "number": 2,
-        "content": "Ni Wowe mutsima w’ ubugingo;\nNkizwa n’ ijambo ryawe ry’ ukuri\nRimber’ ifunguro ry’ umutima,\nNkunde n’ ukuri kwaw’ unyeretse"
+        "content": "Ni Wowe mutsima w’ ubugingo;\nNkizwa n’ ijambo ryawe ry’ ukuri\nRimber’ ifunguro ry’ umutima,\nNkunde n’ ukuri kwaw’ unyeretse."
       },
       {
         "type": "verse",
@@ -9794,84 +9823,90 @@ export const songs: NewSong[] = [
     "number": 291,
     "name": "Nubwo nd’ umwana muto bwose",
     "url": "https://indirimbo.rw/song/gushimisha/291",
+    "key": "si",
+    "references": [{"codes":"V.294"}],
     "body": [
       {
         "type": "verse",
         "number": 1,
-        "content": "Nubwo nd’ umwana muto bwose,\nJye nd’ agatama ka Yesu;\nMbasha no kwinjira mw irembo\nRijya mu Bgami bw’ Imana"
+        "content": "Nubwo nd’ umwana muto bwose,\nJye nd’ agatama ka Yesu;\nMbasha no kwinjira mw irembo\nRijya mu Bgami bw’ Imana."
       },
       {
         "type": "chorus",
-        "content": "|:Njye nshyira neza,:|x2\nMurokozi,\n|:Kwizera kwanjye:|x2\nMuri Wowe"
+        "content": "|:Njye nshyira neza,:|x2\nMurokozi,\n|:Kwizera kwanjye:|x2\nMuri Wowe."
       },
       {
         "type": "verse",
         "number": 2,
-        "content": "Nubwo nd’ umwana muto bwose,\nYesu, war’ umeze nkanjye;\nUmwuka wawe n’ ump’ ubwenge,\nNi bwo nzasa nawe rwose"
+        "content": "Nubwo nd’ umwana muto bwose,\nYesu, war’ umeze nkanjye;\nUmwuka wawe n’ ump’ ubwenge,\nNi bwo nzasa nawe rwose."
       },
       {
         "type": "verse",
         "number": 3,
-        "content": "Nubwo nd’ umwana muto bwose,\nNsa n’ urum’ iyo hakeye;\nYesu ni we munyabubasha,\nAnshorez’ ukuboko kwe"
+        "content": "Nubwo nd’ umwana muto bwose,\nNsa n’ urum’ iyo hakeye;\nYesu ni we munyabubasha,\nAnshorez’ ukuboko kwe."
       },
       {
         "type": "verse",
         "number": 4,
-        "content": "Jye ndi muto; ndacyari mw isi,\nMfit’ ubugingo bugufi:\nMukiz’ ubwawe n’ ubw’ iteka;\nMuri bwo mbone kurama"
+        "content": "Jye ndi muto; ndacyari mw isi,\nMfit’ ubugingo bugufi:\nMukiz’ ubwawe n’ ubw’ iteka;\nMuri bwo mbone kurama."
       }
     ]
   },
   {
     "number": 292,
-    "name": "Tugiye gutaha: -ntitwibagirwe",
+    "name": "Tugiye gutaha:—Ntitwibagirwe",
     "url": "https://indirimbo.rw/song/gushimisha/292",
+    "key": "si",
+    "references": [{"codes":"DF.166"}, {"codes":"R.224"}],
     "body": [
       {
         "type": "verse",
         "number": 1,
-        "content": "Tugiye gutaha: -ntitwibagirwe\nAmagambo yera -Batwigishije"
+        "content": "Tugiye gutaha:—Ntitwibagirwe\nAmagambo yera—Batwigishije."
       },
       {
         "type": "verse",
         "number": 2,
-        "content": "Uyu munsi mwiza—Twumvir’ Umwami\nN’ umunsi w’ izuka—Ry’ Umucunguzi"
+        "content": "Uyu munsi mwiza—Twumvir’ Umwami\nN’ umunsi w’ izuka—Ry’ Umucunguzi."
       },
       {
         "type": "verse",
         "number": 3,
-        "content": "Twubahir’ Imana—Ahantu hose,\nTwumvir’ ijwi ryayo—Rituyobora"
+        "content": "Twubahir’ Imana—Ahantu hose,\nTwumvir’ ijwi ryayo—Rituyobora."
       },
       {
         "type": "verse",
         "number": 4,
-        "content": "Iman’ itwigishe—Kubar’ iminsi,\nTwibuke kw ari Yo—Itubeshaho"
+        "content": "Iman’ itwigishe—Kubar’ iminsi,\nTwibuke kw ari Yo—Itubeshaho."
       },
       {
         "type": "verse",
         "number": 5,
-        "content": "Tuyiririmbire, —Tuyishimire,\nKuko yaduhaye—Umwami mwiza"
+        "content": "Tuyiririmbire, —Tuyishimire,\nKuko yaduhaye—Umwami mwiza."
       }
     ]
   },
   {
     "number": 293,
-    "name": "Uko njya mbona mw ’ isi",
+    "name": "Uko njya mbaho mw isi",
     "url": "https://indirimbo.rw/song/gushimisha/293",
+    "key": "do",
+    "references": [{"codes":"V.306"}],
     "body": [
       {
         "type": "verse",
         "number": 1,
-        "content": "Uko njya mbona mw ’ isi\nNjya mbwir’ Umwami, nti\nNdakwinging’ unyigishe\nKuguh’ umutima"
+        "content": "Uko njya mbaho mw isi\nNjya mbwir’ Umwami, nti:\nNdakwinging’ unyigishe\nKuguh’ umutima."
       },
       {
         "type": "verse",
         "number": 2,
-        "content": "Iteka mu gitondo,\nNjya mbwir’ Umwami, nti:\nNyiriz’ imbere yawe,\nMana yanjye nkunda"
+        "content": "Iteka mu gitondo,\nNjya mbwir’ Umwami, nti:\nNyiriz’ imbere yawe,\nMana yanjye nkunda."
       },
       {
         "type": "verse",
         "number": 3,
-        "content": "Kenshi cyane mu munsi,\nNjya mbwir’ Umwami, nti:\nNi Wowe turi kumwe:\nUhor’ ushimishwa"
+        "content": "Kenshi cyane mu munsi,\nNjya mbwir’ Umwami, nti:\nNi Wowe turi kumwe:\nUhor’ ushimishwa."
       },
       {
         "type": "verse",
@@ -9881,7 +9916,7 @@ export const songs: NewSong[] = [
       {
         "type": "verse",
         "number": 5,
-        "content": "Kugez’ igihe nzapfa,\nNzabwir’ Umwami, nti:\nNi kuri Wowe, Data,\nNjya mperw’ umugisha"
+        "content": "Kugez’ igihe nzapfa,\nNzabwir’ Umwami, nti:\nNi kuri Wowe, Data,\nNjya mperw’ umugisha."
       }
     ]
   },
@@ -9889,6 +9924,8 @@ export const songs: NewSong[] = [
     "number": 294,
     "name": "Har’ ubw’ abagore",
     "url": "https://indirimbo.rw/song/gushimisha/294",
+    "key": "sol",
+    "references": [{"codes":"G.660"}],
     "body": [
       {
         "type": "verse",
@@ -9903,7 +9940,7 @@ export const songs: NewSong[] = [
       {
         "type": "verse",
         "number": 3,
-        "content": "Icyaduh’abana\nBo mumahanga yose!\nKumv’inkuru za Yesu,\nBakaza kuriwe\nAbeyurir’ umwijima ,\nAbakiran’ imbabazi!\nTwemerer’abana ngo baz’ahwari!"
+        "content": "Icyaduh’abana\nBo mu mahanga yose!\nKumv’inkuru za Yesu,\nBakaza kuriwe\nAbeyurir’ umwijima,\nAbakiran’ imbabazi!\nTwemerer’ abana ngo baz’ ahw ari!"
       }
     ]
   },
@@ -9911,67 +9948,71 @@ export const songs: NewSong[] = [
     "number": 295,
     "name": "Mumushime, bana bato mwese",
     "url": "https://indirimbo.rw/song/gushimisha/295",
+    "key": "ré",
+    "references": [{"codes":"G.728"}],
     "body": [
       {
         "type": "verse",
         "number": 1,
-        "content": "Mumushime, bana bato mwese:\nN’ Umukunzi wanyu\nTwese, twese, tujye tumushima:\nAdukunda twese"
+        "content": "Mumushime, bana bato mwese:\nN’ Umukunzi wanyu\nTwese, twese, tujye tumushima:\nAdukunda twese."
       },
       {
         "type": "verse",
         "number": 2,
-        "content": "Mumusenge, bana bato mwese:\nN’ Umukunzi wanyu\nTwese, twese, tujye tumushima:\nAdukunda twese"
+        "content": "Mumusenge, bana bato mwese:\nN’ Umukunzi wanyu\nTwese, twese, tujye tumushima:\nAdukunda twese."
       },
       {
         "type": "verse",
         "number": 3,
-        "content": "Mumusange . . . . . . . . . . . . . ."
+        "content": "Mumusange.........."
       },
       {
         "type": "verse",
         "number": 4,
-        "content": "Mumukunde. . . . . . . . . . . . . ."
+        "content": "Mumukunde.........."
       },
       {
         "type": "verse",
         "number": 5,
-        "content": "Mumuture. . . . . . . . . . . . . . ."
+        "content": "Mumuture.........."
       },
       {
         "type": "verse",
         "number": 6,
-        "content": "Mumukorere. . . . . . . . . . . . ."
+        "content": "Mumukorere........etc."
       }
     ]
   },
   {
     "number": 296,
-    "name": "Tuzany’ amaturo—-Yo gushimisha",
+    "name": "Tuzany’ amaturo—Yo gushimisha",
     "url": "https://indirimbo.rw/song/gushimisha/296",
+    "key": "mi",
+    "references": [{"codes":"A.14"}],
     "body": [
       {
         "type": "verse",
         "number": 1,
-        "content": "Tuzany’ amaturo—-Yo gushimisha:\nYose n’ aya Yesu; —tumutur’ ubu!"
+        "content": "Tuzany’ amaturo—Yo gushimisha:\nYose n’ aya Yesu; —tumutur’ ubu!"
       },
       {
         "type": "chorus",
-        "content": "Tumuture, tumuture, —-Tumutur’ ubu!\nYose n’ aya Yesu—-Tumutur’ ubu!"
+        "content": "Tumuture, tumuture, —Tumutur’ ubu!\nYose n’ aya Yesu—Tumutur’ ubu!"
       },
       {
         "type": "verse",
         "number": 2,
-        "content": "Ava mu biganza—-Byac’ aba Yesu;\nTurayamutuye, —-Tut’ abana be"
+        "content": "Ava mu biganza—Byac’ aba Yesu;\nTurayamutuye, —Tut’ abana be."
       },
       {
         "type": "verse",
         "number": 3,
-        "content": "Ubu turi bato: —-Ni yo dufite\nUbwo tuzakura, —-Tuzasumbyaho!"
+        "content": "Ubu turi bato: —Ni yo dufite\nUbwo tuzakura, —Tuzasumbyaho!"
       },
       {
         "type": "verse",
         "number": 4,
-        "content": "Ibike dufite, —-Yes’ ubyakire\nUbwacu ukwihe Non’ utwemere!"
+        "content": "Ibike dufite, —Yes’ ubyakire\nUbwacu ukwihe Non’ utwemere!"
       }
     ]
   },
@@ -9979,6 +10020,8 @@ export const songs: NewSong[] = [
     "number": 297,
     "name": "Yesu ntahinduka",
     "url": "https://indirimbo.rw/song/gushimisha/297",
+    "key": "do",
+    "references": [{"codes":"V.309"}],
     "body": [
       {
         "type": "verse",
@@ -9988,7 +10031,7 @@ export const songs: NewSong[] = [
       {
         "type": "verse",
         "number": 2,
-        "content": "Yesu yanyogeje,\nYanyogeje, yanyogeje;\nYesu yanyogeje\nIbyaha"
+        "content": "Yesu yanyogeje,\nYanyogeje, yanyogeje;\nYesu yanyogeje\nIbyaha."
       },
       {
         "type": "verse",
@@ -9998,12 +10041,12 @@ export const songs: NewSong[] = [
       {
         "type": "verse",
         "number": 4,
-        "content": "Yes’ azanyakira,\nAnyakire, anyakire;\nYes’ azanyakira,\nNgez’ i We"
+        "content": "Yes’ azanyakira,\nAnyakire, anyakire;\nYes’ azanyakira,\nNgez’ i We."
       },
       {
         "type": "verse",
         "number": 5,
-        "content": "Ni We tuzabana,\nTuzabana, tuzabana;\nNi We tuzabana\nMw ijuru"
+        "content": "Ni We tuzabana,\nTuzabana, tuzabana;\nNi We tuzabana\nMw ijuru."
       },
       {
         "type": "verse",
@@ -10016,11 +10059,13 @@ export const songs: NewSong[] = [
     "number": 298,
     "name": "Mbe nk’ umurase w’ izuba",
     "url": "https://indirimbo.rw/song/gushimisha/298",
+    "key": "mi bémol",
+    "references": [{"codes":"V.305"}, {"codes":"G.679"}],
     "body": [
       {
         "type": "verse",
         "number": 1,
-        "content": "Mbe nk’ umurase w’ izuba\nAho ngera hose,\nMbonesh’ umucyo wa Yesu\nMu mwijima w’ isi"
+        "content": "Mbe nk’ umurase w’ izuba\nAho ngera hose,\nMbonesh’ umucyo wa Yesu\nMu mwijima w’ isi."
       },
       {
         "type": "chorus",
@@ -10029,17 +10074,17 @@ export const songs: NewSong[] = [
       {
         "type": "verse",
         "number": 2,
-        "content": "Mbe rik’ umurase w’ izuba\nWeyur’ umwijima\nWo mu mitima y’ abantu\nBataz’ Umukiza"
+        "content": "Mbe nk’ umurase w’ izuba\nWeyur’ umwijima\nWo mu mitima y’ abantu\nBataz’ Umukiza."
       },
       {
         "type": "verse",
         "number": 3,
-        "content": "Mbe nk’ umurase w’ izuba,\nMfash’ ab’ i muhira,\nNkwiz’ amahoro ya Yesu\nMu bo duturanye"
+        "content": "Mbe nk’ umurase w’ izuba,\nMfash’ ab’ i muhira,\nNkwiz’ amahoro ya Yesu\nMu bo duturanye."
       },
       {
         "type": "verse",
         "number": 4,
-        "content": "Mbe nk’ umurase w’ izuba:\nMbisezeranye ntyo\nNerekan’ ingeso nziza;\nZiva kuri Yesu"
+        "content": "Mbe nk’ umurase w’ izuba:\nMbisezeranye ntyo\nNerekan’ ingeso nziza;\nZiva kuri Yesu."
       }
     ]
   },
@@ -10047,11 +10092,12 @@ export const songs: NewSong[] = [
     "number": 299,
     "name": "Amaboko yawe, Yesu Mukiza",
     "url": "https://indirimbo.rw/song/gushimisha/299",
+    "key": "la",
     "body": [
       {
         "type": "verse",
         "number": 1,
-        "content": "Amaboko yawe, Yesu Mukiza,\nYagirag’ ineza n’ iby’ imbabazi,\nKand’ abana bat’ akabakikira,\nAgakiz’ indembe n’ abamugaye"
+        "content": "Amaboko yawe, Yesu Mukiza,\nYagirag’ ineza n’ iby’ imbabazi,\nKand’ abana bat’ akabakikira,\nAgakiz’ indembe n’ abamugaye."
       },
       {
         "type": "verse",
@@ -10064,16 +10110,18 @@ export const songs: NewSong[] = [
     "number": 300,
     "name": "Bana, ntimugire—Icyaha mukora",
     "url": "https://indirimbo.rw/song/gushimisha/300",
+    "key": "la",
+    "references": [{"codes":"AM.569(2)"}],
     "body": [
       {
         "type": "verse",
         "number": 1,
-        "content": "Bana, ntimugire—Icyaha mukora,\nNtimutonganishwe—N’ uburakari"
+        "content": "Bana, ntimugire—Icyaha mukora,\nNtimutonganishwe—N’ uburakari."
       },
       {
         "type": "verse",
         "number": 2,
-        "content": "Bana, kuko muri—Aba Yesu Kristo,\nNukw ingeso zanyu—Zib’ ingeso ze"
+        "content": "Bana, kuko muri—Aba Yesu Kristo,\nNukw ingeso zanyu—Zib’ ingeso ze."
       },
       {
         "type": "verse",
@@ -10083,22 +10131,22 @@ export const songs: NewSong[] = [
       {
         "type": "verse",
         "number": 4,
-        "content": "Nta n’ umwe yigeze—Kugirira nabi\nKuko Yes’ iteka—Yangag’ ibyaha"
+        "content": "Nta n’ umwe yigeze—Kugirira nabi\nKuko Yes’ iteka—Yangag’ ibyaha."
       },
       {
         "type": "verse",
         "number": 5,
-        "content": "Har’ ufit’ ubwenge—Bwo kuboshya nabi:\nN’ Umwanzi Satani—Uhora hafi"
+        "content": "Har’ ufit’ ubwenge—Bwo kuboshya nabi:\nN’ Umwanzi Satani—Uhora hafi."
       },
       {
         "type": "verse",
         "number": 6,
-        "content": "Abasezeranye—Kwimura Satani\nNo kurek’ ibyaha, —Mwe kumwumvira"
+        "content": "Abasezeranye—Kwimura Satani\nNo kurek’ ibyaha, —Mwe kumwumvira."
       },
       {
         "type": "verse",
         "number": 7,
-        "content": "Yes’ azabafasha—Kumurwanya cyane,\nKuk’ ubwe wenyine—Yamunesheje"
+        "content": "Yes’ azabafasha—Kumurwanya cyane,\nKuk’ ubwe wenyine—Yamunesheje."
       }
     ]
   },
@@ -10106,11 +10154,13 @@ export const songs: NewSong[] = [
     "number": 301,
     "name": "Nd’ agatama ka Yesu",
     "url": "https://indirimbo.rw/song/gushimisha/301",
+    "key": "la bémol",
+    "references": [{"codes":"U.287"}, {"codes":"A.188"}, {"codes":"K.166"}],
     "body": [
       {
         "type": "verse",
         "number": 1,
-        "content": "Nd’ agatama ka Yesu,\nNdanezerewe cyane\nMfit’ Umwungeri mwiza;\nAjy’ andagira neza\nArankunda, ndabizi;\nIjwi rye ndaryitaba"
+        "content": "Nd’ agatama ka Yesu,\nNdanezerewe cyane\nMfit’ Umwungeri mwiza;\nAjy’ andagira neza\nArankunda, ndabizi;\nIjwi rye ndaryitaba."
       },
       {
         "type": "verse",
@@ -10120,7 +10170,7 @@ export const songs: NewSong[] = [
       {
         "type": "verse",
         "number": 3,
-        "content": "Singitinya, noneho:\nNdi mu ntama za Yesu:\nIgihe ni kigera,\nAkanshyura mu rugo\nNzagir’ umunezero;\nNta bukene kwa Yesu"
+        "content": "Singitinya, noneho:\nNdi mu ntama za Yesu:\nIgihe ni kigera,\nAkanshyura mu rugo\nNzagir’ umunezero;\nNta bukene kwa Yesu."
       }
     ]
   },
@@ -10128,16 +10178,18 @@ export const songs: NewSong[] = [
     "number": 302,
     "name": "Mukiza, Mwungeri mwiza",
     "url": "https://indirimbo.rw/song/gushimisha/302",
+    "key": "do",
+    "references": [{"codes":"G.94"}, {"codes":"G.664"}],
     "body": [
       {
         "type": "verse",
         "number": 1,
-        "content": "Mukiza, Mwungeri mwiza,\nUturinde tw’ abana bawe;\nIri jor’ utube hafi,\nNgo turamuk’ amahoro"
+        "content": "Mukiza, Mwungeri mwiza,\nUturinde tw’ abana bawe;\nIri jor’ utube hafi,\nNgo turamuk’ amahoro."
       },
       {
         "type": "verse",
         "number": 2,
-        "content": "Wiriw’ uturinze hose,\nUturagiy’ intama zawe;\nKandi wadutunze neza:\nNuko, wumv’ ibyo dusaba"
+        "content": "Wiriw’ uturinze hose,\nUturagiy’ intama zawe;\nKandi wadutunze neza:\nNuko, wumv’ ibyo dusaba."
       },
       {
         "type": "verse",
@@ -10150,6 +10202,8 @@ export const songs: NewSong[] = [
     "number": 303,
     "name": "Yesu, Mwungeri wanjye",
     "url": "https://indirimbo.rw/song/gushimisha/303",
+    "key": "la",
+    "references": [{"codes":"G.687"}],
     "body": [
       {
         "type": "verse",
@@ -10159,12 +10213,12 @@ export const songs: NewSong[] = [
       {
         "type": "verse",
         "number": 2,
-        "content": "Mwami, waramfiriye\nKera ku Musaraba:\nMbonye n’ ibikomere\nMu biganz’ unteruje"
+        "content": "Mwami, waramfiriye\nKera ku Musaraba:\nMbonye n’ ibikomere\nMu biganz’ unteruje."
       },
       {
         "type": "verse",
         "number": 3,
-        "content": "None, njye ngusingiza,\nMuri byose nkumvire!\nUrukund’ umfitiye,\nNi rwo runyishimisha"
+        "content": "None, njye ngusingiza,\nMuri byose nkumvire!\nUrukund’ umfitiye,\nNi rwo runyishimisha."
       },
       {
         "type": "verse",
@@ -10187,26 +10241,28 @@ export const songs: NewSong[] = [
     "number": 304,
     "name": "Harihw Inshuti y’ abana",
     "url": "https://indirimbo.rw/song/gushimisha/304",
+    "key": "sol",
+    "references": [{"codes":"F.469"}, {"codes":"G.640"}],
     "body": [
       {
         "type": "verse",
         "number": 1,
-        "content": "Harihw Inshuti y’ abana\nIhoraho mw ijuru,\nIbakund’ urukundo\nRutagir’ iherezo\nNubw’ inshuti zo mw’isi\nZaduhararuka,\nInshuti yacu, Yesu,\nNtiyaduhemukira"
+        "content": "Harihw Inshuti y’ abana\nIhoraho mw ijuru,\nIbakund’ urukundo\nRutagir’ iherezo\nNubw’ inshuti zo mw’isi\nZaduhararuka,\nInshuti yacu, Yesu,\nNtiyaduhemukira."
       },
       {
         "type": "verse",
         "number": 2,
-        "content": "Kandi mw ijuru ry’ Imana,\nHar’ uburuhukiro\nBw’ abana bamukunda,\nBakambaz’ Imana, Se,\nAhw abagenzi bato\nBajya basohora;\nBaruhukir’ iteka\nMu mahor’ adashira"
+        "content": "Kandi mw ijuru ry’ Imana,\nHar’ uburuhukiro\nBw’ abana bamukunda,\nBakambaz’ Imana, Se,\nAhw abagenzi bato\nBajya basohora;\nBaruhukir’ iteka\nMu mahor’ adashira."
       },
       {
         "type": "verse",
         "number": 3,
-        "content": "Nyir’ urugo rwo mw ijuru\nN’ Uwatubabarijwe\nAhamagar’ abana\nNgo binjire muri rwo\nN’ urugo rwiza cyane\nRw’ amahoro masa;\nKand’ ibyishimo byaho\nBirut’ iby’ abo mw isi"
+        "content": "Nyir’ urugo rwo mw ijuru\nN’ Uwatubabarijwe\nAhamagar’ abana\nNgo binjire muri rwo\nN’ urugo rwiza cyane\nRw’ amahoro masa;\nKand’ ibyishimo byaho\nBirut’ iby’ abo mw isi."
       },
       {
         "type": "verse",
         "number": 4,
-        "content": "Harihw amakamba yera\nY’ abana bakijijwe\nBazaherwa mw ijuru\nNa Yesu bakoreye\nAbamushimishije\nBakunz’ izina rye,\nAzabagororera\nIngororano nziza"
+        "content": "Harihw amakamba yera\nY’ abana bakijijwe\nBazaherwa mw ijuru\nNa Yesu bakoreye\nAbamushimishije\nBakunz’ izina rye,\nAzabagororera\nIngororano nziza."
       },
       {
         "type": "verse",
@@ -10216,7 +10272,7 @@ export const songs: NewSong[] = [
       {
         "type": "verse",
         "number": 6,
-        "content": "Hariho n’ imyenda yera\nY’ abana bakijijwe\nN’ impundu z’ ibyishimo\nN’ inanga z’ izahabu\nAbakunz’ Umukiza\nBazabigabirwa,\nTukiriho dukunde\nYes’ urukundo rwinshi"
+        "content": "Hariho n’ imyenda yera\nY’ abana bakijijwe\nN’ impundu z’ ibyishimo\nN’ inanga z’ izahabu\nAbakunz’ Umukiza\nBazabigabirwa,\nTukiriho dukunde\nYes’ urukundo rwinshi."
       }
     ]
   },
@@ -10224,6 +10280,8 @@ export const songs: NewSong[] = [
     "number": 305,
     "name": "Uwo ni nd’ urambitswe",
     "url": "https://indirimbo.rw/song/gushimisha/305",
+    "key": "mi",
+    "references": [{"codes":"G.128"}],
     "body": [
       {
         "type": "verse",
@@ -10267,7 +10325,7 @@ export const songs: NewSong[] = [
       {
         "type": "verse",
         "number": 8,
-        "content": "Uhaw’ iby’ atakoze\nKu Musaraba ni nde?"
+        "content": "Uhow’ iby’ atakoze\nKu Musaraba ni nde?"
       },
       {
         "type": "verse",
@@ -10285,31 +10343,33 @@ export const songs: NewSong[] = [
     "number": 306,
     "name": "Twishimir’ umunsi w’ Imana",
     "url": "https://indirimbo.rw/song/gushimisha/306",
+    "key": "fa",
+    "references": [{"codes":"U.117"}, {"codes":"G.47"}, {"codes":"G.594"}],
     "body": [
       {
         "type": "verse",
         "number": 1,
-        "content": "Twishimir’ umunsi w’ Imana,\nTubonahw ibyishimo\nN’ umunsi turuhukiraho,\nTuvuye mu mirimo,\nImibabaro yac’ ivuyeho\nNo kwiganyira kose\nN’ umuns’ abakuru n’ abato\nBasingiz’ Uwiteka"
+        "content": "Twishimir’ umunsi w’ Imana,\nTubonahw ibyishimo\nN’ umunsi turuhukiraho,\nTuvuye mu mirimo,\nImibabaro yac’ ivuyeho\nNo kwiganyira kose\nN’ umuns’ abakuru n’ abato\nBasingiz’ Uwiteka."
       },
       {
         "type": "verse",
         "number": 2,
-        "content": "Imana yarangije byose\nKur’ uyu munsi mwiza;\nKandi ni ho Kristo yazutse\nUrupf ’arunesheje,\nNgo dukizw’ ibyaha n’ ingeso mbi;\nMaz’ atwoherereza\nUmwuka w’ Iman’ ihoraho,\nWamanutse mw ijuru"
+        "content": "Imana yarangije byose\nKur’ uyu munsi mwiza;\nKandi ni ho Kristo yazutse\nUrupf’ arunesheje,\nNgo dukizw’ ibyaha n’ ingeso mbi;\nMaz’ atwoherereza\nUmwuka w’ Iman’ ihoraho,\nWamanutse mw ijuru."
       },
       {
         "type": "verse",
         "number": 3,
-        "content": "Iyo tugejej’ uyu munsi\nTubon’ ubukiriro,\nTuba dusa n’ abasohoye\nAhitwa Paradiso\nTwari tuguy’ umwum’ ukabije;\nNone tubony’ amazi;\nKand’ isi twasezeranijwe\nTuba tuyigezemo"
+        "content": "Iyo tugejej’ uyu munsi\nTubon’ ubukiriro,\nTuba dusa n’ abasohoye\nAhitwa Paradiso\nTwari tuguy’ umwum’ ukabije;\nNone tubony’ amazi;\nKand’ isi twasezeranijwe\nTuba tuyigezemo."
       },
       {
         "type": "verse",
         "number": 4,
-        "content": "Non’ ingoma nyinshi zavuze\nGuhamagaz’ abayo,\nBateranire gufungura\nIfunguro ry’ Imana:\nUbutumwa buramurikira\nBos’ abo mu mwijima,\nKandi busa n’ amazi meza\nAhembur’ imitima"
+        "content": "Non’ ingoma nyinshi zavuze\nGuhamagaz’ abayo,\nBateranire gufungura\nIfunguro ry’ Imana:\nUbutumwa buramurikira\nBos’ abo mu mwijima,\nKandi busa n’ amazi meza\nAhembur’ imitima."
       },
       {
         "type": "verse",
         "number": 5,
-        "content": "Nuko dusab’ Iman’ iduhe\nUb’ umugisha mushya\nKugira ngo tuzasohore\nMu bwami bwo mw ijuru\nNi ho tuzajya duhimbarisha\nIjwi ry’ umunezero\nData wa twese n’ Umwana we\nKandi n’ Umwuka Wera"
+        "content": "Nuko dusab’ Iman’ iduhe\nUb’ umugisha mushya\nKugira ngo tuzasohore\nMu bwami bwo mw ijuru\nNi ho tuzajya duhimbarisha\nIjwi ry’ umunezero\nData wa twese n’ Umwana we\nKandi n’ Umwuka Wera."
       }
     ]
   },
@@ -10317,26 +10377,29 @@ export const songs: NewSong[] = [
     "number": 307,
     "name": "Haleluya! Haj’ umunsi",
     "url": "https://indirimbo.rw/song/gushimisha/307",
+    "key": "do",
+    "references": [{"codes":"V.190"}, {"codes":"G.52"}],
+    "origin": "Budage",
     "body": [
       {
         "type": "verse",
         "number": 1,
-        "content": "Haleluya! Haj’ umunsi\nWo kuruhukir’ Imana,\nUyu munsi ni w’ urusha\nIyindi yos’ amahoro\nIteka, twumv’ ibyishimo\nBiva ku Mana yacu"
+        "content": "Haleluya! Haj’ umunsi\nWo kuruhukir’ Imana,\nUyu munsi ni w’ urusha\nIyindi yos’ amahoro\nIteka, twumv’ ibyishimo\nBiva ku Mana yacu."
       },
       {
         "type": "verse",
         "number": 2,
-        "content": "Uburuhukiro bwiza\nBubaho mur’ uyu munsi\nUmucyo w’ Imana yera\nUb’ uratumurikiye\nNi w’ utweza mu mitima\nKu munsi w’ Uwiteka"
+        "content": "Uburuhukiro bwiza\nBubaho mur’ uyu munsi\nUmucyo w’ Imana yera\nUb’ uratumurikiye\nNi w’ utweza mu mitima\nKu munsi w’ Uwiteka."
       },
       {
         "type": "verse",
         "number": 3,
-        "content": "Mbega, nambar’ iki none,\nMbone kwizihiz’ Imana?\nDor’ umwambaro yampaye\nN’ ugukiranuka kwayo,\nKugira ng’umubi nkanjye\nNerekan’ ubwiza bwe"
+        "content": "Mbega, nambar’ iki none,\nMbone kwizihiz’ Imana?\nDor’ umwambaro yampaye\nN’ ugukiranuka kwayo,\nKugira ng’umubi nkanjye\nNerekan’ ubwiza bwe."
       },
       {
         "type": "verse",
         "number": 4,
-        "content": "We yamviriy’ amaraso,\nKuko ngir’ ibicumuro;\nGukiranuka kwe ni ko\nKwez’ uyu mutima wanjye\nIbyo n’ umwambaro wanjye\nUkwiriy’ icyumweru"
+        "content": "We yamviriy’ amaraso,\nKuko ngir’ ibicumuro;\nGukiranuka kwe ni ko\nKwez’ uyu mutima wanjye\nIbyo n’ umwambaro wanjye\nUkwiriy’ icyumweru."
       }
     ]
   },
@@ -10344,21 +10407,23 @@ export const songs: NewSong[] = [
     "number": 308,
     "name": "Mwami Yesu, turaje",
     "url": "https://indirimbo.rw/song/gushimisha/308",
+    "key": "si",
+    "references": [{"codes":"L.176"}, {"codes":"F.370"}],
     "body": [
       {
         "type": "verse",
         "number": 1,
-        "content": "Mwami Yesu, turaje\nKumv’ amategeko yawe;\nUshyire mu mitima\nIjambo ryawe riryoha\nIbyo mw’ isi tubireke,\nDutekerez’ iby’ ijuru"
+        "content": "Mwami Yesu, turaje\nKumv’ amategeko yawe;\nUshyire mu mitima\nIjambo ryawe riryoha.\nIbyo mw’ isi tubireke,\nDutekerez’ iby’ ijuru."
       },
       {
         "type": "verse",
         "number": 2,
-        "content": "Nta cyo twebwe twamenya,\nIyi mitim’ icyijimye,\nItakiwe n’ umucyo\nUva mu Mwuka w’ Imana\nUtwigishe kuyoboka,\nNgo tujye dukora neza"
+        "content": "Nta cyo twebwe twamenya,\nIyi mitim’ icyijimye,\nItakiwe n’ umucyo\nUva mu Mwuka w’ Imana\nUtwigishe kuyoboka,\nNgo tujye dukora neza."
       },
       {
         "type": "verse",
         "number": 3,
-        "content": "Dore, Mwana w’ Imana,\nTwebwe twese tugusaba\nNg’ utweresh’ imitima\nUmwuka wawe w’ ukuri;\nTujye twumva, turirimbe:\nTunezez’ Imana yacu"
+        "content": "Dore, Mwana w’ Imana,\nTwebwe twese tugusaba\nNg’ utweresh’ imitima\nUmwuka wawe w’ ukuri;\nTujye twumva, turirimbe:\nTunezez’ Imana yacu."
       }
     ]
   },
@@ -10366,36 +10431,38 @@ export const songs: NewSong[] = [
     "number": 309,
     "name": "Inzu yawe, Mana, —Turayishimira",
     "url": "https://indirimbo.rw/song/gushimisha/309",
+    "key": "ré",
+    "references": [{"codes":"U.164"}, {"codes":"G.80"}],
     "body": [
       {
         "type": "verse",
         "number": 1,
-        "content": "Inzu yawe, Mana, —Turayishimira:\nNi h’ ujy’ uhurira—N’ abo wakijije"
+        "content": "Inzu yawe, Mana, —Turayishimira:\nNi h’ ujy’ uhurira—N’ abo wakijije."
       },
       {
         "type": "verse",
         "number": 2,
-        "content": "Duteraniramo—Guseng’ Uwiteka,\nTukamwaturira—Ibi tuba baza"
+        "content": "Duteraniramo—Guseng’ Uwiteka,\nTukamwaturira—Ibitubabaza."
       },
       {
         "type": "verse",
         "number": 3,
-        "content": "Dufashirizwamo—N’ Ijambo ry’ Imana:\nTukirisomerwa, —Twunguk’ ibya Yesu"
+        "content": "Dufashirizwamo—N’ Ijambo ry’ Imana:\nTukirisomerwa, —Twunguk’ ibya Yesu."
       },
       {
         "type": "verse",
         "number": 4,
-        "content": "Tubwiririzwamo—Ibidukomeza\nMu ntambara nziza, —Bikatunezeza"
+        "content": "Tubwiririzwamo—Ibidukomeza\nMu ntambara nziza, —Bikatunezeza."
       },
       {
         "type": "verse",
         "number": 5,
-        "content": "Tuharirimbira—Ishimwe rya Yesu,\nTwagera mw ijuru, —Tukazarushaho"
+        "content": "Tuharirimbira—Ishimwe rya Yesu,\nTwagera mw ijuru, —Tukazarushaho."
       },
       {
         "type": "verse",
         "number": 6,
-        "content": "Mw is’ ujy’ unkundisha— Kubana n’ abawe;\nNzaguhimbazanye—N’ abera mw ijuru"
+        "content": "Mw is’ ujy’ unkundisha— Kubana n’ abawe;\nNzaguhimbazanye—N’ abera mw ijuru."
       }
     ]
   },
@@ -10403,51 +10470,54 @@ export const songs: NewSong[] = [
     "number": 310,
     "name": "Iki gihe twamaranye",
     "url": "https://indirimbo.rw/song/gushimisha/310",
+    "key": "fa",
+    "references": [{"codes":"A.90"}],
+    "origin": "Rwanda",
     "body": [
       {
         "type": "verse",
         "number": 1,
-        "content": "Iki gihe twamaranye\nTuyobowe n’ ibendera;\nDutandukany’ amahoro,\nTwifitiy’ umunezero"
+        "content": "Iki gihe twamaranye\nTuyobowe n’ ibendera;\nDutandukany’ amahoro,\nTwifitiy’ umunezero."
       },
       {
         "type": "verse",
         "number": 2,
-        "content": "Mwa nshuti zacu nziza mwe,\nDusangiye gucungurwa\nN’ intambara ya Krisito,\nAjy’ abarind’ iyo mujya"
+        "content": "Mwa nshuti zacu nziza mwe,\nDusangiye gucungurwa\nN’ intambara ya Krisito,\nAjy’ abarind’ iyo mujya."
       },
       {
         "type": "verse",
         "number": 3,
-        "content": "Mwumv’ iri jambo dusoma\nMu Gitabo cy’ Uwiteka:\nMutumbir’ Umurokozi,\nMwihararuk’ inzira ye"
+        "content": "Mwumv’ iri jambo dusoma\nMu Gitabo cy’ Uwiteka:\nMutumbir’ Umurokozi,\nMwihararuk’ inzira ye."
       },
       {
         "type": "verse",
         "number": 4,
-        "content": "Ahar’ amaso yab’ aya,\nNtitwongere kubonana\nNyamara tw’ abakijijwe\nTuzahurir’ i Siyoni"
+        "content": "Ahar’ amaso yab’ aya,\nNtitwongere kubonana\nNyamara tw’ abakijijwe\nTuzahurir’ i Siyoni."
       },
       {
         "type": "verse",
         "number": 5,
-        "content": "Yes azah’ abakijijwe\nIngororano mw ijuru\nMukomez’ ibyo mwahawe\nNa We, katanga ka mbere"
+        "content": "Yes’ azah’ abakijijwe\nIngororano mw ijuru.\nMukomez’ ibyo mwahawe\nNa We, katanga ka mbere."
       },
       {
         "type": "verse",
         "number": 6,
-        "content": "Mwa nshuti mwe dukundanye,\nTwabonany’ Umusaraba\nMur’ iyi minsi twabanye,\nMugendane n’ Uwiteka"
+        "content": "Mwa nshuti mwe dukundanye,\nTwabonany’ Umusaraba\nMur’ iyi minsi twabanye,\nMugendane n’ Uwiteka."
       },
       {
         "type": "verse",
         "number": 7,
-        "content": "Ituza riva mw ijuru\nRitwuzure tw’ aba Yesu,\nItorero rye ryo mw isi\nRikir’ imitima myinshi"
+        "content": "Ituza riva mw ijuru\nRitwuzure tw’ aba Yesu,\nItorero rye ryo mw isi\nRikir’ imitima myinshi."
       },
       {
         "type": "verse",
         "number": 8,
-        "content": "Twihane gukiranirwa\nKw’ abatubah’ Uwiteka,\nTumenye yuko twe twese\nTuzageran’ imbere ye"
+        "content": "Twihane gukiranirwa\nKw’ abatubah’ Uwiteka,\nTumenye yuko twe twese\nTuzageran’ imbere ye."
       },
       {
         "type": "verse",
         "number": 9,
-        "content": "Ngaho, murabeho mwese,\nBagenzi twafatanije,\nTuzaba hamwe mw ijuru,\nDuhoraneyo na Yesu"
+        "content": "Ngaho, murabeho mwese,\nBagenzi twafatanije,\nTuzaba hamwe mw ijuru,\nDuhoraneyo na Yesu."
       }
     ]
   },
@@ -10455,46 +10525,48 @@ export const songs: NewSong[] = [
     "number": 311,
     "name": "Yemwe, nshuti twabanye",
     "url": "https://indirimbo.rw/song/gushimisha/311",
+    "key": "ré",
+    "origin": "Rwanda",
     "body": [
       {
         "type": "verse",
         "number": 1,
-        "content": "Yemwe, nshuti twabanye\nKandi twafatanije,\nTubasezeyeh’ ubu,\nMurabeho: Ku Mana"
+        "content": "Yemwe, nshuti twabanye\nKandi twafatanije,\nTubasezeyeh’ ubu,\nMurabeho: Ku Mana."
       },
       {
         "type": "verse",
         "number": 2,
-        "content": "Tugiye gutangira\nUrugendo runini:\nMujye mudusabira,\nIman’ ibane natwe"
+        "content": "Tugiye gutangira\nUrugendo runini:\nMujye mudusabira,\nIman’ ibane natwe."
       },
       {
         "type": "verse",
         "number": 3,
-        "content": "Noneho, mwa nshuti mwe,\nTurashaka kugenda\nNgo tujyane na Yesu,\nHamwe n’ Uwiteka, Se"
+        "content": "Noneho, mwa nshuti mwe,\nTurashaka kugenda\nNgo tujyane na Yesu,\nHamwe n’ Uwiteka, Se."
       },
       {
         "type": "verse",
         "number": 4,
-        "content": "Ariko ntitwihebye\nKubw’ inzira ducamo:\nTuzi ko twarushyize\nMu maboko y’ Imana"
+        "content": "Ariko ntitwihebye\nKubw’ inzira ducamo:\nTuzi ko twarushyize\nMu maboko y’ Imana."
       },
       {
         "type": "verse",
         "number": 5,
-        "content": "Murabeho, bagenzi,\nAbo twafatanije\nMu byago no mu byiza\nYes’ agendane namwe"
+        "content": "Murabeho, bagenzi,\nAbo twafatanije\nMu byago no mu byiza\nYes’ agendane namwe."
       },
       {
         "type": "verse",
         "number": 6,
-        "content": "Har’ uburuhukiro\nBg’ abakijijwe bose\nNi dupfa, tuzabayo\nKu Witeka mw ijuru"
+        "content": "Har’ uburuhukiro\nBw’ abakijijwe bose\nNi dupfa, tuzabayo\nKu Witeka mw ijuru."
       },
       {
         "type": "verse",
         "number": 7,
-        "content": "Ahar’ amaso n’ aya\nYo kubonana mw isi;\nNyamar’ abakijijwe\nTuzabana mw ijuru"
+        "content": "Ahar’ amaso n’ aya\nYo kubonana mw isi;\nNyamar’ abakijijwe\nTuzabana mw ijuru."
       },
       {
         "type": "verse",
         "number": 8,
-        "content": "Murabeho, bagenzi\nDusubiy’ i wac’ ubu\nNimugende mwizeye,\nTubaragij’ Imana"
+        "content": "Murabeho, bagenzi\nDusubiy’ i wac’ ubu\nNimugende mwizeye,\nTubaragij’ Imana."
       }
     ]
   },
@@ -10502,34 +10574,36 @@ export const songs: NewSong[] = [
     "number": 312,
     "name": "Abakund’ Imana mwese",
     "url": "https://indirimbo.rw/song/gushimisha/312",
+    "key": "ré",
+    "origin": "Rwanda",
     "body": [
       {
         "type": "verse",
         "number": 1,
-        "content": "Abakund’ Imana mwese,\nNi hagir’ abapfa muri mwebwe,\nCyangwa se natwe tugapfa,\nTuzahurir’ i Siyoni twese"
+        "content": "Abakund’ Imana mwese,\nNi hagir’ abapfa muri mwebwe,\nCyangwa se natwe tugapfa,\nTuzahurir’ i Siyoni twese."
       },
       {
         "type": "chorus",
-        "content": "Turashima Iyatumye\nTumaran’iyi minsi"
+        "content": "Turashima Iyatumye\nTumaran’ iyi minsi."
       },
       {
         "type": "verse",
         "number": 2,
-        "content": "Nta mwenda wose dufite:\nTwiteguye gufashwa n’ Imana\nNo kwamamaz’ Ubutumwa\nMu bihugu tugiyemo byose"
+        "content": "Nta mwenda wose dufite:\nTwiteguye gufashwa n’ Imana\nNo kwamamaz’ Ubutumwa\nMu bihugu tugiyemo byose."
       },
       {
         "type": "verse",
         "number": 3,
-        "content": "Iki gihe tumaranye,\nTwari dufatanirije hamwe;\nNone natwe turagiye,\nNamwe musigarane n’ Imana"
+        "content": "Iki gihe tumaranye,\nTwari dufatanirije hamwe;\nNone natwe turagiye,\nNamwe musigarane n’ Imana."
       },
       {
         "type": "verse",
         "number": 4,
-        "content": "Nshuti zacu, twarabanye;\nTubasezeranyeh’ urukundo\nDushim’ Imana yatumye\nDufatany’ iki gihe tumaze"
+        "content": "Nshuti zacu, twarabanye;\nTubasezeranyeh’ urukundo\nDushim’ Imana yatumye\nDufatany’ iki gihe tumaze."
       },
       {
         "type": "chorus",
-        "content": "None, ngaho, murabeho!\nIman’ ibane namwe"
+        "content": "None, ngaho, murabeho!\nIman’ ibane namwe."
       }
     ]
   },
@@ -10537,6 +10611,8 @@ export const songs: NewSong[] = [
     "number": 313,
     "name": "Umukiz’ abe hamwe namwe",
     "url": "https://indirimbo.rw/song/gushimisha/313",
+    "key": "fa",
+    "references": [{"codes":"U.174"}, {"codes":"V.286"}, {"codes":"A.41"}, {"codes":"G.699"}],
     "body": [
       {
         "type": "verse",
@@ -10545,7 +10621,7 @@ export const songs: NewSong[] = [
       },
       {
         "type": "chorus",
-        "content": "Hamwe namwe, ye, hamwe namwe\nKugeza ku mperuka y’ isi!\nHamwe namwe, ye, hamwe namwe,\nUmukiz’ abe hamwe namwe"
+        "content": "Hamwe namwe, ye, hamwe namwe!\nKugeza ku mperuka y’ isi!\nHamwe namwe, ye, hamwe namwe,\nUmukiz’ abe hamwe namwe."
       },
       {
         "type": "verse",
@@ -10555,17 +10631,17 @@ export const songs: NewSong[] = [
       {
         "type": "verse",
         "number": 3,
-        "content": "Mu miruhw abe hamwe namwe,\nMubuyerezwa n’ ibyago,\nMu bukene no mu ndwara,\nAbaramiz’ amaboko ye"
+        "content": "Mu miruhw abe hamwe namwe,\nMubuyerezwa n’ ibyago,\nMu bukene no mu ndwara,\nAbaramiz’ amaboko ye."
       },
       {
         "type": "verse",
         "number": 4,
-        "content": "Mu mahor’ abe hamwe namwe,\nNo mu gihe cy’ urushyana,\nNo mu mvura no ku mucyo,\nMub’ iteka mu mahoro ye"
+        "content": "Mu mahor’ abe hamwe namwe,\nNo mu gihe cy’ urushyana,\nNo mu mvura no ku mucyo,\nMub’ iteka mu mahoro ye."
       },
       {
         "type": "verse",
         "number": 5,
-        "content": "No mu ntambara yo hanyuma,\nHar’ urupf’ imbere yanyu,\nMwenda kwambuka rwa ruzi,\nAzab’ ari hamwe namw’ ubwo"
+        "content": "No mu ntambara yo hanyuma,\nHar’ urupf’ imbere yanyu,\nMwenda kwambuka rwa ruzi,\nAzab’ ari hamwe namw’ ubwo."
       }
     ]
   },
@@ -10573,26 +10649,28 @@ export const songs: NewSong[] = [
     "number": 314,
     "name": "Gukundana kw’ aba Yesu",
     "url": "https://indirimbo.rw/song/gushimisha/314",
+    "key": "si",
+    "references": [{"codes":"V.279"}, {"codes":"G.77"}, {"codes":"C.18"}],
     "body": [
       {
         "type": "verse",
         "number": 1,
-        "content": "Gukundana kw’ aba Yesu\nNi ko kudukoranije,\nAriko murunga w’ abana’ Imana\nYabanje gukund’ abayo"
+        "content": "Gukundana kw’ aba Yesu\nNi ko kudukoranije,\nAriko murunga w’ abana b’ Imana\nYabanje gukund’ abayo."
       },
       {
         "type": "verse",
         "number": 2,
-        "content": "Duhore dusabirana\nNgw iduh’ imitim’ ihuje,\nNgw imare muri twe ibyaha n’ ubwoba,\nIduh’ umugisha wayo"
+        "content": "Duhore dusabirana\nNgw iduh’ imitim’ ihuje,\nNgw imare muri twe ibyaha n’ ubwoba,\nIduh’ umugisha wayo."
       },
       {
         "type": "verse",
         "number": 3,
-        "content": "Twabon’ umukristo wese\nWatay’ iyi nzira yayo,\nTuzinging’ Imana ngw imwibuts’ ibyayo\nNgo yonger’ arebe Yesu"
+        "content": "Twabon’ umukristo wese\nWatay’ iyi nzira yayo,\nTuzinging’ Imana ngw imwibuts’ ibyayo\nNgo yonger’ arebe Yesu."
       },
       {
         "type": "verse",
         "number": 4,
-        "content": "Kand’ iyo dutandukanye,\nTujyanye n’ Umwami wacu,\nUhor’ uturindish’ ubuntu n’ ihirwe,\nDukomej’ ubumwe bwacu"
+        "content": "Kand’ iyo dutandukanye,\nTujyanye n’ Umwami wacu,\nUhor’ uturindish’ ubuntu n’ ihirwe,\nDukomej’ ubumwe bwacu."
       }
     ]
   },
@@ -10600,36 +10678,39 @@ export const songs: NewSong[] = [
     "number": 315,
     "name": "Imana yakoze neza",
     "url": "https://indirimbo.rw/song/gushimisha/315",
+    "key": "sol",
+    "references": [{"codes":"U.47(2)"}, {"codes":"AM.278"}],
+    "origin": "Rwanda",
     "body": [
       {
         "type": "verse",
         "number": 1,
-        "content": "Imana yakoze neza\nIbidutangaza,\nAbantu bo mur’ iyi si\nBatari babona"
+        "content": "Imana yakoze neza\nIbidutangaza,\nAbantu bo mur’ iyi si\nBatari babona."
       },
       {
         "type": "verse",
         "number": 2,
-        "content": "Muhimbaz’ Iyateguye\nInzira ducamo\nNi Y’ itubonanij’ ubu\nTutishwe n’ ibyaha"
+        "content": "Muhimbaz’ Iyateguye\nInzira ducamo\nNi Y’ itubonanij’ ubu\nTutishwe n’ ibyaha."
       },
       {
         "type": "verse",
         "number": 3,
-        "content": "Twaherukanaga kera,\nNyamara noneho\nDusubiye kubonana,\nDufit’ ibyishimo"
+        "content": "Twaherukanaga kera,\nNyamara noneho\nDusubiye kubonana,\nDufit’ ibyishimo."
       },
       {
         "type": "verse",
         "number": 4,
-        "content": "Yemwe bagenzi dukunda,\nNta kibi twibuka\nMu byo twafatanyemo;\nTurabashimiye"
+        "content": "Yemwe bagenzi dukunda,\nNta kibi twibuka\nMu byo twafatanyemo;\nTurabashimiye."
       },
       {
         "type": "verse",
         "number": 5,
-        "content": "Ku Mana, bene Data mwe,\nMw isi, ni ko biba\nAbifuza Siyoni nshya,\nTuzaban’ iteka"
+        "content": "Ku Mana, bene Data mwe,\nMw isi, ni ko biba\nAbifuza Siyoni nshya,\nTuzaban’ iteka."
       },
       {
         "type": "verse",
         "number": 6,
-        "content": "Non’ umugisha w’ Imana\nUhorane namwe\nIbah’ ibibanezeza\nMu nzira mucamo"
+        "content": "Non’ umugisha w’ Imana\nUhorane namwe\nIbah’ ibibanezeza\nMu nzira mucamo."
       }
     ]
   },
@@ -10637,6 +10718,8 @@ export const songs: NewSong[] = [
     "number": 316,
     "name": "Man’ itang’ itimana",
     "url": "https://indirimbo.rw/song/gushimisha/316",
+    "key": "do",
+    "references": [{"codes":"G.24"}, {"codes":"F.50"}, {"codes":"AM.381"}],
     "body": [
       {
         "type": "verse",
@@ -10688,26 +10771,28 @@ export const songs: NewSong[] = [
     "number": 317,
     "name": "Mukiza, wadutoreye",
     "url": "https://indirimbo.rw/song/gushimisha/317",
+    "key": "sol",
+    "references": [{"codes":"F.567"}, {"codes":"V.284"}],
     "body": [
       {
         "type": "verse",
         "number": 1,
-        "content": "Mukiza, wadutoreye\nKuba nk’ umubir’ umwe;\nUrashaka yuko twera,\nTwihanganira byose\nNtushaka n’ ibitatanya\nAbo waje guhira;\nUrukundo rwawe, Mwami,\nRuduhuz’ imitima"
+        "content": "Mukiza, wadutoreye\nKuba nk’ umubir’ umwe;\nUrashaka yuko twera,\nTwihanganira byose\nNtushaka n’ ibitatanya\nAbo waje guhira;\nUrukundo rwawe, Mwami,\nRuduhuz’ imitima."
       },
       {
         "type": "verse",
         "number": 2,
-        "content": "Yemw’ abakundwa na Yesu,\nNa none nimwongere\nMuvuge mwes’ imbere ye\nIbyo mwasezeranye\nKandi ni mwongera kumva\nK’ urukundo rwatubye,\nMumwingingish’ imitima,\nYemere kubuzuza"
+        "content": "Yemw’ abakundwa na Yesu,\nNa none nimwongere\nMuvuge mwes’ imbere ye\nIbyo mwasezeranye\nKandi ni mwongera kumva\nK’ urukundo rwatubye,\nMumwingingish’ imitima,\nYemere kubuzuza."
       },
       {
         "type": "verse",
         "number": 3,
-        "content": "Bana b’ Imana Rurema,\nNtimutinye kwitanga;\nMu kubaho kwanyu kose,\nMukundane mwihwema!\nUmukiza wacu Yesu\nNi kw ajy’ atugirira,\nNgo haboneke muri twe\nUbuntu bw’ Uwiteka"
+        "content": "Bana b’ Imana Rurema,\nNtimutinye kwitanga;\nMu kubaho kwanyu kose,\nMukundane mwihwema!\nUmukiza wacu Yesu\nNi kw ajy’ atugirira,\nNgo haboneke muri twe\nUbuntu bw’ Uwiteka."
       },
       {
         "type": "verse",
         "number": 4,
-        "content": "Mwami Yesu, wakomeje\nIsezerano ryacu;\nKand’ utwigishe kubana\nMu rukundo nyakuri\nMwam’ ujy’ uruduh’ iteka,\nRudacogora rwose;\nNi bo bose bazamenya\nYuko watwitoreye"
+        "content": "Mwami Yesu, wakomeje\nIsezerano ryacu;\nKand’ utwigishe kubana\nMu rukundo nyakuri\nMwam’ ujy’ uruduh’ iteka,\nRudacogora rwose;\nNi bo bose bazamenya\nYuko watwitoreye."
       }
     ]
   },
@@ -10715,6 +10800,9 @@ export const songs: NewSong[] = [
     "number": 318,
     "name": "Hose habera heza",
     "url": "https://indirimbo.rw/song/gushimisha/318",
+    "key": "si bémol",
+    "references": [{"codes":"R.31"}],
+    "origin": "Budage",
     "body": [
       {
         "type": "verse",
@@ -10742,30 +10830,32 @@ export const songs: NewSong[] = [
     "number": 319,
     "name": "Aho, mwumvis’ ijwi ry’ Umwami",
     "url": "https://indirimbo.rw/song/gushimisha/319",
+    "key": "ré bémol",
+    "references": [{"codes":"F.462"}],
     "body": [
       {
         "type": "verse",
         "number": 1,
-        "content": "Aho, mwumvis’ ijwi ry’ Umwami?\nAti, Basore, mubyuke!\nTuri hano, tugandukire\nRwos’ amategeko yawe"
+        "content": "Aho, mwumvis’ ijwi ry’ Umwami?\nAti, Basore, mubyuke!\nTuri hano, tugandukire\nRwos’ amategeko yawe."
       },
       {
         "type": "chorus",
-        "content": "Tuguhay ubusore bwacu\nN’urukundo rwacu, Mwami:\nMu ntege nke zacu twuzure\nTujye duhoran’ iteka"
+        "content": "Tuguhay ubusore bwacu\nN’ urukundo rwacu, Mwami:\nMu ntege nke zacu twuzure\nTujye duhoran’ iteka."
       },
       {
         "type": "verse",
         "number": 2,
-        "content": "Twifuza cyan’ umucyo wawe\nN’ urukundo n’ amahoro;\nTwishiman’ ibendera yawe,\nTuyijyane mw isi yose"
+        "content": "Twifuza cyan’ umucyo wawe\nN’ urukundo n’ amahoro;\nTwishiman’ ibendera yawe,\nTuyijyane mw isi yose."
       },
       {
         "type": "verse",
         "number": 3,
-        "content": "Dufatish’ ukuboko kwawe,\nUjy’ udushorer’ iteka\nNubwo duterwa n’ ibitwosbya,\nUjy’ ubidukiza byose"
+        "content": "Dufatish’ ukuboko kwawe,\nUjy’ udushorer’ iteka\nNubwo duterwa n’ ibitwoshya,\nUjy’ ubidukiza byose."
       },
       {
         "type": "verse",
         "number": 4,
-        "content": "Duh’ umwete nk’ lntumwa zawe,\nDuhore dukora nka zo;\nDuhwane na zo mu kwizera\nNo kugupfir’ ubishatse"
+        "content": "Duh’ umwete nk’ Intumwa zawe,\nDuhore dukora nka zo;\nDuhwane na zo mu kwizera\nNo kugupfir’ ubishatse."
       }
     ]
   },
@@ -10773,16 +10863,21 @@ export const songs: NewSong[] = [
     "number": 320,
     "name": "Mwa bagore mwe b’ i Rwanda",
     "url": "https://indirimbo.rw/song/gushimisha/320",
+    "key": "do",
+    "references": [{"codes":"A.100"}, {"codes":"U.234"}, {"codes":"G.64"}],
+    "sharedMelody": [387],
+    "origin": "Rwanda",
+    "subcategory": "Iteraniro ry’ abasore",
     "body": [
       {
         "type": "verse",
         "number": 1,
-        "content": "Mwa bagore mwe b’ i Rwanda\nMuze, mwitabe Yesu!\nDor’ imirimo ni myinshi:\nTujye kumukorera\nDutabare bene wacu:\nUbu bararimbuka\nMwa bagore mwe b’ i Rwanda\nYes’ arabashoboza"
+        "content": "Mwa bagore mwe b’ i Rwanda\nMuze, mwitabe Yesu!\nDor’ imirimo ni myinshi:\nTujye kumukorera\nDutabare bene wacu:\nUbu bararimbuka\nMwa bagore mwe b’ i Rwanda\nYes’ arabashoboza."
       },
       {
         "type": "verse",
         "number": 2,
-        "content": "Mwa bagore mwe b’i Rwanda,\nNone nimutebuke!\nImibabaro n’ indwara\nBiragwiriye mw isi\nNimukingur’ imitima,\nUmukiz’ ageremo\nMwa bagore mwe b’ i Rwanda,\nMureke gupfapfana!"
+        "content": "Mwa bagore mwe b’ i Rwanda,\nNone nimutebuke!\nImibabaro n’ indwara\nBiragwiriye mw isi\nNimukingur’ imitima,\nUmukiz’ ageremo\nMwa bagore mwe b’ i Rwanda,\nMureke gupfapfana!"
       },
       {
         "type": "verse",
@@ -10795,21 +10890,24 @@ export const songs: NewSong[] = [
     "number": 321,
     "name": "Mana Data wo mw ijuru",
     "url": "https://indirimbo.rw/song/gushimisha/321",
+    "key": "mi bémol",
+    "references": [{"codes":"U.306"}, {"codes":"F.89"}],
+    "origin": "Danemark",
     "body": [
       {
         "type": "verse",
         "number": 1,
-        "content": "Mana Data wo mw ijuru,\nWashyingiriye Adamu\nNa Haw’ i Paradiso,\nUmaze kubateranya,\nUbaha n’ umugish’ uti:\nMub’ amahoro masa\nMuzabyare, —Muzaheke,\nMuzagwire, —Mwuzuz’ isi,\nMuyitegeke n’ ibyayo"
+        "content": "Mana Data wo mw ijuru,\nWashyingiriye Adamu\nNa Haw’ i Paradiso,\nUmaze kubateranya,\nUbaha n’ umugish’ uti:\nMub’ amahoro masa\nMuzabyare, —Muzaheke,\nMuzagwire, —Mwuzuz’ isi,\nMuyitegeke n’ ibyayo."
       },
       {
         "type": "verse",
         "number": 2,
-        "content": "Mujye mwitegeka neza,\nMufashanye, mukundane,\nMurengerane mwembi\nMw ihirwe no mu makuba\nMu bworo no mu bukire,\nMuzahimbaz’ Imana\nMana Data, —Ubarinde,\nNgo bagume—Kuri Wowe,\nMwami, jy’ ubiyegereza"
+        "content": "Mujye mwitegeka neza,\nMufashanye, mukundane,\nMurengerane mwembi\nMw ihirwe no mu makuba\nMu bworo no mu bukire,\nMuzahimbaz’ Imana\nMana Data, —Ubarinde,\nNgo bagume—Kuri Wowe,\nMwami, jy’ ubiyegereza."
       },
       {
         "type": "verse",
         "number": 3,
-        "content": "Wa mukwe n’ umugeni mwe,\nNimugir” umutim’ umwe,\nMubane mu mahoro\nNuk’ Umucunguzi wanyu\nAzabakomez’ iteka,\nArind’ urugo rwanyu,\nAbageze—Mw ijur’ i We,\nNgo mutahe—Na bwa bukwe\nBw’ Umwana w’ intama, Yesu"
+        "content": "Wa mukwe n’ umugeni mwe,\nNimugir’ umutim’ umwe,\nMubane mu mahoro\nNuk’ Umucunguzi wanyu\nAzabakomez’ iteka,\nArind’ urugo rwanyu,\nAbageze—Mw ijur’ i We,\nNgo mutahe—Na bwa bukwe\nBw’ Umwana w’ intama, Yesu."
       }
     ]
   },
@@ -10817,16 +10915,18 @@ export const songs: NewSong[] = [
     "number": 322,
     "name": "Aba bombi, Mana Data",
     "url": "https://indirimbo.rw/song/gushimisha/322",
+    "key": "mi bémol",
+    "references": [{"codes":"F.83"}, {"codes":"U.306"}],
     "body": [
       {
         "type": "verse",
         "number": 1,
-        "content": "Aba bombi, Mana Data,\nBashyingiranyw’ amahoro,\nUjy’ ubarinda neza\nMugwaneza w’ ubutunzi,\nUbatere kwizigira,\nKubw’ imbabazi zawe\nBakwizere, —-Bagusenge,\nWowe, Data, —-Kuk’ ukunda\nNo kubikiriz’ iteka"
+        "content": "Aba bombi, Mana Data,\nBashyingiranyw’ amahoro,\nUjy’ ubarinda neza.\nMugwaneza w’ ubutunzi,\nUbatere kwizigira,\nKubw’ imbabazi zawe\nBakwizere, —Bagusenge,\nWowe, Data, —Kuk’ ukunda\nNo kubikiriz’ iteka."
       },
       {
         "type": "verse",
         "number": 2,
-        "content": "Bahimbaz’ izina ryawe;\nRinda guterana kwabo\nKubw’ urukundo rwawe\nKand’ amahoro yaw’ abe\nI wabo none n’ iteka\nHamwe n’ ubuntu bwawe\nAmen! Amen!—-Ubemeze\nUbafashe, —-Ubarinde\nMu kubaho kwabo kwose"
+        "content": "Bahimbaz’ izina ryawe;\nRinda guterana kwabo\nKubw’ urukundo rwawe\nKand’ amahoro yaw’ abe\nI wabo none n’ iteka\nHamwe n’ ubuntu bwawe\nAmen! Amen!—Ubemeze\nUbafashe, —Ubarinde\nMu kubaho kwabo kose."
       }
     ]
   },
@@ -10834,26 +10934,28 @@ export const songs: NewSong[] = [
     "number": 323,
     "name": "Mana Data wa twese",
     "url": "https://indirimbo.rw/song/gushimisha/323",
+    "key": "sol",
+    "references": [{"codes":"U.146"}, {"codes":"V.29"}, {"codes":"G.503"}, {"codes":"AM.579"}],
     "body": [
       {
         "type": "verse",
         "number": 1,
-        "content": "Mana Data wa twese,\nMuremyi wa byose,\nKera wateranije\nAdamu na Eva,\nNon’ aba bana bawe\nUbah’ umugisha\nUva mu buntu bwawe,\nBaterane neza"
+        "content": "Mana Data wa twese,\nMuremyi wa byose,\nKera wateranije\nAdamu na Hawa,\nNon’ aba bana bawe\nUbah’ umugisha\nUva mu buntu bwawe,\nBaterane neza."
       },
       {
         "type": "verse",
         "number": 2,
-        "content": "Yesu, Mukiza wacu,\nWejeje bwa bukwe\nBw’ i Kana kera, n’ ubu\nUbah’ umugisha\nButah’ ubwawe,\nWeze Inzu y’ aba bantu,\nAmahor’ adashira\nAjy’ abamw iteka"
+        "content": "Yesu, Mukiza wacu,\nWejeje bwa bukwe\nBw’ i Kana kera, n’ ubu\nUbah’ umugisha\nButah’ ubwawe, weze\nInzu y’ aba bantu,\nAmahor’ adashira\nAjy’ abamw iteka."
       },
       {
         "type": "verse",
         "number": 3,
-        "content": "Mwuka w’ Imana mwiza,\nNon’ ubahumure,\nBareb’ ubwiza bwawe\nN’ urukundo rwawe\nUbarind’ amahane\nYic’ imibanire,\nAhubw’ ubakoreshe\nIby’ ushima gusa"
+        "content": "Mwuka w’ Imana mwiza,\nNon’ ubahumure,\nBareb’ ubwiza bwawe\nN’ urukundo rwawe\nUbarind’ amahane\nYic’ imibanire,\nAhubw’ ubakoreshe\nIby’ ushima gusa."
       },
       {
         "type": "verse",
         "number": 4,
-        "content": "Ab’ ari Wowe, Data,\nUbubakir’ inzu,\nKugira ngw ibyishimo\nByabo bidashira\nWez’ urukundo rwabo,\nRuhorehw iteka,\nBabane muri Wowe\nBahuj’ umutima"
+        "content": "Ab’ ari Wowe, Data,\nUbubakir’ inzu,\nKugira ngw ibyishimo\nByabo bidashira\nWez’ urukundo rwabo,\nRuhorehw iteka,\nBabane muri Wowe\nBahuj’ umutima."
       }
     ]
   },
@@ -10861,21 +10963,23 @@ export const songs: NewSong[] = [
     "number": 324,
     "name": "Mana Dat’ ukiranuka",
     "url": "https://indirimbo.rw/song/gushimisha/324",
+    "key": "sol",
+    "references": [{"codes":"E.283"}, {"codes":"G.175"}],
     "body": [
       {
         "type": "verse",
         "number": 1,
-        "content": "Mana Dat’ ukiranuka,\nAbabatizwa none,\nUbah’ umugisha wawe,\nKand’ ubarind’ iteka;\nBahame mu bawe rwose,\nBagushimishe, Mwami,\nKandi babe mw itorero,\nBitez’ ubwami bwawe"
+        "content": "Mana Dat’ ukiranuka,\nAbabatizwa none,\nUbah’ umugisha wawe,\nKand’ ubarind’ iteka;\nBahame mu bawe rwose,\nBagushimishe, Mwami,\nKandi babe mw itorero,\nBitez’ ubwami bwawe."
       },
       {
         "type": "verse",
         "number": 2,
-        "content": "Mwam’ isezerano ryabo,\nNgo baryibuk’ iteka,\nUbakomeze mu byawe\nKuko wabapfiriye;\nBabeho mu byawe byiza,\nBagukunde mu kuri,\nKuko waje kubakiza,\nBemere gucungurwa"
+        "content": "Mwam’ isezerano ryabo,\nNgo baryibuk’ iteka,\nUbakomeze mu byawe\nKuko wabapfiriye;\nBabeho mu byawe byiza,\nBagukunde mu kuri,\nKuko waje kubakiza,\nBemere gucungurwa."
       },
       {
         "type": "verse",
         "number": 3,
-        "content": "Mwam’ ubah’ Umwuka wawe,\nBakuyoboke rwose,\nNtibazatanire mw isi\nBakundane na bose;\nBabone no kwamamaza\nIbyiza byawe byose\nNiho twese tuzahabwa\nIkamba ry’ ubugingo"
+        "content": "Mwam’ ubah’ Umwuka wawe,\nBakuyoboke rwose,\nNtibazatanire mw isi\nBakundane na bose;\nBabone no kwamamaza\nIbyiza byawe byose\nNiho twese tuzahabwa\nIkamba ry’ ubugingo."
       }
     ]
   },
@@ -10883,21 +10987,23 @@ export const songs: NewSong[] = [
     "number": 325,
     "name": "Ababatijwe none",
     "url": "https://indirimbo.rw/song/gushimisha/325",
+    "key": "ré",
+    "references": [{"codes":"E.144"}],
     "body": [
       {
         "type": "verse",
         "number": 1,
-        "content": "Ababatijwe none,\nUbarinde, Mwami,\nUb’ umubyeyi wabo,\nKukw ar’ abangizi\nBajya mw ijuru bate?\nNtabwo bakwijyana,\nKeretse bakwizeye,\nWowe, Mucunguzi"
+        "content": "Ababatijwe none,\nUbarinde, Mwami,\nUb’ umubyeyi wabo,\nKukw ar’ abangizi\nBajya mw ijuru bate?\nNtabwo bakwijyana,\nKeretse bakwizeye,\nWowe, Mucunguzi."
       },
       {
         "type": "verse",
         "number": 2,
-        "content": "Bashakish’ urukundo,\nUjy’ ubaramira\nBakwiringire, Mwami,\nBahunge Satani;\nMuvunyi Yesu, ngwino,\nUbakiz’ ibibi\nTwese tuguhimbaze,\nNg’ udukiz’ iteka"
+        "content": "Bashakish’ urukundo,\nUjy’ ubaramira\nBakwiringire, Mwami,\nBahunge Satani;\nMuvunyi Yesu, ngwino,\nUbakiz’ ibibi\nTwese tuguhimbaze,\nNg’ udukiz’ iteka."
       },
       {
         "type": "verse",
         "number": 3,
-        "content": "Mwam’ ubwawe wenyine,\nUbabatirishe\nUmwuka wawe wera,\nBajye bakwizera;\nTwese tuzafatanye,\nTuzab’ umwe rwose,\nDuhore dukundana\nNkuko wadukunze"
+        "content": "Mwam’ ubwawe wenyine,\nUbabatirishe\nUmwuka wawe wera,\nBajye bakwizera;\nTwese tuzafatanye,\nTuzab’ umwe rwose,\nDuhore dukundana\nNkuko wadukunze."
       }
     ]
   },
@@ -10905,21 +11011,23 @@ export const songs: NewSong[] = [
     "number": 326,
     "name": "Utuzanye hano gusangira",
     "url": "https://indirimbo.rw/song/gushimisha/326",
+    "key": "si",
+    "references": [{"codes":"A.37"}, {"codes":"V.245"}, {"codes":"T.311"}],
     "body": [
       {
         "type": "verse",
         "number": 1,
-        "content": "Utuzanye hano gusangira\nIgaburo ryera, Mwami Yesu;\nNuk’ uyu munsi mwiza,\nNgwin’ utwibutse yuko\nWatubabarijwe, udupfira"
+        "content": "Utuzanye hano gusangira\nIgaburo ryera, Mwami Yesu;\nNuk’ uyu munsi mwiza,\nNgwin’ utwibutse yuko\nWatubabarijwe, udupfira."
       },
       {
         "type": "verse",
         "number": 2,
-        "content": "Ur’ umutsima wera umanyurwa\nN’ iyi vin’ isukwa bitwibutsa\nKo mu mukumbi wawe\nAbabigira nkana\nUzabibahora: bazacibwa"
+        "content": "Ur’ umutsima wera umanyurwa\nN’ iyi vin’ isukwa bitwibutsa\nKo mu mukumbi wawe\nAbabigira nkana\nUzabibahora: bazacibwa."
       },
       {
         "type": "verse",
         "number": 3,
-        "content": "Nukw iri Gaburo ritwibutsa\nYuko wapfiriye kudukiza!\nDukiranuke twese,\nTuguhimbaze rwose:\nTurakwihereje: utwimemo"
+        "content": "Nukw iri Gaburo ritwibutsa\nYuko wapfiriye kudukiza!\nDukiranuke twese,\nTuguhimbaze rwose:\nTurakwihereje: utwimemo."
       }
     ]
   },
@@ -10927,6 +11035,8 @@ export const songs: NewSong[] = [
     "number": 327,
     "name": "Ni byiza kureb’ ab’ Imana",
     "url": "https://indirimbo.rw/song/gushimisha/327",
+    "key": "mi",
+    "references": [{"codes":"V.280"}],
     "body": [
       {
         "type": "verse",
@@ -10954,11 +11064,14 @@ export const songs: NewSong[] = [
     "number": 328,
     "name": "Yes’ ur’ Umukiza wanjye",
     "url": "https://indirimbo.rw/song/gushimisha/328",
+    "key": "mi",
+    "references": [{"codes":"K.170"}, {"codes":"V.160"}],
+    "sharedMelody": [27],
     "body": [
       {
         "type": "verse",
         "number": 1,
-        "content": "Yes’ ur’ Umukiza wanjye:\nKuv’ ubu, jye mb’ uwawe\nNuhagiwe n’ amaraso Yawe,\nMwana w’ imama"
+        "content": "Yes’ ur’ Umukiza wanjye:\nKuv’ ubu, jye mb’ uwawe\nNuhagiwe n’ amaraso Yawe,\nMwana w’ Intama."
       },
       {
         "type": "chorus",
@@ -10967,17 +11080,17 @@ export const songs: NewSong[] = [
       {
         "type": "verse",
         "number": 2,
-        "content": "Kera nararushye cyane\nNgo nihesh’ amahoro\nNonubu, namaramaje\nKwirangiriza Yesu"
+        "content": "Kera nararushye cyane\nNgo nihesh’ amahoro\nNonubu, namaramaje\nKwirangiriza Yesu."
       },
       {
         "type": "verse",
         "number": 3,
-        "content": "Nzajya mbwir’ abantu bose\nAgakiza ka Yesu,\nGashyitse, katar’ igice\nN’ ubugingo bw’ ubuntu"
+        "content": "Nzajya mbwir’ abantu bose\nAgakiza ka Yesu,\nGashyitse, katar’ igice\nN’ ubugingo bw’ ubuntu."
       },
       {
         "type": "verse",
         "number": 4,
-        "content": "Nzajya namamaza Yesu,\nNshiz’ amanga, nta soni:\nUko yambohoy’ ingoyi\nNo kunkiz’ akankiza"
+        "content": "Nzajya namamaza Yesu,\nNshiz’ amanga, nta soni:\nUko yambohoy’ ingoyi\nNo kunkiz’ akankiza."
       },
       {
         "type": "verse",
@@ -10990,6 +11103,8 @@ export const songs: NewSong[] = [
     "number": 329,
     "name": "Nezerwa cyane, wa si we",
     "url": "https://indirimbo.rw/song/gushimisha/329",
+    "key": "ré",
+    "references": [{"codes":"A.184"}, {"codes":"T.254"}, {"codes":"S.111"}],
     "body": [
       {
         "type": "verse",
@@ -11004,7 +11119,7 @@ export const songs: NewSong[] = [
       {
         "type": "verse",
         "number": 3,
-        "content": "Non’ ibitovu n’ amahwa\nNimubirimbure!\nTwanizwe n’ ibicumuro\nN’ intimba byatumezemo\nYes’ araturengera\nNgw abirandure muri twe,\nWa muvum’ awusimbuz’ umugisha we"
+        "content": "Non’ ibitovu n’ amahwa\nNimubirimbure!\nTwanizwe n’ ibicumuro\nN’ intimba byatumezemo\nYes’ araturengera\nNgw abirandure muri twe,\nWa muvum’ awusimbuz’ umugisha we."
       },
       {
         "type": "verse",
@@ -11017,26 +11132,28 @@ export const songs: NewSong[] = [
     "number": 330,
     "name": "Wowe, Man’ ikiranuka",
     "url": "https://indirimbo.rw/song/gushimisha/330",
+    "key": "la",
+    "references": [{"codes":"U.102"}, {"codes":"A.84"}, {"codes":"F.5"}, {"codes":"G.10"}],
     "body": [
       {
         "type": "verse",
         "number": 1,
-        "content": "Wowe, Man’ ikiranuka,\nTurashim’ izina ryawe\nKuk’ uduhay’ udukiza\nUjy’ utuyobor’ i Wawe"
+        "content": "Wowe, Man’ ikiranuka,\nTurashim’ izina ryawe\nKuk’ uduhay’ udukiza\nUjy’ utuyobor’ i Wawe."
       },
       {
         "type": "verse",
         "number": 2,
-        "content": "Waduhay’ Umwami Yesu,\nAza kutwigisha neza\nIbir’ i Wawe mw ijuru\nNgo tukuyoboke neza"
+        "content": "Waduhay’ Umwami Yesu,\nAza kutwigisha neza\nIbir’ i Wawe mw ijuru\nNgo tukuyoboke neza."
       },
       {
         "type": "verse",
         "number": 3,
-        "content": "Wow’ udusabir’ iteka,\nUbe mu mitima yacu;\nNatwe tujye tugukunda,\nKuk’ ur’ Umuvunyi wacu"
+        "content": "Wow’ udusabir’ iteka,\nUbe mu mitima yacu;\nNatwe tujye tugukunda,\nKuk’ ur’ Umuvunyi wacu."
       },
       {
         "type": "verse",
         "number": 4,
-        "content": "Uhimbazwe, Mwami Yesu:\nTwibuka k’ uzagaruka\nKudushaka, twe n’ abacu,\nNg’ uduh’ ubugingo bushya"
+        "content": "Uhimbazwe, Mwami Yesu:\nTwibuka k’ uzagaruka\nKudushaka, twe n’ abacu,\nNg’ uduh’ ubugingo bushya."
       }
     ]
   },
@@ -11044,11 +11161,13 @@ export const songs: NewSong[] = [
     "number": 331,
     "name": "Hoziyana! Twese dushim’ Uwaje",
     "url": "https://indirimbo.rw/song/gushimisha/331",
+    "key": "si bémol",
+    "origin": "Budage",
     "body": [
       {
         "type": "verse",
         "number": 1,
-        "content": "Hoziyana! Twese dushim’ Uwaje\nMw izina ry’ Umwami\nHoziyana mw ijuru!\n|:Ubwo yaje mw izina ry’ Umwami,:|x2\nHoziyana! Hoziyana!\n|:Hoziyana mw ijuru!:|x2"
+        "content": "Hoziyana! Twese dushim’ Uwaje\nMw izina ry’ Umwami.\nHoziyana mw ijuru!\n|:Ubwo yaje mw izina ry’ Umwami,:|x2\nHoziyana! Hoziyana!\n|:Hoziyana mw ijuru!:|x2"
       }
     ]
   },
@@ -11056,11 +11175,13 @@ export const songs: NewSong[] = [
     "number": 332,
     "name": "Turirimbe na none",
     "url": "https://indirimbo.rw/song/gushimisha/332",
+    "key": "sol",
+    "references": [{"codes":"F.33"}],
     "body": [
       {
         "type": "verse",
         "number": 1,
-        "content": "Turirimbe na none\nUbuntu bw’ Umwami;\nUmunezero rawmshi\nUbe mu mitima\nAgakiza kacu\nKavuye mw ijuru:\n|:Dufit’ Umukiza.:|x2"
+        "content": "Turirimbe na none\nUbuntu bw’ Umwami;\nUmunezero mwinshi\nUbe mu mitima\nAgakiza kacu\nKavuye mw ijuru:\n|:Dufit’ Umukiza.:|x2"
       },
       {
         "type": "verse",
@@ -11088,26 +11209,28 @@ export const songs: NewSong[] = [
     "number": 333,
     "name": "Nimuze, dusange Yesu",
     "url": "https://indirimbo.rw/song/gushimisha/333",
+    "key": "fa",
+    "origin": "Budage",
     "body": [
       {
         "type": "verse",
         "number": 1,
-        "content": "Nimuze, dusange Yesu:\nNi W’ udukesh’ imitima\nTuririmbe, tunezerwe,\nKuko tur’ intore ze"
+        "content": "Nimuze, dusange Yesu:\nNi W’ udukesh’ imitima\nTuririmbe, tunezerwe,\nKuko tur’ intore ze."
       },
       {
         "type": "verse",
         "number": 2,
-        "content": "Data yatumy’ Umwana we\nNgw ’atuzanir’ ubugingo\nNi W’ ubw’ uzatuzamura\nAtujyane ku Mana"
+        "content": "Data yatumy’ Umwana we\nNgw’ atuzanir’ ubugingo\nNi W’ ubw’ uzatuzamura\nAtujyane ku Mana."
       },
       {
         "type": "verse",
         "number": 3,
-        "content": "Abemey’ ayo magambo\nBayashima mu mitima,\nBameny’ Imana Rurema\nKandi bavuz’ impundu"
+        "content": "Abemey’ ayo magambo\nBayashima mu mitima,\nBameny’ Imana Rurema\nKandi bavuz’ impundu."
       },
       {
         "type": "verse",
         "number": 4,
-        "content": "Yesu, kubw’ ubuntu bwawe,\nUzatwijyanir’ i Wawe,\nAhw abatowe n’ Imana\nBicara bakishima"
+        "content": "Yesu, kubw’ ubuntu bwawe,\nUzatwijyanir’ i Wawe,\nAhw abatowe n’ Imana\nBicara bakishima."
       }
     ]
   },
@@ -11115,16 +11238,19 @@ export const songs: NewSong[] = [
     "number": 334,
     "name": "Wa mutima wanjye we, shim’ Uwiteka",
     "url": "https://indirimbo.rw/song/gushimisha/334",
+    "key": "do",
+    "references": [{"codes":"U.137"}, {"codes":"G.45"}, {"codes":"T.86"}],
+    "bibleRef": "Zaburi 103",
     "body": [
       {
         "type": "verse",
         "number": 1,
-        "content": "Wa mutima wanjye we, shim’ Uwiteka!\nMwa bindimo byose mwe, mushime!\nNjye mpimbaz’ izina rye, ne kwibagirwa\nIby’ Imana yankoreye byose\nImbabarir’ ibyaha nakoze byose\nNi Y’ inkiz’ indwara zamugaje\nInyambik’ imbabazi zayo nk’ ikamba,\nIkampaz’ ibyiza bidashira"
+        "content": "Wa mutima wanjye we, shim’ Uwiteka!\nMwa bindimo byose mwe, mushime!\nNjye mpimbaz’ izina rye, ne kwibagirwa\nIby’ Imana yankoreye byose\nImbabarir’ ibyaha nakoze byose\nNi Y’ inkiz’ indwara zamugaje\nInyambik’ imbabazi zayo nk’ ikamba,\nIkampaz’ ibyiza bidashira."
       },
       {
         "type": "verse",
         "number": 2,
-        "content": "Ijy’ ikor’ ibyo gukiranuka gusa,\nN’ abarenganyw’ ikabarengera\nIc’ imanza ziboneye zitabera,\nKand’ igir’ imbabazi n’ ibambe\nImenyesh’ abayubah’ inzirazayo\nUwitek’ atinda kurakara;\nUmujinya ntiyawuguman’ iteka\nAkunda kugirira nez’ abe"
+        "content": "Ijy’ ikor’ ibyo gukiranuka gusa,\nN’ abarenganyw’ ikabarengera\nIc’ imanza ziboneye zitabera,\nKand’ igir’ imbabazi n’ ibambe\nImenyesh’ abayubah’ inzirazayo\nUwitek’ atinda kurakara;\nUmujinya ntiyawuguman’ iteka\nAkunda kugirira nez’ abe."
       },
       {
         "type": "verse",
@@ -11134,12 +11260,12 @@ export const songs: NewSong[] = [
       {
         "type": "verse",
         "number": 4,
-        "content": "Nkuko se w’ aban’ abagirir’ ibambe,\nNi kw Imana yac’ irigirira Abantu bayubaha,\nKukw izi nezaUbukene bwacu n’ intege nke\nIz’ ubugingo bwacu ko butarama;\nBuhwanye n’ ubwatsi bushiraho\nNtibutinda; si nka za mbabazi zayo,\nZo ntizizashir’ iteka ryose"
+        "content": "Nkuko se w’ aban’ abagirir’ ibambe,\nNi kw Imana yac’ irigirira\nAbantu bayubaha, kukw izi neza\nUbukene bwacu n’ intege nke.\nIz’ ubugingo bwacu ko butarama;\nBuhwanye n’ ubwatsi bushiraho\nNtibutinda; si nka za mbabazi zayo,\nZo ntizizashir’ iteka ryose."
       },
       {
         "type": "verse",
         "number": 5,
-        "content": "Uwitonder’ isezerano ry’ Imana,\nNi ryo ryakomejwe n’ amaraso\nAyo Yes’ Umwana w’ Intama yavuye,\nKand’ akumvir’ ibyo yategetse,\nNi w’ ugirirwa neza n’ Iman’ iteka,\nNon’ akiri mw isi no mw ijuru,\nIman’ izamwerek’ imbabazi zayo\nN’ umurava no gukiranuka"
+        "content": "Uwitonder’ isezerano ry’ Imana,\nNi ryo ryakomejwe n’ amaraso\nAyo Yes’ Umwana w’ Intama yavuye,\nKand’ akumvir’ ibyo yategetse,\nNi w’ ugirirwa neza n’ Iman’ iteka,\nNon’ akiri mw isi no mw ijuru,\nIman’ izamwerek’ imbabazi zayo\nN’ umurava no gukiranuka."
       }
     ]
   },
@@ -11147,16 +11273,19 @@ export const songs: NewSong[] = [
     "number": 335,
     "name": "Umuhanuzi Yesaya",
     "url": "https://indirimbo.rw/song/gushimisha/335",
+    "key": "fa",
+    "references": [{"codes":"U.148"}, {"codes":"G.27"}, {"codes":"F.197"}],
+    "bibleRef": "Yesaya 6",
     "body": [
       {
         "type": "verse",
         "number": 1,
-        "content": "Umuhanuzi Yesaya\nYeretsw’ ibyiza kera\nYerekw’ Imana mw ijuru\nIri mu rusengero:\nAbakerubi n’ Abaserafi\nBayishyize hagati,\nBajya bayishim’ iteka,\nBayisingiza bati:"
+        "content": "Umuhanuzi Yesaya\nYeretsw’ ibyiza kera.\nYerekw’ Imana mw ijuru\nIri mu rusengero:\nAbakerubi n’ Abaserafi\nBayishyize hagati,\nBajya bayishim’ iteka,\nBayisingiza bati:"
       },
       {
         "type": "verse",
         "number": 2,
-        "content": "Mwan’ Uwer’ Uwer’ Uwera:\nIbyo mw isi n’ ijuru\nByuzuyemw ishimwe ryawe,\nBose baguhimbaze\nBaracyaririmba batyo,\nKand’ abantu bo mw isi\nNa bo barashim’ Imana,\nUmukiza n’ Umwami"
+        "content": "Mwan’ Uwer’ Uwer’ Uwera:\nIbyo mw isi n’ ijuru\nByuzuyemw ishimwe ryawe,\nBose baguhimbaze\nBaracyaririmba batyo,\nKand’ abantu bo mw isi\nNa bo barashim’ Imana,\nUmukiza n’ Umwami."
       },
       {
         "type": "verse",
@@ -11169,6 +11298,8 @@ export const songs: NewSong[] = [
     "number": 336,
     "name": "Mwuka Wera w’ Imana",
     "url": "https://indirimbo.rw/song/gushimisha/336",
+    "key": "sol",
+    "references": [{"codes":"C.SSM.418"}, {"codes":"CL.1"}],
     "body": [
       {
         "type": "verse",
@@ -11181,11 +11312,13 @@ export const songs: NewSong[] = [
     "number": 337,
     "name": "Imbabazi z’ Umwami wacu Yesu",
     "url": "https://indirimbo.rw/song/gushimisha/337",
+    "key": "la",
+    "references": [{"codes":"V.146"}],
     "body": [
       {
         "type": "verse",
         "number": 1,
-        "content": "Imbabazi z’ Umwami wacu Yesu\nN’ urukundo rw’ Imana\nNo kubana n’ Umwuka Wera\nBibe muri twe, twebwe twese: Amen"
+        "content": "Imbabazi z’ Umwami wacu Yesu\nN’ urukundo rw’ Imana\nNo kubana n’ Umwuka Wera\nBibe muri twe, twebwe twese: Amen."
       }
     ]
   },
@@ -11193,6 +11326,8 @@ export const songs: NewSong[] = [
     "number": 338,
     "name": "Mwami, vuga, nanjye ndumva",
     "url": "https://indirimbo.rw/song/gushimisha/338",
+    "key": "sol",
+    "references": [{"codes":"RS.835"}, {"codes":"V.81"}],
     "body": [
       {
         "type": "verse",
@@ -11205,6 +11340,7 @@ export const songs: NewSong[] = [
     "number": 339,
     "name": "Non’ amaganya yawe yose",
     "url": "https://indirimbo.rw/song/gushimisha/339",
+    "references": [{"codes":"BG.76"}],
     "body": [
       {
         "type": "verse",
@@ -11217,43 +11353,47 @@ export const songs: NewSong[] = [
     "number": 340,
     "name": "Umutima wanjye wizera",
     "url": "https://indirimbo.rw/song/gushimisha/340",
+    "key": "ré",
+    "references": [{"codes":"F.336"}],
     "body": [
       {
         "type": "verse",
         "number": 1,
-        "content": "Umutima wanjye wizera\nKugusaba, Mana Data;\nUnyumvane za mpuhwe zawe\nJy’ umwana wakugomeye\nNi Wowe wenyine nizeye\nKw ari Wow’ ump’ umugisha"
+        "content": "Umutima wanjye wizera\nKugusaba, Mana Data;\nUnyumvane za mpuhwe zawe\nJy’ umwana wakugomeye\nNi Wowe wenyine nizeye\nKw ari Wow’ ump’ umugisha."
       },
       {
         "type": "verse",
         "number": 2,
-        "content": "Ndagusanze nguhungiyeho\nKukw ari Wowe nizeye\nUmpe n’ Umwuka wawe wera\nUmp’ intege. ninanirwa\nNi mbon’ ibyago, nkwizigire\nK’ unyakiran’ imbabazi"
+        "content": "Ndagusanze nguhungiyeho\nKukw ari Wowe nizeye\nUmpe n’ Umwuka wawe wera\nUmp’ intege, ninanirwa\nNi mbon’ ibyago, nkwizigire\nK’ unyakiran’ imbabazi."
       },
       {
         "type": "verse",
         "number": 3,
-        "content": "Ku manywa mba mu mucyo wawe;\nN’ ijoro nkakwegamira;\nNo mu gitondo, nkigusenga,\nUjy’ untegurir’ inzira:\nNo mu maryama, Data mwiza,\nUndinganiriz’ iby’ ejo"
+        "content": "Ku manywa mba mu mucyo wawe;\nN’ ijoro nkakwegamira;\nNo mu gitondo, nkigusenga,\nUjy’ untegurir’ inzira:\nNo mu maryama, Data mwiza,\nUndinganiriz’ iby’ ejo."
       }
     ]
   },
   {
     "number": 341,
-    "name": "Fat’ ukuboko kwanjye, —-Ungendeshe",
+    "name": "Fat’ ukuboko kwanjye, —Ungendeshe",
     "url": "https://indirimbo.rw/song/gushimisha/341",
+    "key": "do",
+    "references": [{"codes":"V.341"}],
     "body": [
       {
         "type": "verse",
         "number": 1,
-        "content": "Fat’ ukuboko kwanjye, —-Ungendeshe;\nTujyan’ ungez’ aheza—-Ku Witeka\nSinagir’ aho ngera, —Ntagufite\nMwam’ ah’ ushaka ko njya, —-Uhanjyane"
+        "content": "Fat’ ukuboko kwanjye, —Ungendeshe;\nTujyan’ ungez’ aheza—Ku Witeka\nSinagir’ aho ngera, —Ntagufite\nMwam’ ah’ ushaka ko njya, —Uhanjyane."
       },
       {
         "type": "verse",
         "number": 2,
-        "content": "Ibyago ni bintera. -—Mpumuriza;\nUnturiz’ umutima, —-Ni mbabara\nNaje nguhungiyeho, —-Ngo nduhuke:\nSintinya turi kumwe, —-Mwami wanjye"
+        "content": "Ibyago ni bintera. —Mpumuriza;\nUnturiz’ umutima, —Ni mbabara\nNaje nguhungiyeho, —Ngo nduhuke:\nSintinya turi kumwe, —Mwami wanjye."
       },
       {
         "type": "verse",
         "number": 3,
-        "content": "Ubu naho nahishwa—-K’ untabara,\nNizeye k’ unzanjyana. —-Ukankiza\nEnd’ ukuboko kwanjye, —-Unyobore,\nTujyan’ ungez’ aheza—-Ku Witeka"
+        "content": "Ubu naho nahishwa—K’ untabara,\nNizeye k’ unzanjyana. —Ukankiza\nEnd’ ukuboko kwanjye, —Unyobore,\nTujyan’ ungez’ aheza—Ku Witeka."
       }
     ]
   },
@@ -11261,21 +11401,23 @@ export const songs: NewSong[] = [
     "number": 342,
     "name": "Njye nsindagizwa n’ ukuboko kwawe",
     "url": "https://indirimbo.rw/song/gushimisha/342",
+    "key": "mi bémol",
+    "references": [{"codes":"U.265(2)"}, {"codes":"V.221"}, {"codes":"G.319"}],
     "body": [
       {
         "type": "verse",
         "number": 1,
-        "content": "Njye nsindagizwa n’ ukuboko kwawe,\nJy’ umwana waw’ ufit’ intege nke\nNi Wowe, Mwami, nisunze wenyine,\nNi mbana nawe, nta kizanyobya"
+        "content": "Njye nsindagizwa n’ ukuboko kwawe,\nJy’ umwana waw’ ufit’ intege nke\nNi Wowe, Mwami, nisunze wenyine,\nNi mbana nawe, nta kizanyobya."
       },
       {
         "type": "verse",
         "number": 2,
-        "content": "Njye ntegekeshw’ uko kuboko kwawe,\nNezerewe, ndi no mu makuba\nNgukundish’ umutima wanjye wose\nKugira ngo mb’ uwawe, Mukiza"
+        "content": "Njye ntegekeshw’ uko kuboko kwawe,\nNezerewe, ndi no mu makuba\nNgukundish’ umutima wanjye wose\nKugira ngo mb’ uwawe, Mukiza."
       },
       {
         "type": "verse",
         "number": 3,
-        "content": "Njye nkomezwa n’ uko kuboko kwawe\nMu mutima wanjy’ ushidikanya:\nReb’ agahinda n’ ishavu njya ngira\nUmpumurize, Mwami, ntunsige"
+        "content": "Njye nkomezwa n’ uko kuboko kwawe\nMu mutima wanjy’ ushidikanya:\nReb’ agahinda n’ ishavu njya ngira\nUmpumurize, Mwami, ntunsige."
       }
     ]
   },
@@ -11283,6 +11425,8 @@ export const songs: NewSong[] = [
     "number": 343,
     "name": "Munyabyaha, nturushye se",
     "url": "https://indirimbo.rw/song/gushimisha/343",
+    "key": "si",
+    "references": [{"codes":"V.238"}, {"codes":"V.209"}, {"codes":"G.23"}],
     "body": [
       {
         "type": "verse",
@@ -11292,7 +11436,7 @@ export const songs: NewSong[] = [
       {
         "type": "verse",
         "number": 2,
-        "content": "Yes’ afit’ ibimenyetso\nBimutwereka?\nN’ umutwe n’ ibiganza bifite\nInkovu"
+        "content": "Yes’ afit’ ibimenyetso\nBimutwereka?\nN’ umutwe n’ ibiganza bifite\nInkovu."
       },
       {
         "type": "verse",
@@ -11320,16 +11464,19 @@ export const songs: NewSong[] = [
     "number": 344,
     "name": "Muze mwese, muz’ aho ndi",
     "url": "https://indirimbo.rw/song/gushimisha/344",
+    "key": "mi bémol",
+    "references": [{"codes":"U.205"}, {"codes":"G.283"}, {"codes":"G.234"}],
+    "sharedMelody": [56],
     "body": [
       {
         "type": "verse",
         "number": 1,
-        "content": "Muze mwese, muz’ aho ndi,\nAbananiwe!\nYesu ni kw ’ ahamagara\nAbo mw isi"
+        "content": "Muze mwese, muz’ aho ndi,\nAbananiwe!\nYesu ni kw’ ahamagara\nAbo mw isi."
       },
       {
         "type": "verse",
         "number": 2,
-        "content": "Si wow’ umushak’ ahubwo\nNi W’ ugushaka!\nWe kwirirwa witunganya:\nUz’ uk’ uri"
+        "content": "Si wow’ umushak’ ahubwo\nNi W’ ugushaka!\nWe kwirirwa witunganya:\nUz’ uk’ uri."
       },
       {
         "type": "verse",
@@ -11339,7 +11486,7 @@ export const songs: NewSong[] = [
       {
         "type": "verse",
         "number": 4,
-        "content": "Ngwin’ ureb’ iby’ Umukiza\nAgukorera;\nAribugukiz’ indwara\nZ’ umutima"
+        "content": "Ngwin’ ureb’ iby’ Umukiza\nAgukorera;\nAribugukiz’ indwara\nZ’ umutima."
       },
       {
         "type": "verse",
@@ -11362,6 +11509,8 @@ export const songs: NewSong[] = [
     "number": 345,
     "name": "Umv’ iryo jwi rikwinginga",
     "url": "https://indirimbo.rw/song/gushimisha/345",
+    "key": "la",
+    "references": [{"codes":"V.102"}, {"codes":"S.341"}, {"codes":"C.202"}],
     "body": [
       {
         "type": "verse",
@@ -11375,7 +11524,7 @@ export const songs: NewSong[] = [
       {
         "type": "verse",
         "number": 2,
-        "content": "Ko wamaz’ imyaka myinshi\nUzerer’ uzimiye,\nMbese, ntiwaz’ uyu munsi\nNi byo bigukwiriye!"
+        "content": "Ko wamaz’ imyaka myinshi\nUzerer’ uzimiye,\nMbese, ntiwaz’ uyu munsi?\nNi byo bigukwiriye!"
       },
       {
         "type": "verse",
@@ -11393,20 +11542,22 @@ export const songs: NewSong[] = [
     "number": 346,
     "name": "Ngwino, witabe Yesu",
     "url": "https://indirimbo.rw/song/gushimisha/346",
+    "key": "do",
+    "references": [{"codes":"U.211(2)"}, {"codes":"S.448"}],
     "body": [
       {
         "type": "verse",
         "number": 1,
-        "content": "Ngwino, witabe Yesu;\nAkuri bugufi\nWatur’ ibyaha byawe,\nUsang’ Umukiza"
+        "content": "Ngwino, witabe Yesu;\nAkuri bugufi\nWatur’ ibyaha byawe,\nUsang’ Umukiza."
       },
       {
         "type": "chorus",
-        "content": "Haguruka! Haguruka!\nArakurindira\nWatur ibyaha byawe;\nWakire n’ umugisha!\nAwuguher’ ubuntu;\nNuk’ umusingize"
+        "content": "Haguruka! Haguruka!\nArakurindira\nWatur’ ibyaha byawe;\nWakire n’ umugisha!\nAwuguher’ ubuntu;\nNuk’ umusingize."
       },
       {
         "type": "verse",
         "number": 2,
-        "content": "Ngwino, witabe Yesu,\nUve mu mwijima\nReka gushidikanya:\nImins’ irahita"
+        "content": "Ngwino, witabe Yesu,\nUve mu mwijima\nReka gushidikanya:\nImins’ irahita."
       },
       {
         "type": "verse",
@@ -11851,23 +12002,23 @@ export const songs: NewSong[] = [
   },
   {
     "number": 358,
-    "name": "Twemere Yesu—-Ko yaje mw isi",
+    "name": "Twemere Yesu—Ko yaje mw isi",
     "url": "https://indirimbo.rw/song/gushimisha/358",
     "body": [
       {
         "type": "verse",
         "number": 1,
-        "content": "Twemere Yesu—-Ko yaje mw isi\nKutubwir’ amahoro ye\nNi We nshuti nziza. —-I Gologota,\nYahow’ abazimiye\nMpora nizera, —-N’ ubu nizeye\nYuko Yesu yampfiriye;\nKu Musaraba, —-Yaranesheje;\nAmbohora mwizeye"
+        "content": "Twemere Yesu—Ko yaje mw isi\nKutubwir’ amahoro ye\nNi We nshuti nziza. —I Gologota,\nYahow’ abazimiye\nMpora nizera, —N’ ubu nizeye\nYuko Yesu yampfiriye;\nKu Musaraba, —Yaranesheje;\nAmbohora mwizeye"
       },
       {
         "type": "verse",
         "number": 2,
-        "content": "Inzira yanjye—-Ni Yesu wanjye;\nAnjyan’ aho yangeneye\nN’ umugiraneza; —-Nta muntu n’ umwe\nYanga guh’ agakiza\nMpora nizera, -—N’ ubu nizeye\nYuko Yesu yamfiriye;\nKu Musaraba, —Yaranesheje;\nAmbohora mwizeye"
+        "content": "Inzira yanjye—Ni Yesu wanjye;\nAnjyan’ aho yangeneye\nN’ umugiraneza; —Nta muntu n’ umwe\nYanga guh’ agakiza\nMpora nizera, —N’ ubu nizeye\nYuko Yesu yamfiriye;\nKu Musaraba, —Yaranesheje;\nAmbohora mwizeye"
       },
       {
         "type": "verse",
         "number": 3,
-        "content": "Mwami w’ ubuntu, —-Uhimbarizwe\nKuk’ uturarik’ iteka\nTukwitabe twese, —-Twumv’ ijwi ryawe\nRihamagara hose\nTwizere twese, —-Twe guhinyura\nKo Yesu yadupfiriye;\nKu Musaraba, —-Yaranesheje;\nAbohor’ abizeye"
+        "content": "Mwami w’ ubuntu, —Uhimbarizwe\nKuk’ uturarik’ iteka\nTukwitabe twese, —Twumv’ ijwi ryawe\nRihamagara hose\nTwizere twese, —Twe guhinyura\nKo Yesu yadupfiriye;\nKu Musaraba, —Yaranesheje;\nAbohor’ abizeye"
       }
     ]
   },
@@ -13903,77 +14054,77 @@ export const songs: NewSong[] = [
       {
         "type": "verse",
         "number": 1,
-        "content": "Habay’ umuntu twizeho;\nIzina rye ni Yosefu—-kera"
+        "content": "Habay’ umuntu twizeho;\nIzina rye ni Yosefu—kera"
       },
       {
         "type": "verse",
         "number": 2,
-        "content": "Yar’ afit’ abavandimwe,\nNyamara barahemutse—-cyane"
+        "content": "Yar’ afit’ abavandimwe,\nNyamara barahemutse—cyane"
       },
       {
         "type": "verse",
         "number": 3,
-        "content": "Bamujugunye mu bushya,\nBasig’ umwend’ amaraso—-menshi"
+        "content": "Bamujugunye mu bushya,\nBasig’ umwend’ amaraso—menshi"
       },
       {
         "type": "verse",
         "number": 4,
-        "content": "Hanyuma, bamucuruza\nN’ abantu b’ Ishimayeli—-bamwe"
+        "content": "Hanyuma, bamucuruza\nN’ abantu b’ Ishimayeli—bamwe"
       },
       {
         "type": "verse",
         "number": 5,
-        "content": "Babeshya se, bavuga ko\nYariwe n’ inyamaswa mbi—-si byo"
+        "content": "Babeshya se, bavuga ko\nYariwe n’ inyamaswa mbi—si byo"
       },
       {
         "type": "verse",
         "number": 6,
-        "content": "Mw Egiputa, yarafunzwe;\nIherez’ arafungurwa—-neza"
+        "content": "Mw Egiputa, yarafunzwe;\nIherez’ arafungurwa—neza"
       },
       {
         "type": "verse",
         "number": 7,
-        "content": "Abon’ ukw arotorera\nUmwami waho, Farawo—-koko"
+        "content": "Abon’ ukw arotorera\nUmwami waho, Farawo—koko"
       },
       {
         "type": "verse",
         "number": 8,
-        "content": "Bamufunguy’ ahinduka\nIgisonga cya Farawo—-cyiza"
+        "content": "Bamufunguy’ ahinduka\nIgisonga cya Farawo—cyiza"
       },
       {
         "type": "verse",
         "number": 9,
-        "content": "Hatey’ inzara, bene se\nBamanuka kwihahira—-i we"
+        "content": "Hatey’ inzara, bene se\nBamanuka kwihahira—i we"
       },
       {
         "type": "verse",
         "number": 10,
-        "content": "Yanga kubirondorera,\nNgo bemer’ ibyo bakoze—-bibi"
+        "content": "Yanga kubirondorera,\nNgo bemer’ ibyo bakoze—bibi"
       },
       {
         "type": "verse",
         "number": 11,
-        "content": "Iherezo, barihana,\nNukw arabababarira—-rwose"
+        "content": "Iherezo, barihana,\nNukw arabababarira—rwose"
       },
       {
         "type": "verse",
         "number": 12,
-        "content": "Abakiran’ imbabazi,\nNo kwimuka, barimuka—-bose"
+        "content": "Abakiran’ imbabazi,\nNo kwimuka, barimuka—bose"
       },
       {
         "type": "verse",
         "number": 13,
-        "content": "Baraza, bav’ i Kanani,\nBazana na se, Yakobo—-ubwe"
+        "content": "Baraza, bav’ i Kanani,\nBazana na se, Yakobo—ubwe"
       },
       {
         "type": "verse",
         "number": 14,
-        "content": "Uko ni ko Yosef’ uwo\nYakijije bene wabo—-bose"
+        "content": "Uko ni ko Yosef’ uwo\nYakijije bene wabo—bose"
       },
       {
         "type": "verse",
         "number": 15,
-        "content": "Bisa n’ ubuntu bwa Yesu\nYagiriy’ ababisha be—-ni twe!"
+        "content": "Bisa n’ ubuntu bwa Yesu\nYagiriy’ ababisha be—ni twe!"
       }
     ]
   },
@@ -14419,43 +14570,43 @@ export const songs: NewSong[] = [
   },
   {
     "number": 431,
-    "name": "Abakund’ iby’ isi—-Ntabwo babihaga",
+    "name": "Abakund’ iby’ isi—Ntabwo babihaga",
     "url": "https://indirimbo.rw/song/gushimisha/431",
     "body": [
       {
         "type": "verse",
         "number": 1,
-        "content": "Abakund’ iby’ isi—-Ntabwo babihaga;\nBa sogokuruza—-Na bo ntibahaze"
+        "content": "Abakund’ iby’ isi—Ntabwo babihaga;\nBa sogokuruza—Na bo ntibahaze"
       },
       {
         "type": "verse",
         "number": 2,
-        "content": "Abanga kwihana—-Muratubabaza\nKo tubaburira, —-Mukizib’ amatwi!"
+        "content": "Abanga kwihana—Muratubabaza\nKo tubaburira, —Mukizib’ amatwi!"
       },
       {
         "type": "verse",
         "number": 3,
-        "content": "Ibi bibashuka, —-Nta kizarokoka,\nKerets’ abihannye, —-Yes’ akabakiza"
+        "content": "Ibi bibashuka, —Nta kizarokoka,\nKerets’ abihannye, —Yes’ akabakiza"
       },
       {
         "type": "verse",
         "number": 4,
-        "content": "Iyi s’ izashira—-N’ ibirimo byose;\nInka n’ imirima—-N’ intoke n’ inzoga"
+        "content": "Iyi s’ izashira—N’ ibirimo byose;\nInka n’ imirima—N’ intoke n’ inzoga"
       },
       {
         "type": "verse",
         "number": 5,
-        "content": "Nta kizasigara: —-Bizab’ umuyonga\nUbw’ is’ izashira, —-Muzasigara he?"
+        "content": "Nta kizasigara: —Bizab’ umuyonga\nUbw’ is’ izashira, —Muzasigara he?"
       },
       {
         "type": "verse",
         "number": 6,
-        "content": "Twebw’ abakijijwe—-Turanezerewe\nGuca mur’ iyi si, —-Dufit’ amahoro"
+        "content": "Twebw’ abakijijwe—Turanezerewe\nGuca mur’ iyi si, —Dufit’ amahoro"
       },
       {
         "type": "verse",
         "number": 7,
-        "content": "Mwami wacu Yesu, —-Turagushimira\nKo wadupfiriye, —-Ntituzarimbuke"
+        "content": "Mwami wacu Yesu, —Turagushimira\nKo wadupfiriye, —Ntituzarimbuke"
       }
     ]
   },

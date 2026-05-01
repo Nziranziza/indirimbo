@@ -281,6 +281,10 @@ export default function SongScreen() {
     ? firstSection.content.replace(/\n/g, " ")
     : `${currentSong.name} - ${playlistTitle} hymn #${currentSong.number}`;
 
+  const hasFooterContent = Boolean(
+    currentSong.key || (currentSong.references && currentSong.references.length > 0),
+  );
+
   const headerHeight = insets.top + 8 + 40 + 8;
 
   return (
@@ -355,7 +359,7 @@ export default function SongScreen() {
         <Animated.ScrollView
           ref={scrollViewRef}
           style={styles.scrollView}
-          contentContainerStyle={[styles.scrollContent, !currentSong.references && { paddingBottom: 100 }]}
+          contentContainerStyle={[styles.scrollContent, !hasFooterContent && styles.scrollContentNoFooter]}
           onScroll={handleScroll}
           scrollEventThrottle={16}
           onContentSizeChange={(_w, h) => setContentHeight(h)}
@@ -409,7 +413,7 @@ export default function SongScreen() {
               </ThemedView>
             </View>
           )) || []}
-          {(currentSong.key || (currentSong.references && currentSong.references.length > 0)) && (
+          {hasFooterContent && (
             <View style={styles.referencesContainer}>
               {currentSong.key && (
                 <ThemedText style={styles.referenceEntry}>
@@ -529,6 +533,9 @@ const styles = StyleSheet.create({
     padding: 20,
     paddingTop: 0,
     paddingBottom: 20,
+  },
+  scrollContentNoFooter: {
+    paddingBottom: 100,
   },
   songNumberBadge: {
     marginRight: 10,
