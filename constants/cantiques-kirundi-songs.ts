@@ -10633,7 +10633,7 @@ export const songs: NewSong[] = [
     "name": "Ah' umubano mwiza",
     "url": "https://indirimbo.rw/song/cantiques-kirundi/322",
     "category": "UBUKWE",
-    "references": [{"codes":"M.S."},{"codes":"r 318"}],
+    "references": [{"codes":"M.S."},{"codes":"CR. 318"}],
     "body": [
       {
         "type": "verse",
@@ -10724,7 +10724,7 @@ export const songs: NewSong[] = [
     "name": "Dutond' urugamba twese",
     "url": "https://indirimbo.rw/song/cantiques-kirundi/325",
     "category": "IZIRIRIMBWA N'ABAHINGA",
-    "references": [{"title":"Faith is the Victory","codes":"T.H.112"},{"codes":"r 394"}],
+    "references": [{"title":"Faith is the Victory","codes":"T.H.112"},{"codes":"CR. 394"}],
     "body": [
       {
         "type": "verse",
@@ -10757,7 +10757,7 @@ export const songs: NewSong[] = [
     "name": "Iyo ntinye ko kwizera",
     "url": "https://indirimbo.rw/song/cantiques-kirundi/326",
     "category": "IZIRIRIMBWA N'ABAHINGA",
-    "references": [{"title":"He will hold me fast","codes":"G.B.303"},{"codes":"T.H.177"},{"codes":"r 359"}],
+    "references": [{"title":"He will hold me fast","codes":"G.B.303"},{"codes":"T.H.177"},{"codes":"CR. 359"}],
     "body": [
       {
         "type": "verse",
@@ -10823,7 +10823,7 @@ export const songs: NewSong[] = [
     "name": "Yesu, nd' uwawe, nyakira",
     "url": "https://indirimbo.rw/song/cantiques-kirundi/328",
     "category": "IZIRIRIMBWA N'ABAHINGA",
-    "references": [{"title":"I surrender all","codes":"M.S."},{"codes":"G.B.259. (2)"},{"codes":"r 371"}],
+    "references": [{"title":"I surrender all","codes":"M.S."},{"codes":"G.B.259. (2)"},{"codes":"CR. 371"}],
     "body": [
       {
         "type": "verse",
@@ -10890,7 +10890,7 @@ export const songs: NewSong[] = [
     "name": "Habay'umus' ijuru ryanezerwa",
     "url": "https://indirimbo.rw/song/cantiques-kirundi/330",
     "category": "IZIRIRIMBWA N'ABAHINGA",
-    "references": [{"title":"Living He loved me","codes":"G.B.129"},{"codes":"T.H.138"},{"codes":"r 375"}],
+    "references": [{"title":"Living He loved me","codes":"G.B.129"},{"codes":"T.H.138"},{"codes":"CR. 375"}],
     "body": [
       {
         "type": "verse",
@@ -10928,7 +10928,7 @@ export const songs: NewSong[] = [
     "name": "Yes'aho yagir'asige",
     "url": "https://indirimbo.rw/song/cantiques-kirundi/331",
     "category": "IZIRIRIMBWA N'ABAHINGA",
-    "references": [{"title":"Our blest Redeemer","codes":"G.B.187"},{"codes":"r 265"}],
+    "references": [{"title":"Our blest Redeemer","codes":"G.B.187"},{"codes":"CR. 265"}],
     "body": [
       {
         "type": "verse",
@@ -10995,7 +10995,7 @@ export const songs: NewSong[] = [
     "name": "Iki gihe tumaranye",
     "url": "https://indirimbo.rw/song/cantiques-kirundi/333",
     "category": "IZIRIRIMBWA N'ABAHINGA",
-    "references": [{"codes":"M.S."},{"codes":"r 310"}],
+    "references": [{"codes":"M.S."},{"codes":"CR. 310"}],
     "body": [
       {
         "type": "verse",
@@ -11054,7 +11054,7 @@ export const songs: NewSong[] = [
     "name": "Amaraso yose",
     "url": "https://indirimbo.rw/song/cantiques-kirundi/334",
     "category": "IZONGEWE",
-    "references": [{"title":"Not all the blood of beasts","codes":"G.B.287"},{"codes":"r 353"}],
+    "references": [{"title":"Not all the blood of beasts","codes":"G.B.287"},{"codes":"CR. 353"}],
     "body": [
       {
         "type": "verse",
@@ -11093,7 +11093,7 @@ export const songs: NewSong[] = [
     "name": "Yesu ntahinduka, ntahinduka, ntahinduka",
     "url": "https://indirimbo.rw/song/cantiques-kirundi/335",
     "category": "IZONGEWE",
-    "references": [{"title":"Jésus ne change pas","codes":"M.S."},{"codes":"r 297"}],
+    "references": [{"title":"Jésus ne change pas","codes":"M.S."},{"codes":"CR. 297"}],
     "body": [
       {
         "type": "verse",
@@ -11132,7 +11132,7 @@ export const songs: NewSong[] = [
     "name": "Kwar' ubuntu butovugwa",
     "url": "https://indirimbo.rw/song/cantiques-kirundi/336",
     "category": "IZONGEWE",
-    "references": [{"title":"Jésus je viens","codes":"M.S."},{"codes":"r 131"}],
+    "references": [{"title":"Jésus je viens","codes":"M.S."},{"codes":"CR. 131"}],
     "body": [
       {
         "type": "verse",
@@ -11199,7 +11199,7 @@ export const songs: NewSong[] = [
     "name": "I. Yemwe basoda ba Kristo muvyuke",
     "url": "https://indirimbo.rw/song/cantiques-kirundi/338",
     "category": "IZONGEWE",
-    "references": [{"title":"Soldiers of Christ","codes":"M.S."},{"codes":"r 392"}],
+    "references": [{"title":"Soldiers of Christ","codes":"M.S."},{"codes":"CR. 392"}],
     "body": [
       {
         "type": "verse",
@@ -11223,7 +11223,7 @@ export const songs: NewSong[] = [
     "name": "Tugiy'i wacu mw ijuru",
     "url": "https://indirimbo.rw/song/cantiques-kirundi/339",
     "category": "IZONGEWE",
-    "references": [{"title":"We’re travelling home to Heaven above","codes":"M.S."},{"codes":"r 183"}],
+    "references": [{"title":"We’re travelling home to Heaven above","codes":"M.S."},{"codes":"CR. 183"}],
     "body": [
       {
         "type": "verse",
@@ -11247,7 +11247,7 @@ export const songs: NewSong[] = [
     "name": "Yesu Mucunguzi wanje",
     "url": "https://indirimbo.rw/song/cantiques-kirundi/340",
     "category": "IZONGEWE",
-    "references": [{"codes":"M.S."},{"codes":"r 328"}],
+    "references": [{"codes":"M.S."},{"codes":"CR. 328"}],
     "body": [
       {
         "type": "verse",
@@ -11450,7 +11450,7 @@ export const songs: NewSong[] = [
     "name": "Enda ni muze twihererane",
     "url": "https://indirimbo.rw/song/cantiques-kirundi/345",
     "category": "IZONGEWE",
-    "references": [{"title":"Come ye yourselves apart","codes":"G.B.315"},{"codes":"r 50"}],
+    "references": [{"title":"Come ye yourselves apart","codes":"G.B.315"},{"codes":"CR. 50"}],
     "body": [
       {
         "type": "verse",
@@ -11489,7 +11489,7 @@ export const songs: NewSong[] = [
     "name": "Umuvugishwa Yesaya",
     "url": "https://indirimbo.rw/song/cantiques-kirundi/346",
     "category": "IZONGEWE",
-    "references": [{"title":"Bright rhe Vision","codes":"M.S."},{"codes":"r 335"}],
+    "references": [{"title":"Bright rhe Vision","codes":"M.S."},{"codes":"CR. 335"}],
     "body": [
       {
         "type": "verse",
@@ -11599,7 +11599,7 @@ export const songs: NewSong[] = [
     "name": "Nabony' uburuhukiro",
     "url": "https://indirimbo.rw/song/cantiques-kirundi/349",
     "category": "IZONGEWE",
-    "references": [{"title":"My faith has found a resting place","codes":"G.B.291"},{"codes":"r 101"}],
+    "references": [{"title":"My faith has found a resting place","codes":"G.B.291"},{"codes":"CR. 101"}],
     "body": [
       {
         "type": "verse",
@@ -11751,7 +11751,7 @@ export const songs: NewSong[] = [
     "name": "Mbeg’urukundo rw’Imana yacu",
     "url": "https://indirimbo.rw/song/cantiques-kirundi/354",
     "category": "IZONGEWE",
-    "references": [{"title":"The love of God","codes":"M.S. (Billy Graham 89)"},{"codes":"r 149"}],
+    "references": [{"title":"The love of God","codes":"M.S. (Billy Graham 89)"},{"codes":"CR. 149"}],
     "body": [
       {
         "type": "verse",

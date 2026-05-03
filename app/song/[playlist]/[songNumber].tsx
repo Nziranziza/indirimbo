@@ -48,15 +48,10 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 function normalizeBookCodes(codes: string): string {
   return codes
     .replace(/([A-Z])\.\s+([A-Z])/g, "$1.$2")  // "G. B" → "G.B"
-    .replace(/([A-Z])\.([A-Z])(?!\.)/g, "$1.$2.");  // "T.H" → "T.H.", "M.S" → "M.S."
+    .replace(/([A-Z])\.([A-Z])(?![A-Za-z.])/g, "$1.$2.");  // "T.H" → "T.H.", "M.S" → "M.S." (but not "S.Sgt.")
 }
 
 function expandBookCodes(codes: string): string {
-  // Expand "r NUMBER" cross-references (Kirundi songs referencing Cantiques Kinyarwanda)
-  const crossRef = codes.match(/^r\s+(\d+)$/);
-  if (crossRef) {
-    return `Cantiques Kinyarwanda ${crossRef[1]}`;
-  }
   let result = normalizeBookCodes(codes);
   for (const [abbr, full] of Object.entries(BOOK_CODE_LOOKUP)) {
     result = result.replaceAll(abbr, full);

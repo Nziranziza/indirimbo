@@ -17,7 +17,7 @@ export const songs: NewSong[] = [
     "name": "Ur’ Uwer’ Uwera, Mwami Mana yacu",
     "url": "https://indirimbo.rw/song/gushimisha/1",
     "key": "mi",
-    "references": [{"codes":"U.95"}, {"codes":"A.200"}, {"codes":"G.51"}, {"codes":"L.353"}],
+    "references": [{"codes":"U.95"}, {"codes":"A.200"}, {"codes":"G.B. 51"}, {"codes":"L.353"}],
     "body": [
       {
         "type": "verse",
@@ -46,7 +46,7 @@ export const songs: NewSong[] = [
     "name": "Dushim’ Iman’ ihoraho",
     "url": "https://indirimbo.rw/song/gushimisha/2",
     "key": "fa",
-    "references": [{"codes":"U.71"}, {"codes":"V.17"}, {"codes":"G.4(1)"}, {"codes":"T.352(2)"}],
+    "references": [{"codes":"U.71"}, {"codes":"V.17"}, {"codes":"G.B. 4(1)"}, {"codes":"T.H. 352(2)"}],
     "body": [
       {
         "type": "verse",
@@ -75,7 +75,7 @@ export const songs: NewSong[] = [
     "name": "Mwa bari mw isi yose mwe",
     "url": "https://indirimbo.rw/song/gushimisha/3",
     "key": "la",
-    "references": [{"codes":"U.182(1)"}, {"codes":"A.84"}, {"codes":"F.525"}, {"codes":"G.10"}, {"codes":"T.324"}],
+    "references": [{"codes":"U.182(1)"}, {"codes":"A.84"}, {"codes":"F.525"}, {"codes":"G.B. 10"}, {"codes":"T.H. 324"}],
     "body": [
       {
         "type": "verse",
@@ -104,7 +104,7 @@ export const songs: NewSong[] = [
     "name": "Dushime cyan’ izina ryawe",
     "url": "https://indirimbo.rw/song/gushimisha/4",
     "key": "fa",
-    "references": [{"codes":"U.71"}, {"codes":"V.17"}, {"codes":"G.4(1)"}, {"codes":"T.352(2)"}],
+    "references": [{"codes":"U.71"}, {"codes":"V.17"}, {"codes":"G.B. 4(1)"}, {"codes":"T.H. 352(2)"}],
     "body": [
       {
         "type": "verse",
@@ -147,7 +147,7 @@ export const songs: NewSong[] = [
     "name": "Duhimbaz’ Uwitek’ Imana no kuyisenga",
     "url": "https://indirimbo.rw/song/gushimisha/5",
     "key": "mi",
-    "references": [{"codes":"T.276"}],
+    "references": [{"codes":"T.H. 276"}],
     "body": [
       {
         "type": "verse",
@@ -176,7 +176,7 @@ export const songs: NewSong[] = [
     "name": "Nagir’ indim’ igihumbi",
     "url": "https://indirimbo.rw/song/gushimisha/6",
     "key": "mi",
-    "references": [{"codes":"T.276"}],
+    "references": [{"codes":"T.H. 276"}],
     "body": [
       {
         "type": "verse",
@@ -210,7 +210,7 @@ export const songs: NewSong[] = [
     "name": "Dor’ abera bo mw ijuru barishima cyane",
     "url": "https://indirimbo.rw/song/gushimisha/7",
     "key": "ré",
-    "references": [{"codes":"G.61"}],
+    "references": [{"codes":"G.B. 61"}],
     "body": [
       {
         "type": "verse",
@@ -248,7 +248,7 @@ export const songs: NewSong[] = [
     "name": "Izina rya Yesu — Turaryubaha",
     "url": "https://indirimbo.rw/song/gushimisha/8",
     "key": "sol dièse",
-    "references": [{"codes":"G.13(1)"}, {"codes":"G.223(1)"}],
+    "references": [{"codes":"G.B. 13(1)"}, {"codes":"G.B. 223(1)"}],
     "body": [
       {
         "type": "verse",
@@ -287,7 +287,7 @@ export const songs: NewSong[] = [
     "name": "Yes’ ashimwe; turamushim’ Umukiza.",
     "url": "https://indirimbo.rw/song/gushimisha/9",
     "key": "do",
-    "references": [{"codes":"U.137"}, {"codes":"G.45"}, {"codes":"T.86"}],
+    "references": [{"codes":"U.137"}, {"codes":"G.B. 45"}, {"codes":"T.H. 86"}],
     "body": [
       {
         "type": "verse",
@@ -311,7 +311,7 @@ export const songs: NewSong[] = [
     "name": "Nshim’ Umwami wo mw ijuru",
     "url": "https://indirimbo.rw/song/gushimisha/10",
     "key": "la",
-    "references": [{"codes":"U.30"}, {"codes":"G.32(1)"}],
+    "references": [{"codes":"U.30"}, {"codes":"G.B. 32(1)"}],
     "body": [
       {
         "type": "verse",
@@ -340,7 +340,7 @@ export const songs: NewSong[] = [
     "name": "Mpimbariz’ Iman’ ibyo yankoreye",
     "url": "https://indirimbo.rw/song/gushimisha/11",
     "key": "mi bémol",
-    "references": [{"codes":"U.109(2)"}, {"codes":"A.199"}, {"codes":"V.6"}, {"codes":"G.36"}],
+    "references": [{"codes":"U.109(2)"}, {"codes":"A.199"}, {"codes":"V.6"}, {"codes":"G.B. 36"}],
     "body": [
       {
         "type": "verse",
@@ -368,7 +368,7 @@ export const songs: NewSong[] = [
     "name": "Tunezerewe k’ Umukiza yaje",
     "url": "https://indirimbo.rw/song/gushimisha/12",
     "key": "ré",
-    "references": [{"codes":"U.114"}, {"codes":"G.29"}, {"codes":"A.27"}, {"codes":"T.318"}],
+    "references": [{"codes":"U.114"}, {"codes":"G.B. 29"}, {"codes":"A.27"}, {"codes":"T.H. 318"}],
     "body": [
       {
         "type": "verse",
@@ -416,7 +416,7 @@ export const songs: NewSong[] = [
     "name": "Uwambitswe ker’ ikamba",
     "url": "https://indirimbo.rw/song/gushimisha/13",
     "key": "ré",
-    "references": [{"codes":"C.81"}, {"codes":"G.173"}],
+    "references": [{"codes":"C.81"}, {"codes":"G.B. 173"}],
     "body": [
       {
         "type": "verse",
@@ -489,7 +489,7 @@ export const songs: NewSong[] = [
     "name": "Nimushim’ izina ryiza ry’ Uwiteka Rurema",
     "url": "https://indirimbo.rw/song/gushimisha/15",
     "key": "mi",
-    "references": [{"codes":"G.55"}],
+    "references": [{"codes":"G.B. 55"}],
     "body": [
       {
         "type": "verse",
@@ -522,7 +522,7 @@ export const songs: NewSong[] = [
     "name": "Aba Yesu bishimira",
     "url": "https://indirimbo.rw/song/gushimisha/16",
     "key": "si bémol",
-    "references": [{"codes":"U.115"}, {"codes":"V.215"}, {"codes":"G.393"}],
+    "references": [{"codes":"U.115"}, {"codes":"V.215"}, {"codes":"G.B. 393"}],
     "sharedMelody": [181],
     "body": [
       {
@@ -596,7 +596,7 @@ export const songs: NewSong[] = [
     "name": "Umwungeri wacu ni we Yesu",
     "url": "https://indirimbo.rw/song/gushimisha/18a",
     "key": "sol",
-    "references": [{"codes":"U.377(2)"}, {"codes":"A.175"}, {"codes":"G.335"}, {"codes":"T.233"}, {"codes":"V.301"}],
+    "references": [{"codes":"U.377(2)"}, {"codes":"A.175"}, {"codes":"G.B. 335"}, {"codes":"T.H. 233"}, {"codes":"V.301"}],
     "body": [
       {
         "type": "verse",
@@ -625,7 +625,7 @@ export const songs: NewSong[] = [
     "name": "Mukiza, Mwungeri mwiza",
     "url": "https://indirimbo.rw/song/gushimisha/18b",
     "key": "sol",
-    "references": [{"codes":"U.377(2)"}, {"codes":"A.175"}, {"codes":"G.335"}, {"codes":"T.233"}, {"codes":"V.301"}],
+    "references": [{"codes":"U.377(2)"}, {"codes":"A.175"}, {"codes":"G.B. 335"}, {"codes":"T.H. 233"}, {"codes":"V.301"}],
     "body": [
       {
         "type": "verse",
@@ -658,7 +658,7 @@ export const songs: NewSong[] = [
     "name": "Ijuru ryawe, Mana",
     "url": "https://indirimbo.rw/song/gushimisha/19",
     "key": "do",
-    "references": [{"codes":"U.97"}, {"codes":"A.172"}, {"codes":"V.204"}, {"codes":"G.517"}],
+    "references": [{"codes":"U.97"}, {"codes":"A.172"}, {"codes":"V.204"}, {"codes":"G.B. 517"}],
     "body": [
       {
         "type": "verse",
@@ -792,7 +792,7 @@ export const songs: NewSong[] = [
     "name": "Njya nshima nshima nshima nshim’ Imana mu mutima",
     "url": "https://indirimbo.rw/song/gushimisha/24",
     "key": "sol",
-    "references": [{"codes":"T.336"}],
+    "references": [{"codes":"T.H. 336"}],
     "body": [
       {
         "type": "verse",
@@ -816,7 +816,7 @@ export const songs: NewSong[] = [
     "name": "Uwiteka n’ umunyembabazi",
     "url": "https://indirimbo.rw/song/gushimisha/25",
     "key": "ré",
-    "references": [{"codes":"G.280"}],
+    "references": [{"codes":"G.B. 280"}],
     "body": [
       {
         "type": "verse",
@@ -898,7 +898,7 @@ export const songs: NewSong[] = [
     "name": "Munganga wacu ni Yesu",
     "url": "https://indirimbo.rw/song/gushimisha/28",
     "key": "si bémol",
-    "references": [{"codes":"A.115"}, {"codes":"F.233"}, {"codes":"V.60"}, {"codes":"T.145"}],
+    "references": [{"codes":"A.115"}, {"codes":"F.233"}, {"codes":"V.60"}, {"codes":"T.H. 145"}],
     "body": [
       {
         "type": "verse",
@@ -926,7 +926,7 @@ export const songs: NewSong[] = [
     "name": "Uduhagarare —Hagati, Mukiza",
     "url": "https://indirimbo.rw/song/gushimisha/29",
     "key": "la",
-    "references": [{"codes":"G.6"}],
+    "references": [{"codes":"G.B. 6"}],
     "sharedMelody": [217],
     "body": [
       {
@@ -961,7 +961,7 @@ export const songs: NewSong[] = [
     "name": "Ai Mukunzi wanjye we",
     "url": "https://indirimbo.rw/song/gushimisha/30",
     "key": "sol",
-    "references": [{"codes":"U.118(1)"}, {"codes":"G.361"}, {"codes":"T.303"}, {"codes":"F.412"}],
+    "references": [{"codes":"U.118(1)"}, {"codes":"G.B. 361"}, {"codes":"T.H. 303"}, {"codes":"F.412"}],
     "body": [
       {
         "type": "verse",
@@ -990,7 +990,7 @@ export const songs: NewSong[] = [
     "name": "Mutabaz’ ubuntu bwawe",
     "url": "https://indirimbo.rw/song/gushimisha/31",
     "key": "si",
-    "references": [{"codes":"A.22"}, {"codes":"V.152"}, {"codes":"G.259(1)"}],
+    "references": [{"codes":"A.22"}, {"codes":"V.152"}, {"codes":"G.B. 259(1)"}],
     "body": [
       {
         "type": "verse",
@@ -1053,7 +1053,7 @@ export const songs: NewSong[] = [
     "name": "Mwam’ utuvubir’ imvura",
     "url": "https://indirimbo.rw/song/gushimisha/32",
     "key": "fa",
-    "references": [{"codes":"V.143"}, {"codes":"G.70"}, {"codes":"T.208"}],
+    "references": [{"codes":"V.143"}, {"codes":"G.B. 70"}, {"codes":"T.H. 208"}],
     "body": [
       {
         "type": "verse",
@@ -1086,7 +1086,7 @@ export const songs: NewSong[] = [
     "name": "Ndagushimiye, Mukiza",
     "url": "https://indirimbo.rw/song/gushimisha/33",
     "key": "mi",
-    "references": [{"codes":"G.421"}],
+    "references": [{"codes":"G.B. 421"}],
     "body": [
       {
         "type": "verse",
@@ -1124,7 +1124,7 @@ export const songs: NewSong[] = [
     "name": "Ndusheho kukwegera, Mukiza",
     "url": "https://indirimbo.rw/song/gushimisha/34",
     "key": "fa dièse",
-    "references": [{"codes":"G.175(1)"}],
+    "references": [{"codes":"G.B. 175(1)"}],
     "body": [
       {
         "type": "verse",
@@ -1163,7 +1163,7 @@ export const songs: NewSong[] = [
     "name": "Umpe kukwegera, —Mana yanjye",
     "url": "https://indirimbo.rw/song/gushimisha/35",
     "key": "si",
-    "references": [{"codes":"A.57"}, {"codes":"T.245"}, {"codes":"T.311"}, {"codes":"K.382(2)"}],
+    "references": [{"codes":"A.57"}, {"codes":"T.H. 245"}, {"codes":"T.H. 311"}, {"codes":"K.382(2)"}],
     "body": [
       {
         "type": "verse",
@@ -1192,7 +1192,7 @@ export const songs: NewSong[] = [
     "name": "Ntumpiteho, Mukiza we",
     "url": "https://indirimbo.rw/song/gushimisha/36",
     "key": "do",
-    "references": [{"codes":"A.88"}, {"codes":"G.243"}, {"codes":"T.85"}],
+    "references": [{"codes":"A.88"}, {"codes":"G.B. 243"}, {"codes":"T.H. 85"}],
     "body": [
       {
         "type": "verse",
@@ -1225,7 +1225,7 @@ export const songs: NewSong[] = [
     "name": "Tuguman’ iteka, —Mukiz’ uhebuje",
     "url": "https://indirimbo.rw/song/gushimisha/37",
     "key": "la bémol",
-    "references": [{"codes":"A.24"}, {"codes":"T.249"}, {"codes":"G.382"}],
+    "references": [{"codes":"A.24"}, {"codes":"T.H. 249"}, {"codes":"G.B. 382"}],
     "body": [
       {
         "type": "verse",
@@ -1263,7 +1263,7 @@ export const songs: NewSong[] = [
     "name": "Ai Mana, ndondor’ umenye",
     "url": "https://indirimbo.rw/song/gushimisha/38",
     "key": "la",
-    "references": [{"codes":"G.397"}],
+    "references": [{"codes":"G.B. 397"}],
     "body": [
       {
         "type": "verse",
@@ -1302,7 +1302,7 @@ export const songs: NewSong[] = [
     "name": "Ngwino, mutima wanjye",
     "url": "https://indirimbo.rw/song/gushimisha/39",
     "key": "si",
-    "references": [{"codes":"U.182"}, {"codes":"G.241"}],
+    "references": [{"codes":"U.182"}, {"codes":"G.B. 241"}],
     "body": [
       {
         "type": "verse",
@@ -1341,7 +1341,7 @@ export const songs: NewSong[] = [
     "name": "Ndakwizeye, Yesu",
     "url": "https://indirimbo.rw/song/gushimisha/40",
     "key": "mi bémol",
-    "references": [{"codes":"G.350"}, {"codes":"T.275"}],
+    "references": [{"codes":"G.B. 350"}, {"codes":"T.H. 275"}],
     "body": [
       {
         "type": "verse",
@@ -1365,7 +1365,7 @@ export const songs: NewSong[] = [
     "name": "Nasezeranije guhora",
     "url": "https://indirimbo.rw/song/gushimisha/41",
     "key": "fa",
-    "references": [{"codes":"U.117"}, {"codes":"G.47"}],
+    "references": [{"codes":"U.117"}, {"codes":"G.B. 47"}],
     "body": [
       {
         "type": "verse",
@@ -1452,7 +1452,7 @@ export const songs: NewSong[] = [
     "name": "Tubabarire: —Duh’ umugisha",
     "url": "https://indirimbo.rw/song/gushimisha/44",
     "key": "ré",
-    "references": [{"codes":"G.18"}],
+    "references": [{"codes":"G.B. 18"}],
     "body": [
       {
         "type": "verse",
@@ -1476,7 +1476,7 @@ export const songs: NewSong[] = [
     "name": "Ndagushaka, Mwami Yesu",
     "url": "https://indirimbo.rw/song/gushimisha/45",
     "key": "sol dièse",
-    "references": [{"codes":"A.98"}, {"codes":"G.343"}],
+    "references": [{"codes":"A.98"}, {"codes":"G.B. 343"}],
     "body": [
       {
         "type": "verse",
@@ -1509,7 +1509,7 @@ export const songs: NewSong[] = [
     "name": "Unjy’ imbere, Man’ isumba byose",
     "url": "https://indirimbo.rw/song/gushimisha/46",
     "key": "mi",
-    "references": [{"codes":"K.167"}, {"codes":"T.11"}],
+    "references": [{"codes":"K.167"}, {"codes":"T.H. 11"}],
     "body": [
       {
         "type": "verse",
@@ -1545,7 +1545,7 @@ export const songs: NewSong[] = [
     "name": "Ube maso, Mukristo",
     "url": "https://indirimbo.rw/song/gushimisha/47",
     "key": "sol",
-    "references": [{"codes":"G.499"}],
+    "references": [{"codes":"G.B. 499"}],
     "body": [
       {
         "type": "verse",
@@ -1616,7 +1616,7 @@ export const songs: NewSong[] = [
     "name": "Ibihe nseng’ Uwiteka",
     "url": "https://indirimbo.rw/song/gushimisha/49",
     "key": "ré",
-    "references": [{"codes":"A89"}, {"codes":"T.77"}, {"codes":"S.318"}],
+    "references": [{"codes":"A.89"}, {"codes":"T.H. 77"}, {"codes":"S.318"}],
     "body": [
       {
         "type": "verse",
@@ -1640,7 +1640,7 @@ export const songs: NewSong[] = [
     "name": "Muze mwenyine, twihererane",
     "url": "https://indirimbo.rw/song/gushimisha/50",
     "key": "fa",
-    "references": [{"codes":"U.262"}, {"codes":"AM.715"}],
+    "references": [{"codes":"CK.345"}, {"codes":"U.262"}, {"codes":"AM.715"}],
     "body": [
       {
         "type": "verse",
@@ -1674,7 +1674,7 @@ export const songs: NewSong[] = [
     "name": "Muze, musange Yes’ ubakunda",
     "url": "https://indirimbo.rw/song/gushimisha/51",
     "key": "fa",
-    "references": [{"codes":"U.202"}, {"codes":"V.86"}, {"codes":"G.222"}, {"codes":"C.205"}],
+    "references": [{"codes":"U.202"}, {"codes":"V.86"}, {"codes":"G.B. 221"}, {"codes":"C.205"}],
     "body": [
       {
         "type": "verse",
@@ -1702,7 +1702,7 @@ export const songs: NewSong[] = [
     "name": "Utahe! Utahe",
     "url": "https://indirimbo.rw/song/gushimisha/52",
     "key": "si bémol",
-    "references": [{"codes":"V.71"}, {"codes":"S.455"}],
+    "references": [{"codes":"V.71"}, {"codes":"S.435"}],
     "body": [
       {
         "type": "verse",
@@ -1730,7 +1730,7 @@ export const songs: NewSong[] = [
     "name": "Nimusang’ Umwami Yesu",
     "url": "https://indirimbo.rw/song/gushimisha/53",
     "key": "fa",
-    "references": [{"codes":"U.138"}, {"codes":"A.7"}, {"codes":"G.655"}, {"codes":"T.332"}, {"codes":"E.135"}],
+    "references": [{"codes":"U.138"}, {"codes":"A.7"}, {"codes":"G.B. 655"}, {"codes":"T.H. 332"}, {"codes":"F.135"}],
     "body": [
       {
         "type": "verse",
@@ -1759,7 +1759,7 @@ export const songs: NewSong[] = [
     "name": "Yemwe mwes’ abananiwe",
     "url": "https://indirimbo.rw/song/gushimisha/54",
     "key": "ré",
-    "references": [{"codes":"G.197"}, {"codes":"T.281"}],
+    "references": [{"codes":"G.B. 197"}, {"codes":"T.H. 281"}],
     "body": [
       {
         "type": "verse",
@@ -1792,7 +1792,7 @@ export const songs: NewSong[] = [
     "name": "Yes’ araduhamagara",
     "url": "https://indirimbo.rw/song/gushimisha/55",
     "key": "la",
-    "references": [{"codes":"U.200"}, {"codes":"G.276"}],
+    "references": [{"codes":"U.200"}, {"codes":"G.B. 276"}],
     "sharedMelody": [163, 279],
     "body": [
       {
@@ -1827,7 +1827,7 @@ export const songs: NewSong[] = [
     "name": "Yes’ aragutegereza",
     "url": "https://indirimbo.rw/song/gushimisha/56",
     "key": "si",
-    "references": [{"codes":"G.234"}],
+    "references": [{"codes":"G.B. 234"}],
     "body": [
       {
         "type": "verse",
@@ -1876,7 +1876,7 @@ export const songs: NewSong[] = [
     "name": "Yes’ araguhamagara",
     "url": "https://indirimbo.rw/song/gushimisha/57",
     "key": "la",
-    "references": [{"codes":"T.261"}, {"codes":"S.336"}],
+    "references": [{"codes":"T.H. 261"}, {"codes":"S.336"}],
     "body": [
       {
         "type": "verse",
@@ -1939,7 +1939,7 @@ export const songs: NewSong[] = [
     "name": "Nimuze, mwa ndushyi mwe mwese",
     "url": "https://indirimbo.rw/song/gushimisha/59",
     "key": "sol dièse",
-    "references": [{"codes":"U.206(2)"}, {"codes":"G.253"}, {"codes":"F.649"}],
+    "references": [{"codes":"U.206(2)"}, {"codes":"G.B. 253"}, {"codes":"F.649"}],
     "body": [
       {
         "type": "verse",
@@ -1973,8 +1973,8 @@ export const songs: NewSong[] = [
     "name": "We, mutim’ urira, —Uze kwa Yesu",
     "url": "https://indirimbo.rw/song/gushimisha/60",
     "key": "si bémol",
-    "references": [{"codes":"Y.224"}],
-    "sharedMelody": [172],
+    "references": [{"codes":"V.224"}],
+    "sharedMelody": [171],
     "body": [
       {
         "type": "verse",
@@ -1998,7 +1998,7 @@ export const songs: NewSong[] = [
     "name": "Umwuk’ ukubwira, —Wumv’ ijwi ryawo",
     "url": "https://indirimbo.rw/song/gushimisha/61",
     "key": "la bémol",
-    "references": [{"codes":"G.653"}],
+    "references": [{"codes":"G.B. 653"}],
     "sharedMelody": [172],
     "body": [
       {
@@ -2023,7 +2023,7 @@ export const songs: NewSong[] = [
     "name": "Ntumwa za Yesu, murangurure",
     "url": "https://indirimbo.rw/song/gushimisha/62",
     "key": "la",
-    "references": [{"codes":"A.57"}, {"codes":"T.196"}, {"codes":"S.389"}, {"codes":"V.III"}],
+    "references": [{"codes":"A.57"}, {"codes":"T.H. 196"}, {"codes":"S.389"}, {"codes":"V.III"}],
     "body": [
       {
         "type": "verse",
@@ -2051,7 +2051,7 @@ export const songs: NewSong[] = [
     "name": "Yemwe, banyabyaha mwe",
     "url": "https://indirimbo.rw/song/gushimisha/63",
     "key": "fa dièse",
-    "references": [{"codes":"U.201(2)"}, {"codes":"G.192"}, {"codes":"T.39"}, {"codes":"F.392"}],
+    "references": [{"codes":"U.201(2)"}, {"codes":"G.B. 192"}, {"codes":"T.H. 39"}, {"codes":"F.392"}],
     "body": [
       {
         "type": "verse",
@@ -2089,7 +2089,7 @@ export const songs: NewSong[] = [
     "name": "Muze ku Mwami w’ unugingo",
     "url": "https://indirimbo.rw/song/gushimisha/64",
     "key": "sol",
-    "references": [{"codes":"E.584"}],
+    "references": [{"codes":"F.584"}],
     "body": [
       {
         "type": "verse",
@@ -2141,7 +2141,7 @@ export const songs: NewSong[] = [
     "name": "Ngwino, ngukize, mwangizi",
     "url": "https://indirimbo.rw/song/gushimisha/66",
     "key": "sol",
-    "references": [{"codes":"U.196"}, {"codes":"V.105"}, {"codes":"G.219"}],
+    "references": [{"codes":"U.196"}, {"codes":"V.105"}, {"codes":"G.B. 219"}],
     "body": [
       {
         "type": "verse",
@@ -2170,6 +2170,7 @@ export const songs: NewSong[] = [
     "name": "Uhagaze, Mukiza",
     "url": "https://indirimbo.rw/song/gushimisha/67",
     "key": "sol",
+    "references": [{"codes":"U.146"}, {"codes":"K.29"}, {"codes":"G.B. 503"}, {"codes":"C.27"}],
     "body": [
       {
         "type": "verse",
@@ -2184,7 +2185,7 @@ export const songs: NewSong[] = [
       {
         "type": "verse",
         "number": 3,
-        "content": "Umwam’ atwingingisha\nIjwi ryongorera,\nAti: N’ iki gituma\nMungirira mutyo?\nMwami, tugiz’ isoni\nZ’ uko guhemuka:\nNonehw injira, Mwami\nNtudusig’ ukundi\n(G. 447)."
+        "content": "Umwam’ atwingingisha\nIjwi ryongorera,\nAti: N’ iki gituma\nMungirira mutyo?\nMwami, tugiz’ isoni\nZ’ uko guhemuka:\nNonehw injira, Mwami\nNtudusig’ ukundi."
       }
     ]
   },
@@ -2193,7 +2194,7 @@ export const songs: NewSong[] = [
     "name": "Nta kindi gihesha gukiranuka",
     "url": "https://indirimbo.rw/song/gushimisha/68",
     "key": "do",
-    "references": [{"codes":"U.210(2)"}, {"codes":"A.55"}, {"codes":"G.207"}],
+    "references": [{"codes":"U.210(2)"}, {"codes":"A.55"}, {"codes":"G.B. 207"}],
     "body": [
       {
         "type": "verse",
@@ -2226,7 +2227,7 @@ export const songs: NewSong[] = [
     "name": "Nkuko Mose yamanits’ inzoka ku giti",
     "url": "https://indirimbo.rw/song/gushimisha/69",
     "key": "sol",
-    "references": [{"codes":"U.227"}, {"codes":"V.82"}, {"codes":"G.250"}],
+    "references": [{"codes":"U.227"}, {"codes":"V.82"}, {"codes":"G.B. 250"}],
     "body": [
       {
         "type": "verse",
@@ -2322,7 +2323,7 @@ export const songs: NewSong[] = [
     "name": "Twaheze mu mwijima mwinshi cyane",
     "url": "https://indirimbo.rw/song/gushimisha/72",
     "key": "do",
-    "references": [{"codes":"C.208(2)"}, {"codes":"G.205"}, {"codes":"C.55"}],
+    "references": [{"codes":"C.208(2)"}, {"codes":"G.B. 205"}, {"codes":"C.55"}],
     "body": [
       {
         "type": "verse",
@@ -2388,7 +2389,7 @@ export const songs: NewSong[] = [
     "name": "Njye mfit’ Umukiz’ ujy’ amvuganira ku Mana",
     "url": "https://indirimbo.rw/song/gushimisha/74",
     "key": "ré",
-    "references": [{"codes":"V.100"}, {"codes":"T.136"}, {"codes":"S.350"}],
+    "references": [{"codes":"V.100"}, {"codes":"T.H. 136"}, {"codes":"S.350"}],
     "body": [
       {
         "type": "verse",
@@ -2426,7 +2427,7 @@ export const songs: NewSong[] = [
     "name": "Yesu ni we Nshuti yacu",
     "url": "https://indirimbo.rw/song/gushimisha/75",
     "key": "do",
-    "references": [{"codes":"A.100"}, {"codes":"V.234"}, {"codes":"G.64"}, {"codes":"T.139"}],
+    "references": [{"codes":"A.100"}, {"codes":"V.234"}, {"codes":"G.B. 64"}, {"codes":"T.H. 139"}],
     "body": [
       {
         "type": "verse",
@@ -2528,7 +2529,7 @@ export const songs: NewSong[] = [
     "name": "Kera har’ umubibyi",
     "url": "https://indirimbo.rw/song/gushimisha/78",
     "key": "fa",
-    "references": [{"codes":"U.170"}, {"codes":"V.31"}, {"codes":"G.678"}],
+    "references": [{"codes":"U.170"}, {"codes":"V.31"}, {"codes":"G.B. 678"}],
     "sharedMelody": [226],
     "body": [
       {
@@ -2573,7 +2574,7 @@ export const songs: NewSong[] = [
     "name": "Jy’ uhor’ undinganirije",
     "url": "https://indirimbo.rw/song/gushimisha/79",
     "key": "si",
-    "references": [{"codes":"A.46"}, {"codes":"V.55"}, {"codes":"G.262"}, {"codes":"T.55"}],
+    "references": [{"codes":"A.46"}, {"codes":"V.55"}, {"codes":"G.B. 262"}, {"codes":"T.H. 55"}],
     "body": [
       {
         "type": "verse",
@@ -2601,7 +2602,7 @@ export const songs: NewSong[] = [
     "name": "Mwa bitang’ igicuri mwe",
     "url": "https://indirimbo.rw/song/gushimisha/80",
     "key": "ré",
-    "references": [{"codes":"A.39"}, {"codes":"T.296"}],
+    "references": [{"codes":"A.39"}, {"codes":"T.H. 296"}],
     "body": [
       {
         "type": "verse",
@@ -2654,7 +2655,7 @@ export const songs: NewSong[] = [
     "name": "Teg’ amatwi, wumve—Ijwi rya Yesu",
     "url": "https://indirimbo.rw/song/gushimisha/81",
     "key": "fa",
-    "references": [{"codes":"V.99"}, {"codes":"G.218"}],
+    "references": [{"codes":"V.99"}, {"codes":"G.B. 218"}],
     "body": [
       {
         "type": "verse",
@@ -2771,7 +2772,7 @@ export const songs: NewSong[] = [
     "name": "N’ iki cyankiz’ ibyaha",
     "url": "https://indirimbo.rw/song/gushimisha/84",
     "key": "sol",
-    "references": [{"codes":"A.63"}, {"codes":"V.109"}, {"codes":"T.223"}, {"codes":"G.146"}],
+    "references": [{"codes":"A.63"}, {"codes":"V.109"}, {"codes":"T.H. 223"}, {"codes":"G.B. 146"}],
     "body": [
       {
         "type": "verse",
@@ -2809,7 +2810,7 @@ export const songs: NewSong[] = [
     "name": "Amaraso Y’umucunguzi",
     "url": "https://indirimbo.rw/song/gushimisha/85",
     "key": "do",
-    "references": [{"codes":"U.228"}, {"codes":"A.12"}, {"codes":"T.297"}],
+    "references": [{"codes":"U.228"}, {"codes":"A.12"}, {"codes":"T.H. 297"}],
     "body": [
       {
         "type": "verse",
@@ -2852,7 +2853,7 @@ export const songs: NewSong[] = [
     "name": "Amaraso y’ Umukiza.",
     "url": "https://indirimbo.rw/song/gushimisha/86",
     "key": "fa dièse",
-    "references": [{"codes":"V.166"}, {"codes":"G.147"}],
+    "references": [{"codes":"V.166"}, {"codes":"G.B. 147"}],
     "body": [
       {
         "type": "verse",
@@ -2900,7 +2901,7 @@ export const songs: NewSong[] = [
     "name": "Mbe, ntiwaturw’ ibyo byaha byawe",
     "url": "https://indirimbo.rw/song/gushimisha/87",
     "key": "fa",
-    "references": [{"codes":"A.196"}, {"codes":"V.135"}, {"codes":"T.46"}],
+    "references": [{"codes":"A.196"}, {"codes":"V.135"}, {"codes":"T.H. 46"}],
     "body": [
       {
         "type": "verse",
@@ -2933,7 +2934,7 @@ export const songs: NewSong[] = [
     "name": "Numva Yes’ anyemeza",
     "url": "https://indirimbo.rw/song/gushimisha/88",
     "key": "mi bémol",
-    "references": [{"codes":"A.118"}, {"codes":"G.254"}, {"codes":"T.263"}],
+    "references": [{"codes":"A.118"}, {"codes":"G.B. 254"}, {"codes":"T.H. 263"}],
     "body": [
       {
         "type": "verse",
@@ -2971,7 +2972,7 @@ export const songs: NewSong[] = [
     "name": "Yesu yaje kunshaka",
     "url": "https://indirimbo.rw/song/gushimisha/89",
     "key": "ré",
-    "references": [{"codes":"G.360"}],
+    "references": [{"codes":"G.B. 360"}],
     "body": [
       {
         "type": "verse",
@@ -3041,7 +3042,7 @@ export const songs: NewSong[] = [
     "name": "Ai Gitare Cy’Imana",
     "url": "https://indirimbo.rw/song/gushimisha/91",
     "key": "fa",
-    "references": [{"codes":"T.316"}, {"codes":"U.126"}, {"codes":"G.252"}, {"codes":"F.239"}],
+    "references": [{"codes":"T.H. 316"}, {"codes":"U.126"}, {"codes":"G.B. 252"}, {"codes":"F.239"}],
     "body": [
       {
         "type": "verse",
@@ -3075,7 +3076,7 @@ export const songs: NewSong[] = [
     "name": "Ushimwe, Mana, ko wampaye Yesu",
     "url": "https://indirimbo.rw/song/gushimisha/92",
     "key": "ré",
-    "references": [{"codes":"A.27"}, {"codes":"U.114"}, {"codes":"T.318"}],
+    "references": [{"codes":"A.27"}, {"codes":"U.114"}, {"codes":"T.H. 318"}],
     "body": [
       {
         "type": "verse",
@@ -3108,7 +3109,7 @@ export const songs: NewSong[] = [
     "name": "Umunsi mwiza nibuka",
     "url": "https://indirimbo.rw/song/gushimisha/93",
     "key": "ré",
-    "references": [{"codes":"U.254(2)"}, {"codes":"A.66"}, {"codes":"V.125"}, {"codes":"G.369"}],
+    "references": [{"codes":"U.254(2)"}, {"codes":"A.66"}, {"codes":"V.125"}, {"codes":"G.B. 369"}],
     "body": [
       {
         "type": "verse",
@@ -3141,7 +3142,7 @@ export const songs: NewSong[] = [
     "name": "Ubugingo bwanjye bwahinduts’ ukundi",
     "url": "https://indirimbo.rw/song/gushimisha/94",
     "key": "do dièse",
-    "references": [{"codes":"T.188"}],
+    "references": [{"codes":"T.H. 188"}],
     "body": [
       {
         "type": "verse",
@@ -3179,7 +3180,7 @@ export const songs: NewSong[] = [
     "name": "Ibyaha byanjye, Yesu",
     "url": "https://indirimbo.rw/song/gushimisha/95",
     "key": "sol",
-    "references": [{"codes":"U.146"}, {"codes":"V.29"}, {"codes":"G.503"}],
+    "references": [{"codes":"U.146"}, {"codes":"V.29"}, {"codes":"G.B. 503"}],
     "body": [
       {
         "type": "verse",
@@ -3237,7 +3238,7 @@ export const songs: NewSong[] = [
     "name": "Nishimiye ko menye rwose Yesu",
     "url": "https://indirimbo.rw/song/gushimisha/97",
     "key": "fa dièse",
-    "references": [{"codes":"A.191"}, {"codes":"G.279"}, {"codes":"T.210"}],
+    "references": [{"codes":"A.191"}, {"codes":"G.B. 279"}, {"codes":"T.H. 210"}],
     "body": [
       {
         "type": "verse",
@@ -3270,7 +3271,7 @@ export const songs: NewSong[] = [
     "name": "Ndumva k’ umutim’ ukeye",
     "url": "https://indirimbo.rw/song/gushimisha/98",
     "key": "mi",
-    "references": [{"codes":"V.22"}, {"codes":"U.240"}, {"codes":"G.449(2)"}],
+    "references": [{"codes":"V.22"}, {"codes":"U.240"}, {"codes":"G.B. 449(2)"}],
     "sharedMelody": [75, 166],
     "body": [
       {
@@ -3368,7 +3369,7 @@ export const songs: NewSong[] = [
     "name": "Nabony’ uburuhukiro",
     "url": "https://indirimbo.rw/song/gushimisha/101",
     "key": "mi bémol",
-    "references": [{"codes":"G.291"}],
+    "references": [{"codes":"G.B. 291"}],
     "body": [
       {
         "type": "verse",
@@ -3401,7 +3402,7 @@ export const songs: NewSong[] = [
     "name": "Iby’ isi Yesu yabinkuyemo",
     "url": "https://indirimbo.rw/song/gushimisha/102",
     "key": "ré",
-    "references": [{"codes":"T.31"}, {"codes":"RS.715"}],
+    "references": [{"codes":"T.H. 31"}, {"codes":"R.S. 715"}],
     "body": [
       {
         "type": "verse",
@@ -3429,7 +3430,7 @@ export const songs: NewSong[] = [
     "name": "Kera nari mw isayo",
     "url": "https://indirimbo.rw/song/gushimisha/103",
     "key": "mi bémol",
-    "references": [{"codes":"A.118"}, {"codes":"G.254"}],
+    "references": [{"codes":"A.118"}, {"codes":"G.B. 254"}],
     "body": [
       {
         "type": "verse",
@@ -3477,7 +3478,7 @@ export const songs: NewSong[] = [
     "name": "Imbabazi z’ Umukiza",
     "url": "https://indirimbo.rw/song/gushimisha/104",
     "key": "sol dièse",
-    "references": [{"codes":"G.227"}, {"codes":"F.211"}, {"codes":"G.148"}, {"codes":"F.40"}],
+    "references": [{"codes":"G.B. 227"}, {"codes":"F.211"}, {"codes":"G.B. 148"}, {"codes":"F.40"}],
     "body": [
       {
         "type": "verse",
@@ -3510,7 +3511,7 @@ export const songs: NewSong[] = [
     "name": "Ubuntu bw’ Imana—Butangaje",
     "url": "https://indirimbo.rw/song/gushimisha/105",
     "key": "sol dièse",
-    "references": [{"codes":"U.185"}, {"codes":"G.562"}],
+    "references": [{"codes":"U.185"}, {"codes":"G.B. 562"}],
     "body": [
       {
         "type": "verse",
@@ -3554,7 +3555,7 @@ export const songs: NewSong[] = [
     "name": "Sinterw’ isoni na Yesu",
     "url": "https://indirimbo.rw/song/gushimisha/106",
     "key": "mi",
-    "references": [{"codes":"G.282"}, {"codes":"T.295"}],
+    "references": [{"codes":"G.B. 282"}, {"codes":"T.H. 295"}],
     "body": [
       {
         "type": "verse",
@@ -3587,7 +3588,7 @@ export const songs: NewSong[] = [
     "name": "Nkomeze njye niringira",
     "url": "https://indirimbo.rw/song/gushimisha/107",
     "key": "ré",
-    "references": [{"codes":"A.39"}, {"codes":"T.296"}, {"codes":"K.109"}],
+    "references": [{"codes":"A.39"}, {"codes":"T.H. 296"}, {"codes":"K.109"}],
     "body": [
       {
         "type": "verse",
@@ -3620,7 +3621,7 @@ export const songs: NewSong[] = [
     "name": "Jye nd’ Umukristo: nzahora ndi we",
     "url": "https://indirimbo.rw/song/gushimisha/108",
     "key": "si bémol",
-    "references": [{"codes":"SG.45"}],
+    "references": [{"codes":"Sgt. 45"}],
     "body": [
       {
         "type": "verse",
@@ -3649,7 +3650,7 @@ export const songs: NewSong[] = [
     "name": "Nyuzwe n’ ubucuti bwo mw ijuru",
     "url": "https://indirimbo.rw/song/gushimisha/109",
     "key": "do dièse",
-    "references": [{"codes":"A.15"}, {"codes":"T.103"}],
+    "references": [{"codes":"A.15"}, {"codes":"T.H. 103"}],
     "body": [
       {
         "type": "verse",
@@ -3677,7 +3678,7 @@ export const songs: NewSong[] = [
     "name": "Igituma nkunda Yesu",
     "url": "https://indirimbo.rw/song/gushimisha/110",
     "key": "si",
-    "references": [{"codes":"G.573"}, {"codes":"V.94"}],
+    "references": [{"codes":"G.B. 573"}, {"codes":"V.94"}],
     "sharedMelody": [182],
     "body": [
       {
@@ -3711,7 +3712,7 @@ export const songs: NewSong[] = [
     "name": "Izina ryiza rihebuje",
     "url": "https://indirimbo.rw/song/gushimisha/111",
     "key": "la bémol",
-    "references": [{"codes":"T.262"}],
+    "references": [{"codes":"T.H. 262"}],
     "body": [
       {
         "type": "verse",
@@ -3749,7 +3750,7 @@ export const songs: NewSong[] = [
     "name": "Nzi k’ Umukiz’ ankunda",
     "url": "https://indirimbo.rw/song/gushimisha/112",
     "key": "si bémol",
-    "references": [{"codes":"U.253(2)"}, {"codes":"A.15"}, {"codes":"G.661"}, {"codes":"T.351"}],
+    "references": [{"codes":"U.253(2)"}, {"codes":"A.15"}, {"codes":"G.B. 661"}, {"codes":"T.H. 351"}],
     "body": [
       {
         "type": "verse",
@@ -3777,7 +3778,7 @@ export const songs: NewSong[] = [
     "name": "Nkunda kwizigira Yesu",
     "url": "https://indirimbo.rw/song/gushimisha/113",
     "key": "do",
-    "references": [{"codes":"T.57"}, {"codes":"RS.426"}],
+    "references": [{"codes":"T.H. 57"}, {"codes":"R.S. 426"}],
     "body": [
       {
         "type": "verse",
@@ -3837,7 +3838,7 @@ export const songs: NewSong[] = [
     "name": "Nabony’umukunzi mwiza",
     "url": "https://indirimbo.rw/song/gushimisha/115",
     "key": "sol",
-    "references": [{"codes":"A.52"}, {"codes":"T.298"}],
+    "references": [{"codes":"A.52"}, {"codes":"T.H. 298"}],
     "sharedMelody": [75, 98],
     "body": [
       {
@@ -3867,7 +3868,7 @@ export const songs: NewSong[] = [
     "name": "Numva Yes’ ampamagara",
     "url": "https://indirimbo.rw/song/gushimisha/116",
     "key": "do",
-    "references": [{"codes":"C.182"}, {"codes":"RS.297"}, {"codes":"V.180"}],
+    "references": [{"codes":"C.182"}, {"codes":"R.S. 297"}, {"codes":"V.180"}],
     "body": [
       {
         "type": "verse",
@@ -3900,7 +3901,7 @@ export const songs: NewSong[] = [
     "name": "Numvise Yes’ ambwir’ ati",
     "url": "https://indirimbo.rw/song/gushimisha/117",
     "key": "mi bémol",
-    "references": [{"codes":"G.587"}, {"codes":"U.216(2)"}, {"codes":"G.270"}],
+    "references": [{"codes":"G.B. 587"}, {"codes":"U.216(2)"}, {"codes":"G.B. 270"}],
     "body": [
       {
         "type": "verse",
@@ -3924,7 +3925,7 @@ export const songs: NewSong[] = [
     "name": "Ibyaha byanjye byose n’ ibyago",
     "url": "https://indirimbo.rw/song/gushimisha/118",
     "key": "ré",
-    "references": [{"codes":"G.388"}, {"codes":"F.217"}],
+    "references": [{"codes":"G.B. 388"}, {"codes":"F.217"}],
     "body": [
       {
         "type": "verse",
@@ -3953,7 +3954,7 @@ export const songs: NewSong[] = [
     "name": "Yesu murutisha byose",
     "url": "https://indirimbo.rw/song/gushimisha/119",
     "key": "do",
-    "references": [{"codes":"T.163"}, {"codes":"RS.686"}],
+    "references": [{"codes":"T.H. 163"}, {"codes":"R.S. 686"}],
     "body": [
       {
         "type": "verse",
@@ -3982,7 +3983,7 @@ export const songs: NewSong[] = [
     "name": "Mw’ijuru Imbere Y’Imana",
     "url": "https://indirimbo.rw/song/gushimisha/120",
     "key": "do",
-    "references": [{"codes":"T.57"}, {"codes":"RS.426"}],
+    "references": [{"codes":"T.H. 57"}, {"codes":"R.S. 426"}],
     "body": [
       {
         "type": "verse",
@@ -4035,7 +4036,7 @@ export const songs: NewSong[] = [
     "name": "Ukunda kujy’ ambabarira",
     "url": "https://indirimbo.rw/song/gushimisha/122",
     "key": "sol",
-    "references": [{"codes":"V.195"}, {"codes":"G.316"}],
+    "references": [{"codes":"V.195"}, {"codes":"G.B. 316"}],
     "body": [
       {
         "type": "verse",
@@ -4059,7 +4060,7 @@ export const songs: NewSong[] = [
     "name": "Yesu, ni Wowe musa mbonyemo",
     "url": "https://indirimbo.rw/song/gushimisha/123",
     "key": "do",
-    "references": [{"codes":"G.383(1)"}],
+    "references": [{"codes":"G.B. 383(1)"}],
     "body": [
       {
         "type": "verse",
@@ -4092,7 +4093,7 @@ export const songs: NewSong[] = [
     "name": "Yes’ amp’ amahoro y’ atarondoreka",
     "url": "https://indirimbo.rw/song/gushimisha/124",
     "key": "la bémol",
-    "references": [{"codes":"G.34"}, {"codes":"V.139(2)"}],
+    "references": [{"codes":"G.B. 34"}, {"codes":"V.139(2)"}],
     "body": [
       {
         "type": "verse",
@@ -4130,7 +4131,7 @@ export const songs: NewSong[] = [
     "name": "Ubw’ Umwami Yes’ ankunda",
     "url": "https://indirimbo.rw/song/gushimisha/125",
     "key": "sol",
-    "references": [{"codes":"G.316"}, {"codes":"V.195"}],
+    "references": [{"codes":"G.B. 316"}, {"codes":"V.195"}],
     "body": [
       {
         "type": "verse",
@@ -4187,7 +4188,7 @@ export const songs: NewSong[] = [
     "name": "Mukiza, numvis’ ijwi",
     "url": "https://indirimbo.rw/song/gushimisha/127a",
     "key": "mi bémol",
-    "references": [{"codes":"A.117"}, {"codes":"U.215"}, {"codes":"V.181"}, {"codes":"G.240"}, {"codes":"T.265"}],
+    "references": [{"codes":"A.117"}, {"codes":"U.215"}, {"codes":"V.181"}, {"codes":"G.B. 240"}, {"codes":"T.H. 265"}],
     "body": [
       {
         "type": "verse",
@@ -4225,7 +4226,7 @@ export const songs: NewSong[] = [
     "name": "Numvis’ijwi ryawe",
     "url": "https://indirimbo.rw/song/gushimisha/127b",
     "key": "mi bémol",
-    "references": [{"codes":"A.117"}, {"codes":"U.215"}, {"codes":"V.181"}, {"codes":"G.240"}, {"codes":"T.265"}],
+    "references": [{"codes":"A.117"}, {"codes":"U.215"}, {"codes":"V.181"}, {"codes":"G.B. 240"}, {"codes":"T.H. 265"}],
     "body": [
       {
         "type": "verse",
@@ -4258,7 +4259,7 @@ export const songs: NewSong[] = [
     "name": "Ubu, nj’ uko ndi, niringiye",
     "url": "https://indirimbo.rw/song/gushimisha/128",
     "key": "fa",
-    "references": [{"codes":"T.314"}],
+    "references": [{"codes":"T.H. 314"}],
     "body": [
       {
         "type": "verse",
@@ -4358,7 +4359,7 @@ export const songs: NewSong[] = [
     "name": "Mwumv’ imbabazi z’ Imana",
     "url": "https://indirimbo.rw/song/gushimisha/131",
     "key": "do",
-    "references": [{"codes":"K.336"}],
+    "references": [{"codes":"V.131"}, {"codes":"CK.336"}],
     "body": [
       {
         "type": "verse",
@@ -4391,7 +4392,7 @@ export const songs: NewSong[] = [
     "name": "Nsiz’ ububata n’ umwijima",
     "url": "https://indirimbo.rw/song/gushimisha/132",
     "key": "mi",
-    "references": [{"codes":"G.229"}, {"codes":"T.203"}],
+    "references": [{"codes":"G.B. 229"}, {"codes":"T.H. 203"}],
     "body": [
       {
         "type": "verse",
@@ -4458,7 +4459,7 @@ export const songs: NewSong[] = [
     "name": "Nshaka Yesu; nta wundi nifuza",
     "url": "https://indirimbo.rw/song/gushimisha/134",
     "key": "do",
-    "references": [{"codes":"T.17"}],
+    "references": [{"codes":"T.H. 17"}],
     "body": [
       {
         "type": "verse",
@@ -4505,7 +4506,7 @@ export const songs: NewSong[] = [
     "name": "Ubugingo bwanjye bwose",
     "url": "https://indirimbo.rw/song/gushimisha/136a",
     "key": "do",
-    "references": [{"codes":"V.186"}, {"codes":"G.482"}, {"codes":"T.21"}],
+    "references": [{"codes":"V.186"}, {"codes":"G.B. 482"}, {"codes":"T.H. 21"}],
     "body": [
       {
         "type": "verse",
@@ -4544,7 +4545,7 @@ export const songs: NewSong[] = [
     "name": "Numvise ijwi ry’ Umukiza",
     "url": "https://indirimbo.rw/song/gushimisha/136b",
     "key": "do",
-    "references": [{"codes":"V.186"}, {"codes":"G.482"}, {"codes":"T.21"}],
+    "references": [{"codes":"V.186"}, {"codes":"G.B. 482"}, {"codes":"T.H. 21"}],
     "body": [
       {
         "type": "verse",
@@ -4592,7 +4593,7 @@ export const songs: NewSong[] = [
     "name": "Yesu, Mukiza wanjye",
     "url": "https://indirimbo.rw/song/gushimisha/138",
     "key": "si bémol",
-    "references": [{"codes":"V.167"}, {"codes":"RS.576"}],
+    "references": [{"codes":"V.167"}, {"codes":"R.S. 576"}],
     "body": [
       {
         "type": "verse",
@@ -4625,7 +4626,7 @@ export const songs: NewSong[] = [
     "name": "Mukiza Yesu, ntabara",
     "url": "https://indirimbo.rw/song/gushimisha/139",
     "key": "si",
-    "references": [{"codes":"A.22"}, {"codes":"V.152"}, {"codes":"G.259(1)"}, {"codes":"F.200"}],
+    "references": [{"codes":"A.22"}, {"codes":"V.152"}, {"codes":"G.B. 259(1)"}, {"codes":"F.200"}],
     "body": [
       {
         "type": "verse",
@@ -4673,7 +4674,7 @@ export const songs: NewSong[] = [
     "name": "Mwami, ndakwimitse: wime",
     "url": "https://indirimbo.rw/song/gushimisha/140",
     "key": "sol",
-    "references": [{"codes":"T.101"}],
+    "references": [{"codes":"T.H. 101"}],
     "body": [
       {
         "type": "verse",
@@ -4762,7 +4763,7 @@ export const songs: NewSong[] = [
     "name": "Yesu, ko wankunze, bigatum’ umfira",
     "url": "https://indirimbo.rw/song/gushimisha/143",
     "key": "si",
-    "references": [{"codes":"U.222"}, {"codes":"G.453(2)"}, {"codes":"F.201"}, {"codes":"T.310"}],
+    "references": [{"codes":"U.222"}, {"codes":"G.B. 453(2)"}, {"codes":"F.201"}, {"codes":"T.H. 310"}],
     "body": [
       {
         "type": "verse",
@@ -4786,7 +4787,7 @@ export const songs: NewSong[] = [
     "name": "Yesu, ndagukunda cyane, ndakwihaye",
     "url": "https://indirimbo.rw/song/gushimisha/144",
     "key": "fa",
-    "references": [{"codes":"A.62"}, {"codes":"F.603"}, {"codes":"G.461(1)"}, {"codes":"T.299"}],
+    "references": [{"codes":"A.62"}, {"codes":"F.603"}, {"codes":"G.B. 461(1)"}, {"codes":"T.H. 299"}],
     "body": [
       {
         "type": "verse",
@@ -4815,7 +4816,7 @@ export const songs: NewSong[] = [
     "name": "Kugukorera ni byiza",
     "url": "https://indirimbo.rw/song/gushimisha/145",
     "key": "fa dièse",
-    "references": [{"codes":"V.166"}, {"codes":"E.186"}, {"codes":"G.147"}],
+    "references": [{"codes":"V.166"}, {"codes":"E.186"}, {"codes":"G.B. 147"}],
     "body": [
       {
         "type": "verse",
@@ -4883,7 +4884,7 @@ export const songs: NewSong[] = [
     "name": "Uburyo Yes’ ankunda",
     "url": "https://indirimbo.rw/song/gushimisha/147",
     "key": "mi bémol",
-    "references": [{"codes":"U.247(2)"}, {"codes":"G.386"}, {"codes":"T.28"}, {"codes":"F.55"}],
+    "references": [{"codes":"U.247(2)"}, {"codes":"G.B. 386"}, {"codes":"T.H. 28"}, {"codes":"F.55"}],
     "body": [
       {
         "type": "verse",
@@ -4912,7 +4913,7 @@ export const songs: NewSong[] = [
     "name": "Nta rukundo rusa n’urwa Yesu",
     "url": "https://indirimbo.rw/song/gushimisha/148",
     "key": "mi bémol",
-    "references": [{"codes":"G.257"}],
+    "references": [{"codes":"G.B. 257"}],
     "body": [
       {
         "type": "verse",
@@ -4978,7 +4979,7 @@ export const songs: NewSong[] = [
     "name": "Nishimiye ko Data wa twese",
     "url": "https://indirimbo.rw/song/gushimisha/150",
     "key": "ré",
-    "references": [{"codes":"U.145(2)"}, {"codes":"V.304"}, {"codes":"G.685"}, {"codes":"T.90"}],
+    "references": [{"codes":"U.145(2)"}, {"codes":"V.304"}, {"codes":"G.B. 685"}, {"codes":"T.H. 90"}],
     "body": [
       {
         "type": "verse",
@@ -5040,7 +5041,7 @@ export const songs: NewSong[] = [
     "name": "Har’ umukunzi nka Yesu wacu",
     "url": "https://indirimbo.rw/song/gushimisha/152",
     "key": "la",
-    "references": [{"codes":"A.111"}, {"codes":"G.358"}, {"codes":"E.219"}],
+    "references": [{"codes":"A.111"}, {"codes":"G.B. 358"}, {"codes":"E.219"}],
     "body": [
       {
         "type": "verse",
@@ -5083,7 +5084,7 @@ export const songs: NewSong[] = [
     "name": "Yes’ urankunda, Mukiza mwiza",
     "url": "https://indirimbo.rw/song/gushimisha/153",
     "key": "do",
-    "references": [{"codes":"G.488"}, {"codes":"T.272"}],
+    "references": [{"codes":"G.B. 488"}, {"codes":"T.H. 272"}],
     "body": [
       {
         "type": "verse",
@@ -5155,7 +5156,7 @@ export const songs: NewSong[] = [
     "name": "Yesu, nguhagaz’ imbere",
     "url": "https://indirimbo.rw/song/gushimisha/155",
     "key": "mi bémol",
-    "references": [{"codes":"T.156"}, {"codes":"AH.4"}],
+    "references": [{"codes":"T.H. 156"}, {"codes":"AH.4"}],
     "body": [
       {
         "type": "verse",
@@ -5193,7 +5194,7 @@ export const songs: NewSong[] = [
     "name": "Ni jye, Yesu, witanze",
     "url": "https://indirimbo.rw/song/gushimisha/156",
     "key": "sol",
-    "references": [{"codes":"T.280"}],
+    "references": [{"codes":"T.H. 280"}],
     "body": [
       {
         "type": "verse",
@@ -5222,7 +5223,7 @@ export const songs: NewSong[] = [
     "name": "Mukiz’ umpe kumenya",
     "url": "https://indirimbo.rw/song/gushimisha/157",
     "key": "do",
-    "references": [{"codes":"G.101"}],
+    "references": [{"codes":"G.B. 101"}],
     "body": [
       {
         "type": "verse",
@@ -5265,7 +5266,7 @@ export const songs: NewSong[] = [
     "name": "Umvir’ ijwi rya Yesu",
     "url": "https://indirimbo.rw/song/gushimisha/158",
     "key": "la bémol",
-    "references": [{"codes":"U.199"}, {"codes":"G.403"}],
+    "references": [{"codes":"U.199"}, {"codes":"G.B. 403"}],
     "body": [
       {
         "type": "verse",
@@ -5337,7 +5338,7 @@ export const songs: NewSong[] = [
     "name": "Mbeg’ urukundo rwaw’umfitiye",
     "url": "https://indirimbo.rw/song/gushimisha/160",
     "key": "sol",
-    "references": [{"codes":"U.230"}, {"codes":"V.15"}, {"codes":"G.387"}],
+    "references": [{"codes":"U.230"}, {"codes":"V.15"}, {"codes":"G.B. 387"}],
     "body": [
       {
         "type": "verse",
@@ -5381,7 +5382,7 @@ export const songs: NewSong[] = [
     "name": "Mbwir’amagambo ya Yesu",
     "url": "https://indirimbo.rw/song/gushimisha/161",
     "key": "sol",
-    "references": [{"codes":"A.107"}, {"codes":"G.123"}, {"codes":"T.197"}],
+    "references": [{"codes":"A.107"}, {"codes":"G.B. 123"}, {"codes":"T.H. 197"}],
     "body": [
       {
         "type": "verse",
@@ -5409,7 +5410,7 @@ export const songs: NewSong[] = [
     "name": "Nganirir’ibya Yesu",
     "url": "https://indirimbo.rw/song/gushimisha/162",
     "key": "mi",
-    "references": [{"codes":"U.207"}, {"codes":"G.204(1)"}, {"codes":"T.116"}, {"codes":"F.263"}],
+    "references": [{"codes":"U.207"}, {"codes":"G.B. 204(1)"}, {"codes":"T.H. 116"}, {"codes":"F.263"}],
     "body": [
       {
         "type": "verse",
@@ -5447,7 +5448,7 @@ export const songs: NewSong[] = [
     "name": "Uhereye kera kose",
     "url": "https://indirimbo.rw/song/gushimisha/163",
     "key": "sol",
-    "references": [{"codes":"U.286"}, {"codes":"G.682"}],
+    "references": [{"codes":"U.286"}, {"codes":"G.B. 682"}],
     "body": [
       {
         "type": "verse",
@@ -5506,7 +5507,7 @@ export const songs: NewSong[] = [
     "name": "Yes’ avukir’i Betelehemu",
     "url": "https://indirimbo.rw/song/gushimisha/164",
     "key": "ré",
-    "references": [{"codes":"U.197"}, {"codes":"G.123"}],
+    "references": [{"codes":"U.197"}, {"codes":"G.B. 123"}],
     "body": [
       {
         "type": "verse",
@@ -5564,7 +5565,7 @@ export const songs: NewSong[] = [
     "name": "Ngwino, soko y’ umugisha",
     "url": "https://indirimbo.rw/song/gushimisha/166",
     "key": "sol",
-    "references": [{"codes":"A.52"}, {"codes":"T.298"}],
+    "references": [{"codes":"A.52"}, {"codes":"T.H. 298"}],
     "body": [
       {
         "type": "verse",
@@ -5588,7 +5589,7 @@ export const songs: NewSong[] = [
     "name": "Yesu Ni We Nihishemo",
     "url": "https://indirimbo.rw/song/gushimisha/167",
     "key": "do",
-    "references": [{"codes":"G.344"}, {"codes":"T.120"}],
+    "references": [{"codes":"G.B. 344"}, {"codes":"T.H. 120"}],
     "body": [
       {
         "type": "verse",
@@ -5626,7 +5627,7 @@ export const songs: NewSong[] = [
     "name": "Mbumbatiwe nawe, Yesu",
     "url": "https://indirimbo.rw/song/gushimisha/168",
     "key": "si",
-    "references": [{"codes":"U.237"}, {"codes":"V.244"}, {"codes":"G.342"}],
+    "references": [{"codes":"U.237"}, {"codes":"V.244"}, {"codes":"G.B. 342"}],
     "body": [
       {
         "type": "verse",
@@ -5654,7 +5655,7 @@ export const songs: NewSong[] = [
     "name": "Mana, nkuko Wafashaga",
     "url": "https://indirimbo.rw/song/gushimisha/169",
     "key": "fa",
-    "references": [{"codes":"U.175"}, {"codes":"G.346"}, {"codes":"C.239"}, {"codes":"F.24"}],
+    "references": [{"codes":"U.175"}, {"codes":"G.B. 346"}, {"codes":"C.239"}, {"codes":"F.24"}],
     "body": [
       {
         "type": "verse",
@@ -5698,7 +5699,7 @@ export const songs: NewSong[] = [
     "name": "Utinyuke kuyoborwa",
     "url": "https://indirimbo.rw/song/gushimisha/170",
     "key": "la",
-    "references": [{"codes":"A.84"}, {"codes":"U.102"}, {"codes":"G.10"}],
+    "references": [{"codes":"A.84"}, {"codes":"U.102"}, {"codes":"G.B. 10"}],
     "body": [
       {
         "type": "verse",
@@ -5722,7 +5723,7 @@ export const songs: NewSong[] = [
     "name": "Amahoro Yesu—Ah’ abantu be",
     "url": "https://indirimbo.rw/song/gushimisha/171",
     "key": "fa",
-    "references": [{"codes":"V.224"}, {"codes":"G.333"}],
+    "references": [{"codes":"V.224"}, {"codes":"G.B. 333"}],
     "body": [
       {
         "type": "verse",
@@ -5779,7 +5780,7 @@ export const songs: NewSong[] = [
     "name": "Imana ni yo mwungeri",
     "url": "https://indirimbo.rw/song/gushimisha/173",
     "key": "si",
-    "references": [{"codes":"U.121"}, {"codes":"G.390"}, {"codes":"F.402"}],
+    "references": [{"codes":"U.121"}, {"codes":"G.B. 390"}, {"codes":"F.402"}],
     "body": [
       {
         "type": "verse",
@@ -5856,7 +5857,7 @@ export const songs: NewSong[] = [
     "name": "Mwunger’ udukunda, —Jy’ uturagira",
     "url": "https://indirimbo.rw/song/gushimisha/175",
     "key": "si bémol",
-    "references": [{"codes":"G.653"}],
+    "references": [{"codes":"G.B. 653"}],
     "body": [
       {
         "type": "verse",
@@ -5885,7 +5886,7 @@ export const songs: NewSong[] = [
     "name": "We kwumvir’ Umubi ujy’ agushuka",
     "url": "https://indirimbo.rw/song/gushimisha/176",
     "key": "ré",
-    "references": [{"codes":"G.498"}, {"codes":"C.129"}],
+    "references": [{"codes":"G.B. 498"}, {"codes":"C.129"}],
     "body": [
       {
         "type": "verse",
@@ -5942,7 +5943,7 @@ export const songs: NewSong[] = [
     "name": "Iy’ utewe n’ amakub’ akomeye",
     "url": "https://indirimbo.rw/song/gushimisha/178",
     "key": "sol",
-    "references": [{"codes":"G.518"}, {"codes":"T.50"}, {"codes":"V.208"}],
+    "references": [{"codes":"G.B. 518"}, {"codes":"T.H. 50"}, {"codes":"V.208"}],
     "body": [
       {
         "type": "verse",
@@ -5975,7 +5976,7 @@ export const songs: NewSong[] = [
     "name": "Iy’ urushye, iy’ uremerewe",
     "url": "https://indirimbo.rw/song/gushimisha/179",
     "key": "si bémol",
-    "references": [{"codes":"A.64"}, {"codes":"V.108"}, {"codes":"RS.592"}, {"codes":"T.131"}],
+    "references": [{"codes":"A.64"}, {"codes":"V.108"}, {"codes":"R.S. 592"}, {"codes":"T.H. 131"}],
     "body": [
       {
         "type": "verse",
@@ -6008,7 +6009,7 @@ export const songs: NewSong[] = [
     "name": "Impara yaguy’ umwuma",
     "url": "https://indirimbo.rw/song/gushimisha/180",
     "key": "mi",
-    "references": [{"codes":"K.6"}, {"codes":"U.220"}, {"codes":"G.404"}],
+    "references": [{"codes":"K.6"}, {"codes":"U.220"}, {"codes":"G.B. 404"}],
     "body": [
       {
         "type": "verse",
@@ -6037,7 +6038,7 @@ export const songs: NewSong[] = [
     "name": "Mwa nshuti za Yesu mwe",
     "url": "https://indirimbo.rw/song/gushimisha/181",
     "key": "sol",
-    "references": [{"codes":"A.67"}, {"codes":"G.31"}, {"codes":"T.204"}],
+    "references": [{"codes":"A.67"}, {"codes":"G.B. 31"}, {"codes":"T.H. 204"}],
     "body": [
       {
         "type": "verse",
@@ -6070,7 +6071,7 @@ export const songs: NewSong[] = [
     "name": "Mur’ iyo nzir’ iruhije",
     "url": "https://indirimbo.rw/song/gushimisha/182",
     "key": "sol",
-    "references": [{"codes":"V.94"}, {"codes":"G.555"}, {"codes":"G.573"}],
+    "references": [{"codes":"V.94"}, {"codes":"G.B. 555"}, {"codes":"G.B. 573"}],
     "sharedMelody": [110],
     "body": [
       {
@@ -6100,7 +6101,7 @@ export const songs: NewSong[] = [
     "name": "Tugiy’ i wacu mw ijuru",
     "url": "https://indirimbo.rw/song/gushimisha/183",
     "key": "do",
-    "references": [{"codes":"K.339"}],
+    "references": [{"codes":"CK.339"}],
     "body": [
       {
         "type": "verse",
@@ -6124,7 +6125,7 @@ export const songs: NewSong[] = [
     "name": "Dor’ inzir’ ijya mw ijuru n’ imwe",
     "url": "https://indirimbo.rw/song/gushimisha/184",
     "key": "ré",
-    "references": [{"codes":"U.145(2)"}, {"codes":"G.685"}],
+    "references": [{"codes":"U.145(2)"}, {"codes":"G.B. 685"}],
     "body": [
       {
         "type": "verse",
@@ -6201,7 +6202,7 @@ export const songs: NewSong[] = [
     "name": "Mw isi yacu no mw ijuru",
     "url": "https://indirimbo.rw/song/gushimisha/186",
     "key": "mi bémol",
-    "references": [{"codes":"A.190"}, {"codes":"V.37"}, {"codes":"T.95"}],
+    "references": [{"codes":"A.190"}, {"codes":"V.37"}, {"codes":"T.H. 95"}],
     "body": [
       {
         "type": "verse",
@@ -6244,7 +6245,7 @@ export const songs: NewSong[] = [
     "name": "Ngwino, Mwami wacu Yesu",
     "url": "https://indirimbo.rw/song/gushimisha/187",
     "key": "la",
-    "references": [{"codes":"G.551"}],
+    "references": [{"codes":"G.B. 551"}],
     "body": [
       {
         "type": "verse",
@@ -6283,7 +6284,7 @@ export const songs: NewSong[] = [
     "name": "Ndashaka gusa nawe",
     "url": "https://indirimbo.rw/song/gushimisha/188",
     "key": "fa",
-    "references": [{"codes":"G.678"}, {"codes":"U.170"}, {"codes":"V.31"}],
+    "references": [{"codes":"G.B. 678"}, {"codes":"U.170"}, {"codes":"V.31"}],
     "body": [
       {
         "type": "verse",
@@ -6307,7 +6308,7 @@ export const songs: NewSong[] = [
     "name": "Mugenz’ uragana mw ijuru",
     "url": "https://indirimbo.rw/song/gushimisha/189",
     "key": "do",
-    "references": [{"codes":"V.300"}, {"codes":"G.301"}],
+    "references": [{"codes":"V.300"}, {"codes":"G.B. 301"}],
     "body": [
       {
         "type": "verse",
@@ -6340,7 +6341,7 @@ export const songs: NewSong[] = [
     "name": "Iyo turi hamwe n’ Umukiza wacu",
     "url": "https://indirimbo.rw/song/gushimisha/190",
     "key": "fa",
-    "references": [{"codes":"A.40"}, {"codes":"G.463"}, {"codes":"T.200"}],
+    "references": [{"codes":"A.40"}, {"codes":"G.B. 463"}, {"codes":"T.H. 200"}],
     "body": [
       {
         "type": "verse",
@@ -6378,7 +6379,7 @@ export const songs: NewSong[] = [
     "name": "Nunguk’ ubuntu bwa Yesu",
     "url": "https://indirimbo.rw/song/gushimisha/191",
     "key": "mi bémol",
-    "references": [{"codes":"A.61"}, {"codes":"G.385"}, {"codes":"T.257"}],
+    "references": [{"codes":"A.61"}, {"codes":"G.B. 385"}, {"codes":"T.H. 257"}],
     "body": [
       {
         "type": "verse",
@@ -6460,7 +6461,7 @@ export const songs: NewSong[] = [
     "name": "Kor’ ugifit’ uburyo",
     "url": "https://indirimbo.rw/song/gushimisha/193",
     "key": "do",
-    "references": [{"codes":"U.161"}, {"codes":"A.81"}, {"codes":"G.440"}, {"codes":"F.345"}],
+    "references": [{"codes":"U.161"}, {"codes":"A.81"}, {"codes":"G.B. 440"}, {"codes":"F.345"}],
     "body": [
       {
         "type": "verse",
@@ -6484,7 +6485,7 @@ export const songs: NewSong[] = [
     "name": "Mana nduburira amaso yanjye",
     "url": "https://indirimbo.rw/song/gushimisha/194",
     "key": "si",
-    "references": [{"codes":"U.270(1)"}, {"codes":"V.240"}, {"codes":"G.295(2)"}],
+    "references": [{"codes":"U.270(1)"}, {"codes":"V.240"}, {"codes":"G.B. 295(2)"}],
     "body": [
       {
         "type": "verse",
@@ -6513,7 +6514,7 @@ export const songs: NewSong[] = [
     "name": "Yesu yatwis’ amatabaza ye",
     "url": "https://indirimbo.rw/song/gushimisha/195",
     "key": "sol",
-    "references": [{"codes":"G.684"}, {"codes":"U.299"}],
+    "references": [{"codes":"G.B. 684"}, {"codes":"U.299"}],
     "body": [
       {
         "type": "verse",
@@ -6542,7 +6543,7 @@ export const songs: NewSong[] = [
     "name": "Ni Yes’ ufit’ urufunguzo",
     "url": "https://indirimbo.rw/song/gushimisha/196",
     "key": "do",
-    "references": [{"codes":"U.249"}, {"codes":"G.351"}],
+    "references": [{"codes":"U.249"}, {"codes":"G.B. 351"}],
     "body": [
       {
         "type": "verse",
@@ -6576,7 +6577,7 @@ export const songs: NewSong[] = [
     "name": "Uwishinze ku byasezeranijwe",
     "url": "https://indirimbo.rw/song/gushimisha/197",
     "key": "fa",
-    "references": [{"codes":"G.272"}, {"codes":"T.164"}],
+    "references": [{"codes":"G.B. 272"}, {"codes":"T.H. 164"}],
     "body": [
       {
         "type": "verse",
@@ -6614,7 +6615,7 @@ export const songs: NewSong[] = [
     "name": "Umwami wacu, Yesu",
     "url": "https://indirimbo.rw/song/gushimisha/198",
     "key": "do",
-    "references": [{"codes":"A.172"}, {"codes":"V.204"}, {"codes":"G.517"}],
+    "references": [{"codes":"A.172"}, {"codes":"V.204"}, {"codes":"G.B. 517"}],
     "body": [
       {
         "type": "verse",
@@ -6648,7 +6649,7 @@ export const songs: NewSong[] = [
     "name": "Ni nd’ uzarwanana n’ Umwami wacu",
     "url": "https://indirimbo.rw/song/gushimisha/199",
     "key": "la",
-    "references": [{"codes":"G.652"}],
+    "references": [{"codes":"G.B. 652"}],
     "body": [
       {
         "type": "verse",
@@ -6686,7 +6687,7 @@ export const songs: NewSong[] = [
     "name": "Umwam’ agaby’ ingabo ze",
     "url": "https://indirimbo.rw/song/gushimisha/200",
     "key": "ré",
-    "references": [{"codes":"U.81"}, {"codes":"G.173"}],
+    "references": [{"codes":"U.81"}, {"codes":"G.B. 173"}],
     "body": [
       {
         "type": "verse",
@@ -6735,7 +6736,7 @@ export const songs: NewSong[] = [
     "name": "Bayoboke, mubyuke",
     "url": "https://indirimbo.rw/song/gushimisha/201",
     "key": "do",
-    "references": [{"codes":"A.172"}, {"codes":"U.97"}, {"codes":"V.204"}, {"codes":"G.517"}, {"codes":"T.330"}],
+    "references": [{"codes":"A.172"}, {"codes":"U.97"}, {"codes":"V.204"}, {"codes":"G.B. 517"}, {"codes":"T.H. 330"}],
     "body": [
       {
         "type": "verse",
@@ -6808,7 +6809,7 @@ export const songs: NewSong[] = [
     "name": "Mwa ngabo z’ Umwami mwe",
     "url": "https://indirimbo.rw/song/gushimisha/203",
     "key": "do",
-    "references": [{"codes":"U.153"}, {"codes":"A.18"}, {"codes":"G.525(1)"}, {"codes":"T.198"}, {"codes":"F.463"}],
+    "references": [{"codes":"U.153"}, {"codes":"A.18"}, {"codes":"G.B. 525(1)"}, {"codes":"T.H. 198"}, {"codes":"F.463"}],
     "body": [
       {
         "type": "verse",
@@ -6836,7 +6837,7 @@ export const songs: NewSong[] = [
     "name": "Dor’ ibendera ya Yesu",
     "url": "https://indirimbo.rw/song/gushimisha/204",
     "key": "sol",
-    "references": [{"codes":"U.151"}, {"codes":"V.193"}, {"codes":"S.669"}, {"codes":"T.221"}],
+    "references": [{"codes":"U.151"}, {"codes":"V.193"}, {"codes":"S.669"}, {"codes":"T.H. 221"}],
     "body": [
       {
         "type": "verse",
@@ -6869,7 +6870,7 @@ export const songs: NewSong[] = [
     "name": "Urwan’ intambara nziza",
     "url": "https://indirimbo.rw/song/gushimisha/205",
     "key": "do",
-    "references": [{"codes":"T.282"}, {"codes":"K.341"}, {"codes":"F.627"}, {"codes":"G.538"}],
+    "references": [{"codes":"T.H. 282"}, {"codes":"K.341"}, {"codes":"F.627"}, {"codes":"G.B. 538"}],
     "body": [
       {
         "type": "verse",
@@ -6898,7 +6899,7 @@ export const songs: NewSong[] = [
     "name": "Har’ uwitwa Danyeli: yar’ intwari pe",
     "url": "https://indirimbo.rw/song/gushimisha/206",
     "key": "ré",
-    "references": [{"codes":"G.510"}, {"codes":"T.333"}],
+    "references": [{"codes":"G.B. 510"}, {"codes":"T.H. 333"}],
     "body": [
       {
         "type": "verse",
@@ -6936,7 +6937,7 @@ export const songs: NewSong[] = [
     "name": "Uwab’atinyutse Ibyago byose",
     "url": "https://indirimbo.rw/song/gushimisha/207",
     "key": "mi bémol",
-    "references": [{"codes":"G.522"}],
+    "references": [{"codes":"G.B. 522"}],
     "body": [
       {
         "type": "verse",
@@ -6960,7 +6961,7 @@ export const songs: NewSong[] = [
     "name": "Imana n’ ubuhingiro",
     "url": "https://indirimbo.rw/song/gushimisha/208",
     "key": "ré",
-    "references": [{"codes":"V.187"}, {"codes":"G.322"}, {"codes":"T.238"}, {"codes":"U.180"}],
+    "references": [{"codes":"V.187"}, {"codes":"G.B. 322"}, {"codes":"T.H. 238"}, {"codes":"U.180"}],
     "body": [
       {
         "type": "verse",
@@ -7052,7 +7053,7 @@ export const songs: NewSong[] = [
     "name": "Harihw indi si nziza cyane",
     "url": "https://indirimbo.rw/song/gushimisha/211",
     "key": "sol",
-    "references": [{"codes":"A.50"}, {"codes":"T.191"}, {"codes":"V.293"}, {"codes":"G.370"}],
+    "references": [{"codes":"A.50"}, {"codes":"T.H. 191"}, {"codes":"V.293"}, {"codes":"G.B. 370"}],
     "body": [
       {
         "type": "verse",
@@ -7080,7 +7081,7 @@ export const songs: NewSong[] = [
     "name": "Mw ijuru, hariho—Isi nziza",
     "url": "https://indirimbo.rw/song/gushimisha/212a",
     "key": "sol dièse",
-    "references": [{"codes":"U.185"}, {"codes":"G.562"}, {"codes":"F.488"}],
+    "references": [{"codes":"U.185"}, {"codes":"G.B. 562"}, {"codes":"F.488"}],
     "body": [
       {
         "type": "verse",
@@ -7104,7 +7105,7 @@ export const songs: NewSong[] = [
     "name": "Ni mw’ ijuru ku Mana —Abizeye",
     "url": "https://indirimbo.rw/song/gushimisha/212b",
     "key": "sol dièse",
-    "references": [{"codes":"U.185"}, {"codes":"G.562"}, {"codes":"F.488"}],
+    "references": [{"codes":"U.185"}, {"codes":"G.B. 562"}, {"codes":"F.488"}],
     "body": [
       {
         "type": "verse",
@@ -7152,7 +7153,7 @@ export const songs: NewSong[] = [
     "name": "Har’ umurwa mwiza—W’ abera b’ lmana",
     "url": "https://indirimbo.rw/song/gushimisha/214",
     "key": "si",
-    "references": [{"codes":"G.564"}],
+    "references": [{"codes":"G.B. 564"}],
     "body": [
       {
         "type": "verse",
@@ -7229,7 +7230,7 @@ export const songs: NewSong[] = [
     "name": "Singishak’ubutunzi",
     "url": "https://indirimbo.rw/song/gushimisha/216",
     "key": "mi bémol",
-    "references": [{"codes":"A.71"}, {"codes":"T.195"}],
+    "references": [{"codes":"A.71"}, {"codes":"T.H. 195"}],
     "body": [
       {
         "type": "verse",
@@ -7257,7 +7258,7 @@ export const songs: NewSong[] = [
     "name": "Mw’ isi nd’ umushyitsi; —Si ho nzab’ iteka",
     "url": "https://indirimbo.rw/song/gushimisha/217",
     "key": "la bémol",
-    "references": [{"codes":"U.258"}, {"codes":"G.6"}],
+    "references": [{"codes":"U.258"}, {"codes":"G.B. 6"}],
     "sharedMelody": [29],
     "body": [
       {
@@ -7292,7 +7293,7 @@ export const songs: NewSong[] = [
     "name": "Kubana na Yesu",
     "url": "https://indirimbo.rw/song/gushimisha/218",
     "key": "ré",
-    "references": [{"codes":"U.190"}, {"codes":"G.314"}],
+    "references": [{"codes":"U.190"}, {"codes":"G.B. 314"}],
     "body": [
       {
         "type": "verse",
@@ -7321,7 +7322,7 @@ export const songs: NewSong[] = [
     "name": "Ubwo nzamar’ imirimo ngo nsezere kw’ isi",
     "url": "https://indirimbo.rw/song/gushimisha/219",
     "key": "la bémol",
-    "references": [{"codes":"T.118"}, {"codes":"S.967"}],
+    "references": [{"codes":"T.H. 118"}, {"codes":"S.967"}],
     "body": [
       {
         "type": "verse",
@@ -7354,7 +7355,7 @@ export const songs: NewSong[] = [
     "name": "Ubwo nzabon’ Umukiza",
     "url": "https://indirimbo.rw/song/gushimisha/220",
     "key": "fa",
-    "references": [{"codes":"A.3"}, {"codes":"V.252"}, {"codes":"RS.421"}],
+    "references": [{"codes":"A.3"}, {"codes":"V.252"}, {"codes":"R.S. 421"}],
     "body": [
       {
         "type": "verse",
@@ -7419,7 +7420,7 @@ export const songs: NewSong[] = [
     "name": "Mbese, tuzahurirayo",
     "url": "https://indirimbo.rw/song/gushimisha/222",
     "key": "sol",
-    "references": [{"codes":"U.192"}, {"codes":"A.10"}, {"codes":"F.439"}, {"codes":"T.181"}, {"codes":"S.1000"}],
+    "references": [{"codes":"U.192"}, {"codes":"A.10"}, {"codes":"F.439"}, {"codes":"T.H. 181"}, {"codes":"S.1000"}],
     "body": [
       {
         "type": "verse",
@@ -7457,7 +7458,7 @@ export const songs: NewSong[] = [
     "name": "Rya Joro ryatowe",
     "url": "https://indirimbo.rw/song/gushimisha/223",
     "key": "sol",
-    "references": [{"codes":"F.81"}, {"codes":"R.71"}, {"codes":"T.256"}],
+    "references": [{"codes":"F.81"}, {"codes":"R.71"}, {"codes":"T.H. 256"}],
     "body": [
       {
         "type": "verse",
@@ -7486,7 +7487,7 @@ export const songs: NewSong[] = [
     "name": "Wasiz’ ubwiza war’ ufite mw ijuru",
     "url": "https://indirimbo.rw/song/gushimisha/224",
     "key": "fa",
-    "references": [{"codes":"G.113"}],
+    "references": [{"codes":"G.B. 113"}],
     "body": [
       {
         "type": "verse",
@@ -7532,7 +7533,7 @@ export const songs: NewSong[] = [
     "name": "Mw ivuka ryawe, Yesu, bakuryamishije",
     "url": "https://indirimbo.rw/song/gushimisha/225",
     "key": "do",
-    "references": [{"codes":"G.632"}, {"codes":"F.491"}],
+    "references": [{"codes":"G.B. 632"}, {"codes":"F.491"}],
     "body": [
       {
         "type": "verse",
@@ -7556,7 +7557,7 @@ export const songs: NewSong[] = [
     "name": "Mukiza wacu Yesu",
     "url": "https://indirimbo.rw/song/gushimisha/226",
     "key": "do",
-    "references": [{"codes":"F.125"}, {"codes":"V.39"}, {"codes":"G.39"}],
+    "references": [{"codes":"F.125"}, {"codes":"V.39"}, {"codes":"G.B. 39"}],
     "body": [
       {
         "type": "verse",
@@ -7585,7 +7586,7 @@ export const songs: NewSong[] = [
     "name": "Ku rurembo rwa Dawid’ Umwami",
     "url": "https://indirimbo.rw/song/gushimisha/227",
     "key": "ré",
-    "references": [{"codes":"U.40"}, {"codes":"G.120"}],
+    "references": [{"codes":"U.40"}, {"codes":"G.B. 120"}],
     "body": [
       {
         "type": "verse",
@@ -7653,7 +7654,7 @@ export const songs: NewSong[] = [
     "name": "Abungeri barindaga",
     "url": "https://indirimbo.rw/song/gushimisha/229",
     "key": "sol",
-    "references": [{"codes":"G.114"}],
+    "references": [{"codes":"G.B. 114"}],
     "body": [
       {
         "type": "verse",
@@ -7692,7 +7693,7 @@ export const songs: NewSong[] = [
     "name": "Umv’ intumwa zo mw’ ijuru",
     "url": "https://indirimbo.rw/song/gushimisha/230",
     "key": "ré",
-    "references": [{"codes":"U.33"}, {"codes":"G.119"}, {"codes":"T.255"}, {"codes":"F.295"}],
+    "references": [{"codes":"U.33"}, {"codes":"G.B. 119"}, {"codes":"T.H. 255"}, {"codes":"F.295"}],
     "body": [
       {
         "type": "verse",
@@ -7825,7 +7826,7 @@ export const songs: NewSong[] = [
     "name": "Inkuru nziza yavuye mw ijuru",
     "url": "https://indirimbo.rw/song/gushimisha/234",
     "key": "sol",
-    "references": [{"codes":"L.613"}, {"codes":"G.121"}],
+    "references": [{"codes":"L.613"}, {"codes":"G.B. 121"}],
     "body": [
       {
         "type": "verse",
@@ -7854,7 +7855,7 @@ export const songs: NewSong[] = [
     "name": "Bakristo, nimuze, munezerwe mwese",
     "url": "https://indirimbo.rw/song/gushimisha/235",
     "key": "la",
-    "references": [{"codes":"U.34"}, {"codes":"F.548"}, {"codes":"G.117"}, {"codes":"T.291(2)"}],
+    "references": [{"codes":"U.34"}, {"codes":"F.548"}, {"codes":"G.B. 117"}, {"codes":"T.H. 291(2)"}],
     "body": [
       {
         "type": "verse",
@@ -7992,7 +7993,7 @@ export const songs: NewSong[] = [
     "name": "Nkuko ba banyabwenge",
     "url": "https://indirimbo.rw/song/gushimisha/239",
     "key": "la",
-    "references": [{"codes":"U.46"}, {"codes":"G.116"}],
+    "references": [{"codes":"U.46"}, {"codes":"G.B. 116"}],
     "body": [
       {
         "type": "verse",
@@ -8026,7 +8027,7 @@ export const songs: NewSong[] = [
     "name": "Wa mwanya mu Getsemani",
     "url": "https://indirimbo.rw/song/gushimisha/240",
     "key": "la",
-    "references": [{"codes":"G.149"}, {"codes":"U.228"}],
+    "references": [{"codes":"G.B. 149"}, {"codes":"U.228"}],
     "sharedMelody": [85],
     "body": [
       {
@@ -8060,7 +8061,7 @@ export const songs: NewSong[] = [
     "name": "Mbes’uriy’ubabaye",
     "url": "https://indirimbo.rw/song/gushimisha/241",
     "key": "mi bémol",
-    "references": [{"codes":"U.265(2)"}, {"codes":"F.55"}, {"codes":"G.386"}],
+    "references": [{"codes":"U.265(2)"}, {"codes":"F.55"}, {"codes":"G.B. 386"}],
     "body": [
       {
         "type": "verse",
@@ -8094,7 +8095,7 @@ export const songs: NewSong[] = [
     "name": "Mwana w’ Imana, mbega wakoz’iki",
     "url": "https://indirimbo.rw/song/gushimisha/242",
     "key": "mi bémol",
-    "references": [{"codes":"U.247(2)"}, {"codes":"F.206"}, {"codes":"G.319"}],
+    "references": [{"codes":"U.247(2)"}, {"codes":"F.206"}, {"codes":"G.B. 319"}],
     "body": [
       {
         "type": "verse",
@@ -8128,7 +8129,7 @@ export const songs: NewSong[] = [
     "name": "Umunyamibabaro",
     "url": "https://indirimbo.rw/song/gushimisha/243",
     "key": "sol",
-    "references": [{"codes":"U.134"}, {"codes":"G.144"}, {"codes":"T.259"}],
+    "references": [{"codes":"U.134"}, {"codes":"G.B. 144"}, {"codes":"T.H. 259"}],
     "body": [
       {
         "type": "verse",
@@ -8167,7 +8168,7 @@ export const songs: NewSong[] = [
     "name": "Har’ umusozi wa kure",
     "url": "https://indirimbo.rw/song/gushimisha/244",
     "key": "si bémol",
-    "references": [{"codes":"U.61"}, {"codes":"G.370"}, {"codes":"G.156(1)"}],
+    "references": [{"codes":"U.61"}, {"codes":"G.B. 370"}, {"codes":"G.B. 156(1)"}],
     "body": [
       {
         "type": "verse",
@@ -8201,7 +8202,7 @@ export const songs: NewSong[] = [
     "name": "Iyo nibwiye mu mutima",
     "url": "https://indirimbo.rw/song/gushimisha/245",
     "key": "fa",
-    "references": [{"codes":"T.314"}, {"codes":"U.59"}, {"codes":"V.281"}, {"codes":"G.469"}],
+    "references": [{"codes":"T.H. 314"}, {"codes":"U.59"}, {"codes":"V.281"}, {"codes":"G.B. 469"}],
     "body": [
       {
         "type": "verse",
@@ -8283,7 +8284,7 @@ export const songs: NewSong[] = [
     "name": "Unyigishe, Mukiza",
     "url": "https://indirimbo.rw/song/gushimisha/247",
     "key": "la",
-    "references": [{"codes":"G.154"}, {"codes":"U.271"}, {"codes":"F.378"}],
+    "references": [{"codes":"G.B. 154"}, {"codes":"U.271"}, {"codes":"F.378"}],
     "body": [
       {
         "type": "verse",
@@ -8317,7 +8318,7 @@ export const songs: NewSong[] = [
     "name": "Hafi y’ Umusaraba",
     "url": "https://indirimbo.rw/song/gushimisha/248",
     "key": "la",
-    "references": [{"codes":"A.132"}, {"codes":"T.271"}, {"codes":"K.116"}],
+    "references": [{"codes":"A.132"}, {"codes":"T.H. 271"}, {"codes":"K.116"}],
     "body": [
       {
         "type": "verse",
@@ -8355,7 +8356,7 @@ export const songs: NewSong[] = [
     "name": "Nitegerej’Umusaraba",
     "url": "https://indirimbo.rw/song/gushimisha/249",
     "key": "do",
-    "references": [{"codes":"V.101"}, {"codes":"A.192"}, {"codes":"T.387"}, {"codes":"RS.192"}],
+    "references": [{"codes":"V.101"}, {"codes":"A.192"}, {"codes":"T.H. 387"}, {"codes":"R.S. 192"}],
     "body": [
       {
         "type": "verse",
@@ -8388,7 +8389,7 @@ export const songs: NewSong[] = [
     "name": "Shimwa, Mwami Yesu, —Ko wamviriye",
     "url": "https://indirimbo.rw/song/gushimisha/250",
     "key": "la",
-    "references": [{"codes":"G.58"}, {"codes":"U.242"}],
+    "references": [{"codes":"G.B. 58"}, {"codes":"U.242"}],
     "body": [
       {
         "type": "verse",
@@ -8437,7 +8438,7 @@ export const songs: NewSong[] = [
     "name": "Munsi y’Umusaraba",
     "url": "https://indirimbo.rw/song/gushimisha/251",
     "key": "fa",
-    "references": [{"codes":"U.170"}, {"codes":"V.31"}, {"codes":"G.678"}],
+    "references": [{"codes":"U.170"}, {"codes":"V.31"}, {"codes":"G.B. 678"}],
     "body": [
       {
         "type": "verse",
@@ -8471,7 +8472,7 @@ export const songs: NewSong[] = [
     "name": "Yes’ Umucunguzi—Yashyizwe mu mva",
     "url": "https://indirimbo.rw/song/gushimisha/252",
     "key": "sol",
-    "references": [{"codes":"U.69"}, {"codes":"V.9"}, {"codes":"F.120"}, {"codes":"G.166"}],
+    "references": [{"codes":"U.69"}, {"codes":"V.9"}, {"codes":"F.120"}, {"codes":"G.B. 166"}],
     "body": [
       {
         "type": "verse",
@@ -8499,7 +8500,7 @@ export const songs: NewSong[] = [
     "name": "Yesu yarangij’ intambara",
     "url": "https://indirimbo.rw/song/gushimisha/253a",
     "key": "sol dièse",
-    "references": [{"codes":"U.68"}, {"codes":"F.555"}, {"codes":"G.165"}],
+    "references": [{"codes":"U.68"}, {"codes":"F.555"}, {"codes":"G.B. 165"}],
     "body": [
       {
         "type": "chorus",
@@ -8532,7 +8533,7 @@ export const songs: NewSong[] = [
     "name": "Hashimw’ Uwatuzukiye",
     "url": "https://indirimbo.rw/song/gushimisha/253b",
     "key": "sol dièse",
-    "references": [{"codes":"U.68"}, {"codes":"F.555"}, {"codes":"G.165"}],
+    "references": [{"codes":"U.68"}, {"codes":"F.555"}, {"codes":"G.B. 165"}],
     "body": [
       {
         "type": "chorus",
@@ -8594,7 +8595,7 @@ export const songs: NewSong[] = [
     "name": "Yesu Kristo yarazutse",
     "url": "https://indirimbo.rw/song/gushimisha/255",
     "key": "ré",
-    "references": [{"codes":"U.62"}, {"codes":"G.170"}, {"codes":"T.58"}],
+    "references": [{"codes":"U.62"}, {"codes":"G.B. 170"}, {"codes":"T.H. 58"}],
     "body": [
       {
         "type": "verse",
@@ -8618,7 +8619,7 @@ export const songs: NewSong[] = [
     "name": "Yesu Krist’ arazutse",
     "url": "https://indirimbo.rw/song/gushimisha/256",
     "key": "mi",
-    "references": [{"codes":"U.63"}, {"codes":"G.167"}, {"codes":"F.123"}],
+    "references": [{"codes":"U.63"}, {"codes":"G.B. 167"}, {"codes":"F.123"}],
     "body": [
       {
         "type": "verse",
@@ -8742,7 +8743,7 @@ export const songs: NewSong[] = [
     "name": "Kuri wa munsi tuzazukaho",
     "url": "https://indirimbo.rw/song/gushimisha/260",
     "key": "fa",
-    "references": [{"codes":"U.12"}, {"codes":"A.31"}, {"codes":"G.599(1)"}],
+    "references": [{"codes":"CK.343"}, {"codes":"U.12"}, {"codes":"A.31"}, {"codes":"G.B. 599(1)"}],
     "body": [
       {
         "type": "verse",
@@ -8852,7 +8853,7 @@ export const songs: NewSong[] = [
     "name": "Mwuka Wera wo mw ijuru",
     "url": "https://indirimbo.rw/song/gushimisha/263",
     "key": "sol",
-    "references": [{"codes":"U.142(2)"}, {"codes":"G.378"}, {"codes":"F.178"}, {"codes":"G.189"}],
+    "references": [{"codes":"U.142(2)"}, {"codes":"G.B. 378"}, {"codes":"F.178"}, {"codes":"G.B. 189"}],
     "body": [
       {
         "type": "verse",
@@ -8886,7 +8887,7 @@ export const songs: NewSong[] = [
     "name": "Mwuka Wer’ udukunda",
     "url": "https://indirimbo.rw/song/gushimisha/264",
     "key": "sol",
-    "references": [{"codes":"U.149"}, {"codes":"G.676"}, {"codes":"K.135"}],
+    "references": [{"codes":"U.149"}, {"codes":"G.B. 676"}, {"codes":"K.135"}],
     "body": [
       {
         "type": "verse",
@@ -8935,7 +8936,7 @@ export const songs: NewSong[] = [
     "name": "Ubwo Yesu yar’ agiye",
     "url": "https://indirimbo.rw/song/gushimisha/265",
     "key": "mi bémol",
-    "references": [{"codes":"U.92"}, {"codes":"G.187"}],
+    "references": [{"codes":"CK.331"}, {"codes":"U.92"}, {"codes":"G.B. 187"}],
     "body": [
       {
         "type": "verse",
@@ -8969,7 +8970,7 @@ export const songs: NewSong[] = [
     "name": "Man’ ubwami bwawe—Buze mur’ iyi si",
     "url": "https://indirimbo.rw/song/gushimisha/266",
     "key": "ré",
-    "references": [{"codes":"U.164"}, {"codes":"G.80"}],
+    "references": [{"codes":"U.164"}, {"codes":"G.B. 80"}],
     "body": [
       {
         "type": "verse",
@@ -9037,7 +9038,7 @@ export const songs: NewSong[] = [
     "name": "Ubw’ Umwami Yes’ azaza",
     "url": "https://indirimbo.rw/song/gushimisha/268",
     "key": "mi",
-    "references": [{"codes":"U.138"}, {"codes":"A.7"}, {"codes":"G.633"}, {"codes":"T.332"}, {"codes":"F.133"}],
+    "references": [{"codes":"U.138"}, {"codes":"A.7"}, {"codes":"G.B. 633"}, {"codes":"T.H. 332"}, {"codes":"F.133"}],
     "body": [
       {
         "type": "verse",
@@ -9065,7 +9066,7 @@ export const songs: NewSong[] = [
     "name": "Yesu n’ az’ umwijim’ uzahunga",
     "url": "https://indirimbo.rw/song/gushimisha/269",
     "key": "fa",
-    "references": [{"codes":"A.197"}, {"codes":"T.242"}, {"codes":"S.1026"}],
+    "references": [{"codes":"A.197"}, {"codes":"T.H. 242"}, {"codes":"S.1026"}],
     "body": [
       {
         "type": "verse",
@@ -9093,7 +9094,7 @@ export const songs: NewSong[] = [
     "name": "Uwadupfiriye kera",
     "url": "https://indirimbo.rw/song/gushimisha/270",
     "key": "mi bémol",
-    "references": [{"codes":"G.337"}, {"codes":"F.278"}, {"codes":"F.138"}],
+    "references": [{"codes":"G.B. 337"}, {"codes":"F.278"}, {"codes":"F.138"}],
     "body": [
       {
         "type": "verse",
@@ -9122,7 +9123,7 @@ export const songs: NewSong[] = [
     "name": "Ubw’ impanda z’ Uwiteka zizavuzwa mw ijuru",
     "url": "https://indirimbo.rw/song/gushimisha/271",
     "key": "la bémol",
-    "references": [{"codes":"A.8"}, {"codes":"T.102"}, {"codes":"S.983"}],
+    "references": [{"codes":"A.8"}, {"codes":"T.H. 102"}, {"codes":"S.983"}],
     "body": [
       {
         "type": "verse",
@@ -9266,7 +9267,7 @@ export const songs: NewSong[] = [
     "name": "Iri joro, Mana yanjye",
     "url": "https://indirimbo.rw/song/gushimisha/275",
     "key": "sol",
-    "references": [{"codes":"U.11"}, {"codes":"G.604"}],
+    "references": [{"codes":"U.11"}, {"codes":"G.B. 604"}],
     "body": [
       {
         "type": "verse",
@@ -9339,7 +9340,7 @@ export const songs: NewSong[] = [
     "name": "Mwam’ ubugingo bwacu ni nk’ umunsi",
     "url": "https://indirimbo.rw/song/gushimisha/277",
     "key": "sol",
-    "references": [{"codes":"U.18"}, {"codes":"A.29"}, {"codes":"V.214"}, {"codes":"G.601"}],
+    "references": [{"codes":"U.18"}, {"codes":"A.29"}, {"codes":"V.214"}, {"codes":"G.B. 601"}],
     "sharedMelody": [342],
     "body": [
       {
@@ -9374,7 +9375,7 @@ export const songs: NewSong[] = [
     "name": "Mukiza, ni Wowe zuba ryanjye",
     "url": "https://indirimbo.rw/song/gushimisha/278",
     "key": "fa",
-    "references": [{"codes":"U.42"}, {"codes":"A.31"}, {"codes":"G.599(2)"}, {"codes":"T.309"}, {"codes":"V.1"}],
+    "references": [{"codes":"U.42"}, {"codes":"A.31"}, {"codes":"G.B. 599(2)"}, {"codes":"T.H. 309"}, {"codes":"V.1"}],
     "body": [
       {
         "type": "verse",
@@ -9413,7 +9414,7 @@ export const songs: NewSong[] = [
     "name": "Dor’ umuns’ urakuze",
     "url": "https://indirimbo.rw/song/gushimisha/279",
     "key": "la bémol",
-    "references": [{"codes":"A.30"}, {"codes":"G.609"}, {"codes":"C.26"}],
+    "references": [{"codes":"A.30"}, {"codes":"G.B. 609"}, {"codes":"C.26"}],
     "body": [
       {
         "type": "verse",
@@ -9494,7 +9495,7 @@ export const songs: NewSong[] = [
     "name": "Ngiy’ inkuru twumvise",
     "url": "https://indirimbo.rw/song/gushimisha/281",
     "key": "ré",
-    "references": [{"codes":"A.97"}, {"codes":"G.620"}, {"codes":"T.123"}],
+    "references": [{"codes":"A.97"}, {"codes":"G.B. 620"}, {"codes":"T.H. 123"}],
     "body": [
       {
         "type": "verse",
@@ -9523,7 +9524,7 @@ export const songs: NewSong[] = [
     "name": "Abantu benshi cyane",
     "url": "https://indirimbo.rw/song/gushimisha/282",
     "key": "si bémol",
-    "references": [{"codes":"G.422"}, {"codes":"G.627"}],
+    "references": [{"codes":"G.B. 422"}, {"codes":"G.B. 627"}],
     "body": [
       {
         "type": "verse",
@@ -9589,7 +9590,7 @@ export const songs: NewSong[] = [
     "name": "Har’ intam’ urwenda n’ icyenda",
     "url": "https://indirimbo.rw/song/gushimisha/284",
     "key": "mi bémol",
-    "references": [{"codes":"G.222"}, {"codes":"T.231"}, {"codes":"P.498"}],
+    "references": [{"codes":"G.B. 222"}, {"codes":"T.H. 231"}, {"codes":"P.498"}],
     "body": [
       {
         "type": "verse",
@@ -9623,7 +9624,7 @@ export const songs: NewSong[] = [
     "name": "Kiz’ abarimbuka; renger’ abapfa",
     "url": "https://indirimbo.rw/song/gushimisha/285",
     "key": "fa",
-    "references": [{"codes":"A.76"}, {"codes":"G.433"}, {"codes":"T.166"}, {"codes":"R.253"}],
+    "references": [{"codes":"A.76"}, {"codes":"G.B. 433"}, {"codes":"T.H. 166"}, {"codes":"R.253"}],
     "body": [
       {
         "type": "verse",
@@ -9656,7 +9657,7 @@ export const songs: NewSong[] = [
     "name": "Biba mu gitondo imbuto z’ ineza",
     "url": "https://indirimbo.rw/song/gushimisha/286",
     "key": "sol",
-    "references": [{"codes":"A.74"}, {"codes":"G.438"}, {"codes":"F.61"}],
+    "references": [{"codes":"A.74"}, {"codes":"G.B. 438"}, {"codes":"F.61"}],
     "body": [
       {
         "type": "verse",
@@ -9684,7 +9685,7 @@ export const songs: NewSong[] = [
     "name": "Yes’ azaganz’ ibihugu byose",
     "url": "https://indirimbo.rw/song/gushimisha/287",
     "key": "do",
-    "references": [{"codes":"T.282"}, {"codes":"K.341"}, {"codes":"P.627"}],
+    "references": [{"codes":"T.H. 282"}, {"codes":"K.341"}, {"codes":"P.627"}],
     "body": [
       {
         "type": "verse",
@@ -9718,7 +9719,7 @@ export const songs: NewSong[] = [
     "name": "Urukundo rwa Yesu.",
     "url": "https://indirimbo.rw/song/gushimisha/288",
     "key": "si bémol",
-    "references": [{"codes":"U.253(2)"}, {"codes":"A.15"}, {"codes":"G.661"}],
+    "references": [{"codes":"U.253(2)"}, {"codes":"A.15"}, {"codes":"G.B. 661"}],
     "body": [
       {
         "type": "verse",
@@ -9751,7 +9752,7 @@ export const songs: NewSong[] = [
     "name": "Igitabo cy’ Imana",
     "url": "https://indirimbo.rw/song/gushimisha/289",
     "key": "sol dièse",
-    "references": [{"codes":"U.96"}, {"codes":"G.349"}, {"codes":"G.580"}],
+    "references": [{"codes":"U.96"}, {"codes":"G.B. 349"}, {"codes":"G.B. 580"}],
     "body": [
       {
         "type": "verse",
@@ -9795,7 +9796,7 @@ export const songs: NewSong[] = [
     "name": "Ijambo ryaw’ urimfungurire",
     "url": "https://indirimbo.rw/song/gushimisha/290",
     "key": "sol",
-    "references": [{"codes":"G.572"}, {"codes":"T.276"}, {"codes":"F.148"}],
+    "references": [{"codes":"CK.293"}, {"codes":"G.B. 572"}, {"codes":"T.H. 276"}, {"codes":"F.148"}],
     "body": [
       {
         "type": "verse",
@@ -9925,7 +9926,7 @@ export const songs: NewSong[] = [
     "name": "Har’ ubw’ abagore",
     "url": "https://indirimbo.rw/song/gushimisha/294",
     "key": "sol",
-    "references": [{"codes":"G.660"}],
+    "references": [{"codes":"G.B. 660"}],
     "body": [
       {
         "type": "verse",
@@ -9949,7 +9950,7 @@ export const songs: NewSong[] = [
     "name": "Mumushime, bana bato mwese",
     "url": "https://indirimbo.rw/song/gushimisha/295",
     "key": "ré",
-    "references": [{"codes":"G.728"}],
+    "references": [{"codes":"G.B. 728"}],
     "body": [
       {
         "type": "verse",
@@ -10021,7 +10022,7 @@ export const songs: NewSong[] = [
     "name": "Yesu ntahinduka",
     "url": "https://indirimbo.rw/song/gushimisha/297",
     "key": "do",
-    "references": [{"codes":"V.309"}],
+    "references": [{"codes":"CK.335"}, {"codes":"V.309"}],
     "body": [
       {
         "type": "verse",
@@ -10060,7 +10061,7 @@ export const songs: NewSong[] = [
     "name": "Mbe nk’ umurase w’ izuba",
     "url": "https://indirimbo.rw/song/gushimisha/298",
     "key": "mi bémol",
-    "references": [{"codes":"V.305"}, {"codes":"G.679"}],
+    "references": [{"codes":"V.305"}, {"codes":"G.B. 679"}],
     "body": [
       {
         "type": "verse",
@@ -10179,7 +10180,7 @@ export const songs: NewSong[] = [
     "name": "Mukiza, Mwungeri mwiza",
     "url": "https://indirimbo.rw/song/gushimisha/302",
     "key": "do",
-    "references": [{"codes":"G.94"}, {"codes":"G.664"}],
+    "references": [{"codes":"G.B. 94"}, {"codes":"G.B. 664"}],
     "body": [
       {
         "type": "verse",
@@ -10203,7 +10204,7 @@ export const songs: NewSong[] = [
     "name": "Yesu, Mwungeri wanjye",
     "url": "https://indirimbo.rw/song/gushimisha/303",
     "key": "la",
-    "references": [{"codes":"G.687"}],
+    "references": [{"codes":"G.B. 687"}],
     "body": [
       {
         "type": "verse",
@@ -10242,7 +10243,7 @@ export const songs: NewSong[] = [
     "name": "Harihw Inshuti y’ abana",
     "url": "https://indirimbo.rw/song/gushimisha/304",
     "key": "sol",
-    "references": [{"codes":"F.469"}, {"codes":"G.640"}],
+    "references": [{"codes":"F.469"}, {"codes":"G.B. 640"}],
     "body": [
       {
         "type": "verse",
@@ -10281,7 +10282,7 @@ export const songs: NewSong[] = [
     "name": "Uwo ni nd’ urambitswe",
     "url": "https://indirimbo.rw/song/gushimisha/305",
     "key": "mi",
-    "references": [{"codes":"G.128"}],
+    "references": [{"codes":"G.B. 128"}],
     "body": [
       {
         "type": "verse",
@@ -10344,7 +10345,7 @@ export const songs: NewSong[] = [
     "name": "Twishimir’ umunsi w’ Imana",
     "url": "https://indirimbo.rw/song/gushimisha/306",
     "key": "fa",
-    "references": [{"codes":"U.117"}, {"codes":"G.47"}, {"codes":"G.594"}],
+    "references": [{"codes":"U.117"}, {"codes":"G.B. 47"}, {"codes":"G.B. 594"}],
     "body": [
       {
         "type": "verse",
@@ -10378,7 +10379,7 @@ export const songs: NewSong[] = [
     "name": "Haleluya! Haj’ umunsi",
     "url": "https://indirimbo.rw/song/gushimisha/307",
     "key": "do",
-    "references": [{"codes":"V.190"}, {"codes":"G.52"}],
+    "references": [{"codes":"V.190"}, {"codes":"G.B. 52"}],
     "origin": "Budage",
     "body": [
       {
@@ -10432,7 +10433,7 @@ export const songs: NewSong[] = [
     "name": "Inzu yawe, Mana, —Turayishimira",
     "url": "https://indirimbo.rw/song/gushimisha/309",
     "key": "ré",
-    "references": [{"codes":"U.164"}, {"codes":"G.80"}],
+    "references": [{"codes":"U.164"}, {"codes":"G.B. 80"}],
     "body": [
       {
         "type": "verse",
@@ -10471,7 +10472,7 @@ export const songs: NewSong[] = [
     "name": "Iki gihe twamaranye",
     "url": "https://indirimbo.rw/song/gushimisha/310",
     "key": "fa",
-    "references": [{"codes":"A.90"}],
+    "references": [{"codes":"CK.333"}, {"codes":"A.90"}],
     "origin": "Rwanda",
     "body": [
       {
@@ -10612,7 +10613,7 @@ export const songs: NewSong[] = [
     "name": "Umukiz’ abe hamwe namwe",
     "url": "https://indirimbo.rw/song/gushimisha/313",
     "key": "fa",
-    "references": [{"codes":"U.174"}, {"codes":"V.286"}, {"codes":"A.41"}, {"codes":"G.699"}],
+    "references": [{"codes":"U.174"}, {"codes":"V.286"}, {"codes":"A.41"}, {"codes":"G.B. 699"}],
     "body": [
       {
         "type": "verse",
@@ -10650,7 +10651,7 @@ export const songs: NewSong[] = [
     "name": "Gukundana kw’ aba Yesu",
     "url": "https://indirimbo.rw/song/gushimisha/314",
     "key": "si",
-    "references": [{"codes":"V.279"}, {"codes":"G.77"}, {"codes":"C.18"}],
+    "references": [{"codes":"V.279"}, {"codes":"G.B. 77"}, {"codes":"C.18"}],
     "body": [
       {
         "type": "verse",
@@ -10719,7 +10720,7 @@ export const songs: NewSong[] = [
     "name": "Man’ itang’ itimana",
     "url": "https://indirimbo.rw/song/gushimisha/316",
     "key": "do",
-    "references": [{"codes":"G.24"}, {"codes":"F.50"}, {"codes":"AM.381"}],
+    "references": [{"codes":"G.B. 24"}, {"codes":"F.50"}, {"codes":"AM.381"}],
     "body": [
       {
         "type": "verse",
@@ -10864,7 +10865,7 @@ export const songs: NewSong[] = [
     "name": "Mwa bagore mwe b’ i Rwanda",
     "url": "https://indirimbo.rw/song/gushimisha/320",
     "key": "do",
-    "references": [{"codes":"A.100"}, {"codes":"U.234"}, {"codes":"G.64"}],
+    "references": [{"codes":"A.100"}, {"codes":"U.234"}, {"codes":"G.B. 64"}],
     "sharedMelody": [387],
     "origin": "Rwanda",
     "subcategory": "Iteraniro ry’ abasore",
@@ -10935,7 +10936,7 @@ export const songs: NewSong[] = [
     "name": "Mana Data wa twese",
     "url": "https://indirimbo.rw/song/gushimisha/323",
     "key": "sol",
-    "references": [{"codes":"U.146"}, {"codes":"V.29"}, {"codes":"G.503"}, {"codes":"AM.579"}],
+    "references": [{"codes":"U.146"}, {"codes":"V.29"}, {"codes":"G.B. 503"}, {"codes":"AM.579"}],
     "body": [
       {
         "type": "verse",
@@ -10964,7 +10965,7 @@ export const songs: NewSong[] = [
     "name": "Mana Dat’ ukiranuka",
     "url": "https://indirimbo.rw/song/gushimisha/324",
     "key": "sol",
-    "references": [{"codes":"E.283"}, {"codes":"G.175"}],
+    "references": [{"codes":"E.283"}, {"codes":"G.B. 175"}],
     "body": [
       {
         "type": "verse",
@@ -11012,7 +11013,7 @@ export const songs: NewSong[] = [
     "name": "Utuzanye hano gusangira",
     "url": "https://indirimbo.rw/song/gushimisha/326",
     "key": "si",
-    "references": [{"codes":"A.37"}, {"codes":"V.245"}, {"codes":"T.311"}],
+    "references": [{"codes":"A.37"}, {"codes":"V.245"}, {"codes":"T.H. 311"}],
     "body": [
       {
         "type": "verse",
@@ -11065,7 +11066,7 @@ export const songs: NewSong[] = [
     "name": "Yes’ ur’ Umukiza wanjye",
     "url": "https://indirimbo.rw/song/gushimisha/328",
     "key": "mi",
-    "references": [{"codes":"K.170"}, {"codes":"V.160"}],
+    "references": [{"codes":"CK.340"}, {"codes":"K.170"}, {"codes":"V.160"}],
     "sharedMelody": [27],
     "body": [
       {
@@ -11104,7 +11105,7 @@ export const songs: NewSong[] = [
     "name": "Nezerwa cyane, wa si we",
     "url": "https://indirimbo.rw/song/gushimisha/329",
     "key": "ré",
-    "references": [{"codes":"A.184"}, {"codes":"T.254"}, {"codes":"S.111"}],
+    "references": [{"codes":"A.184"}, {"codes":"T.H. 254"}, {"codes":"S.111"}],
     "body": [
       {
         "type": "verse",
@@ -11133,7 +11134,7 @@ export const songs: NewSong[] = [
     "name": "Wowe, Man’ ikiranuka",
     "url": "https://indirimbo.rw/song/gushimisha/330",
     "key": "la",
-    "references": [{"codes":"U.102"}, {"codes":"A.84"}, {"codes":"F.5"}, {"codes":"G.10"}],
+    "references": [{"codes":"U.102"}, {"codes":"A.84"}, {"codes":"F.5"}, {"codes":"G.B. 10"}],
     "body": [
       {
         "type": "verse",
@@ -11239,7 +11240,7 @@ export const songs: NewSong[] = [
     "name": "Wa mutima wanjye we, shim’ Uwiteka",
     "url": "https://indirimbo.rw/song/gushimisha/334",
     "key": "do",
-    "references": [{"codes":"U.137"}, {"codes":"G.45"}, {"codes":"T.86"}],
+    "references": [{"codes":"U.137"}, {"codes":"G.B. 45"}, {"codes":"T.H. 86"}],
     "bibleRef": "Zaburi 103",
     "body": [
       {
@@ -11274,7 +11275,7 @@ export const songs: NewSong[] = [
     "name": "Umuhanuzi Yesaya",
     "url": "https://indirimbo.rw/song/gushimisha/335",
     "key": "fa",
-    "references": [{"codes":"U.148"}, {"codes":"G.27"}, {"codes":"F.197"}],
+    "references": [{"codes":"U.148"}, {"codes":"G.B. 27"}, {"codes":"F.197"}],
     "bibleRef": "Yesaya 6",
     "body": [
       {
@@ -11327,7 +11328,7 @@ export const songs: NewSong[] = [
     "name": "Mwami, vuga, nanjye ndumva",
     "url": "https://indirimbo.rw/song/gushimisha/338",
     "key": "sol",
-    "references": [{"codes":"RS.835"}, {"codes":"V.81"}],
+    "references": [{"codes":"R.S. 835"}, {"codes":"V.81"}],
     "body": [
       {
         "type": "verse",
@@ -11402,7 +11403,7 @@ export const songs: NewSong[] = [
     "name": "Njye nsindagizwa n’ ukuboko kwawe",
     "url": "https://indirimbo.rw/song/gushimisha/342",
     "key": "mi bémol",
-    "references": [{"codes":"U.265(2)"}, {"codes":"V.221"}, {"codes":"G.319"}],
+    "references": [{"codes":"U.265(2)"}, {"codes":"V.221"}, {"codes":"G.B. 319"}],
     "body": [
       {
         "type": "verse",
@@ -11426,7 +11427,7 @@ export const songs: NewSong[] = [
     "name": "Munyabyaha, nturushye se",
     "url": "https://indirimbo.rw/song/gushimisha/343",
     "key": "si",
-    "references": [{"codes":"V.238"}, {"codes":"V.209"}, {"codes":"G.23"}],
+    "references": [{"codes":"V.238"}, {"codes":"V.209"}, {"codes":"G.B. 23"}],
     "body": [
       {
         "type": "verse",
@@ -11465,7 +11466,7 @@ export const songs: NewSong[] = [
     "name": "Muze mwese, muz’ aho ndi",
     "url": "https://indirimbo.rw/song/gushimisha/344",
     "key": "mi bémol",
-    "references": [{"codes":"U.205"}, {"codes":"G.283"}, {"codes":"G.234"}],
+    "references": [{"codes":"U.205"}, {"codes":"G.B. 283"}, {"codes":"G.B. 234"}],
     "sharedMelody": [56],
     "body": [
       {
@@ -11576,7 +11577,7 @@ export const songs: NewSong[] = [
     "name": "Yesu nguriy’ ahw ahagaze",
     "url": "https://indirimbo.rw/song/gushimisha/347",
     "key": "fa dièse",
-    "references": [{"codes":"T.6"}, {"codes":"F.493"}, {"codes":"AH.120"}],
+    "references": [{"codes":"T.H. 6"}, {"codes":"F.493"}, {"codes":"AH.120"}],
     "body": [
       {
         "type": "verse",
@@ -11614,7 +11615,7 @@ export const songs: NewSong[] = [
     "name": "Mbese, mu mutima wawe",
     "url": "https://indirimbo.rw/song/gushimisha/348",
     "key": "fa",
-    "references": [{"codes":"V.54"}, {"codes":"G.216"}, {"codes":"T.187"}],
+    "references": [{"codes":"V.54"}, {"codes":"G.B. 216"}, {"codes":"T.H. 187"}],
     "body": [
       {
         "type": "verse",
@@ -11647,7 +11648,7 @@ export const songs: NewSong[] = [
     "name": "Reba Yesu ku Musaraba",
     "url": "https://indirimbo.rw/song/gushimisha/349",
     "key": "do",
-    "references": [{"codes":"A.192"}, {"codes":"V.101"}, {"codes":"T.287"}],
+    "references": [{"codes":"A.192"}, {"codes":"V.101"}, {"codes":"T.H. 287"}],
     "origin": "Rwanda",
     "body": [
       {
@@ -11681,7 +11682,7 @@ export const songs: NewSong[] = [
     "name": "Yemw’ abaguzwe n’ amaraso",
     "url": "https://indirimbo.rw/song/gushimisha/350",
     "key": "la",
-    "references": [{"codes":"U.71"}, {"codes":"V.17"}, {"codes":"G.4(1)"}],
+    "references": [{"codes":"U.71"}, {"codes":"V.17"}, {"codes":"G.B. 4(1)"}],
     "origin": "Rukiga",
     "body": [
       {
@@ -11838,7 +11839,7 @@ export const songs: NewSong[] = [
     "name": "Amaraso yose",
     "url": "https://indirimbo.rw/song/gushimisha/353",
     "key": "sol",
-    "references": [{"codes":"K.314"}, {"codes":"G.287"}],
+    "references": [{"codes":"CK.314"}, {"codes":"G.B. 287"}],
     "body": [
       {
         "type": "verse",
@@ -11877,7 +11878,7 @@ export const songs: NewSong[] = [
     "name": "Man’ ishobora byose",
     "url": "https://indirimbo.rw/song/gushimisha/354",
     "key": "mi bémol",
-    "references": [{"codes":"A.118"}, {"codes":"G.254"}, {"codes":"T.263"}],
+    "references": [{"codes":"A.118"}, {"codes":"G.B. 254"}, {"codes":"T.H. 263"}],
     "origin": "Bugande",
     "body": [
       {
@@ -11998,7 +11999,7 @@ export const songs: NewSong[] = [
     "name": "Ubwo nari nshinjirijwe cyane",
     "url": "https://indirimbo.rw/song/gushimisha/357",
     "key": "sol",
-    "references": [{"codes":"U.209(2)"}, {"codes":"G.401"}],
+    "references": [{"codes":"U.209(2)"}, {"codes":"G.B. 401"}],
     "body": [
       {
         "type": "verse",
@@ -12055,7 +12056,7 @@ export const songs: NewSong[] = [
     "name": "Iyo ntinye ko kwizera",
     "url": "https://indirimbo.rw/song/gushimisha/359",
     "key": "la",
-    "references": [{"codes":"K.326"}, {"codes":"V.232"}, {"codes":"G.303"}, {"codes":"T.177"}],
+    "references": [{"codes":"CK.326"}, {"codes":"V.232"}, {"codes":"G.B. 303"}, {"codes":"T.H. 177"}],
     "body": [
       {
         "type": "verse",
@@ -12116,7 +12117,7 @@ export const songs: NewSong[] = [
     "name": "Uwo njya nikomezaho",
     "url": "https://indirimbo.rw/song/gushimisha/361",
     "key": "do",
-    "references": [{"codes":"U.70"}, {"codes":"G.617"}, {"codes":"U.235"}, {"codes":"AM.127"}, {"codes":"K.63"}],
+    "references": [{"codes":"U.70"}, {"codes":"G.B. 617"}, {"codes":"U.235"}, {"codes":"AM.127"}, {"codes":"K.63"}],
     "body": [
       {
         "type": "verse",
@@ -12179,7 +12180,7 @@ export const songs: NewSong[] = [
     "name": "Jye mpisemo Yesu; murutish’ iyi si yose",
     "url": "https://indirimbo.rw/song/gushimisha/363",
     "key": "ré",
-    "references": [{"codes":"G.318"}, {"codes":"BG.70"}],
+    "references": [{"codes":"G.B. 318"}, {"codes":"BG.70"}],
     "body": [
       {
         "type": "verse",
@@ -12207,7 +12208,7 @@ export const songs: NewSong[] = [
     "name": "Yes’ Umwami ndamubonye",
     "url": "https://indirimbo.rw/song/gushimisha/364",
     "key": "si",
-    "references": [{"codes":"G.573"}],
+    "references": [{"codes":"G.B. 573"}],
     "origin": "Rukiga",
     "body": [
       {
@@ -12295,7 +12296,7 @@ export const songs: NewSong[] = [
     "name": "Ngutuy’ ubugingo bwanjye",
     "url": "https://indirimbo.rw/song/gushimisha/366",
     "key": "sol",
-    "references": [{"codes":"U.269"}, {"codes":"V.132"}, {"codes":"G.138"}, {"codes":"V.168"}],
+    "references": [{"codes":"U.269"}, {"codes":"V.132"}, {"codes":"G.B. 138"}, {"codes":"V.168"}],
     "sharedMelody": [220, 75],
     "body": [
       {
@@ -12325,7 +12326,7 @@ export const songs: NewSong[] = [
     "name": "Yesu ndakwitabye, —Ntakwiriye",
     "url": "https://indirimbo.rw/song/gushimisha/367",
     "key": "si",
-    "references": [{"codes":"A.37"}, {"codes":"V.245"}, {"codes":"T.311"}, {"codes":"G.214"}],
+    "references": [{"codes":"A.37"}, {"codes":"V.245"}, {"codes":"T.H. 311"}, {"codes":"G.B. 214"}],
     "body": [
       {
         "type": "verse",
@@ -12354,7 +12355,7 @@ export const songs: NewSong[] = [
     "name": "Bene Data bizeye Yesu",
     "url": "https://indirimbo.rw/song/gushimisha/368",
     "key": "sol",
-    "references": [{"codes":"A.50"}, {"codes":"V.293"}, {"codes":"G.570"}],
+    "references": [{"codes":"A.50"}, {"codes":"V.293"}, {"codes":"G.B. 570"}],
     "origin": "Rwanda",
     "body": [
       {
@@ -12462,7 +12463,7 @@ export const songs: NewSong[] = [
     "name": "Yesu, nd’ uwawe: nyakira",
     "url": "https://indirimbo.rw/song/gushimisha/371",
     "key": "sol dièse",
-    "references": [{"codes":"K.328"}, {"codes":"A.25"}, {"codes":"V.172"}, {"codes":"S.601"}, {"codes":"C.150"}],
+    "references": [{"codes":"CK.328"}, {"codes":"A.25"}, {"codes":"V.172"}, {"codes":"S.601"}, {"codes":"C.150"}],
     "body": [
       {
         "type": "verse",
@@ -12495,7 +12496,7 @@ export const songs: NewSong[] = [
     "name": "Nyigiza hafi, Mwami Yesu",
     "url": "https://indirimbo.rw/song/gushimisha/372",
     "key": "fa",
-    "references": [{"codes":"A.122"}, {"codes":"G.460"}, {"codes":"F.204"}, {"codes":"T.241"}],
+    "references": [{"codes":"A.122"}, {"codes":"G.B. 460"}, {"codes":"F.204"}, {"codes":"T.H. 241"}],
     "body": [
       {
         "type": "verse",
@@ -12524,7 +12525,7 @@ export const songs: NewSong[] = [
     "name": "Harihw’ icyo nkwaka, Mwami",
     "url": "https://indirimbo.rw/song/gushimisha/373",
     "key": "ré",
-    "references": [{"codes":"A.54"}, {"codes":"RS.748"}],
+    "references": [{"codes":"A.54"}, {"codes":"R.S. 748"}],
     "body": [
       {
         "type": "verse",
@@ -12557,7 +12558,7 @@ export const songs: NewSong[] = [
     "name": "Uyu mwana w’ uruhinja ni nde",
     "url": "https://indirimbo.rw/song/gushimisha/374",
     "key": "sol",
-    "references": [{"codes":"U.277(2)"}, {"codes":"A.175"}, {"codes":"G.335"}, {"codes":"V.301"}, {"codes":"G.122"}],
+    "references": [{"codes":"U.277(2)"}, {"codes":"A.175"}, {"codes":"G.B. 335"}, {"codes":"V.301"}, {"codes":"G.B. 122"}],
     "sharedMelody": ["18a"],
     "body": [
       {
@@ -12587,7 +12588,7 @@ export const songs: NewSong[] = [
     "name": "Habay’umunsi w’ishimwe mw’ijuru",
     "url": "https://indirimbo.rw/song/gushimisha/375",
     "key": "la bémol",
-    "references": [{"codes":"K.330"}, {"codes":"G.129"}, {"codes":"T.138"}],
+    "references": [{"codes":"CK.330"}, {"codes":"G.B. 129"}, {"codes":"T.H. 138"}],
     "body": [
       {
         "type": "verse",
@@ -12806,7 +12807,7 @@ export const songs: NewSong[] = [
     "name": "Yes’ avukiye mw isi",
     "url": "https://indirimbo.rw/song/gushimisha/381",
     "key": "sol dièse",
-    "references": [{"codes":"U.96"}, {"codes":"G.349"}],
+    "references": [{"codes":"U.96"}, {"codes":"G.B. 349"}],
     "origin": "Rwanda",
     "body": [
       {
@@ -12856,7 +12857,7 @@ export const songs: NewSong[] = [
     "name": "Yes’ aduh’ amahoro by’ ukuri",
     "url": "https://indirimbo.rw/song/gushimisha/382",
     "key": "sol",
-    "references": [{"codes":"U.236(2)"}, {"codes":"V.227"}, {"codes":"G.338"}],
+    "references": [{"codes":"U.236(2)"}, {"codes":"V.227"}, {"codes":"G.B. 338"}],
     "body": [
       {
         "type": "verse",
@@ -12900,7 +12901,7 @@ export const songs: NewSong[] = [
     "name": "Icyamp’ ukanyikorerera",
     "url": "https://indirimbo.rw/song/gushimisha/383",
     "key": "si",
-    "references": [{"codes":"G.480(2)"}, {"codes":"U.14"}, {"codes":"L.46"}],
+    "references": [{"codes":"G.B. 480(2)"}, {"codes":"U.14"}, {"codes":"L.46"}],
     "body": [
       {
         "type": "verse",
@@ -12988,7 +12989,7 @@ export const songs: NewSong[] = [
     "url": "https://indirimbo.rw/song/gushimisha/386",
     "origin": "Rwanda",
     "key": "si",
-    "references": [{"codes":"A.37"}, {"codes":"V.245"}, {"codes":"T.311"}],
+    "references": [{"codes":"A.37"}, {"codes":"V.245"}, {"codes":"T.H. 311"}],
     "sharedMelody": [35],
     "body": [
       {
@@ -13018,7 +13019,7 @@ export const songs: NewSong[] = [
     "name": "Yesu n’ ubugingo bwacu",
     "url": "https://indirimbo.rw/song/gushimisha/387",
     "key": "do",
-    "references": [{"codes":"A.100"}, {"codes":"V.234"}, {"codes":"G.64"}],
+    "references": [{"codes":"A.100"}, {"codes":"V.234"}, {"codes":"G.B. 64"}],
     "origin": "Rwanda",
     "body": [
       {
@@ -13063,7 +13064,7 @@ export const songs: NewSong[] = [
     "name": "Tunganir’ Imana, — Ubudasiba",
     "url": "https://indirimbo.rw/song/gushimisha/388",
     "key": "la",
-    "references": [{"codes":"A.28"}, {"codes":"G.474"}, {"codes":"T.266"}],
+    "references": [{"codes":"A.28"}, {"codes":"G.B. 474"}, {"codes":"T.H. 266"}],
     "body": [
       {
         "type": "verse",
@@ -13137,7 +13138,7 @@ export const songs: NewSong[] = [
     "name": "Ngabo z’ umwete, mubyuke",
     "url": "https://indirimbo.rw/song/gushimisha/390",
     "key": "sol",
-    "references": [{"codes":"E.283"}, {"codes":"G.175"}],
+    "references": [{"codes":"E.283"}, {"codes":"G.B. 175"}],
     "body": [
       {
         "type": "verse",
@@ -13204,7 +13205,7 @@ export const songs: NewSong[] = [
     "name": "Basirikare ba Kristo, mubyuke",
     "url": "https://indirimbo.rw/song/gushimisha/392",
     "key": "do",
-    "references": [{"codes":"K.338"}],
+    "references": [{"codes":"CK.338"}],
     "origin": "Danemark",
     "body": [
       {
@@ -13278,7 +13279,7 @@ export const songs: NewSong[] = [
     "name": "Duhurure ngo twitabe",
     "url": "https://indirimbo.rw/song/gushimisha/394",
     "key": "do",
-    "references": [{"codes":"K.325"}, {"codes":"T.112"}],
+    "references": [{"codes":"CK.325"}, {"codes":"T.H. 112"}],
     "body": [
       {
         "type": "verse",
@@ -13457,7 +13458,7 @@ export const songs: NewSong[] = [
     "name": "Iyi si turimo—N’ iy’ ibyago",
     "url": "https://indirimbo.rw/song/gushimisha/399",
     "key": "sol dièse",
-    "references": [{"codes":"U.185"}, {"codes":"G.562"}, {"codes":"F.488"}],
+    "references": [{"codes":"U.185"}, {"codes":"G.B. 562"}, {"codes":"F.488"}],
     "sharedMelody": [212],
     "body": [
       {
@@ -13492,7 +13493,7 @@ export const songs: NewSong[] = [
     "name": "Twebw’ abasiganirwa",
     "url": "https://indirimbo.rw/song/gushimisha/400",
     "key": "fa",
-    "references": [{"codes":"U.170"}, {"codes":"V.31"}, {"codes":"G.678"}],
+    "references": [{"codes":"U.170"}, {"codes":"V.31"}, {"codes":"G.B. 678"}],
     "sharedMelody": [78],
     "origin": "Rukiga",
     "body": [
@@ -13560,7 +13561,7 @@ export const songs: NewSong[] = [
     "name": "Ijwi ryumviswe n’ abantu",
     "url": "https://indirimbo.rw/song/gushimisha/402",
     "key": "sol dièse",
-    "references": [{"codes":"L.114"}, {"codes":"F.299"}, {"codes":"G.362"}],
+    "references": [{"codes":"L.114"}, {"codes":"F.299"}, {"codes":"G.B. 362"}],
     "body": [
       {
         "type": "verse",
@@ -13647,7 +13648,7 @@ export const songs: NewSong[] = [
     "name": "Dor’ is’ ukunt’ ikwifuza",
     "url": "https://indirimbo.rw/song/gushimisha/405",
     "key": "sol",
-    "references": [{"codes":"G.178"}],
+    "references": [{"codes":"G.B. 178"}],
     "body": [
       {
         "type": "verse",
@@ -13787,7 +13788,7 @@ export const songs: NewSong[] = [
     "name": "Yes’ araduhamagara",
     "url": "https://indirimbo.rw/song/gushimisha/409",
     "key": "ré",
-    "references": [{"codes":"E.268"}, {"codes":"G.693"}],
+    "references": [{"codes":"E.268"}, {"codes":"G.B. 693"}],
     "body": [
       {
         "type": "verse",
@@ -13890,7 +13891,7 @@ export const songs: NewSong[] = [
     "name": "Isi yos’ iririmbe—Ibitangaza",
     "url": "https://indirimbo.rw/song/gushimisha/412",
     "key": "do",
-    "references": [{"codes":"U.159"}, {"codes":"G.613"}],
+    "references": [{"codes":"U.159"}, {"codes":"G.B. 613"}],
     "body": [
       {
         "type": "verse",
@@ -13982,7 +13983,7 @@ export const songs: NewSong[] = [
     "name": "Urutare rw’ Imana",
     "url": "https://indirimbo.rw/song/gushimisha/414",
     "key": "do",
-    "references": [{"codes":"U.118(1)"}, {"codes":"G.361"}],
+    "references": [{"codes":"U.118(1)"}, {"codes":"G.B. 361"}],
     "sharedMelody": [30],
     "origin": "Rukiga",
     "body": [
@@ -14305,7 +14306,7 @@ export const songs: NewSong[] = [
     "name": "Nguhaye, Data wera",
     "url": "https://indirimbo.rw/song/gushimisha/421",
     "key": "fa",
-    "references": [{"codes":"U.170"}, {"codes":"V.31"}, {"codes":"G.678"}, {"codes":"G.692"}],
+    "references": [{"codes":"U.170"}, {"codes":"V.31"}, {"codes":"G.B. 678"}, {"codes":"G.B. 692"}],
     "sharedMelody": [78],
     "body": [
       {
@@ -14340,7 +14341,7 @@ export const songs: NewSong[] = [
     "name": "Yesu yageze mu Rwanda",
     "url": "https://indirimbo.rw/song/gushimisha/422",
     "key": "sol",
-    "references": [{"codes":"A.52"}, {"codes":"T.298"}],
+    "references": [{"codes":"A.52"}, {"codes":"T.H. 298"}],
     "sharedMelody": [166],
     "origin": "Rwanda",
     "body": [
@@ -14381,7 +14382,7 @@ export const songs: NewSong[] = [
     "name": "Reka nshim’ Umwami Yesu",
     "url": "https://indirimbo.rw/song/gushimisha/423",
     "key": "mi",
-    "references": [{"codes":"G.421"}],
+    "references": [{"codes":"G.B. 421"}],
     "sharedMelody": [33],
     "origin": "Rwanda",
     "body": [
@@ -14496,7 +14497,7 @@ export const songs: NewSong[] = [
     "name": "Kera narabatijwe",
     "url": "https://indirimbo.rw/song/gushimisha/425",
     "key": "mi bémol",
-    "references": [{"codes":"A.117"}, {"codes":"U.215"}, {"codes":"V.181"}, {"codes":"G.240"}],
+    "references": [{"codes":"A.117"}, {"codes":"U.215"}, {"codes":"V.181"}, {"codes":"G.B. 240"}],
     "sharedMelody": [127],
     "origin": "Rwanda",
     "body": [
@@ -14556,7 +14557,7 @@ export const songs: NewSong[] = [
     "name": "Dukomeze gutambuka",
     "url": "https://indirimbo.rw/song/gushimisha/426",
     "key": "ré",
-    "references": [{"codes":"A.39"}, {"codes":"T.296"}, {"codes":"K.109"}],
+    "references": [{"codes":"A.39"}, {"codes":"T.H. 296"}, {"codes":"K.109"}],
     "origin": "Rwanda",
     "body": [
       {
@@ -14615,7 +14616,7 @@ export const songs: NewSong[] = [
     "name": "Urukundo rwa Yesu",
     "url": "https://indirimbo.rw/song/gushimisha/427",
     "key": "si bémol",
-    "references": [{"codes":"U.253(2)"}, {"codes":"A.15"}, {"codes":"G.661"}, {"codes":"T.331"}],
+    "references": [{"codes":"U.253(2)"}, {"codes":"A.15"}, {"codes":"G.B. 661"}, {"codes":"T.H. 331"}],
     "origin": "Rwanda",
     "body": [
       {
@@ -14693,7 +14694,7 @@ export const songs: NewSong[] = [
     "name": "Dor’ inzira nziz’ ijya mw ijuru",
     "url": "https://indirimbo.rw/song/gushimisha/429",
     "key": "sol",
-    "references": [{"codes":"G.684"}, {"codes":"V.299"}],
+    "references": [{"codes":"G.B. 684"}, {"codes":"V.299"}],
     "sharedMelody": [195],
     "origin": "Rwanda",
     "body": [
@@ -14822,7 +14823,7 @@ export const songs: NewSong[] = [
     "name": "Abo mur’ iyi si—Izashira",
     "url": "https://indirimbo.rw/song/gushimisha/432",
     "key": "si",
-    "references": [{"codes":"A.37"}, {"codes":"V.245"}, {"codes":"T.311"}, {"codes":"K.282(2)"}],
+    "references": [{"codes":"A.37"}, {"codes":"V.245"}, {"codes":"T.H. 311"}, {"codes":"K.282(2)"}],
     "sharedMelody": [35],
     "origin": "Rukiga",
     "body": [
@@ -14872,7 +14873,7 @@ export const songs: NewSong[] = [
     "name": "Yemw’ abasubir’ iyo muva",
     "url": "https://indirimbo.rw/song/gushimisha/433",
     "key": "do",
-    "references": [{"codes":"A.192"}, {"codes":"V.101"}, {"codes":"T.287"}, {"codes":"RS.192"}],
+    "references": [{"codes":"A.192"}, {"codes":"V.101"}, {"codes":"T.H. 287"}, {"codes":"R.S. 192"}],
     "sharedMelody": [240],
     "origin": "Rukiga",
     "body": [
@@ -14975,7 +14976,7 @@ export const songs: NewSong[] = [
     "name": "Muze mwes’ abakijijwe",
     "url": "https://indirimbo.rw/song/gushimisha/435",
     "key": "fa",
-    "references": [{"codes":"F.197"}, {"codes":"U.148"}, {"codes":"G.27"}],
+    "references": [{"codes":"F.197"}, {"codes":"U.148"}, {"codes":"G.B. 27"}],
     "sharedMelody": [335],
     "origin": "Rukiga",
     "body": [

@@ -3,13 +3,8 @@ import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { FloatingShareButton } from '@/components/ui/floating-share-button';
 import { IconSymbol } from '@/components/ui/icon-symbol';
-import {
-  AGAKIZA_BOOKS,
-  GUSHIMISHA_BOOKS,
-  type BookDefinition,
-} from '@/constants/book-names';
+import { BOOKS, type BookDefinition } from '@/constants/book-names';
 import { PageHead } from '@/components/page-head';
-import { useSongbookPreference } from '@/contexts/songbook-preference-context';
 import { useColors } from '@/hooks/use-colors';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
@@ -34,22 +29,8 @@ const BookCard = React.memo(function BookCard({
   );
 });
 
-function SectionHeader({
-  title,
-}: {
-  readonly title: string;
-}) {
-  const colors = useColors();
-  return (
-    <ThemedText style={[styles.sectionTitle, { color: colors.icon }]}>
-      {title}
-    </ThemedText>
-  );
-}
-
 export default function BookReferencesScreen() {
   const colors = useColors();
-  const { isBurundi } = useSongbookPreference();
 
   return (
     <>
@@ -96,32 +77,9 @@ export default function BookReferencesScreen() {
           </ThemedText>
         </ThemedView>
 
-        <SectionHeader title="Agakiza" />
-        {AGAKIZA_BOOKS.map((book) => (
-          <BookCard key={book.abbreviation} item={book} />
+        {BOOKS.map((book) => (
+          <BookCard key={book.id} item={book} />
         ))}
-
-        <SectionHeader title="Gushimisha Imana" />
-        {GUSHIMISHA_BOOKS.map((book) => (
-          <BookCard key={book.abbreviation} item={book} />
-        ))}
-
-        {isBurundi && (
-          <>
-            <SectionHeader title="Cantiques Kirundi" />
-            <ThemedView
-              style={[
-                styles.noteCard,
-                { backgroundColor: colors.icon + '08', borderColor: colors.icon + '15' },
-              ]}
-            >
-              <ThemedText style={styles.noteText}>
-                Cantiques Kirundi uses the same reference books as Agakiza
-                (shown above).
-              </ThemedText>
-            </ThemedView>
-          </>
-        )}
       </CollapsibleHeaderScrollView>
       <FloatingShareButton />
     </>
@@ -159,13 +117,6 @@ const styles = StyleSheet.create({
     lineHeight: 24,
     textAlign: 'center',
   },
-  sectionTitle: {
-    fontSize: 13,
-    fontWeight: '600',
-    textTransform: 'uppercase',
-    letterSpacing: 1.2,
-    marginTop: 8,
-  },
   card: {
     flexDirection: 'row',
     borderRadius: 10,
@@ -193,15 +144,5 @@ const styles = StyleSheet.create({
   bookName: {
     fontSize: 14,
     lineHeight: 20,
-  },
-  noteCard: {
-    padding: 14,
-    borderRadius: 10,
-    borderWidth: 1,
-  },
-  noteText: {
-    fontSize: 14,
-    lineHeight: 20,
-    opacity: 0.7,
   },
 });
