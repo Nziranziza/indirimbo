@@ -52,7 +52,7 @@ export function CategoryChips() {
             accessibilityRole="button"
             activeOpacity={0.7}
             onPress={() => {
-              router.push({
+              router.navigate({
                 pathname: '/(tabs)/(home)/category/[slug]',
                 params: { slug: category.slug, playlist },
               });

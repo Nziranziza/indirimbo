@@ -121,7 +121,7 @@ export default function AboutScreen() {
       {/* Call to Action */}
       <ThemedView style={styles.ctaSection}>
         <TouchableOpacity
-          onPress={() => router.push('/(tabs)/(home)')}
+          onPress={() => router.navigate('/(tabs)/(home)')}
           accessibilityLabel="Start exploring songs"
           accessibilityRole="button"
           activeOpacity={0.8}
@@ -133,15 +133,15 @@ export default function AboutScreen() {
 
       {/* Footer Links */}
       <ThemedView style={styles.footerLinks}>
-        <TouchableOpacity onPress={() => router.push('/support')} accessibilityRole="link" activeOpacity={0.7}>
+        <TouchableOpacity onPress={() => router.navigate('/support')} accessibilityRole="link" activeOpacity={0.7}>
           <ThemedText style={[styles.footerLink, { color: colors.tint }]}>Support</ThemedText>
         </TouchableOpacity>
         <ThemedText style={styles.footerDot}>•</ThemedText>
-        <TouchableOpacity onPress={() => router.push('/privacy-policy')} accessibilityRole="link" activeOpacity={0.7}>
+        <TouchableOpacity onPress={() => router.navigate('/privacy-policy')} accessibilityRole="link" activeOpacity={0.7}>
           <ThemedText style={[styles.footerLink, { color: colors.tint }]}>Privacy Policy</ThemedText>
         </TouchableOpacity>
         <ThemedText style={styles.footerDot}>•</ThemedText>
-        <TouchableOpacity onPress={() => router.push('/terms-of-service')} accessibilityRole="link" activeOpacity={0.7}>
+        <TouchableOpacity onPress={() => router.navigate('/terms-of-service')} accessibilityRole="link" activeOpacity={0.7}>
           <ThemedText style={[styles.footerLink, { color: colors.tint }]}>Terms</ThemedText>
         </TouchableOpacity>
       </ThemedView>

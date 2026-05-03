@@ -18,7 +18,7 @@ import { recordAppOpen } from '@/utils/storage';
 const BASE_URL = 'https://indirimbo.rw';
 
 export const unstable_settings = {
-  anchor: '(tabs)',
+  initialRouteName: 'index',
 };
 
 function SEOHead() {
