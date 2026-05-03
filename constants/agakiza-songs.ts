@@ -178,25 +178,25 @@ export const songs: NewSong[] = [
         type: "verse",
         number: 1,
         content:
-          "Mu gihe cya Noheli, Turebye mu muvure,\n/: Dusanga Yes’ aryamye mu buryo bwa gikene. :/",
+          "Mu gihe cya Noheli,\nTurebye mu muvure,\n/: Dusanga Yes’ aryamye\nMu buryo bwa gikene. :/",
       },
       {
         type: "verse",
         number: 2,
         content:
-          "Mukiza wanjye mwiza, wazanywe n’ urukundo.\n/: Wambabariy’ ibyaha, wangize kub’ uwawe. :/",
+          "Mukiza wanjye mwiza,\nWazanywe n’ urukundo.\n/: Wambabariy’ ibyaha,\nWangize kub’ uwawe. :/",
       },
       {
         type: "verse",
         number: 3,
         content:
-          "Yesu ni wowe nshaka, ur’ inshuti y’ abana.\n/: Mukiza sinzongera gutegekwa n’ ibyaha. :/",
+          "Yesu ni wowe nshaka,\nUr’ inshuti y’ abana.\n/: Mukiza sinzongera\nGutegekwa n’ ibyaha. :/",
       },
       {
         type: "verse",
         number: 4,
         content:
-          "Nzahora nshima Yesu mu bihe byanjye byose.\n/: Yazanywe mur’ iyi si, kuducungura twese. :/",
+          "Nzahora nshima Yesu\nMu bihe byanjye byose.\n/: Yazanywe mur’ iyi si,\nKuducungura twese. :/",
       },
     ],
   },
@@ -2849,43 +2849,43 @@ export const songs: NewSong[] = [
         type: "verse",
         number: 1,
         content:
-          "Nifuza kuzagera muri wa murwa, Wo mw ijuru mwiza cyane\nAriko se ko ntaz’ inzir’ ingezayo, Ni nd’ ubasha kuyinyereka.\n/: Ngwino vuba, ngwino vuba! Umukiz’ arakwerek’ inzira. :/",
+          "Nifuza kuzagera muri wa murwa,\nWo mw ijuru mwiza cyane\nAriko se ko ntaz’ inzir’ ingezayo,\nNi nd’ ubasha kuyinyereka.\n/: Ngwino vuba, ngwino vuba!\nUmukiz’ arakwerek’ inzira. :/",
       },
       {
         type: "verse",
         number: 2,
         content:
-          "Ubwo najyaga ngendagend’ uko nshaka Nih’ umucyo wantunguye.\nUwo mucyo waramurikaga cyane Uturuka ku musaraba.\n/: Natunguwe n’ uwo mucyo, Uwo mucyo wangezemo rwose.: /",
+          "Ubwo najyaga ngendagend’ uko nshaka\nNih’ umucyo wantunguye.\nUwo mucyo waramurikaga cyane\nUturuka ku musaraba.\n/: Natunguwe n’ uwo mucyo,\nUwo mucyo wangezemo rwose.: /",
       },
       {
         type: "verse",
         number: 3,
         content:
-          "Kand’ ijwi ryaturutse mur’ uwo mucyo, Riti: Niwambur’ inkweto\nKuko han’ ugeze hahinduts’ ahera Kand’ Imana nay’ ar’ iyera\n/: None nsigaye nyoborwa Neza rwose n’ iyo Mana yera.: /",
+          "Kand’ ijwi ryaturutse mur’ uwo mucyo,\nRiti: Niwambur’ inkweto\nKuko han’ ugeze hahinduts’ ahera\nKand’ Imana nay’ ar’ iyera\n/: None nsigaye nyoborwa\nNeza rwose n’ iyo Mana yera.: /",
       },
       {
         type: "verse",
         number: 4,
         content:
-          "Habab’ umunezero mwinshi mw ijuru Umunyabyaha yihannye\nNone Yesu naw’ aragutegereje Kugira ngo wezwe mw iriba\n/: Ngwino wezwe, ngwino wezwe, Amaraso y’ arakweza rwose.: /",
+          "Habab’ umunezero mwinshi mw ijuru\nUmunyabyaha yihannye\nNone Yesu naw’ aragutegereje\nKugira ngo wezwe mw iriba\n/: Ngwino wezwe, ngwino wezwe,\nAmaraso y’ arakweza rwose.: /",
       },
       {
         type: "verse",
         number: 5,
         content:
-          "Kandi mumenye ko azagaruka vuba. Azab’ aje nk’ umujura\nNyir’ inz’ iy’ ameny’ igih’ umujur’ aza Yaba maso kugez’ ubw’ atibwa\n/: Mube maso, mube maso, Kuko mutaz’ umunsi n’ igihe.: /",
+          "Kandi mumenye ko azagaruka vuba.\nAzab’ aje nk’ umujura\nNyir’ inz’ iy’ ameny’ igih’ umujur’ aza\nYaba maso kugez’ ubw’ atibwa\n/: Mube maso, mube maso,\nKuko mutaz’ umunsi n’ igihe.: /",
       },
       {
         type: "verse",
         number: 6,
         content:
-          "Kandi mumenye ko ngiye kuza vuba\nNzaba nzanywe no guhemba Ibikwiranye n’ umurimo w’ umuntu\n/: Nimukomez’ icyo mwahawe. Kor’ ibyiza, kugira ngo Uzahembw’ ibikwiranye na byo.: /",
+          "Kandi mumenye ko ngiye kuza vuba\nNzaba nzanywe no guhemba\nIbikwiranye n’ umurimo w’ umuntu\nNimukomez’ icyo mwahawe.\n/: Kor’ ibyiza, kugira ngo\nUzahembw’ ibikwiranye na byo.: /",
       },
       {
         type: "verse",
         number: 7,
         content:
-          "Najyanywe no kubategurir’ ahanyu, Kugira ngo muzabeho.\nHariy’ ibyicaro byinshi kandi byiza Mukwiriye kuzabyicaramo.\n/: Nimusenge cyane cyane Kugira ngo mutazaburayo.: /",
+          "Najyanywe no kubategurir’ ahanyu,\nKugira ngo muzabeho.\nHariy’ ibyicaro byinshi kandi byiza\nMukwiriye kuzabyicaramo.\n/: Nimusenge cyane cyane\nKugira ngo mutazaburayo.: /",
       },
     ],
   },
@@ -3223,8 +3223,12 @@ export const songs: NewSong[] = [
         type: "verse",
         number: 7,
         content:
-          "/: Tubabajwe n’ ababyeyi bacu\nBagikorera Satani.: /\nYesu. . . washobora kubakiza.: /",
+          "/: Tubabajwe n’ ababyeyi bacu\nBagikorera Satani.:/",
       },
+      {
+        type: "chorus",
+        content: "/: Yesu. . . washobora kubakiza.: /",
+      }
     ],
   },
   {
@@ -3386,37 +3390,37 @@ export const songs: NewSong[] = [
         type: "verse",
         number: 1,
         content:
-          "Nezerwa, mutima wanjye, Kuko warons’ agakiza.\n/: Namaze kubabarirwa Nd’ uwa Yesu na we n’ uwanjye. :/",
+          "Nezerwa, mutima wanjye,\nKuko warons’ agakiza.\n/: Namaze kubabarirwa\nNd’ uwa Yesu na we n’ uwanjye. :/",
       },
       {
         type: "verse",
         number: 2,
         content:
-          "Yankijije mu mutima N’ umuganga mwiza cyane.\n/: Kandi mu Mwuka we Wera Nihw abatiriz’ abantu be. :/",
+          "Yankijije mu mutima\nN’ umuganga mwiza cyane.\n/: Kandi mu Mwuka we Wera\nNihw abatiriz’ abantu be. :/",
       },
       {
         type: "verse",
         number: 3,
         content:
-          "Nzi ko nanditswe mw ijuru Kubw’ Umwami wanjye Yesu.\n/: Nd’ ubutunzi bw’ Umukiza, Nzahora nd’ uw’ iteka ryose. :/",
+          "Nzi ko nanditswe mw ijuru\nKubw’ Umwami wanjye Yesu.\n/: Nd’ ubutunzi bw’ Umukiza,\nNzahora nd’ uw’ iteka ryose. :/",
       },
       {
         type: "verse",
         number: 4,
         content:
-          "None mu mutima wanjye Ndaririmb’ Imana Data.\n/: Buri munsi ni we nshuti Yo kunezeza muri byose. :/",
+          "None mu mutima wanjye\nNdaririmb’ Imana Data.\n/: Buri munsi ni we nshuti\nYo kunezeza muri byose. :/",
       },
       {
         type: "verse",
         number: 5,
         content:
-          "Yankuyehw ibyaha byose Nanjye sinzabisubira.\n/: Kandi Yes’ aracyakiza Abamusanga buri gihe. :/",
+          "Yankuyehw ibyaha byose\nNanjye sinzabisubira.\n/: Kandi Yes’ aracyakiza\nAbamusanga buri gihe. :/",
       },
       {
         type: "verse",
         number: 6,
         content:
-          "Indirimbo zimushima Zikwiriye kuba nyinshi.\n/: Mu mutima wanjye naho Hati: hashimw’ Iman’ iteka!: /",
+          "Indirimbo zimushima\nZikwiriye kuba nyinshi.\n/: Mu mutima wanjye naho\nHati: hashimw’ Iman’ iteka!: /",
       },
     ],
   },

@@ -4,19 +4,18 @@ export interface LyricsPart {
   repeatCount?: number;
 }
 
+const DEFAULT_BOOK_REPEAT_COUNT = 2;
+
 /**
  * Parse lyrics content to extract repeat sections.
  *
- * Repeat notation: |: text to repeat :|x2
- *
- * Examples:
- * - Inline: "Haleluya |: haleluya :|x3 amen"
- * - Single line: "|: Tumushime tumushime :|x3"
- * - Multi-line: "|:\nLine 1\nLine 2\n:|x2"
+ * Two notations supported:
+ * - Explicit count: |: text :|xN (e.g., |: Haleluya :|x3)
+ * - Book convention: /: text :/ (always means repeat twice)
  */
 export function parseLyrics(content: string): LyricsPart[] {
   const parts: LyricsPart[] = [];
-  const regex = /\|:\s*([\s\S]*?)\s*:\|\s*x(\d+)/g;
+  const regex = /\|:\s*([\s\S]*?)\s*:\|\s*x(\d+)|\/:\s*([\s\S]*?)\s*:\s?\//g;
 
   let lastIndex = 0;
   let match: RegExpExecArray | null;
@@ -30,11 +29,11 @@ export function parseLyrics(content: string): LyricsPart[] {
       }
     }
 
-    // Add the repeat section
+    const isExplicit = match[1] !== undefined;
     parts.push({
       type: 'repeat',
-      content: match[1].trim(),
-      repeatCount: parseInt(match[2], 10),
+      content: (isExplicit ? match[1] : match[3]).trim(),
+      repeatCount: isExplicit ? parseInt(match[2], 10) : DEFAULT_BOOK_REPEAT_COUNT,
     });
 
     lastIndex = match.index + match[0].length;
