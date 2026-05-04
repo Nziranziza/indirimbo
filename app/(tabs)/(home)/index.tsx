@@ -8,9 +8,11 @@ import { ThemedView } from '@/components/themed-view';
 import { IconSymbol } from '@/components/ui/icon-symbol';
 import type { IconSymbolName } from '@/components/ui/icon-symbol';
 import { PlaylistCard } from '@/components/ui/playlist-card';
+import { UpdateAvailableBanner } from '@/components/ui/update-available-banner';
 import type { PlaylistId } from '@/constants/playlists';
 import { useSongbookPreference } from '@/contexts/songbook-preference-context';
 import { useColorScheme } from '@/contexts/theme-context';
+import { useUpdateCheck } from '@/contexts/update-check-context';
 import { useColors } from '@/hooks/use-colors';
 import { useHydrated } from '@/hooks/use-hydrated';
 import { useSongbooks } from '@/hooks/use-songbooks';
@@ -54,6 +56,7 @@ export default function HomeScreen() {
   const hasHydrated = useHydrated();
   const { visiblePlaylistIds, showCategoryChips, allSongsForFavorites } = useSongbooks();
   const { isBurundi } = useSongbookPreference();
+  const { mode: updateMode } = useUpdateCheck();
   const [recentSongs, setRecentSongs] = useState<RecentSong[]>([]);
   const [favoriteSongs, setFavoriteSongs] = useState<FavoriteSong[]>([]);
   const shareExpanded = useSharedValue(1);
@@ -183,6 +186,7 @@ export default function HomeScreen() {
           )}
         </View>
       </TabScrollView>
+      {updateMode === 'banner-available' && <UpdateAvailableBanner inTabs />}
     </ThemedView>
   );
 }
