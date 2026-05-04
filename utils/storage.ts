@@ -11,6 +11,7 @@ const ENGAGEMENT_KEY = '@indirimbo:engagement';
 const SONG_VIEW_COUNTS_KEY = '@indirimbo:song_view_counts';
 const FAVORITE_SUGGESTIONS_DISMISSED_KEY = '@indirimbo:favorite_suggestions_dismissed';
 const FAVORITE_SUGGESTION_STATE_KEY = '@indirimbo:favorite_suggestion_state';
+const UPDATE_SKIP_ACKNOWLEDGED_KEY = '@indirimbo:update_skip_acknowledged';
 const MAX_RECENT_SONGS = 20;
 const MAX_RECENT_SEARCHES = 5;
 
@@ -419,5 +420,24 @@ export async function recordFavoriteSuggestionDismissed(): Promise<void> {
     );
   } catch (error) {
     console.error('Error recording favorite suggestion dismissed:', error);
+  }
+}
+
+// Update skip acknowledgment — value is the latestVersion the user opted to skip,
+// so a newly published latestVersion automatically re-shows the prompt.
+export async function getUpdateSkipAcknowledged(): Promise<string | null> {
+  try {
+    return await AsyncStorage.getItem(UPDATE_SKIP_ACKNOWLEDGED_KEY);
+  } catch (error) {
+    console.error('Error getting update skip acknowledgment:', error);
+    return null;
+  }
+}
+
+export async function setUpdateSkipAcknowledged(version: string): Promise<void> {
+  try {
+    await AsyncStorage.setItem(UPDATE_SKIP_ACKNOWLEDGED_KEY, version);
+  } catch (error) {
+    console.error('Error setting update skip acknowledgment:', error);
   }
 }

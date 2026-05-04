@@ -9,9 +9,11 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import { ThemedView } from '@/components/themed-view';
 import { AppInstallBanner } from '@/components/ui/app-install-banner';
+import { ForceUpdateModal } from '@/components/ui/force-update-modal';
 import { SongbookPreferenceProvider } from '@/contexts/songbook-preference-context';
 import { SongsProvider } from '@/contexts/songs-context';
 import { ThemeProvider, useColorScheme } from '@/contexts/theme-context';
+import { UpdateCheckProvider } from '@/contexts/update-check-context';
 import { useHydrated } from '@/hooks/use-hydrated';
 import { recordAppOpen } from '@/utils/storage';
 
@@ -122,6 +124,7 @@ function RootLayoutContent() {
         />
       </Stack>
       <StatusBar style={colorScheme === 'dark' ? 'light' : 'dark'} />
+      <ForceUpdateModal />
     </NavigationThemeProvider>
   );
 }
@@ -135,6 +138,7 @@ export default function RootLayout() {
       <SongsProvider>
       <SongbookPreferenceProvider>
       <ThemeProvider>
+      <UpdateCheckProvider>
         {Platform.OS === 'web' ? (
           <ThemedView style={{ flex: 1}}>
           <View style={styles.webWrapper}>
@@ -145,6 +149,7 @@ export default function RootLayout() {
         ) : (
           content
         )}
+      </UpdateCheckProvider>
       </ThemeProvider>
       </SongbookPreferenceProvider>
       </SongsProvider>
