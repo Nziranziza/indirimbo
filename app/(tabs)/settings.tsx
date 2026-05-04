@@ -8,13 +8,11 @@ import { TextSizeSetting } from '@/components/settings/text-size-setting';
 import { FloatingShareButton } from '@/components/ui/floating-share-button';
 import { SettingsGroup } from '@/components/ui/settings-group';
 import { SettingsLinkRow } from '@/components/ui/settings-link-row';
-import {
-  APP_STORE_REVIEW_URL,
-  APP_UNIVERSAL_LINK_URL,
-  PLAY_STORE_REVIEW_URL,
-} from '@/constants/app-links';
+import { APP_STORE_REVIEW_URL, PLAY_STORE_REVIEW_URL } from '@/constants/app-links';
 import { useSongbookPreference } from '@/contexts/songbook-preference-context';
 import { useColorScheme, useTheme } from '@/contexts/theme-context';
+import { lightImpact } from '@/utils/haptics';
+import { shareApp } from '@/utils/share';
 import {
   getFontSize,
   setFontSize,
@@ -23,10 +21,9 @@ import {
   type ThemePreference,
   type TintColorKey,
 } from '@/utils/storage';
-import * as Haptics from 'expo-haptics';
 import { router, useFocusEffect } from 'expo-router';
 import { useCallback, useState } from 'react';
-import { Linking, Platform, Share, StyleSheet } from 'react-native';
+import { Linking, Platform, StyleSheet } from 'react-native';
 
 export default function SettingsScreen() {
   const [fontSize, setFontSizeState] = useState<FontSize>('medium');
@@ -48,40 +45,26 @@ export default function SettingsScreen() {
   const handleFontSizeChange = async (newSize: FontSize) => {
     await setFontSize(newSize);
     setFontSizeState(newSize);
-    if (process.env.EXPO_OS === 'ios') {
-      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-    }
+    lightImpact();
   };
 
   const handleThemeChange = async (newTheme: ThemePreference) => {
     await setThemePreferenceContext(newTheme);
-    if (process.env.EXPO_OS === 'ios') {
-      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-    }
+    lightImpact();
   };
 
   const handleTintColorChange = async (newColor: TintColorKey) => {
     await setTintColorContext(newColor);
-    if (process.env.EXPO_OS === 'ios') {
-      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-    }
+    lightImpact();
   };
 
   const handleSongbookChange = async (newPreference: SongbookPreference) => {
     await updateSongbookPreference(newPreference);
-    if (process.env.EXPO_OS === 'ios') {
-      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-    }
+    lightImpact();
   };
 
   const handleShareApp = async () => {
-    const message = `Check out Indirimbo - Agakiza no Gushimisha Imana\n\n${APP_UNIVERSAL_LINK_URL}/download`;
-    try {
-      await Share.share(
-        { message, title: 'Indirimbo - Rwandan Hymns & Worship Songs' },
-        { dialogTitle: 'Share Indirimbo' },
-      );
-    } catch {}
+    await shareApp({ isBurundi });
   };
 
   const handleRateApp = async () => {

@@ -1,17 +1,8 @@
-export interface NewSong {
-  number: number | string;
-  name: string;
-  url: string;
-  key?: string;
-  references?: { codes: string }[];
-  sharedMelody?: (number | string)[];
-  origin?: string;
-  subcategory?: string;
-  bibleRef?: string;
-  body: { type: 'verse' | 'chorus'; number?: number; content: string }[];
-}
+import type { Song } from './types';
 
-export const songs: NewSong[] = [
+export type NewSong = Song;
+
+export const songs: Song[] = [
   {
     "number": 1,
     "name": "Ur’ Uwer’ Uwera, Mwami Mana yacu",
@@ -1645,7 +1636,7 @@ export const songs: NewSong[] = [
       {
         "type": "verse",
         "number": 1,
-        "content": "Muze mwenyine, twihererane,\nMunsang’ ahantu hatar’ abantu;\nDor’ imiruhw irabarembje;\nUrusaku rurabaruhije."
+        "content": "Muze mwenyine, twihererane,\nMunsang’ ahantu hatar’ abantu;\nDor’ imiruhw irabarembeje;\nUrusaku rurabaruhije."
       },
       {
         "type": "verse",

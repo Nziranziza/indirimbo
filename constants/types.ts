@@ -8,6 +8,11 @@ export interface Song {
   readonly name: string;
   readonly url: string;
   readonly key?: string;
+  readonly category?: string;
+  readonly subcategory?: string;
+  readonly origin?: string;
+  readonly bibleRef?: string;
+  readonly sharedMelody?: readonly (number | string)[];
   readonly references?: readonly SongReference[];
   readonly body: readonly {
     readonly type: 'verse' | 'chorus';

@@ -1,12 +1,8 @@
-export interface NewSong {
-  number: number | string;
-  name: string;
-  url: string;
-  references?: { title?: string; codes?: string }[];
-  body: { type: "verse" | "chorus"; number?: number; content: string }[];
-}
+import type { Song } from './types';
 
-export const songs: NewSong[] = [
+export type NewSong = Song;
+
+export const songs: Song[] = [
   {
     number: 1,
     name: "Urukundo ruhebuje, gend’ urwogeze hose",

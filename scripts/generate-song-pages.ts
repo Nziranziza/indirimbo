@@ -12,9 +12,11 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { songs as gushimishaSongs, type NewSong } from '../constants/gushimisha-songs';
+import { songs as gushimishaSongs } from '../constants/gushimisha-songs';
 import { songs as agakizaSongs } from '../constants/agakiza-songs';
 import { songs as kirundiSongs } from '../constants/cantiques-kirundi-songs';
+import { getSongTitleLabel } from '../constants/playlists';
+import type { Song } from '../constants/types';
 import { escapeHtml, buildJsonLdTag, stripJsonLd } from './utils';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -30,7 +32,7 @@ const templateHtml = fs.readFileSync(indexPath, 'utf8');
 
 // --- helpers ----------------------------------------------------------------
 
-function buildDescription(song: NewSong): string {
+function buildDescription(song: Song): string {
   const firstSection = song.body[0];
   if (firstSection) {
     return firstSection.content.replace(/\n/g, ' ');
@@ -38,18 +40,10 @@ function buildDescription(song: NewSong): string {
   return `${song.name} - hymn #${song.number}`;
 }
 
-// "mu Gakiza" (Kinyarwanda — "a-" prefix dropped after "mu") vs "muri Cantiques Kirundi" (Kirundi)
-function getPlaylistLabel(playlist: string): { preposition: string; name: string } {
-  if (playlist === 'agakiza') return { preposition: 'mu', name: 'Gakiza' };
-  if (playlist === 'cantiques-kirundi') return { preposition: 'muri', name: 'Cantiques Kirundi' };
-  return { preposition: 'mu', name: 'Gushimisha Imana' };
-}
-
-function buildNoscriptContent(song: NewSong, playlist: string, playlistName: string): string {
-  const { preposition, name: shortName } = getPlaylistLabel(playlist);
+function buildNoscriptContent(song: Song, playlist: string, playlistName: string): string {
   let noscript = `<noscript><article>`;
   noscript += `<h1>${escapeHtml(song.name)}</h1>`;
-  noscript += `<h2>Indirimbo ya ${escapeHtml(String(song.number))} ${preposition} ${escapeHtml(shortName)}</h2>`;
+  noscript += `<h2>${escapeHtml(getSongTitleLabel(playlist, song.number))}</h2>`;
 
   for (const section of song.body) {
     if (section.type === 'chorus') {
@@ -69,10 +63,10 @@ function buildNoscriptContent(song: NewSong, playlist: string, playlistName: str
   return noscript;
 }
 
-function generateSongHtml(song: NewSong, playlist: string, playlistName: string): string {
-  const { preposition, name: shortName } = getPlaylistLabel(playlist);
-  const title = escapeHtml(`${song.name} | Indirimbo ya ${song.number} ${preposition} ${shortName}`);
-  const ogTitle = escapeHtml(`${song.name} | Indirimbo ya ${song.number} ${preposition} ${shortName}`);
+function generateSongHtml(song: Song, playlist: string, playlistName: string): string {
+  const titleText = `${song.name} | ${getSongTitleLabel(playlist, song.number)}`;
+  const title = escapeHtml(titleText);
+  const ogTitle = title;
   const description = escapeHtml(buildDescription(song));
   const canonicalUrl = `${BASE_URL}/song/${playlist}/${encodeURIComponent(song.number)}/`;
   const ogImage = playlist === 'cantiques-kirundi' ? OG_IMAGE_KIRUNDI : OG_IMAGE;
