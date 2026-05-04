@@ -5,19 +5,32 @@ import { RecentSongsList } from '@/components/home/recent-songs-list';
 import { TabScrollView } from '@/components/tab-scroll-view';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
-import { PlaylistCard } from '@/components/ui/playlist-card';
+import { IconSymbol } from '@/components/ui/icon-symbol';
 import type { IconSymbolName } from '@/components/ui/icon-symbol';
+import { PlaylistCard } from '@/components/ui/playlist-card';
 import type { PlaylistId } from '@/constants/playlists';
+import { useSongbookPreference } from '@/contexts/songbook-preference-context';
 import { useColorScheme } from '@/contexts/theme-context';
 import { useColors } from '@/hooks/use-colors';
 import { useHydrated } from '@/hooks/use-hydrated';
 import { useSongbooks } from '@/hooks/use-songbooks';
+import { mediumImpact } from '@/utils/haptics';
+import { shareApp } from '@/utils/share';
 import { getFavorites, getRecentSongs, type FavoriteSong, type RecentSong } from '@/utils/storage';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useFocusEffect, useRouter } from 'expo-router';
 import { useCallback, useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+
+const SHARE_LABEL_WIDTH = 75;
+const SHARE_LABEL_GAP = 6;
+const SHARE_COLLAPSE_DELAY = 3000;
+const SHARE_PADDING_EXPANDED = 6;
+const SHARE_PADDING_COLLAPSED = 12;
+
+const AnimatedTouchableOpacity = Animated.createAnimatedComponent(TouchableOpacity);
 
 const getGreeting = (): string => {
   const hour = new Date().getHours();
@@ -40,8 +53,10 @@ export default function HomeScreen() {
   const insets = useSafeAreaInsets();
   const hasHydrated = useHydrated();
   const { visiblePlaylistIds, showCategoryChips, allSongsForFavorites } = useSongbooks();
+  const { isBurundi } = useSongbookPreference();
   const [recentSongs, setRecentSongs] = useState<RecentSong[]>([]);
   const [favoriteSongs, setFavoriteSongs] = useState<FavoriteSong[]>([]);
+  const shareExpanded = useSharedValue(1);
 
   useFocusEffect(
     useCallback(() => {
@@ -50,9 +65,40 @@ export default function HomeScreen() {
     }, [])
   );
 
+  useFocusEffect(
+    useCallback(() => {
+      shareExpanded.value = withTiming(1, { duration: 200 });
+      const timeout = setTimeout(() => {
+        shareExpanded.value = withTiming(0, { duration: 300 });
+      }, SHARE_COLLAPSE_DELAY);
+      return () => clearTimeout(timeout);
+    }, [shareExpanded])
+  );
+
+  const shareLabelStyle = useAnimatedStyle(() => ({
+    opacity: shareExpanded.value,
+    width: shareExpanded.value * SHARE_LABEL_WIDTH,
+    marginLeft: shareExpanded.value * SHARE_LABEL_GAP,
+  }));
+
+  const shareButtonStyle = useAnimatedStyle(() => ({
+    paddingVertical:
+      SHARE_PADDING_EXPANDED +
+      (1 - shareExpanded.value) * (SHARE_PADDING_COLLAPSED - SHARE_PADDING_EXPANDED),
+  }));
+
+  const shareIconStyle = useAnimatedStyle(() => ({
+    transform: [{ scale: 1 + (1 - shareExpanded.value) * 0.3 }],
+  }));
+
   const handleSongPress = useCallback((playlist: string, songNumber: number | string) => {
     router.navigate(`/song/${playlist}/${songNumber}`);
   }, [router]);
+
+  const handleShareApp = useCallback(async () => {
+    mediumImpact();
+    await shareApp({ isBurundi });
+  }, [isBurundi]);
 
   return (
     <ThemedView style={styles.container}>
@@ -73,12 +119,31 @@ export default function HomeScreen() {
       />
 
       <View style={[styles.header, { paddingTop: insets.top + 20 }]}>
-        <ThemedText style={[styles.greeting, { color: colors.tint }]}>
-          {getGreeting()}
-        </ThemedText>
-        <ThemedText type="title">
-          Indirimbo
-        </ThemedText>
+        <View style={styles.headerContent}>
+        <View style={styles.headerText}>
+          <ThemedText style={[styles.greeting, { color: colors.tint }]}>
+            {getGreeting()}
+          </ThemedText>
+          <ThemedText type="title">
+            Indirimbo
+          </ThemedText>
+        </View>
+        <AnimatedTouchableOpacity
+          onPress={handleShareApp}
+          activeOpacity={0.7}
+          accessibilityLabel="Share app"
+          accessibilityRole="button"
+          style={[styles.shareButton, { backgroundColor: colors.tint + '20', borderColor: colors.tint + '40' }, shareButtonStyle]}>
+          <Animated.View style={[styles.shareIconWrapper, shareIconStyle]}>
+            <IconSymbol name="square.and.arrow.up" size={20} color={colors.tint} weight="semibold" />
+          </Animated.View>
+          <Animated.Text
+            numberOfLines={1}
+            style={[styles.shareButtonLabel, { color: colors.tint }, shareLabelStyle]}>
+            Share app
+          </Animated.Text>
+        </AnimatedTouchableOpacity>
+        </View>
       </View>
 
       <TabScrollView contentContainerStyle={styles.scrollContent}>
@@ -135,14 +200,45 @@ const styles = StyleSheet.create({
     zIndex: 0,
   },
   header: {
+    flexDirection: 'row',
+    alignItems: 'flex-end',
+    justifyContent: 'space-between',
     paddingHorizontal: 20,
     paddingBottom: 12,
     zIndex: 1,
+  },
+  headerContent: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
+  },
+  headerText: {
+    flex: 1,
   },
   greeting: {
     fontSize: 14,
     fontWeight: '600',
     marginBottom: 6,
+  },
+  shareButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 12,
+    borderRadius: 22,
+    borderWidth: 1,
+    marginLeft: 12,
+  },
+  shareButtonLabel: {
+    fontSize: 13,
+    fontWeight: '600',
+    lineHeight: 16,
+    overflow: 'hidden',
+  },
+  shareIconWrapper: {
+    width: 20,
+    height: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   scrollContent: {
     paddingHorizontal: 20,

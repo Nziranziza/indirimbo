@@ -1,10 +1,11 @@
-import { APP_UNIVERSAL_LINK_URL } from '@/constants/app-links';
+import { useSongbookPreference } from '@/contexts/songbook-preference-context';
 import { useColors } from '@/hooks/use-colors';
 import { useFabBottom } from '@/hooks/use-fab-bottom';
-import * as Haptics from 'expo-haptics';
+import { mediumImpact } from '@/utils/haptics';
+import { shareApp } from '@/utils/share';
 import { useFocusEffect } from 'expo-router';
 import { useCallback } from 'react';
-import { Share, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
@@ -20,6 +21,7 @@ const COLLAPSE_DELAY = 3000;
 export function FloatingShareButton({ inTabs = false }: { inTabs?: boolean }) {
   const colors = useColors();
   const bottom = useFabBottom(inTabs);
+  const { isBurundi } = useSongbookPreference();
   const expanded = useSharedValue(1);
 
   useFocusEffect(
@@ -42,17 +44,8 @@ export function FloatingShareButton({ inTabs = false }: { inTabs?: boolean }) {
   }));
 
   const handlePress = async () => {
-    if (process.env.EXPO_OS === 'ios') {
-      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
-    }
-
-    const message = `Check out Indirimbo - Agakiza no Gushimisha Imana\n\n${APP_UNIVERSAL_LINK_URL}/download`;
-    try {
-      await Share.share(
-        { message, title: 'Indirimbo - Rwandan Hymns & Worship Songs' },
-        { dialogTitle: 'Share Indirimbo' },
-      );
-    } catch {}
+    mediumImpact();
+    await shareApp({ isBurundi });
   };
 
   return (

@@ -23,6 +23,8 @@ const today = new Date().toISOString().split('T')[0];
 const staticPages = [
   { url: '/', priority: '1.0', changefreq: 'weekly' },
   { url: '/about/', priority: '0.6', changefreq: 'monthly' },
+  { url: '/download/', priority: '0.5', changefreq: 'monthly' },
+  { url: '/download-kirundi/', priority: '0.5', changefreq: 'monthly' },
   { url: '/support/', priority: '0.4', changefreq: 'monthly' },
   { url: '/privacy-policy/', priority: '0.3', changefreq: 'yearly' },
   { url: '/terms-of-service/', priority: '0.3', changefreq: 'yearly' },

@@ -25,3 +25,18 @@ export function getPlaylistName(playlistId: string): string {
 export function getPlaylistDescription(playlistId: string): string {
   return PLAYLISTS[playlistId as PlaylistId]?.description || '';
 }
+
+// "mu Gakiza" (Kinyarwanda — "a-" prefix dropped after "mu") vs "muri Cantiques Kirundi" (Kirundi)
+const SONG_LABEL_BY_PLAYLIST: Record<PlaylistId, { preposition: string; shortName: string }> = {
+  gushimisha: { preposition: 'mu', shortName: 'Gushimisha Imana' },
+  agakiza: { preposition: 'mu', shortName: 'Gakiza' },
+  'cantiques-kirundi': { preposition: 'muri', shortName: 'Cantiques Kirundi' },
+};
+
+export function getSongTitleLabel(playlistId: string, songNumber: number | string): string {
+  const label = SONG_LABEL_BY_PLAYLIST[playlistId as PlaylistId] ?? {
+    preposition: 'mu',
+    shortName: getPlaylistName(playlistId),
+  };
+  return `Indirimbo ya ${songNumber} ${label.preposition} ${label.shortName}`;
+}

@@ -6,7 +6,7 @@ import {
   updateEngagementState,
   type EngagementState,
 } from '@/utils/storage';
-import * as Haptics from 'expo-haptics';
+import { mediumImpact, successNotification } from '@/utils/haptics';
 import * as StoreReview from 'expo-store-review';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Linking, Platform, Share } from 'react-native';
@@ -175,9 +175,7 @@ export function useEngagement({
             await updateEngagementState(() => ({ lastPromptShownAt: Date.now() }));
           }
 
-          if (process.env.EXPO_OS === 'ios') {
-            Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success).catch(console.error);
-          }
+          successNotification();
         } else {
           hasEvaluatedRef.current = true;
         }
@@ -194,9 +192,7 @@ export function useEngagement({
   const handleAccept = useCallback(async () => {
     if (!prompt) return;
 
-    if (process.env.EXPO_OS === 'ios') {
-      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium).catch(console.error);
-    }
+    mediumImpact();
 
     try {
       if (prompt.type === 'rate') {

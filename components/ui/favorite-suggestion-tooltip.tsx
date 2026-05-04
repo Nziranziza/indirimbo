@@ -1,4 +1,5 @@
 import { useColors } from '@/hooks/use-colors';
+import { lightImpact } from '@/utils/haptics';
 import { useCallback, useEffect, useRef } from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Gesture, GestureDetector, GestureHandlerRootView } from 'react-native-gesture-handler';
@@ -58,6 +59,7 @@ export function FavoriteSuggestionTooltip({
   useEffect(() => {
     translateY.value = withSpring(0, { damping: 18, stiffness: 140 });
     opacity.value = withTiming(1, { duration: 250 });
+    lightImpact();
 
     return () => {
       if (timerRef.current) clearTimeout(timerRef.current);

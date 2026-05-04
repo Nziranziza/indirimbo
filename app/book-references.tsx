@@ -18,7 +18,11 @@ const BookCard = React.memo(function BookCard({
   return (
     <View style={[styles.card, { borderColor: colors.icon + '12' }]}>
       <View style={[styles.cardLeft, { backgroundColor: colors.tint + '10' }]}>
-        <ThemedText style={[styles.abbreviation, { color: colors.tint }]}>
+        <ThemedText
+          style={[styles.abbreviation, { color: colors.tint }]}
+          numberOfLines={1}
+          adjustsFontSizeToFit
+        >
           {item.abbreviation}
         </ThemedText>
       </View>
@@ -124,7 +128,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   cardLeft: {
-    width: 64,
+    width: 72,
     alignItems: 'center',
     justifyContent: 'center',
     paddingVertical: 12,

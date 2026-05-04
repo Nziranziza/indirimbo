@@ -9,7 +9,7 @@ import { SongHeatmap } from "@/components/ui/song-heatmap";
 import { SongNavigationBar } from "@/components/ui/song-navigation-bar";
 import { SongNumberBadge } from "@/components/ui/song-number-badge";
 import { BOOK_CODE_LOOKUP } from "@/constants/book-names";
-import { getPlaylistName } from "@/constants/playlists";
+import { getPlaylistName, getSongTitleLabel } from "@/constants/playlists";
 import type { Song } from "@/constants/types";
 import { FONT_SIZES } from "@/constants/typography";
 import { useSongs } from "@/contexts/songs-context";
@@ -25,8 +25,8 @@ import {
   removeFavorite,
   type FontSize,
 } from "@/utils/storage";
+import { lightImpact } from "@/utils/haptics";
 import { shareSong } from "@/utils/share";
-import * as Haptics from "expo-haptics";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { PageHead } from "@/components/page-head";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
@@ -194,9 +194,7 @@ export default function SongScreen() {
         setIsFav(true);
         setDidFavoriteThisSession(true);
       }
-      if (process.env.EXPO_OS === "ios") {
-        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-      }
+      lightImpact();
     } catch (error) {
       console.error("Error toggling favorite:", error);
     }
@@ -285,7 +283,7 @@ export default function SongScreen() {
   return (
     <ThemedView style={styles.container}>
       <PageHead
-        title={`${currentSong.name} | Indirimbo ya ${currentSong.number} ${playlist === 'cantiques-kirundi' ? 'muri' : 'mu'} ${playlistTitle}`}
+        title={`${currentSong.name} | ${getSongTitleLabel(playlist, currentSong.number)}`}
         description={seoDescription}
         canonicalPath={`/song/${playlist}/${currentSong.number}`}
         keywords={`${currentSong.name}, indirimbo ya ${currentSong.number}, ${playlistTitle}, ${playlist === 'cantiques-kirundi' ? 'cantiques kirundi, indirimbo zo guhimbaza imana, burundian hymns' : "indirimbo, indirimbo zo mugitabo, rwandan hymns"}, worship songs`}

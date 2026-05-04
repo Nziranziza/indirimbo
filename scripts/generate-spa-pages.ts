@@ -21,7 +21,8 @@ import { escapeHtml, buildJsonLdTag, stripJsonLd } from './utils';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const BASE_URL = 'https://indirimbo.rw';
-const OG_IMAGE = `${BASE_URL}/og-image.jpg`;
+const DEFAULT_OG_IMAGE = `${BASE_URL}/og-image.jpg`;
+const DEFAULT_OG_LOCALE = 'rw_RW';
 const distDir = path.join(__dirname, '../dist');
 const indexPath = path.join(distDir, 'index.html');
 
@@ -37,9 +38,20 @@ interface PageOptions {
   keywords: string;
   noscriptHtml: string;
   jsonLdTags?: string;
+  ogImage?: string;
+  ogLocale?: string;
 }
 
-function generatePage({ title, description, canonicalUrl, keywords, noscriptHtml, jsonLdTags }: PageOptions): string {
+function generatePage({
+  title,
+  description,
+  canonicalUrl,
+  keywords,
+  noscriptHtml,
+  jsonLdTags,
+  ogImage = DEFAULT_OG_IMAGE,
+  ogLocale = DEFAULT_OG_LOCALE,
+}: PageOptions): string {
   const escapedTitle = escapeHtml(title);
   const escapedDescription = escapeHtml(description);
   const escapedKeywords = escapeHtml(keywords);
@@ -51,16 +63,16 @@ function generatePage({ title, description, canonicalUrl, keywords, noscriptHtml
   <meta property="og:type" content="website" />
   <meta property="og:title" content="${escapedTitle}" />
   <meta property="og:description" content="${escapedDescription}" />
-  <meta property="og:image" content="${OG_IMAGE}" />
+  <meta property="og:image" content="${ogImage}" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta property="og:image:type" content="image/jpeg" />
   <meta property="og:url" content="${canonicalUrl}" />
-  <meta property="og:locale" content="rw_RW" />
+  <meta property="og:locale" content="${ogLocale}" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="${escapedTitle}" />
   <meta name="twitter:description" content="${escapedDescription}" />
-  <meta name="twitter:image" content="${OG_IMAGE}" />
+  <meta name="twitter:image" content="${ogImage}" />
   <link rel="canonical" href="${canonicalUrl}" />
   <meta name="apple-itunes-app" content="app-id=6758376573" />`;
 
@@ -106,6 +118,8 @@ const spaPages: Array<{
   keywords: string;
   noscriptHtml: string;
   extraJsonLd?: object;
+  ogImage?: string;
+  ogLocale?: string;
 }> = [
   {
     path: 'about',
@@ -290,6 +304,30 @@ const spaPages: Array<{
 </article></noscript>`,
   },
   {
+    path: 'download-kirundi',
+    title: 'Download Indirimbo - Cantiques Kirundi & Rwandan Hymns App',
+    description: 'Download Indirimbo for iOS and Android. Browse Cantiques Kirundi alongside Gushimisha Imana and Agakiza hymnbooks. Free on the App Store and Google Play.',
+    keywords: 'indirimbo download, cantiques kirundi app, burundian hymns app, indirimbo zo guhimbaza imana, kirundi worship songs',
+    ogImage: `${BASE_URL}/og-image-kirundi.jpg`,
+    ogLocale: 'rn_BI',
+    noscriptHtml: `<noscript><article>
+<h1>Download Indirimbo</h1>
+<p>Get the Indirimbo app for the best experience. Browse Cantiques Kirundi, Gushimisha Imana, and Agakiza hymnbooks offline, save favorites, and more.</p>
+<h2>Why download the app?</h2>
+<ul>
+<li>Works completely offline</li>
+<li>Cantiques Kirundi, Gushimisha Imana, and Agakiza in one app</li>
+<li>Save your favorite hymns</li>
+<li>Search by title, number, or lyrics</li>
+<li>Adjustable text size</li>
+<li>Dark mode support</li>
+<li>Share songs with friends</li>
+</ul>
+<p>You can also browse songs directly on the web at <a href="${BASE_URL}">indirimbo.rw</a></p>
+<nav><a href="${BASE_URL}/playlist/cantiques-kirundi">Cantiques Kirundi</a> | <a href="${BASE_URL}/playlist/gushimisha">Gushimisha Imana</a> | <a href="${BASE_URL}/playlist/agakiza">Agakiza</a> | <a href="${BASE_URL}">Home</a></nav>
+</article></noscript>`,
+  },
+  {
     path: 'search',
     title: 'Search Songs | Indirimbo',
     description: 'Search Rwandan hymns and worship songs by title, number, or lyrics across Gushimisha Imana and Agakiza hymnbooks.',
@@ -352,6 +390,8 @@ for (const page of spaPages) {
     keywords: page.keywords,
     noscriptHtml: page.noscriptHtml,
     jsonLdTags,
+    ogImage: page.ogImage,
+    ogLocale: page.ogLocale,
   });
 
   // Fix the flat .html file that expo export generated (e.g. dist/about.html)
