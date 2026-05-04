@@ -156,13 +156,13 @@ export default function HomeScreen() {
           activeOpacity={0.7}
           accessibilityLabel="Share app"
           accessibilityRole="button"
-          style={[styles.shareButton, { backgroundColor: colors.tint + '20', borderColor: colors.tint + '40' }, shareButtonStyle]}>
+          style={[styles.shareButton, { backgroundColor: colors.tint, borderColor: colors.tint }, shareButtonStyle]}>
           <Animated.View style={[styles.shareIconWrapper, shareIconStyle]}>
-            <IconSymbol name="square.and.arrow.up" size={20} color={colors.tint} weight="semibold" />
+            <IconSymbol name="square.and.arrow.up" size={20} color={colors.tintForeground} weight="semibold" />
           </Animated.View>
           <Animated.Text
             numberOfLines={1}
-            style={[styles.shareButtonLabel, { color: colors.tint }, shareLabelStyle]}>
+            style={[styles.shareButtonLabel, { color: colors.tintForeground }, shareLabelStyle]}>
             Share app
           </Animated.Text>
         </AnimatedTouchableOpacity>
