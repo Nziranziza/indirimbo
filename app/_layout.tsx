@@ -96,6 +96,14 @@ function RootLayoutContent() {
           }}
         />
         <Stack.Screen
+          name="download-kirundi"
+          options={{
+            headerShown: false,
+            animation: 'slide_from_right',
+            animationDuration: Platform.OS === 'ios' ? 350 : 300,
+          }}
+        />
+        <Stack.Screen
           name="onboarding"
           options={{
             headerShown: false,

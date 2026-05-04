@@ -27,8 +27,8 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 const SHARE_LABEL_WIDTH = 75;
 const SHARE_LABEL_GAP = 6;
 const SHARE_COLLAPSE_DELAY = 3000;
-const SHARE_PADDING_EXPANDED = 6;
-const SHARE_PADDING_COLLAPSED = 12;
+const SHARE_HEIGHT_EXPANDED = 32;
+const SHARE_HEIGHT_COLLAPSED = 44;
 
 const AnimatedTouchableOpacity = Animated.createAnimatedComponent(TouchableOpacity);
 
@@ -82,9 +82,9 @@ export default function HomeScreen() {
   }));
 
   const shareButtonStyle = useAnimatedStyle(() => ({
-    paddingVertical:
-      SHARE_PADDING_EXPANDED +
-      (1 - shareExpanded.value) * (SHARE_PADDING_COLLAPSED - SHARE_PADDING_EXPANDED),
+    height:
+      SHARE_HEIGHT_EXPANDED +
+      (1 - shareExpanded.value) * (SHARE_HEIGHT_COLLAPSED - SHARE_HEIGHT_EXPANDED),
   }));
 
   const shareIconStyle = useAnimatedStyle(() => ({
@@ -208,6 +208,7 @@ const styles = StyleSheet.create({
     zIndex: 1,
   },
   headerContent: {
+    flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'flex-start',
