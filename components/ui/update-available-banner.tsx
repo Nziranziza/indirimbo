@@ -5,6 +5,7 @@ import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { ThemedText } from '@/components/themed-text';
 import { useColors } from '@/hooks/use-colors';
 import { useFabBottom } from '@/hooks/use-fab-bottom';
+import { trackEvent } from '@/utils/analytics';
 import { openStoreForCurrentPlatform } from '@/utils/store';
 
 const APP_ICON = require('@/assets/images/icon.png');
@@ -20,6 +21,7 @@ export const UpdateAvailableBanner = memo(function UpdateAvailableBanner({
   const bottom = useFabBottom(inTabs);
 
   const handlePress = useCallback(() => {
+    trackEvent('update_tap', { variant: 'banner-available' });
     void openStoreForCurrentPlatform();
   }, []);
 

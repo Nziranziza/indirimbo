@@ -2,6 +2,7 @@ import Constants from 'expo-constants';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { AppState, Platform } from 'react-native';
 
+import { trackEvent } from '@/utils/analytics';
 import {
   getUpdateSkipAcknowledged,
   setUpdateSkipAcknowledged,
@@ -69,13 +70,28 @@ async function fetchManifest(): Promise<VersionManifest | null> {
 export function useAppVersionCheck(): UpdateCheckResult {
   const [mode, setMode] = useState<UpdateMode>('none');
   const latestVersionRef = useRef<string | null>(null);
+  const installedVersionRef = useRef<string | null>(null);
   const lastCheckedAtRef = useRef<number>(0);
+  const trackedPromptKeyRef = useRef<string | null>(null);
+
+  const trackPromptShown = useCallback((variant: UpdateMode, latest: string | null, installed: string) => {
+    if (variant === 'none') return;
+    const key = `${variant}:${latest ?? ''}`;
+    if (trackedPromptKeyRef.current === key) return;
+    trackedPromptKeyRef.current = key;
+    trackEvent('update_prompt_shown', {
+      variant,
+      installed_version: installed,
+      latest_version: latest ?? '',
+    });
+  }, []);
 
   const check = useCallback(async () => {
     if (Platform.OS === 'web') return;
 
     const installedVersion = Constants.expoConfig?.version;
     if (!isVersionString(installedVersion)) return;
+    installedVersionRef.current = installedVersion;
 
     const manifest = await fetchManifest();
     if (!manifest) return;
@@ -87,24 +103,31 @@ export function useAppVersionCheck(): UpdateCheckResult {
     if (isVersionString(minVersion) && compareVersions(installedVersion, minVersion) < 0) {
       latestVersionRef.current = isVersionString(latestVersion) ? latestVersion : null;
       setMode('modal-required');
+      trackPromptShown('modal-required', latestVersionRef.current, installedVersion);
       return;
     }
 
     if (isVersionString(latestVersion) && compareVersions(installedVersion, latestVersion) < 0) {
       latestVersionRef.current = latestVersion;
       const skipped = await getUpdateSkipAcknowledged();
-      setMode(skipped === latestVersion ? 'banner-available' : 'modal-available');
+      const nextMode: UpdateMode = skipped === latestVersion ? 'banner-available' : 'modal-available';
+      setMode(nextMode);
+      trackPromptShown(nextMode, latestVersion, installedVersion);
       return;
     }
 
     latestVersionRef.current = null;
     setMode('none');
-  }, []);
+  }, [trackPromptShown]);
 
   const acknowledgeSkip = useCallback(() => {
     const version = latestVersionRef.current;
     if (!version) return;
     void setUpdateSkipAcknowledged(version);
+    trackEvent('update_skip', {
+      installed_version: installedVersionRef.current ?? '',
+      latest_version: version,
+    });
     setMode('banner-available');
   }, []);
 

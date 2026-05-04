@@ -11,6 +11,7 @@ import { SettingsLinkRow } from '@/components/ui/settings-link-row';
 import { APP_STORE_REVIEW_URL, PLAY_STORE_REVIEW_URL } from '@/constants/app-links';
 import { useSongbookPreference } from '@/contexts/songbook-preference-context';
 import { useColorScheme, useTheme } from '@/contexts/theme-context';
+import { trackEvent } from '@/utils/analytics';
 import { lightImpact } from '@/utils/haptics';
 import { shareApp } from '@/utils/share';
 import {
@@ -45,11 +46,13 @@ export default function SettingsScreen() {
   const handleFontSizeChange = async (newSize: FontSize) => {
     await setFontSize(newSize);
     setFontSizeState(newSize);
+    trackEvent('change_font_size', { font_size: newSize });
     lightImpact();
   };
 
   const handleThemeChange = async (newTheme: ThemePreference) => {
     await setThemePreferenceContext(newTheme);
+    trackEvent('change_theme', { theme: newTheme });
     lightImpact();
   };
 
@@ -60,10 +63,12 @@ export default function SettingsScreen() {
 
   const handleSongbookChange = async (newPreference: SongbookPreference) => {
     await updateSongbookPreference(newPreference);
+    trackEvent('change_songbook_preference', { preference: newPreference });
     lightImpact();
   };
 
   const handleShareApp = async () => {
+    trackEvent('share_app', { songbook: isBurundi ? 'kirundi' : 'kinyarwanda' });
     await shareApp({ isBurundi });
   };
 
@@ -71,6 +76,7 @@ export default function SettingsScreen() {
     const url = Platform.OS === 'ios' ? APP_STORE_REVIEW_URL : PLAY_STORE_REVIEW_URL;
     if (!url) return;
     try {
+      trackEvent('rate_app', { platform: Platform.OS });
       await Linking.openURL(url);
     } catch (error) {
       console.error('Failed to open review URL:', error);

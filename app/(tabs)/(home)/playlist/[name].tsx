@@ -69,6 +69,7 @@ export default function PlaylistScreen() {
         iconName={iconName}
         songs={songs}
         playlist={name}
+        source="playlist"
       />
     </>
   );
