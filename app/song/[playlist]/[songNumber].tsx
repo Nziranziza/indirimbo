@@ -143,6 +143,8 @@ export default function SongScreen() {
       trackEvent('open_song', {
         playlist,
         song_number: String(currentSong.number),
+        song: `${playlist}/${currentSong.number}`,
+        song_name: currentSong.name,
         source: direction ? 'prev_next' : (source ?? 'deeplink'),
       });
     }
@@ -196,6 +198,8 @@ export default function SongScreen() {
         trackEvent('toggle_favorite', {
           playlist,
           song_number: String(currentSong.number),
+          song: `${playlist}/${currentSong.number}`,
+          song_name: currentSong.name,
           action: 'remove',
         });
       } else {
@@ -209,6 +213,8 @@ export default function SongScreen() {
         trackEvent('toggle_favorite', {
           playlist,
           song_number: String(currentSong.number),
+          song: `${playlist}/${currentSong.number}`,
+          song_name: currentSong.name,
           action: 'add',
         });
       }
@@ -226,6 +232,8 @@ export default function SongScreen() {
       trackEvent('share_song', {
         playlist,
         song_number: String(currentSong.number),
+        song: `${playlist}/${currentSong.number}`,
+        song_name: currentSong.name,
       });
       await shareSong({ songName: currentSong.name, playlist, songNumber: currentSong.number });
     } catch (error) {
