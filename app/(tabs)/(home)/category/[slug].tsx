@@ -58,6 +58,7 @@ export default function CategoryScreen() {
         iconName={categoryIcon}
         songs={songs}
         playlist={resolvedPlaylist}
+        source="category"
       />
     </>
   );

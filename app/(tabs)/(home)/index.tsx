@@ -16,6 +16,7 @@ import { useUpdateCheck } from '@/contexts/update-check-context';
 import { useColors } from '@/hooks/use-colors';
 import { useHydrated } from '@/hooks/use-hydrated';
 import { useSongbooks } from '@/hooks/use-songbooks';
+import { trackEvent } from '@/utils/analytics';
 import { mediumImpact } from '@/utils/haptics';
 import { shareApp } from '@/utils/share';
 import { getFavorites, getRecentSongs, type FavoriteSong, type RecentSong } from '@/utils/storage';
@@ -94,12 +95,31 @@ export default function HomeScreen() {
     transform: [{ scale: 1 + (1 - shareExpanded.value) * 0.3 }],
   }));
 
-  const handleSongPress = useCallback((playlist: string, songNumber: number | string) => {
-    router.navigate(`/song/${playlist}/${songNumber}`);
+  const handleFavoriteSongPress = useCallback((playlist: string, songNumber: number | string) => {
+    router.navigate({
+      pathname: '/song/[playlist]/[songNumber]',
+      params: { playlist, songNumber: String(songNumber), source: 'home_favorite' },
+    });
+  }, [router]);
+
+  const handleRecentSongPress = useCallback((playlist: string, songNumber: number | string) => {
+    router.navigate({
+      pathname: '/song/[playlist]/[songNumber]',
+      params: { playlist, songNumber: String(songNumber), source: 'home_recent' },
+    });
+  }, [router]);
+
+  const handlePlaylistPress = useCallback((id: PlaylistId) => {
+    trackEvent('view_playlist', { playlist: id });
+    router.navigate({
+      pathname: '/(tabs)/(home)/playlist/[name]',
+      params: { name: id },
+    });
   }, [router]);
 
   const handleShareApp = useCallback(async () => {
     mediumImpact();
+    trackEvent('share_app', { songbook: isBurundi ? 'kirundi' : 'kinyarwanda' });
     await shareApp({ isBurundi });
   }, [isBurundi]);
 
@@ -159,12 +179,7 @@ export default function HomeScreen() {
                 key={id}
                 playlistId={id as PlaylistId}
                 iconName={PLAYLIST_ICONS[id] ?? 'music.note.list'}
-                onPress={() => {
-                  router.navigate({
-                    pathname: '/(tabs)/(home)/playlist/[name]',
-                    params: { name: id },
-                  });
-                }}
+                onPress={() => handlePlaylistPress(id as PlaylistId)}
               />
             ))}
           </ThemedView>
@@ -173,7 +188,7 @@ export default function HomeScreen() {
             <FavoriteSongsRow
               favoriteSongs={favoriteSongs}
               allSongs={allSongsForFavorites}
-              onSongPress={handleSongPress}
+              onSongPress={handleFavoriteSongPress}
             />
           )}
 
@@ -181,7 +196,7 @@ export default function HomeScreen() {
             <RecentSongsList
               recentSongs={recentSongs}
               allSongs={allSongsForFavorites}
-              onSongPress={handleSongPress}
+              onSongPress={handleRecentSongPress}
             />
           )}
         </View>

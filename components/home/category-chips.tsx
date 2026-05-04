@@ -6,6 +6,7 @@ import { gushimishaCategories } from '@/constants/gushimisha-categories';
 import type { SongCategory } from '@/constants/gushimisha-categories';
 import { useSongbookPreference } from '@/contexts/songbook-preference-context';
 import { useColors } from '@/hooks/use-colors';
+import { trackEvent } from '@/utils/analytics';
 import { useRouter } from 'expo-router';
 import { useMemo } from 'react';
 import { ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
@@ -52,6 +53,7 @@ export function CategoryChips() {
             accessibilityRole="button"
             activeOpacity={0.7}
             onPress={() => {
+              trackEvent('view_category', { category: category.slug, playlist });
               router.navigate({
                 pathname: '/(tabs)/(home)/category/[slug]',
                 params: { slug: category.slug, playlist },

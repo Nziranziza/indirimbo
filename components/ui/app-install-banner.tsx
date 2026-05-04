@@ -6,6 +6,7 @@ import { GooglePlayIcon } from '@/components/ui/google-play-icon';
 import { IconSymbol } from '@/components/ui/icon-symbol';
 import { APP_STORE_URL, PLAY_STORE_URL } from '@/constants/app-links';
 import { useColors } from '@/hooks/use-colors';
+import { trackEvent } from '@/utils/analytics';
 
 const APP_SCHEME = 'indirimbo://';
 
@@ -76,6 +77,7 @@ export function AppInstallBanner() {
   const handleOpenApp = async () => {
     const currentPath = getCurrentWebPath();
     const scheme = APP_SCHEME.replace(/\/+$/, '');
+    trackEvent('tap_install_banner', { platform: platform ?? 'unknown', action: 'open' });
 
     if (typeof window !== 'undefined' && platform === 'android') {
       // On Android, use an Intent URL so Chrome natively falls back to the
@@ -122,6 +124,7 @@ export function AppInstallBanner() {
     if (!storeUrl) {
       return;
     }
+    trackEvent('tap_install_banner', { platform: platform ?? 'unknown', action: 'install' });
     await Linking.openURL(storeUrl);
   };
 

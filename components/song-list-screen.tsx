@@ -31,9 +31,10 @@ interface SongListScreenProps {
   iconName: IconSymbolName;
   songs: Song[];
   playlist: string;
+  source: 'playlist' | 'category';
 }
 
-export function SongListScreen({ title, iconName, songs, playlist }: SongListScreenProps) {
+export function SongListScreen({ title, iconName, songs, playlist, source }: SongListScreenProps) {
   const router = useRouter();
   const colors = useColors();
   const colorScheme = useColorScheme();
@@ -55,9 +56,12 @@ export function SongListScreen({ title, iconName, songs, playlist }: SongListScr
 
   const handleSongPress = useCallback(
     (songNumber: number | string) => {
-      router.navigate(`/song/${playlist}/${songNumber}`);
+      router.navigate({
+        pathname: '/song/[playlist]/[songNumber]',
+        params: { playlist, songNumber: String(songNumber), source },
+      });
     },
-    [router, playlist]
+    [router, playlist, source]
   );
 
   // Animated styles

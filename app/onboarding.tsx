@@ -4,6 +4,7 @@ import { IconSymbol } from '@/components/ui/icon-symbol';
 import type { IconSymbolName } from '@/components/ui/icon-symbol';
 import { useSongbookPreference } from '@/contexts/songbook-preference-context';
 import { useColors } from '@/hooks/use-colors';
+import { trackEvent } from '@/utils/analytics';
 import type { SongbookPreference } from '@/utils/storage';
 import { useRouter } from 'expo-router';
 import { useCallback, useState } from 'react';
@@ -46,6 +47,7 @@ export default function OnboardingScreen() {
   const handleContinue = useCallback(async () => {
     try {
       await setSongbookAndCompleteOnboarding(selected);
+      trackEvent('complete_onboarding', { songbook_preference: selected });
       router.replace('/(tabs)/(home)');
     } catch (error) {
       console.error('Failed to complete onboarding:', error);

@@ -25,6 +25,7 @@ import {
   removeFavorite,
   type FontSize,
 } from "@/utils/storage";
+import { trackEvent } from "@/utils/analytics";
 import { lightImpact } from "@/utils/haptics";
 import { shareSong } from "@/utils/share";
 import { useLocalSearchParams, useRouter } from "expo-router";
@@ -61,9 +62,11 @@ function expandBookCodes(codes: string): string {
 
 export default function SongScreen() {
   const router = useRouter();
-  const { playlist, songNumber } = useLocalSearchParams<{
+  const { playlist, songNumber, source, direction } = useLocalSearchParams<{
     playlist: string;
     songNumber: string;
+    source?: string;
+    direction?: string;
   }>();
   const [isFav, setIsFav] = useState(false);
   const [didFavoriteThisSession, setDidFavoriteThisSession] = useState(false);
@@ -137,8 +140,13 @@ export default function SongScreen() {
         songNumber: currentSong.number,
         songName: currentSong.name,
       });
+      trackEvent('open_song', {
+        playlist,
+        song_number: String(currentSong.number),
+        source: direction ? 'prev_next' : (source ?? 'deeplink'),
+      });
     }
-  }, [currentSong, playlist]);
+  }, [currentSong, playlist, source, direction]);
 
   const measureSection = (index: number, event: LayoutChangeEvent) => {
     if (currentSong && currentSong.body && currentSong.body[index]) {
@@ -185,6 +193,11 @@ export default function SongScreen() {
       if (isFav) {
         await removeFavorite(playlist, currentSong.number);
         setIsFav(false);
+        trackEvent('toggle_favorite', {
+          playlist,
+          song_number: String(currentSong.number),
+          action: 'remove',
+        });
       } else {
         await addFavorite({
           playlist,
@@ -193,6 +206,11 @@ export default function SongScreen() {
         });
         setIsFav(true);
         setDidFavoriteThisSession(true);
+        trackEvent('toggle_favorite', {
+          playlist,
+          song_number: String(currentSong.number),
+          action: 'add',
+        });
       }
       lightImpact();
     } catch (error) {
@@ -205,6 +223,10 @@ export default function SongScreen() {
   const handleShare = async () => {
     if (!currentSong || !playlist) return;
     try {
+      trackEvent('share_song', {
+        playlist,
+        song_number: String(currentSong.number),
+      });
       await shareSong({ songName: currentSong.name, playlist, songNumber: currentSong.number });
     } catch (error) {
       console.error("Error sharing song:", error);
@@ -251,6 +273,7 @@ export default function SongScreen() {
     if (currentIndex > 0) {
       const prevSong = allSongs[currentIndex - 1];
       setSectionPositions([]);
+      trackEvent('navigate_song', { direction: 'prev', playlist });
       router.replace({
         pathname: `/song/[playlist]/[songNumber]`,
         params: { playlist, songNumber: String(prevSong.number), direction: "back" },
@@ -262,6 +285,7 @@ export default function SongScreen() {
     if (currentIndex < allSongs.length - 1) {
       const nextSong = allSongs[currentIndex + 1];
       setSectionPositions([]);
+      trackEvent('navigate_song', { direction: 'next', playlist });
       router.replace({
         pathname: `/song/[playlist]/[songNumber]`,
         params: { playlist, songNumber: String(nextSong.number), direction: "forward" },

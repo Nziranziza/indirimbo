@@ -6,6 +6,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { ThemedText } from '@/components/themed-text';
 import { useUpdateCheck } from '@/contexts/update-check-context';
 import { useColors } from '@/hooks/use-colors';
+import { trackEvent } from '@/utils/analytics';
 import { openStoreForCurrentPlatform } from '@/utils/store';
 
 import { IconSymbol } from './icon-symbol';
@@ -33,8 +34,9 @@ export function ForceUpdateModal() {
   const canSkip = variant === 'available';
 
   const handleUpdatePress = useCallback(() => {
+    trackEvent('update_tap', { variant: mode });
     void openStoreForCurrentPlatform();
-  }, []);
+  }, [mode]);
 
   const handleRequestClose = useCallback(() => {
     if (canSkip) acknowledgeSkip();

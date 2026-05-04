@@ -18,8 +18,9 @@ import {
   type RecentSearch,
   type RecentSong,
 } from '@/utils/storage';
+import { trackEvent } from '@/utils/analytics';
 import { Stack, useFocusEffect, useRouter } from 'expo-router';
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { FlatList, Platform, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import type { SearchBarCommands } from 'react-native-screens';
@@ -76,8 +77,19 @@ export default function SearchScreen() {
         getRecentSearches().then(setRecentSearches)
       );
     }
-    router.navigate(`/song/${playlist}/${songNumber}`);
+    router.navigate({
+      pathname: '/song/[playlist]/[songNumber]',
+      params: { playlist, songNumber: String(songNumber), source: 'search' },
+    });
   }, [router, debouncedSearchQuery]);
+
+  const lastTrackedQueryRef = useRef('');
+  useEffect(() => {
+    const trimmed = debouncedSearchQuery.trim();
+    if (trimmed.length < 2 || trimmed === lastTrackedQueryRef.current) return;
+    lastTrackedQueryRef.current = trimmed;
+    trackEvent('search', { query: trimmed, result_count: searchResults.length });
+  }, [debouncedSearchQuery, searchResults.length]);
 
   const handleRecentSearchTap = useCallback((query: string) => {
     setSearchQuery(query);
