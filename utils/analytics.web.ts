@@ -16,3 +16,7 @@ export function trackEvent(
 ): void {
   aptabaseTrackEvent(eventName, properties);
 }
+
+export async function trackAppUpdateIfChanged(): Promise<void> {
+  // Web is always served the current deploy; no install version to compare.
+}

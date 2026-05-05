@@ -29,6 +29,12 @@ import type { SearchBarCommands } from 'react-native-screens';
 // Set in handleSongPress so useFocusEffect knows to skip auto-focus on return.
 let _navigatedToSong = false;
 
+const SEARCH_NO_RESULT_DELAY_MS = 3000;
+const MIN_TRACKED_QUERY_LENGTH = 2;
+
+type SearchSession = { query: string; resultCount: number };
+type SearchOutcome = 'opened' | 'no_result' | 'abandoned';
+
 export default function SearchScreen() {
   const router = useRouter();
   const colors = useColors();
@@ -48,7 +54,26 @@ export default function SearchScreen() {
 
   const searchResults = useSearch(visibleSongs, debouncedSearchQuery);
 
-  // Load recent data on focus; auto-focus unless returning from a song
+  const pendingSessionRef = useRef<SearchSession | null>(null);
+  const noResultTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const fireSearchEvent = useCallback((outcome: SearchOutcome) => {
+    if (noResultTimerRef.current) {
+      clearTimeout(noResultTimerRef.current);
+      noResultTimerRef.current = null;
+    }
+    const session = pendingSessionRef.current;
+    if (!session) return;
+    pendingSessionRef.current = null;
+    trackEvent('search', {
+      query: session.query,
+      result_count: session.resultCount,
+      outcome,
+    });
+  }, []);
+
+  // Load recent data on focus; auto-focus unless returning from a song.
+  // On blur, fire 'abandoned' if a search session is still active.
   useFocusEffect(
     useCallback(() => {
       getRecentSearches().then(setRecentSearches);
@@ -56,7 +81,9 @@ export default function SearchScreen() {
 
       if (_navigatedToSong) {
         _navigatedToSong = false;
-        return;
+        return () => {
+          if (pendingSessionRef.current) fireSearchEvent('abandoned');
+        };
       }
 
       const timer = setTimeout(() => {
@@ -66,14 +93,24 @@ export default function SearchScreen() {
           searchInputRef.current?.focus();
         }
       }, 100);
-      return () => clearTimeout(timer);
-    }, [isIOS])
+      return () => {
+        clearTimeout(timer);
+        if (pendingSessionRef.current) fireSearchEvent('abandoned');
+      };
+    }, [isIOS, fireSearchEvent])
   );
 
   const handleSongPress = useCallback((playlist: string, songNumber: number | string) => {
     _navigatedToSong = true;
-    if (debouncedSearchQuery.trim()) {
-      addRecentSearch(debouncedSearchQuery.trim()).then(() =>
+    const trimmed = debouncedSearchQuery.trim();
+    if (trimmed.length >= MIN_TRACKED_QUERY_LENGTH) {
+      if (!pendingSessionRef.current) {
+        pendingSessionRef.current = { query: trimmed, resultCount: searchResults.length };
+      }
+      fireSearchEvent('opened');
+    }
+    if (trimmed) {
+      addRecentSearch(trimmed).then(() =>
         getRecentSearches().then(setRecentSearches)
       );
     }
@@ -81,15 +118,32 @@ export default function SearchScreen() {
       pathname: '/song/[playlist]/[songNumber]',
       params: { playlist, songNumber: String(songNumber), source: 'search' },
     });
-  }, [router, debouncedSearchQuery]);
+  }, [router, debouncedSearchQuery, searchResults.length, fireSearchEvent]);
 
-  const lastTrackedQueryRef = useRef('');
+  // Track the active search session and schedule a 'no_result' event after
+  // the query has been stable with zero results for SEARCH_NO_RESULT_DELAY_MS.
+  // 'abandoned' fires when the query is shortened below the threshold.
   useEffect(() => {
     const trimmed = debouncedSearchQuery.trim();
-    if (trimmed.length < 2 || trimmed === lastTrackedQueryRef.current) return;
-    lastTrackedQueryRef.current = trimmed;
-    trackEvent('search', { query: trimmed, result_count: searchResults.length });
-  }, [debouncedSearchQuery, searchResults.length]);
+
+    if (noResultTimerRef.current) {
+      clearTimeout(noResultTimerRef.current);
+      noResultTimerRef.current = null;
+    }
+
+    if (trimmed.length < MIN_TRACKED_QUERY_LENGTH) {
+      if (pendingSessionRef.current) fireSearchEvent('abandoned');
+      return;
+    }
+
+    pendingSessionRef.current = { query: trimmed, resultCount: searchResults.length };
+
+    if (searchResults.length === 0) {
+      noResultTimerRef.current = setTimeout(() => {
+        fireSearchEvent('no_result');
+      }, SEARCH_NO_RESULT_DELAY_MS);
+    }
+  }, [debouncedSearchQuery, searchResults.length, fireSearchEvent]);
 
   const handleRecentSearchTap = useCallback((query: string) => {
     setSearchQuery(query);

@@ -324,6 +324,25 @@ export async function setOnboardingCompleted(): Promise<void> {
   }
 }
 
+const LAST_SEEN_APP_VERSION_KEY = '@indirimbo:last_seen_app_version';
+
+export async function getLastSeenAppVersion(): Promise<string | null> {
+  try {
+    return await AsyncStorage.getItem(LAST_SEEN_APP_VERSION_KEY);
+  } catch (error) {
+    console.error('Error getting last-seen app version:', error);
+    return null;
+  }
+}
+
+export async function setLastSeenAppVersion(version: string): Promise<void> {
+  try {
+    await AsyncStorage.setItem(LAST_SEEN_APP_VERSION_KEY, version);
+  } catch (error) {
+    console.error('Error setting last-seen app version:', error);
+  }
+}
+
 // Song View Counts (for favorite suggestions)
 function songKey(playlist: string, songNumber: number | string): string {
   return `${playlist}:${songNumber}`;

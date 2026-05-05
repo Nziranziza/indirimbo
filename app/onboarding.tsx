@@ -7,7 +7,7 @@ import { useColors } from '@/hooks/use-colors';
 import { trackEvent } from '@/utils/analytics';
 import type { SongbookPreference } from '@/utils/storage';
 import { useRouter } from 'expo-router';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -44,6 +44,13 @@ export default function OnboardingScreen() {
   const colors = useColors();
   const insets = useSafeAreaInsets();
 
+  const hasTrackedStartRef = useRef(false);
+  useEffect(() => {
+    if (hasTrackedStartRef.current) return;
+    hasTrackedStartRef.current = true;
+    trackEvent('start_onboarding');
+  }, []);
+
   const handleContinue = useCallback(async () => {
     try {
       await setSongbookAndCompleteOnboarding(selected);
@@ -51,6 +58,7 @@ export default function OnboardingScreen() {
       router.replace('/(tabs)/(home)');
     } catch (error) {
       console.error('Failed to complete onboarding:', error);
+      trackEvent('onboarding_error', { songbook_preference: selected });
     }
   }, [selected, setSongbookAndCompleteOnboarding, router]);
 

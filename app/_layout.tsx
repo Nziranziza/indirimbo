@@ -15,7 +15,7 @@ import { SongsProvider } from '@/contexts/songs-context';
 import { ThemeProvider, useColorScheme } from '@/contexts/theme-context';
 import { UpdateCheckProvider } from '@/contexts/update-check-context';
 import { useHydrated } from '@/hooks/use-hydrated';
-import { initAnalytics } from '@/utils/analytics';
+import { initAnalytics, trackAppUpdateIfChanged } from '@/utils/analytics';
 import { recordAppOpen } from '@/utils/storage';
 
 const BASE_URL = 'https://indirimbo.rw';
@@ -48,6 +48,7 @@ function RootLayoutContent() {
   useEffect(() => {
     initAnalytics();
     recordAppOpen().catch(console.error);
+    trackAppUpdateIfChanged().catch(console.error);
   }, []);
 
   return (
