@@ -4,6 +4,8 @@ import { BackButton } from "@/components/ui/back-button";
 import { EngagementPrompt } from "@/components/ui/engagement-prompt";
 import { FavoriteSuggestionTooltip } from "@/components/ui/favorite-suggestion-tooltip";
 import { IconSymbol } from "@/components/ui/icon-symbol";
+import { InAppAlert } from "@/components/ui/in-app-alert";
+import { LyricsContextMenu, type LyricsMenuAnchor } from "@/components/ui/lyrics-context-menu";
 import { LyricsContent } from "@/components/ui/lyrics-content";
 import { SongHeatmap } from "@/components/ui/song-heatmap";
 import { SongNavigationBar } from "@/components/ui/song-navigation-bar";
@@ -26,8 +28,11 @@ import {
   type FontSize,
 } from "@/utils/storage";
 import { trackEvent } from "@/utils/analytics";
-import { lightImpact } from "@/utils/haptics";
-import { shareSong } from "@/utils/share";
+import { formatSectionForSharing } from "@/utils/format-song-text";
+import { heavyImpact, lightImpact } from "@/utils/haptics";
+import { shareSong, shareSongSection } from "@/utils/share";
+import { APP_UNIVERSAL_LINK_URL } from "@/constants/app-links";
+import * as Clipboard from "expo-clipboard";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { PageHead } from "@/components/page-head";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
@@ -39,12 +44,22 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import {
+  Gesture,
+  GestureDetector,
+  GestureHandlerRootView,
+} from "react-native-gesture-handler";
 import Animated, {
+  runOnJS,
   useAnimatedScrollHandler,
   useSharedValue,
   withTiming,
 } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+
+// Matches the SongNavigationBar height: paddingTop(16) + button(48) + paddingBottom(safe area + 16) + border(1).
+// Used to position floating overlays (alerts, prompts) above the nav bar.
+const NAV_BAR_HEIGHT = 16 + 48 + 16 + 1;
 
 function normalizeBookCodes(codes: string): string {
   return codes
@@ -58,6 +73,56 @@ function expandBookCodes(codes: string): string {
     result = result.replaceAll(abbr, full);
   }
   return result;
+}
+
+interface SectionLongPressableProps {
+  readonly children: React.ReactNode;
+  readonly sectionIndex: number;
+  readonly sectionType: "verse" | "chorus";
+  readonly onLongPress: (sectionIndex: number, sectionType: "verse" | "chorus") => void;
+  readonly viewRef: (ref: View | null) => void;
+  readonly onLayout: (event: LayoutChangeEvent) => void;
+}
+
+// Native long-press recognizer with movement tolerance — Pressable's JS-based
+// detector loses the press to the ScrollView's pan on the slightest finger
+// movement, which makes long-press fire unreliably on real devices.
+function SectionLongPressable({
+  children,
+  sectionIndex,
+  sectionType,
+  onLongPress,
+  viewRef,
+  onLayout,
+}: SectionLongPressableProps) {
+  const longPress = useMemo(
+    () =>
+      Gesture.LongPress()
+        .minDuration(350)
+        .maxDistance(15)
+        .onStart(() => {
+          runOnJS(onLongPress)(sectionIndex, sectionType);
+        }),
+    [onLongPress, sectionIndex, sectionType],
+  );
+
+  return (
+    <GestureDetector gesture={longPress}>
+      <View
+        ref={viewRef}
+        onLayout={onLayout}
+        accessible={true}
+        accessibilityActions={[{ name: 'longpress', label: 'Open section menu' }]}
+        onAccessibilityAction={(event) => {
+          if (event.nativeEvent.actionName === 'longpress') {
+            onLongPress(sectionIndex, sectionType);
+          }
+        }}
+      >
+        {children}
+      </View>
+    </GestureDetector>
+  );
 }
 
 export default function SongScreen() {
@@ -76,6 +141,12 @@ export default function SongScreen() {
   >([]);
   const [contentHeight, setContentHeight] = useState(0);
   const [scrollViewHeight, setScrollViewHeight] = useState(0);
+  const [contextMenu, setContextMenu] = useState<{
+    sectionIndex: number;
+    sectionType: "verse" | "chorus";
+    anchor: LyricsMenuAnchor;
+  } | null>(null);
+  const [alertState, setAlertState] = useState<{ icon: "doc.text"; message: string; nonce: number } | null>(null);
   // Default: paddingRight(20) + border(1) + buttonPadding(8) + halfIcon(11) - cardMargin(12) = 28
   const [arrowRightOffset, setArrowRightOffset] = useState(28);
   const animatedScrollY = useSharedValue(0);
@@ -241,7 +312,128 @@ export default function SongScreen() {
     }
   };
 
+  const handleShareSection = useCallback(
+    async (sectionIndex: number, sectionType: "verse" | "chorus") => {
+      if (!currentSong || !playlist) return;
+      try {
+        trackEvent('share_lyrics', {
+          playlist,
+          song_number: String(currentSong.number),
+          song: `${playlist}/${currentSong.number}`,
+          song_name: currentSong.name,
+          scope: 'section',
+          section_type: sectionType,
+          section_index: String(sectionIndex),
+        });
+        await shareSongSection({ song: currentSong, playlist, sectionIndex });
+      } catch (error) {
+        console.error("Error sharing section:", error);
+      }
+    },
+    [currentSong, playlist],
+  );
+
+  const triggerSectionLongPress = useCallback(
+    (sectionIndex: number, sectionType: "verse" | "chorus") => {
+      if (!currentSong) return;
+      sectionRefs.current[sectionIndex]?.measureInWindow((x, y, width, height) => {
+        heavyImpact();
+        setContextMenu({ sectionIndex, sectionType, anchor: { x, y, width, height } });
+        trackEvent('open_lyrics_menu', {
+          playlist,
+          song_number: String(currentSong.number),
+          song: `${playlist}/${currentSong.number}`,
+          song_name: currentSong.name,
+          section_type: sectionType,
+          section_index: String(sectionIndex),
+        });
+      });
+    },
+    [currentSong, playlist],
+  );
+
+  const handleCopySection = useCallback(
+    async (sectionIndex: number, sectionType: "verse" | "chorus") => {
+      if (!currentSong || !playlist) return;
+      try {
+        const body = formatSectionForSharing({ song: currentSong, sectionIndex });
+        if (!body) return;
+        const url = `${APP_UNIVERSAL_LINK_URL}/song/${encodeURIComponent(playlist)}/${encodeURIComponent(String(currentSong.number))}`;
+        await Clipboard.setStringAsync(`${body}\n\n${url}`);
+        trackEvent('copy_lyrics', {
+          playlist,
+          song_number: String(currentSong.number),
+          song: `${playlist}/${currentSong.number}`,
+          song_name: currentSong.name,
+          scope: 'section',
+          section_type: sectionType,
+          section_index: String(sectionIndex),
+        });
+        trackEvent('in_app_alert_shown', {
+          alert: 'copy_lyrics',
+          section_type: sectionType,
+          playlist,
+          song_number: String(currentSong.number),
+        });
+        setAlertState({
+          icon: 'doc.text',
+          message: sectionType === 'chorus'
+            ? 'Chorus copied — paste it anywhere'
+            : 'Verse copied — paste it anywhere',
+          nonce: Date.now(),
+        });
+      } catch (error) {
+        console.error("Error copying section:", error);
+      }
+    },
+    [currentSong, playlist],
+  );
+
   const fontSizeStyles = useMemo(() => FONT_SIZES[fontSize], [fontSize]);
+
+  const renderSectionContent = useCallback((item: Song['body'][number], forPreview = false) => {
+    const sections = currentSong?.body?.filter((b) => b.type === 'verse' || b.type === 'chorus') ?? [];
+    const showVerseLabel = sections.length > 1;
+    return (
+      <ThemedView
+        style={[
+          item.type === "verse" ? styles.verseContainer : styles.chorusContainer,
+          item.type === "chorus" && { backgroundColor: colors.tint + "08" },
+          forPreview && styles.previewSectionOverride,
+          forPreview && item.type === "verse" && styles.previewVersePadding,
+        ]}
+      >
+        {item.type === "chorus" && (
+          <View style={[styles.chorusBar, { backgroundColor: colors.tint }]} />
+        )}
+        {item.type === "verse" && item.number && showVerseLabel && (
+          <ThemedView style={styles.verseHeader}>
+            <ThemedText style={[styles.verseLabel, { color: colors.icon }]} accessibilityRole="header">
+              Verse {item.number}
+            </ThemedText>
+          </ThemedView>
+        )}
+        {item.type === "chorus" && (
+          <View style={styles.chorusHeader}>
+            <ThemedText style={[styles.chorusLabel, { color: colors.tint }]} accessibilityRole="header">
+              Chorus
+            </ThemedText>
+          </View>
+        )}
+        <LyricsContent
+          content={item.content}
+          style={[
+            item.type === "verse" ? styles.verseContent : styles.chorusContent,
+            {
+              fontSize: item.type === "verse" ? fontSizeStyles.verse : fontSizeStyles.chorus,
+              lineHeight: fontSizeStyles.lineHeight,
+            },
+          ]}
+          tintColor={colors.tint}
+        />
+      </ThemedView>
+    );
+  }, [currentSong, colors, fontSizeStyles]);
 
   const measureFavoriteButton = useCallback(() => {
     favoriteButtonRef.current?.measureInWindow((x, _y, width) => {
@@ -380,7 +572,7 @@ export default function SongScreen() {
         </View>
       </ThemedView>
 
-      <View style={styles.contentContainer}>
+      <GestureHandlerRootView style={styles.contentContainer}>
         <Animated.ScrollView
           ref={scrollViewRef}
           style={styles.scrollView}
@@ -396,47 +588,16 @@ export default function SongScreen() {
         >
           <View style={{ height: 8 }}/>
           {currentSong.body?.filter((item) => item && item.type).map((item, index) => (
-            <View
+            <SectionLongPressable
               key={`${playlist}-${currentSongNumber}-${item.type}-${item.number ?? index}`}
-              ref={(ref: View | null) => { sectionRefs.current[index] = ref; }}
+              sectionIndex={index}
+              sectionType={item.type}
+              onLongPress={triggerSectionLongPress}
+              viewRef={(ref) => { sectionRefs.current[index] = ref; }}
               onLayout={(event) => measureSection(index, event)}
             >
-              <ThemedView
-                style={[
-                  item.type === "verse" ? styles.verseContainer : styles.chorusContainer,
-                  item.type === "chorus" && { backgroundColor: colors.tint + "08" },
-                ]}
-              >
-                {item.type === "chorus" && (
-                  <View style={[styles.chorusBar, { backgroundColor: colors.tint }]} />
-                )}
-                {item.type === "verse" && item.number && currentSong.body.filter((b) => b.type === "verse" || b.type === "chorus").length > 1 && (
-                  <ThemedView style={styles.verseHeader}>
-                    <ThemedText style={[styles.verseLabel, { color: colors.icon }]} accessibilityRole="header">
-                      Verse {item.number}
-                    </ThemedText>
-                  </ThemedView>
-                )}
-                {item.type === "chorus" && (
-                  <View style={styles.chorusHeader}>
-                    <ThemedText style={[styles.chorusLabel, { color: colors.tint }]} accessibilityRole="header">
-                      Chorus
-                    </ThemedText>
-                  </View>
-                )}
-                <LyricsContent
-                  content={item.content}
-                  style={[
-                    item.type === "verse" ? styles.verseContent : styles.chorusContent,
-                    {
-                      fontSize: item.type === "verse" ? fontSizeStyles.verse : fontSizeStyles.chorus,
-                      lineHeight: fontSizeStyles.lineHeight,
-                    },
-                  ]}
-                  tintColor={colors.tint}
-                />
-              </ThemedView>
-            </View>
+              {renderSectionContent(item)}
+            </SectionLongPressable>
           )) || []}
           {hasFooterContent && (
             <View style={styles.referencesContainer}>
@@ -453,7 +614,7 @@ export default function SongScreen() {
             </View>
           )}
         </Animated.ScrollView>
-      </View>
+      </GestureHandlerRootView>
 
       <SongHeatmap
         sectionPositions={sectionPositions}
@@ -488,6 +649,39 @@ export default function SongScreen() {
         onPrevious={handlePrevious}
         onNext={handleNext}
         bottomInset={insets.bottom}
+      />
+
+      <LyricsContextMenu
+        visible={contextMenu !== null}
+        anchor={contextMenu?.anchor ?? null}
+        onClose={() => setContextMenu(null)}
+        bottomInset={insets.bottom}
+        previewPaddingVertical={contextMenu?.sectionType === 'verse' ? 6 : 0}
+        previewContent={contextMenu && currentSong.body[contextMenu.sectionIndex]
+          ? renderSectionContent(currentSong.body[contextMenu.sectionIndex], true)
+          : null}
+        items={contextMenu ? [
+          {
+            key: 'copy',
+            label: contextMenu.sectionType === 'chorus' ? 'Copy chorus' : 'Copy verse',
+            icon: 'doc.text',
+            onPress: () => { void handleCopySection(contextMenu.sectionIndex, contextMenu.sectionType); },
+          },
+          {
+            key: 'share',
+            label: contextMenu.sectionType === 'chorus' ? 'Share chorus' : 'Share verse',
+            icon: 'square.and.arrow.up',
+            onPress: () => { void handleShareSection(contextMenu.sectionIndex, contextMenu.sectionType); },
+          },
+        ] : []}
+      />
+
+      <InAppAlert
+        visible={alertState !== null}
+        icon={alertState?.icon ?? 'doc.text'}
+        message={alertState?.message ?? ''}
+        onDismiss={() => setAlertState(null)}
+        bottomOffset={NAV_BAR_HEIGHT + insets.bottom + 8}
       />
 
     </ThemedView>
@@ -559,6 +753,15 @@ const styles = StyleSheet.create({
     paddingTop: 0,
     paddingBottom: 20,
   },
+  previewSectionOverride: {
+    marginTop: 0,
+    marginRight: 0,
+    marginBottom: 0,
+    marginLeft: 0,
+  },
+  previewVersePadding: {
+    paddingHorizontal: 20,
+  },
   scrollContentNoFooter: {
     paddingBottom: 100,
   },
@@ -570,7 +773,6 @@ const styles = StyleSheet.create({
     overflow: "visible",
   },
   chorusContainer: {
-    marginTop: -4,
     marginBottom: 20,
     marginLeft: -20,
     marginRight: -20,
