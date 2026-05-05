@@ -14,6 +14,11 @@ export function mediumImpact(): void {
   Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium).catch(() => {});
 }
 
+export function heavyImpact(): void {
+  if (!isHapticsSupported()) return;
+  Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy).catch(() => {});
+}
+
 export function successNotification(): void {
   if (!isHapticsSupported()) return;
   Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success).catch(() => {});
