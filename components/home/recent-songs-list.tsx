@@ -57,11 +57,11 @@ export function RecentSongsList({ recentSongs, allSongs, onSongPress }: RecentSo
               <SongNumberBadge number={recent.songNumber} />
               <View style={styles.songInfo}>
                 <View style={styles.playlistRow}>
-                  <ThemedText style={[styles.playlistLabel, { color: colors.icon, opacity: 0.6 }]} numberOfLines={1}>
+                  <ThemedText style={[styles.playlistLabel, { color: colors.icon, opacity: 0.8 }]} numberOfLines={1}>
                     {playlistTitle}
                   </ThemedText>
                   {hasHydrated && (
-                    <ThemedText style={[styles.date, { color: colors.icon, opacity: 0.4 }]} numberOfLines={1}>
+                    <ThemedText style={[styles.date, { color: colors.icon, opacity: 0.6 }]} numberOfLines={1}>
                       • {getShortTimeAgo(recent.timestamp)}
                     </ThemedText>
                   )}
@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
   },
   card: {
     width: '100%',
-    padding: 14,
+    padding: 16,
     borderRadius: 12,
     borderWidth: 1,
     gap: 10,
@@ -107,16 +107,16 @@ const styles = StyleSheet.create({
     maxWidth: '100%',
   },
   playlistLabel: {
-    fontSize: 11,
+    fontSize: 12,
     flexShrink: 0,
     lineHeight: 11,
   },
   date: {
-    fontSize: 10,
+    fontSize: 11,
     flexShrink: 1,
   },
   songTitle: {
-    fontSize: 14,
-    lineHeight: 18,
+    fontSize: 16,
+    lineHeight: 20,
   },
 });

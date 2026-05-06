@@ -1,5 +1,5 @@
-import { Fragment, useCallback, useEffect, useRef, useState, type ReactNode } from 'react';
-import { Dimensions, type LayoutChangeEvent, Modal, Platform, Pressable, StyleSheet, View } from 'react-native';
+import { Fragment, useCallback, useEffect, useState, type ReactNode } from 'react';
+import { BackHandler, Dimensions, type LayoutChangeEvent, Platform, Pressable, StyleSheet, View } from 'react-native';
 
 import { ThemedText } from '@/components/themed-text';
 import { useColors } from '@/hooks/use-colors';
@@ -28,7 +28,7 @@ interface Props {
   readonly items: readonly LyricsMenuItem[];
   readonly previewContent?: ReactNode;
   readonly previewPaddingVertical?: number;
-  /** Safe-area bottom inset (e.g. system nav bar on Android). Subtracted from window height when deciding to flip the menu above. */
+  /** Safe-area bottom inset, used to keep the flip-above check inside the visible area on Android. */
   readonly bottomInset?: number;
 }
 
@@ -40,32 +40,37 @@ const SCREEN_EDGE_PAD = 8;
 const BACKDROP_DIM = 'rgba(0,0,0,0.55)';
 const DESTRUCTIVE_COLOR = '#FF3B30';
 
-export function LyricsContextMenu({ visible, onClose, anchor, items, previewContent, previewPaddingVertical = 0, bottomInset = 0 }: Props) {
+export function LyricsContextMenu({
+  visible,
+  onClose,
+  anchor,
+  items,
+  previewContent,
+  previewPaddingVertical = 0,
+  bottomInset = 0,
+}: Props) {
   const colors = useColors();
   const { width: windowWidth, height: windowHeight } = Dimensions.get('window');
-  const pendingActionRef = useRef<(() => void) | null>(null);
   const [previewHeight, setPreviewHeight] = useState<number | null>(null);
 
   useEffect(() => {
     if (!visible) setPreviewHeight(null);
   }, [visible]);
 
-  const handleItemPress = useCallback((action: () => void) => {
-    pendingActionRef.current = action;
-    onClose();
-    // On Android, Modal has no onDismiss callback; presenting a sibling
-    // dialog/share sheet during the fade isn't problematic, so fire now.
-    if (Platform.OS !== 'ios') {
-      pendingActionRef.current = null;
-      action();
-    }
-  }, [onClose]);
+  // Android hardware back button dismisses the menu while it's open.
+  useEffect(() => {
+    if (!visible) return;
+    const sub = BackHandler.addEventListener('hardwareBackPress', () => {
+      onClose();
+      return true;
+    });
+    return () => sub.remove();
+  }, [visible, onClose]);
 
-  const handleDismissed = useCallback(() => {
-    const action = pendingActionRef.current;
-    pendingActionRef.current = null;
-    action?.();
-  }, []);
+  const handleItemPress = useCallback((action: () => void) => {
+    onClose();
+    action();
+  }, [onClose]);
 
   const handlePreviewLayout = useCallback((event: LayoutChangeEvent) => {
     const h = event.nativeEvent.layout.height;
@@ -81,10 +86,6 @@ export function LyricsContextMenu({ visible, onClose, anchor, items, previewCont
   // its content (verse/chorus) still lines up with the original section.
   const wrapperTop = anchor ? anchor.y - previewPaddingVertical : 0;
 
-  // On Android, `Dimensions.get('window').height` can include the area
-  // covered by the system navigation bar, where the modal can't actually
-  // render. Subtract the bottom safe-area inset so the flip-above check
-  // uses the truly visible vertical space.
   const usableBottom = windowHeight - bottomInset;
 
   let menuTop = 0;
@@ -99,14 +100,14 @@ export function LyricsContextMenu({ visible, onClose, anchor, items, previewCont
     menuLeft = Math.min(Math.max(SCREEN_EDGE_PAD, wantedLeft), Math.max(SCREEN_EDGE_PAD, maxLeft));
   }
 
+  if (!visible) return null;
+
+  // The overlay sits in the same view tree as the screen content (not in a
+  // Modal), so the captured `anchor` from `measureInWindow` and the overlay's
+  // own coordinate system match exactly — no platform-specific compensation
+  // for status bars or modal coordinate translation.
   return (
-    <Modal
-      visible={visible}
-      transparent
-      animationType="none"
-      onRequestClose={onClose}
-      onDismiss={handleDismissed}
-    >
+    <View style={[StyleSheet.absoluteFill, styles.overlay]} pointerEvents="box-none">
       <Pressable style={styles.backdrop} onPress={onClose}>
         {anchor && previewContent && (
           <View
@@ -167,11 +168,18 @@ export function LyricsContextMenu({ visible, onClose, anchor, items, previewCont
           </Pressable>
         )}
       </Pressable>
-    </Modal>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
+  // Sit above any in-screen siblings that set their own stacking (e.g. the
+  // SongNavigationBar uses `zIndex: 10`). Android needs `elevation` since
+  // it ignores `zIndex` for native draw order.
+  overlay: {
+    zIndex: 100,
+    elevation: 100,
+  },
   backdrop: {
     flex: 1,
     backgroundColor: BACKDROP_DIM,

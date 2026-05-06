@@ -63,7 +63,7 @@ export function FavoriteSongsRow({ favoriteSongs, allSongs, onSongPress }: Favor
                 activeOpacity={0.7}>
                 <SongNumberBadge number={favorite.songNumber} style={{ alignSelf: 'flex-start' }} />
                 <View style={styles.songInfo}>
-                  <ThemedText style={[styles.playlistLabel, { color: colors.icon, opacity: 0.6 }]} numberOfLines={1}>
+                  <ThemedText style={[styles.playlistLabel, { color: colors.icon, opacity: 0.8 }]} numberOfLines={1}>
                     {playlistTitle}
                   </ThemedText>
                   <ThemedText type="defaultSemiBold" style={styles.songTitle} numberOfLines={2}>
@@ -109,22 +109,22 @@ const styles = StyleSheet.create({
     gap: 12,
   },
   card: {
-    width: 160,
-    padding: 14,
+    width: 200,
+    padding: 16,
     borderRadius: 12,
     borderWidth: 1,
-    gap: 10,
+    gap: 12,
   },
   songInfo: {
     flex: 1,
   },
   playlistLabel: {
-    fontSize: 11,
-    lineHeight: 11,
+    fontSize: 12,
+    lineHeight: 12,
     marginBottom: 4,
   },
   songTitle: {
-    fontSize: 14,
-    lineHeight: 18,
+    fontSize: 16,
+    lineHeight: 20,
   },
 });
