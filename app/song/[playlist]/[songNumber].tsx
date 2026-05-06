@@ -47,7 +47,6 @@ import {
 import {
   Gesture,
   GestureDetector,
-  GestureHandlerRootView,
 } from "react-native-gesture-handler";
 import Animated, {
   runOnJS,
@@ -87,6 +86,10 @@ interface SectionLongPressableProps {
 // Native long-press recognizer with movement tolerance — Pressable's JS-based
 // detector loses the press to the ScrollView's pan on the slightest finger
 // movement, which makes long-press fire unreliably on real devices.
+//
+// On web we skip the long-press menu entirely: users already have native
+// browser text selection, and any pointer-event listeners we attach inside
+// the ScrollView would interfere with the browser's native touch-scroll.
 function SectionLongPressable({
   children,
   sectionIndex,
@@ -105,6 +108,14 @@ function SectionLongPressable({
         }),
     [onLongPress, sectionIndex, sectionType],
   );
+
+  if (Platform.OS === 'web') {
+    return (
+      <View ref={viewRef} onLayout={onLayout}>
+        {children}
+      </View>
+    );
+  }
 
   return (
     <GestureDetector gesture={longPress}>
@@ -592,7 +603,7 @@ export default function SongScreen() {
         </View>
       </ThemedView>
 
-      <GestureHandlerRootView style={styles.contentContainer}>
+      <View style={styles.contentContainer}>
         <Animated.ScrollView
           ref={scrollViewRef}
           style={styles.scrollView}
@@ -634,7 +645,7 @@ export default function SongScreen() {
             </View>
           )}
         </Animated.ScrollView>
-      </GestureHandlerRootView>
+      </View>
 
       <SongHeatmap
         sectionPositions={sectionPositions}

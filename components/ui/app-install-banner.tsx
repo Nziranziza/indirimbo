@@ -170,9 +170,8 @@ export function AppInstallBanner() {
         <TouchableOpacity
           onPress={() => setIsVisible(false)}
           activeOpacity={0.7}
-          style={styles.closeButton}
         >
-          <IconSymbol name="xmark.circle.fill" size={20} color={colors.icon} />
+          <IconSymbol name="xmark.circle.fill" size={28} color={colors.icon} />
         </TouchableOpacity>
       </TouchableOpacity>
     </View>
@@ -227,8 +226,5 @@ const styles = StyleSheet.create({
     fontSize: 13,
     fontWeight: '700',
     letterSpacing: 0.5,
-  },
-  closeButton: {
-    padding: 4,
   },
 });
