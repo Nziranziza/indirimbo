@@ -153,6 +153,7 @@ export default function SongScreen() {
   const scrollViewRef = useRef<Animated.ScrollView>(null);
   const sectionRefs = useRef<(View | null)[]>([]);
   const favoriteButtonRef = useRef<View>(null);
+  const containerRef = useRef<View>(null);
   const colors = useColors();
   const insets = useSafeAreaInsets();
 
@@ -336,16 +337,35 @@ export default function SongScreen() {
   const triggerSectionLongPress = useCallback(
     (sectionIndex: number, sectionType: "verse" | "chorus") => {
       if (!currentSong) return;
-      sectionRefs.current[sectionIndex]?.measureInWindow((x, y, width, height) => {
-        heavyImpact();
-        setContextMenu({ sectionIndex, sectionType, anchor: { x, y, width, height } });
-        trackEvent('open_lyrics_menu', {
-          playlist,
-          song_number: String(currentSong.number),
-          song: `${playlist}/${currentSong.number}`,
-          song_name: currentSong.name,
-          section_type: sectionType,
-          section_index: String(sectionIndex),
+      const sectionView = sectionRefs.current[sectionIndex];
+      const containerView = containerRef.current;
+      if (!sectionView || !containerView) return;
+      // Measure both the section and the overlay's parent (container) in the
+      // same coordinate space, then take the difference. This gives an anchor
+      // expressed in the overlay's local coordinates regardless of any
+      // status-bar / system-bar offsets the platform applies to the React
+      // root view — no platform branches needed.
+      sectionView.measureInWindow((sectionX, sectionY, width, height) => {
+        containerView.measureInWindow((containerX, containerY) => {
+          heavyImpact();
+          setContextMenu({
+            sectionIndex,
+            sectionType,
+            anchor: {
+              x: sectionX - containerX,
+              y: sectionY - containerY,
+              width,
+              height,
+            },
+          });
+          trackEvent('open_lyrics_menu', {
+            playlist,
+            song_number: String(currentSong.number),
+            song: `${playlist}/${currentSong.number}`,
+            song_name: currentSong.name,
+            section_type: sectionType,
+            section_index: String(sectionIndex),
+          });
         });
       });
     },
@@ -505,7 +525,7 @@ export default function SongScreen() {
   const headerHeight = insets.top + 8 + 40 + 8;
 
   return (
-    <ThemedView style={styles.container}>
+    <ThemedView ref={containerRef} style={styles.container}>
       <PageHead
         title={`${currentSong.name} | ${getSongTitleLabel(playlist, currentSong.number)}`}
         description={seoDescription}
@@ -655,7 +675,7 @@ export default function SongScreen() {
         visible={contextMenu !== null}
         anchor={contextMenu?.anchor ?? null}
         onClose={() => setContextMenu(null)}
-        bottomInset={insets.bottom}
+        bottomInset={NAV_BAR_HEIGHT + insets.bottom}
         previewPaddingVertical={contextMenu?.sectionType === 'verse' ? 6 : 0}
         previewContent={contextMenu && currentSong.body[contextMenu.sectionIndex]
           ? renderSectionContent(currentSong.body[contextMenu.sectionIndex], true)
