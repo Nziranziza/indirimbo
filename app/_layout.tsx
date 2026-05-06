@@ -4,6 +4,7 @@ import Head from 'expo-router/head';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
 import { Platform, StyleSheet, View } from 'react-native';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import 'react-native-reanimated';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
@@ -137,26 +138,28 @@ export default function RootLayout() {
   const content = hasHydrated ? <RootLayoutContent /> : <ThemedView style={{ flex: 1 }} />;
   
   const inner = (
-    <SafeAreaProvider>
-      <SongsProvider>
-      <SongbookPreferenceProvider>
-      <ThemeProvider>
-      <UpdateCheckProvider>
-        {Platform.OS === 'web' ? (
-          <ThemedView style={{ flex: 1}}>
-          <View style={styles.webWrapper}>
-            <AppInstallBanner />
-            {content}
-          </View>
-          </ThemedView>
-        ) : (
-          content
-        )}
-      </UpdateCheckProvider>
-      </ThemeProvider>
-      </SongbookPreferenceProvider>
-      </SongsProvider>
-    </SafeAreaProvider>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <SafeAreaProvider>
+        <SongsProvider>
+        <SongbookPreferenceProvider>
+        <ThemeProvider>
+        <UpdateCheckProvider>
+          {Platform.OS === 'web' ? (
+            <ThemedView style={{ flex: 1}}>
+            <View style={styles.webWrapper}>
+              <AppInstallBanner />
+              {content}
+            </View>
+            </ThemedView>
+          ) : (
+            content
+          )}
+        </UpdateCheckProvider>
+        </ThemeProvider>
+        </SongbookPreferenceProvider>
+        </SongsProvider>
+      </SafeAreaProvider>
+    </GestureHandlerRootView>
   );
 
   return (
