@@ -1,8 +1,7 @@
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { IconSymbol } from '@/components/ui/icon-symbol';
-import { SongNumberBadge } from '@/components/ui/song-number-badge';
-import { getPlaylistName } from '@/constants/playlists';
+import { RecentSongCard } from '@/components/ui/recent-song-card';
 import type { Song } from '@/constants/types';
 import React, { useMemo } from 'react';
 import {
@@ -15,7 +14,13 @@ import {
 import type { RecentSearch, RecentSong } from '@/utils/storage';
 
 type RecentSearchItem = { type: 'search'; query: string };
-type RecentSongItem = { type: 'song'; playlist: string; songNumber: number | string; songName: string };
+type RecentSongItem = {
+  type: 'song';
+  playlist: string;
+  songNumber: number | string;
+  songName: string;
+  timestamp: number;
+};
 type RecentItem = RecentSearchItem | RecentSongItem;
 
 interface RecentItemsListProps {
@@ -56,7 +61,13 @@ export function RecentItemsList({
       sections.push({
         key: 'songs',
         title: '',
-        data: recentSongs.map(s => ({ type: 'song' as const, playlist: s.playlist, songNumber: s.songNumber, songName: s.songName })),
+        data: recentSongs.map(s => ({
+          type: 'song' as const,
+          playlist: s.playlist,
+          songNumber: s.songNumber,
+          songName: s.songName,
+          timestamp: s.timestamp,
+        })),
       });
     }
     return sections;
@@ -87,9 +98,11 @@ export function RecentItemsList({
             <ThemedText type="title" style={{ marginBottom: 20 }}>Search</ThemedText>
           )}
           <View style={styles.recentHeader}>
-            <ThemedText type="defaultSemiBold" style={styles.recentTitle}>
-              Recent
-            </ThemedText>
+            {(recentSearches.length > 0 || recentSongs.length > 0) && (
+              <ThemedText type="defaultSemiBold" style={styles.recentTitle}>
+                Recent
+              </ThemedText>
+            )}
             {recentSearches.length > 0 && (
               <TouchableOpacity
                 onPress={onClearSearches}
@@ -116,7 +129,7 @@ export function RecentItemsList({
                 styles.recentItem,
                 !isLast && {
                   borderBottomWidth: StyleSheet.hairlineWidth,
-                  borderBottomColor: colors.icon + '20',
+                  borderBottomColor: colors.icon + '40',
                 },
               ]}
               onPress={() => onSearchTap(item.query)}
@@ -148,40 +161,16 @@ export function RecentItemsList({
             </TouchableOpacity>
           );
         }
-        const playlistSongs = allSongs[item.playlist] || [];
-        const song = playlistSongs.find(
-          (s) => String(s.number) === String(item.songNumber),
-        );
         return (
-          <TouchableOpacity
-            style={[
-              styles.recentSongCard,
-              { borderColor: colors.icon + '20' },
-            ]}
-            onPress={() => onSongPress(item.playlist, item.songNumber)}
-            accessibilityLabel={`${song?.name || item.songName}, ${getPlaylistName(item.playlist)}`}
-            accessibilityRole="button"
-            activeOpacity={0.7}
-          >
-            <SongNumberBadge number={item.songNumber} />
-            <View style={styles.recentSongInfo}>
-              <ThemedText
-                style={[
-                  styles.playlistLabel,
-                  { color: colors.icon, opacity: 0.7 },
-                ]}
-              >
-                {getPlaylistName(item.playlist)}
-              </ThemedText>
-              <ThemedText
-                type="defaultSemiBold"
-                style={styles.recentSongName}
-                numberOfLines={2}
-              >
-                {song?.name || item.songName}
-              </ThemedText>
-            </View>
-          </TouchableOpacity>
+          <RecentSongCard
+            playlist={item.playlist}
+            songNumber={item.songNumber}
+            songName={item.songName}
+            timestamp={item.timestamp}
+            allSongs={allSongs}
+            onPress={onSongPress}
+            style={styles.songCardSpacing}
+          />
         );
       }}
       ListEmptyComponent={
@@ -204,7 +193,7 @@ export function RecentItemsList({
 const styles = StyleSheet.create({
   scrollContent: {
     paddingHorizontal: 20,
-    paddingTop: 12,
+    paddingTop: 4,
   },
   recentHeader: {
     flexDirection: 'row',
@@ -223,31 +212,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 12,
-    paddingVertical: 12,
+    paddingVertical: 14,
   },
   recentQuery: {
     flex: 1,
     fontSize: 15,
   },
-  recentSongCard: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    padding: 14,
-    borderRadius: 12,
-    borderWidth: 1,
-    gap: 12,
+  songCardSpacing: {
     marginBottom: 12,
-  },
-  recentSongInfo: {
-    flex: 1,
-  },
-  playlistLabel: {
-    fontSize: 12,
-    marginBottom: 4,
-  },
-  recentSongName: {
-    fontSize: 14,
-    lineHeight: 18,
   },
   emptyState: {
     alignItems: 'center',

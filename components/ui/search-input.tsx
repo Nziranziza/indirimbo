@@ -74,13 +74,13 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: 8,
+    paddingHorizontal: 16,
     paddingVertical: 4,
-    borderRadius: 12,
+    borderRadius: 999,
   },
   input: {
     flex: 1,
-    fontSize: 18,
+    fontSize: 16,
   },
   icon: {
     width: 30,

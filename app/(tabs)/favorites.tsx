@@ -169,12 +169,15 @@ const styles = StyleSheet.create({
   },
   playlistLabel: {
     fontSize: 12,
+    lineHeight: 13,
   },
   songTitle: {
     fontSize: 16,
   },
   likedDate: {
     fontSize: 11,
+    lineHeight: 12,
+    textTransform: 'capitalize'
   },
   favoriteButton: {
     padding: 8,
