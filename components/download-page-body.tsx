@@ -6,6 +6,8 @@ import { IconSymbol } from '@/components/ui/icon-symbol';
 import type { IconSymbolName } from '@/components/ui/icon-symbol';
 import { APP_STORE_URL, APP_UNIVERSAL_LINK_URL, PLAY_STORE_URL } from '@/constants/app-links';
 import { useColors } from '@/hooks/use-colors';
+import { trackEvent } from '@/utils/analytics';
+import { useEffect } from 'react';
 import { Image, Linking, Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
 
 export type DownloadVariant = 'default' | 'kirundi';
@@ -17,6 +19,24 @@ interface DownloadPageBodyProps {
 export function DownloadPageBody({ variant = 'default' }: DownloadPageBodyProps) {
   const colors = useColors();
   const isKirundi = variant === 'kirundi';
+
+  useEffect(() => {
+    trackEvent('view_download_page', {
+      variant: isKirundi ? 'kirundi' : 'kinyarwanda',
+    });
+  }, [isKirundi]);
+
+  const handleStorePress = async (store: 'app_store' | 'play_store', url: string) => {
+    trackEvent('tap_download_store', {
+      store,
+      variant: isKirundi ? 'kirundi' : 'kinyarwanda',
+    });
+    try {
+      await Linking.openURL(url);
+    } catch (error) {
+      console.error('Error opening store URL:', error);
+    }
+  };
 
   const tagline = isKirundi
     ? 'Cantiques Kirundi, Gushimisha Imana & Agakiza'
@@ -52,7 +72,7 @@ export function DownloadPageBody({ variant = 'default' }: DownloadPageBodyProps)
       <ThemedView style={styles.storeSection}>
         {APP_STORE_URL && (
           <TouchableOpacity
-            onPress={() => Linking.openURL(APP_STORE_URL!)}
+            onPress={() => handleStorePress('app_store', APP_STORE_URL!)}
             activeOpacity={0.8}
             style={[styles.storeButton, { borderColor: colors.icon + '40' }]}>
             <IconSymbol name="apple.logo" size={32} color="#FFFFFF" />
@@ -65,7 +85,7 @@ export function DownloadPageBody({ variant = 'default' }: DownloadPageBodyProps)
 
         {PLAY_STORE_URL && (
           <TouchableOpacity
-            onPress={() => Linking.openURL(PLAY_STORE_URL!)}
+            onPress={() => handleStorePress('play_store', PLAY_STORE_URL!)}
             activeOpacity={0.8}
             style={[styles.storeButton, { borderColor: colors.icon + '40' }]}>
             <GooglePlayIcon size={32} />
