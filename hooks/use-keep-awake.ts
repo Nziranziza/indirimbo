@@ -9,27 +9,40 @@ const MAX_DURATION_MS = 5 * 60_000;
 
 export function useKeepAwake(lineCount: number) {
   const timerRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+  const isActiveRef = useRef(false);
 
   const estimatedDuration = Math.min(
     Math.max(lineCount * MS_PER_LINE + BUFFER_MS, MIN_DURATION_MS),
     MAX_DURATION_MS,
   );
 
+  const safeDeactivate = useCallback(() => {
+    if (!isActiveRef.current) return;
+    isActiveRef.current = false;
+    try {
+      deactivateKeepAwake(KEEP_AWAKE_TAG);
+    } catch (error) {
+      console.error(error);
+    }
+  }, []);
+
   const resetKeepAwake = useCallback(() => {
     if (timerRef.current) clearTimeout(timerRef.current);
-    activateKeepAwakeAsync(KEEP_AWAKE_TAG).catch(console.error);
-    timerRef.current = setTimeout(() => {
-      deactivateKeepAwake(KEEP_AWAKE_TAG);
-    }, estimatedDuration);
-  }, [estimatedDuration]);
+    isActiveRef.current = true;
+    activateKeepAwakeAsync(KEEP_AWAKE_TAG).catch((error) => {
+      isActiveRef.current = false;
+      console.error(error);
+    });
+    timerRef.current = setTimeout(safeDeactivate, estimatedDuration);
+  }, [estimatedDuration, safeDeactivate]);
 
   useEffect(() => {
     resetKeepAwake();
     return () => {
       if (timerRef.current) clearTimeout(timerRef.current);
-      deactivateKeepAwake(KEEP_AWAKE_TAG);
+      safeDeactivate();
     };
-  }, [resetKeepAwake]);
+  }, [resetKeepAwake, safeDeactivate]);
 
   return { resetKeepAwake };
 }

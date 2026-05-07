@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
   },
   playlistLabel: {
     fontSize: 12,
-    lineHeight: 12,
+    lineHeight: 13,
     marginBottom: 4,
   },
   songTitle: {

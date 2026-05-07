@@ -14,7 +14,9 @@
     "release": "npx eas-cli build --platform all --profile release",
     "submit:android": "npx eas-cli submit --platform android",
     "submit:ios": "npx eas-cli submit --platform ios",
-    "update": "npx eas-cli update --channel production"
+    "update": "npx eas-cli update --channel production",
+    "ios:device": "expo run:ios --device",
+    "android:device": "expo run:android --device"
   },
   "dependencies": {
     "@aptabase/react-native": "^0.4.0",
