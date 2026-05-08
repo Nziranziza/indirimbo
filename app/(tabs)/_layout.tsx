@@ -1,9 +1,19 @@
 import { NativeTabs } from 'expo-router/unstable-native-tabs';
+import { Platform } from 'react-native';
 
+import { useBottomChrome } from '@/contexts/engagement-context';
 import { useColors } from '@/hooks/use-colors';
+
+// EngagementPrompt renders at the root (above the tab navigator), so its
+// bottom offset must clear the native tab bar visible on tab screens. The
+// safe-area inset is added separately by the provider.
+// iOS UITabBar: ~49pt above the home-indicator inset.
+// Android BottomNavigationView with labels: ~80dp, doesn't share the inset.
+const TAB_BAR_CHROME = Platform.OS === 'android' ? 80 : 49;
 
 export default function TabLayout() {
   const colors = useColors();
+  useBottomChrome(TAB_BAR_CHROME);
 
   return (
     <NativeTabs

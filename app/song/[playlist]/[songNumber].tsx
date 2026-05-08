@@ -1,7 +1,6 @@
 import { ThemedText } from "@/components/themed-text";
 import { ThemedView } from "@/components/themed-view";
 import { BackButton } from "@/components/ui/back-button";
-import { EngagementPrompt } from "@/components/ui/engagement-prompt";
 import { FavoriteSuggestionTooltip } from "@/components/ui/favorite-suggestion-tooltip";
 import { IconSymbol } from "@/components/ui/icon-symbol";
 import { InAppAlert } from "@/components/ui/in-app-alert";
@@ -14,9 +13,9 @@ import { BOOK_CODE_LOOKUP } from "@/constants/book-names";
 import { getPlaylistName, getSongTitleLabel } from "@/constants/playlists";
 import type { Song } from "@/constants/types";
 import { FONT_SIZES } from "@/constants/typography";
+import { useEngagement, useBottomChrome } from "@/contexts/engagement-context";
 import { useSongs } from "@/contexts/songs-context";
 import { useColors } from "@/hooks/use-colors";
-import { useEngagement } from "@/hooks/use-engagement";
 import { useFavoriteSuggestion } from "@/hooks/use-favorite-suggestion";
 import { useKeepAwake } from "@/hooks/use-keep-awake";
 import {
@@ -145,7 +144,6 @@ export default function SongScreen() {
     direction?: string;
   }>();
   const [isFav, setIsFav] = useState(false);
-  const [didFavoriteThisSession, setDidFavoriteThisSession] = useState(false);
   const [fontSize, setFontSize] = useState<FontSize>("medium");
   const [sectionPositions, setSectionPositions] = useState<
     { y: number; height: number; type: "verse" | "chorus"; index: number }[]
@@ -195,12 +193,8 @@ export default function SongScreen() {
 
   const { resetKeepAwake } = useKeepAwake(lineCount);
 
-  const { prompt, showPrompt, handleAccept, handleDismiss } = useEngagement({
-    currentSongName: currentSong?.name,
-    currentSongPlaylist: playlist,
-    currentSongNumber: currentSong?.number,
-    didFavoriteThisSession,
-  });
+  const { recordSongView, clearSongContext, notifyFavorited, notifyShareSuccess } = useEngagement();
+  useBottomChrome(NAV_BAR_HEIGHT);
 
   const { showSuggestion, handleDismissSuggestion } = useFavoriteSuggestion({
     playlist,
@@ -212,9 +206,16 @@ export default function SongScreen() {
     if (currentSong && playlist) {
       isFavorite(playlist, currentSong.number).then(setIsFav);
       getFontSize().then(setFontSize);
-      setDidFavoriteThisSession(false);
+      recordSongView({
+        playlist,
+        number: currentSong.number,
+        name: currentSong.name,
+      });
     }
-  }, [currentSong, playlist]);
+    return () => {
+      clearSongContext();
+    };
+  }, [currentSong, playlist, recordSongView, clearSongContext]);
 
   useEffect(() => {
     if (currentSong && playlist) {
@@ -292,7 +293,7 @@ export default function SongScreen() {
           songName: currentSong.name,
         });
         setIsFav(true);
-        setDidFavoriteThisSession(true);
+        notifyFavorited();
         trackEvent('toggle_favorite', {
           playlist,
           song_number: String(currentSong.number),
@@ -318,7 +319,8 @@ export default function SongScreen() {
         song: `${playlist}/${currentSong.number}`,
         song_name: currentSong.name,
       });
-      await shareSong({ songName: currentSong.name, playlist, songNumber: currentSong.number });
+      const completed = await shareSong({ songName: currentSong.name, playlist, songNumber: currentSong.number });
+      if (completed) notifyShareSuccess();
     } catch (error) {
       console.error("Error sharing song:", error);
     }
@@ -337,12 +339,13 @@ export default function SongScreen() {
           section_type: sectionType,
           section_index: String(sectionIndex),
         });
-        await shareSongSection({ song: currentSong, playlist, sectionIndex });
+        const completed = await shareSongSection({ song: currentSong, playlist, sectionIndex });
+        if (completed) notifyShareSuccess();
       } catch (error) {
         console.error("Error sharing section:", error);
       }
     },
-    [currentSong, playlist],
+    [currentSong, playlist, notifyShareSuccess],
   );
 
   const triggerSectionLongPress = useCallback(
@@ -657,15 +660,7 @@ export default function SongScreen() {
         onSectionPress={handleSectionPress}
       />
 
-      {showPrompt && prompt ? (
-        <EngagementPrompt
-          type={prompt.type}
-          songName={prompt.songName}
-          bottomInset={insets.bottom}
-          onAccept={handleAccept}
-          onDismiss={handleDismiss}
-        />
-      ) : showSuggestion && arrowRightOffset > 0 && (
+      {showSuggestion && arrowRightOffset > 0 && (
         <FavoriteSuggestionTooltip
           headerHeight={headerHeight}
           arrowRightOffset={arrowRightOffset}

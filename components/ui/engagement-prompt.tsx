@@ -1,8 +1,7 @@
 import { useColors } from '@/hooks/use-colors';
-import type { EngagementPromptType } from '@/hooks/use-engagement';
 import { useCallback, useEffect, useRef } from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
-import { Gesture, GestureDetector, GestureHandlerRootView } from 'react-native-gesture-handler';
+import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import Animated, {
   runOnJS,
   useAnimatedStyle,
@@ -14,13 +13,15 @@ import Animated, {
 import { ThemedText } from '../themed-text';
 import { IconSymbol, type IconSymbolName } from './icon-symbol';
 
+export type EngagementPromptType = 'rate' | 'share_app' | 'share_song';
+
 const AUTO_DISMISS_MS = 8_000;
 const DISMISS_THRESHOLD = 40;
 
 interface EngagementPromptProps {
   readonly type: EngagementPromptType;
   readonly songName?: string;
-  readonly bottomInset: number;
+  readonly bottom: number;
   readonly onAccept: () => void;
   readonly onDismiss: () => void;
 }
@@ -42,15 +43,17 @@ function getPromptText(type: EngagementPromptType, songName?: string): string {
   return PROMPT_CONFIG[type].text;
 }
 
-// Nav bar height: paddingTop(16) + button(48) + paddingBottom(bottomInset + 16) + border(1)
-const NAV_BAR_PADDING = 16 + 48 + 16 + 1;
-
-export function EngagementPrompt({ type, songName, bottomInset, onAccept, onDismiss }: EngagementPromptProps) {
+export function EngagementPrompt({ type, songName, bottom, onAccept, onDismiss }: EngagementPromptProps) {
   const colors = useColors();
   const translateY = useSharedValue(100);
   const opacity = useSharedValue(0);
+  const animatedBottom = useSharedValue(bottom);
   const isDismissing = useRef(false);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    animatedBottom.value = withTiming(bottom, { duration: 250 });
+  }, [bottom, animatedBottom]);
 
   const config = PROMPT_CONFIG[type];
   const text = getPromptText(type, songName);
@@ -78,11 +81,13 @@ export function EngagementPrompt({ type, songName, bottomInset, onAccept, onDism
     translateY.value = withSpring(0, { damping: 15, stiffness: 120 });
     opacity.value = withTiming(1, { duration: 200 });
 
-    timerRef.current = setTimeout(dismiss, AUTO_DISMISS_MS);
+    if (type !== 'rate') {
+      timerRef.current = setTimeout(dismiss, AUTO_DISMISS_MS);
+    }
     return () => {
       if (timerRef.current) clearTimeout(timerRef.current);
     };
-  }, [translateY, opacity, dismiss]);
+  }, [translateY, opacity, dismiss, type]);
 
   // Swipe-to-dismiss gesture
   const panGesture = Gesture.Pan()
@@ -104,8 +109,12 @@ export function EngagementPrompt({ type, songName, bottomInset, onAccept, onDism
     opacity: opacity.value,
   }));
 
+  const containerStyle = useAnimatedStyle(() => ({
+    bottom: animatedBottom.value,
+  }));
+
   return (
-    <GestureHandlerRootView style={[styles.gestureRoot, { bottom: NAV_BAR_PADDING + bottomInset + 8 }]}>
+    <Animated.View style={[styles.gestureRoot, containerStyle]}>
       <GestureDetector gesture={panGesture}>
         <Animated.View
           style={[
@@ -139,7 +148,7 @@ export function EngagementPrompt({ type, songName, bottomInset, onAccept, onDism
           </TouchableOpacity>
         </Animated.View>
       </GestureDetector>
-    </GestureHandlerRootView>
+    </Animated.View>
   );
 }
 

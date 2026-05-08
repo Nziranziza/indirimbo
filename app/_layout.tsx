@@ -11,6 +11,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { ThemedView } from '@/components/themed-view';
 import { AppInstallBanner } from '@/components/ui/app-install-banner';
 import { ForceUpdateModal } from '@/components/ui/force-update-modal';
+import { EngagementProvider } from '@/contexts/engagement-context';
 import { SongbookPreferenceProvider } from '@/contexts/songbook-preference-context';
 import { SongsProvider } from '@/contexts/songs-context';
 import { ThemeProvider, useColorScheme } from '@/contexts/theme-context';
@@ -144,6 +145,7 @@ export default function RootLayout() {
         <SongbookPreferenceProvider>
         <ThemeProvider>
         <UpdateCheckProvider>
+        <EngagementProvider>
           {Platform.OS === 'web' ? (
             <ThemedView style={{ flex: 1}}>
             <View style={styles.webWrapper}>
@@ -154,6 +156,7 @@ export default function RootLayout() {
           ) : (
             content
           )}
+        </EngagementProvider>
         </UpdateCheckProvider>
         </ThemeProvider>
         </SongbookPreferenceProvider>

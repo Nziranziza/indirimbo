@@ -1,3 +1,4 @@
+import { useEngagement, useFabLift } from '@/contexts/engagement-context';
 import { useSongbookPreference } from '@/contexts/songbook-preference-context';
 import { useColors } from '@/hooks/use-colors';
 import { useFabBottom } from '@/hooks/use-fab-bottom';
@@ -22,6 +23,8 @@ export function FloatingShareButton({ inTabs = false }: { inTabs?: boolean }) {
   const colors = useColors();
   const bottom = useFabBottom(inTabs);
   const { isBurundi } = useSongbookPreference();
+  const { notifyShareSuccess } = useEngagement();
+  const lift = useFabLift(inTabs);
   const expanded = useSharedValue(1);
 
   useFocusEffect(
@@ -36,6 +39,7 @@ export function FloatingShareButton({ inTabs = false }: { inTabs?: boolean }) {
 
   const containerStyle = useAnimatedStyle(() => ({
     width: ICON_SIZE + expanded.value * EXPANDED_EXTRA,
+    bottom: bottom + lift.value,
   }));
 
   const labelStyle = useAnimatedStyle(() => ({
@@ -46,6 +50,7 @@ export function FloatingShareButton({ inTabs = false }: { inTabs?: boolean }) {
   const handlePress = async () => {
     mediumImpact();
     await shareApp({ isBurundi });
+    notifyShareSuccess();
   };
 
   return (
@@ -54,7 +59,6 @@ export function FloatingShareButton({ inTabs = false }: { inTabs?: boolean }) {
         styles.fab,
         {
           backgroundColor: colors.tint,
-          bottom,
         },
         containerStyle,
       ]}>

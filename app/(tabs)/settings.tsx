@@ -9,6 +9,7 @@ import { FloatingShareButton } from '@/components/ui/floating-share-button';
 import { SettingsGroup } from '@/components/ui/settings-group';
 import { SettingsLinkRow } from '@/components/ui/settings-link-row';
 import { APP_STORE_REVIEW_URL, PLAY_STORE_REVIEW_URL } from '@/constants/app-links';
+import { useEngagement } from '@/contexts/engagement-context';
 import { useSongbookPreference } from '@/contexts/songbook-preference-context';
 import { useColorScheme, useTheme } from '@/contexts/theme-context';
 import { trackEvent } from '@/utils/analytics';
@@ -36,6 +37,7 @@ export default function SettingsScreen() {
   } = useTheme();
   const colorScheme = useColorScheme();
   const { isBurundi, songbookPreference, updateSongbookPreference } = useSongbookPreference();
+  const { notifyShareSuccess, markAsRated } = useEngagement();
 
   useFocusEffect(
     useCallback(() => {
@@ -70,6 +72,7 @@ export default function SettingsScreen() {
   const handleShareApp = async () => {
     trackEvent('share_app', { songbook: isBurundi ? 'kirundi' : 'kinyarwanda' });
     await shareApp({ isBurundi });
+    notifyShareSuccess();
   };
 
   const handleRateApp = async () => {
@@ -78,6 +81,7 @@ export default function SettingsScreen() {
     try {
       trackEvent('rate_app', { platform: Platform.OS });
       await Linking.openURL(url);
+      await markAsRated();
     } catch (error) {
       console.error('Failed to open review URL:', error);
     }

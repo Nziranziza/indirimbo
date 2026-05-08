@@ -1,4 +1,5 @@
 import { IconSymbol } from '@/components/ui/icon-symbol';
+import { useFabLift } from '@/contexts/engagement-context';
 import { useColors } from '@/hooks/use-colors';
 import { useFabBottom } from '@/hooks/use-fab-bottom';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
@@ -9,6 +10,9 @@ import Animated, {
   useAnimatedStyle,
 } from 'react-native-reanimated';
 
+const SHOW_THRESHOLD = 500;
+const ANIMATION_DISTANCE = 200;
+const VISIBILITY_THRESHOLD = SHOW_THRESHOLD - ANIMATION_DISTANCE;
 
 interface BackToTopButtonProps {
   scrollY: SharedValue<number>;
@@ -18,38 +22,41 @@ interface BackToTopButtonProps {
 export function BackToTopButton({ scrollY, onPress }: BackToTopButtonProps) {
   const colors = useColors();
   const bottom = useFabBottom(true);
+  const lift = useFabLift(true);
+
+  const containerStyle = useAnimatedStyle(() => ({
+    bottom: bottom + lift.value,
+  }));
 
   const animatedStyle = useAnimatedStyle(() => {
     'worklet';
-    const showThreshold = 500;
-    const animationDistance = 200;
     const opacity = interpolate(
       scrollY.value,
-      [showThreshold - animationDistance, showThreshold],
+      [VISIBILITY_THRESHOLD, SHOW_THRESHOLD],
       [0, 1],
       Extrapolation.CLAMP
     );
     const translateY = interpolate(
       scrollY.value,
-      [showThreshold - animationDistance, showThreshold],
+      [VISIBILITY_THRESHOLD, SHOW_THRESHOLD],
       [30, 0],
       Extrapolation.CLAMP
     );
     const scale = interpolate(
       scrollY.value,
-      [showThreshold - animationDistance, showThreshold],
+      [VISIBILITY_THRESHOLD, SHOW_THRESHOLD],
       [0.5, 1],
       Extrapolation.CLAMP
     );
     return {
       opacity,
       transform: [{ translateY }, { scale }],
-      pointerEvents: scrollY.value >= showThreshold ? 'auto' : 'none',
+      pointerEvents: scrollY.value >= SHOW_THRESHOLD ? 'auto' : 'none',
     };
   }, []);
 
   return (
-    <Animated.View pointerEvents="box-none" style={[styles.container, { bottom }]}>
+    <Animated.View pointerEvents="box-none" style={[styles.container, containerStyle]}>
       <Animated.View pointerEvents="box-none" style={[styles.shadow, animatedStyle]}>
         <TouchableOpacity
           onPress={onPress}
