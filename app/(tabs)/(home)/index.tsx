@@ -10,6 +10,7 @@ import type { IconSymbolName } from '@/components/ui/icon-symbol';
 import { PlaylistCard } from '@/components/ui/playlist-card';
 import { UpdateAvailableBanner } from '@/components/ui/update-available-banner';
 import type { PlaylistId } from '@/constants/playlists';
+import { useEngagement } from '@/contexts/engagement-context';
 import { useSongbookPreference } from '@/contexts/songbook-preference-context';
 import { useColorScheme } from '@/contexts/theme-context';
 import { useUpdateCheck } from '@/contexts/update-check-context';
@@ -58,6 +59,7 @@ export default function HomeScreen() {
   const { visiblePlaylistIds, showCategoryChips, allSongsForFavorites } = useSongbooks();
   const { isBurundi } = useSongbookPreference();
   const { mode: updateMode } = useUpdateCheck();
+  const { notifyShareSuccess } = useEngagement();
   const [recentSongs, setRecentSongs] = useState<RecentSong[]>([]);
   const [favoriteSongs, setFavoriteSongs] = useState<FavoriteSong[]>([]);
   const shareExpanded = useSharedValue(1);
@@ -121,7 +123,8 @@ export default function HomeScreen() {
     mediumImpact();
     trackEvent('share_app', { songbook: isBurundi ? 'kirundi' : 'kinyarwanda' });
     await shareApp({ isBurundi });
-  }, [isBurundi]);
+    notifyShareSuccess();
+  }, [isBurundi, notifyShareSuccess]);
 
   return (
     <ThemedView style={styles.container}>

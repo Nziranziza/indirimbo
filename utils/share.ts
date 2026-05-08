@@ -12,10 +12,12 @@ interface ShareLinkOptions {
 }
 
 // iOS uses `url` for the rich link preview; Android ignores it, so we embed
-// the URL in the message text there.
-async function shareLink({ text, url, title, dialogTitle }: ShareLinkOptions): Promise<void> {
+// the URL in the message text there. Returns whether the share completed
+// (sharedAction); Android's Share API doesn't differentiate cancel and is
+// treated as completed.
+async function shareLink({ text, url, title, dialogTitle }: ShareLinkOptions): Promise<boolean> {
   try {
-    await Share.share(
+    const result = await Share.share(
       {
         title,
         message: Platform.OS === 'ios' ? text : `${text} ${url}`,
@@ -23,7 +25,11 @@ async function shareLink({ text, url, title, dialogTitle }: ShareLinkOptions): P
       },
       { dialogTitle },
     );
-  } catch {}
+    return Platform.OS !== 'ios' || result.action === 'sharedAction';
+  } catch (err) {
+    console.error('Share.share failed', { dialogTitle, title, url }, err);
+    return false;
+  }
 }
 
 interface ShareSongOptions {
@@ -32,10 +38,10 @@ interface ShareSongOptions {
   readonly songNumber: number | string;
 }
 
-export async function shareSong({ songName, playlist, songNumber }: ShareSongOptions): Promise<void> {
+export async function shareSong({ songName, playlist, songNumber }: ShareSongOptions): Promise<boolean> {
   const url = `${APP_UNIVERSAL_LINK_URL}/song/${encodeURIComponent(playlist)}/${encodeURIComponent(String(songNumber))}`;
   const text = `${songName} | ${getSongTitleLabel(playlist, songNumber)}`;
-  await shareLink({ text, url, title: text, dialogTitle: 'Share song' });
+  return shareLink({ text, url, title: text, dialogTitle: 'Share song' });
 }
 
 interface ShareSongSectionOptions {
@@ -44,15 +50,15 @@ interface ShareSongSectionOptions {
   readonly sectionIndex: number;
 }
 
-export async function shareSongSection({ song, playlist, sectionIndex }: ShareSongSectionOptions): Promise<void> {
+export async function shareSongSection({ song, playlist, sectionIndex }: ShareSongSectionOptions): Promise<boolean> {
   const section = song.body?.[sectionIndex];
-  if (!section) return;
+  if (!section) return false;
   const text = formatSectionForSharing({ song, sectionIndex });
-  if (!text) return;
+  if (!text) return false;
   const url = `${APP_UNIVERSAL_LINK_URL}/song/${encodeURIComponent(playlist)}/${encodeURIComponent(String(song.number))}`;
   const title = `${song.name} | ${getSongTitleLabel(playlist, song.number)}`;
   const dialogTitle = section.type === 'chorus' ? 'Share chorus' : 'Share verse';
-  await shareLink({ text: `${text}\n\n`, url, title, dialogTitle });
+  return shareLink({ text: `${text}\n\n`, url, title, dialogTitle });
 }
 
 interface ShareAppOptions {

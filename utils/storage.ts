@@ -257,16 +257,28 @@ export async function getEngagementState(): Promise<EngagementState> {
   }
 }
 
-export async function updateEngagementState(
+// Serializes concurrent updaters so a read→merge→write can't lose updates from
+// a parallel writer. Each call queues onto the previous one's tail.
+let engagementUpdateQueue: Promise<unknown> = Promise.resolve();
+
+export function updateEngagementState(
   updater: (prev: EngagementState) => Partial<EngagementState>,
-): Promise<void> {
-  try {
+): Promise<EngagementState> {
+  const next = engagementUpdateQueue.then(async () => {
     const current = await getEngagementState();
     const updates = updater(current);
-    await AsyncStorage.setItem(ENGAGEMENT_KEY, JSON.stringify({ ...current, ...updates }));
-  } catch (error) {
-    console.error('Error updating engagement state:', error);
-  }
+    const merged = { ...current, ...updates };
+    try {
+      await AsyncStorage.setItem(ENGAGEMENT_KEY, JSON.stringify(merged));
+    } catch (error) {
+      console.error('Error updating engagement state:', error);
+      throw error;
+    }
+    return merged;
+  });
+  // Keep the chain alive even if this update rejects.
+  engagementUpdateQueue = next.catch(() => undefined);
+  return next;
 }
 
 export async function recordAppOpen(): Promise<void> {
