@@ -2259,7 +2259,7 @@ export const songs: Song[] = [
   },
   {
     "number": 70,
-    "name": "I. Narumvise Yes' atubgira",
+    "name": "Narumvise Yes' atubgira",
     "url": "https://indirimbo.rw/song/cantiques-kirundi/70",
     "category": "GUHAMAGARA",
     "references": [{"title":"Follow Me","codes":"M.S."}],
@@ -2267,7 +2267,7 @@ export const songs: Song[] = [
       {
         "type": "verse",
         "number": 1,
-        "content": "I. Narumvise Yes' atubgira:\nNi muze, ni muze, ni muze.\nYamy' ahamagar' uyu musi:\nNi muze, ni muze. ni muze.\nAti Napfiriye ba mwebge,\nKandi natanz' amaraso yanje,\nNarishuye ya myenda yanyu.\nNi muze, ni muze, ni muze."
+        "content": "Narumvise Yes' atubgira:\nNi muze, ni muze, ni muze.\nYamy' ahamagar' uyu musi:\nNi muze, ni muze. ni muze.\nAti Napfiriye ba mwebge,\nKandi natanz' amaraso yanje,\nNarishuye ya myenda yanyu.\nNi muze, ni muze, ni muze."
       },
       {
         "type": "verse",
@@ -3072,7 +3072,7 @@ export const songs: Song[] = [
   },
   {
     "number": 93,
-    "name": "I.Yesu, ndacibuk' umusi",
+    "name": "Yesu, ndacibuk' umusi",
     "url": "https://indirimbo.rw/song/cantiques-kirundi/93",
     "category": "GUSHINGA INTAHE",
     "references": [{"title":"OHappy Day","codes":"G.B. 369"},{"codes":"T.H. 270"}],
@@ -3080,7 +3080,7 @@ export const songs: Song[] = [
       {
         "type": "verse",
         "number": 1,
-        "content": "I.Yesu, ndacibuk' umusi\nMwiza nakwemereyeko\nKw ari wewe Mana yanje,\nNi vyo nnezererwa cane."
+        "content": "Yesu, ndacibuk' umusi\nMwiza nakwemereyeko\nKw ari wewe Mana yanje,\nNi vyo nnezererwa cane."
       },
       {
         "type": "chorus",
@@ -4272,7 +4272,7 @@ export const songs: Song[] = [
   },
   {
     "number": 129,
-    "name": "1 Ndeger’ umusaraba",
+    "name": "Ndeger’ umusaraba",
     "url": "https://indirimbo.rw/song/cantiques-kirundi/129",
     "category": "KWISHIKANA",
     "references": [{"title":"I am coming to the Cross","codes":"M.S."}],
@@ -4280,7 +4280,7 @@ export const songs: Song[] = [
       {
         "type": "verse",
         "number": 1,
-        "content": "1 Ndeger’ umusaraba\nNnaniwe nkennye mpumye,\nNta kindi kindi nshaka,\nNgomba gukizwa gusa."
+        "content": "Ndeger’ umusaraba\nNnaniwe nkennye mpumye,\nNta kindi kindi nshaka,\nNgomba gukizwa gusa."
       },
       {
         "type": "chorus",
@@ -4380,7 +4380,7 @@ export const songs: Song[] = [
   },
   {
     "number": 132,
-    "name": "1 Nsiz' ubugurano bg' umwiza",
+    "name": "Nsiz' ubugurano bg' umwiza",
     "url": "https://indirimbo.rw/song/cantiques-kirundi/132",
     "category": "KWISHIKANA",
     "references": [{"title":"Jesus I cme","codes":"G.B.229"},{"codes":"T.H.203"}],
@@ -4388,7 +4388,7 @@ export const songs: Song[] = [
       {
         "type": "verse",
         "number": 1,
-        "content": "1 Nsiz' ubugurano bg' umwiza,\nNdaje Yesu, ndaje Yesu;\nNshitse mu masabo y'umuco,\nNdaje Bgirukiro.\nNsiz' indwara, ndons' amagara,\nNsiz' ubgoro, ndons' ubutunzi,\nNsiz'ivyaha, ndons' agakiza:\nNdaje Bgirukiro."
+        "content": "Nsiz' ubugurano bg' umwiza,\nNdaje Yesu, ndaje Yesu;\nNshitse mu masabo y'umuco,\nNdaje Bgirukiro.\nNsiz' indwara, ndons' amagara,\nNsiz' ubgoro, ndons' ubutunzi,\nNsiz'ivyaha, ndons' agakiza:\nNdaje Bgirukiro."
       },
       {
         "type": "verse",
@@ -6593,7 +6593,7 @@ export const songs: Song[] = [
   },
   {
     "number": 199,
-    "name": "I. Ni nd' azoherera ku Mwami wacu?",
+    "name": "Ni nd' azoherera ku Mwami wacu?",
     "url": "https://indirimbo.rw/song/cantiques-kirundi/199",
     "category": "IZ'INTAMBARA",
     "references": [{"title":"Who is on Lord’s side?","codes":"Tune G.B.652"}],
@@ -6601,7 +6601,7 @@ export const songs: Song[] = [
       {
         "type": "verse",
         "number": 1,
-        "content": "I. Ni nd' azoherera ku Mwami wacu?\nNi nd' azokwiz' ubutumwa bga Yesu?\nNi nd' azoheba kwifuz’ivy' iyi si,\nAkaryaruka wa Mubi Satani?"
+        "content": "Ni nd' azoherera ku Mwami wacu?\nNi nd' azokwiz' ubutumwa bga Yesu?\nNi nd' azoheba kwifuz’ivy' iyi si,\nAkaryaruka wa Mubi Satani?"
       },
       {
         "type": "chorus",
@@ -7094,7 +7094,7 @@ export const songs: Song[] = [
       {
         "type": "verse",
         "number": 2,
-        "content": ".Mukiz' ubu  ndaje,\nMwana w' Uhoraho,\nNyoz' untunganye,\nNyoz’untunganye\nNk’iz’ibibi vyose"
+        "content": "Mukiz' ubu  ndaje,\nMwana w' Uhoraho,\nNyoz' untunganye,\nNyoz’untunganye\nNk’iz’ibibi vyose"
       },
       {
         "type": "verse",
@@ -8995,7 +8995,7 @@ export const songs: Song[] = [
   },
   {
     "number": 273,
-    "name": "I. Twikangure, twikangure",
+    "name": "Twikangure, twikangure",
     "url": "https://indirimbo.rw/song/cantiques-kirundi/273",
     "category": "IZ'IGITONDO",
     "references": [{"title":"Awake my soul","codes":"M.S."}],
@@ -9003,7 +9003,7 @@ export const songs: Song[] = [
       {
         "type": "verse",
         "number": 1,
-        "content": "I. Twikangure, twikangure,\nDukor' ibikorwa cane,\nTwitange tnb'ishikanwa\nRyo guhimbar' Uhoraho"
+        "content": "Twikangure, twikangure,\nDukor' ibikorwa cane,\nTwitange tnb'ishikanwa\nRyo guhimbar' Uhoraho"
       },
       {
         "type": "verse",
@@ -10704,12 +10704,12 @@ export const songs: Song[] = [
       },
       {
         "type": "verse",
-        "number": 2,
+        "number": 3,
         "content": "Nzohora ntazii' uwo Mukiza,\nNzoririmb' ububasha bgiwe,\nKukw anneshereza mûri vyose,\nSinkiganzwa n' icaha na mba."
       },
       {
         "type": "verse",
-        "number": 3,
+        "number": 4,
         "content": "Nzoririmb' Umucunguzi wanje,\nN'urukundo rw' igitangaza:\nYankijij' urubanza rwo gupfa,\nMaz' akangir' umwana wiwe."
       }
     ]
@@ -11191,7 +11191,7 @@ export const songs: Song[] = [
   },
   {
     "number": 338,
-    "name": "I. Yemwe basoda ba Kristo muvyuke",
+    "name": "Yemwe basoda ba Kristo muvyuke",
     "url": "https://indirimbo.rw/song/cantiques-kirundi/338",
     "category": "IZONGEWE",
     "references": [{"title":"Soldiers of Christ","codes":"M.S."},{"codes":"CR. 392"}],
@@ -11199,7 +11199,7 @@ export const songs: Song[] = [
       {
         "type": "verse",
         "number": 1,
-        "content": "I. Yemwe basoda ba Kristo muvyuke\nMurasane n'isi na Satani n' inyama;\nRwana n' inkomez' intambara nziza,\nUmusaraba n' ibender' imbere yanyu.\nJana n' Umukiza, arabarongora:\nDufis' Umugabish'azoduha kunesha."
+        "content": "Yemwe basoda ba Kristo muvyuke\nMurasane n'isi na Satani n' inyama;\nRwana n' inkomez' intambara nziza,\nUmusaraba n' ibender' imbere yanyu.\nJana n' Umukiza, arabarongora:\nDufis' Umugabish'azoduha kunesha."
       },
       {
         "type": "verse",
