@@ -47,7 +47,27 @@ function loadKey(): ServiceAccountKey {
     console.error(`❌ Service account key not found at ${KEY_PATH}`);
     process.exit(1);
   }
-  return JSON.parse(fs.readFileSync(KEY_PATH, 'utf8')) as ServiceAccountKey;
+
+  const raw = fs.readFileSync(KEY_PATH, 'utf8');
+  let parsed: unknown;
+  try {
+    parsed = JSON.parse(raw);
+  } catch (err) {
+    console.error(`❌ Service account key at ${KEY_PATH} is not valid JSON: ${(err as Error).message}`);
+    process.exit(1);
+  }
+
+  if (
+    typeof parsed !== 'object' || parsed === null
+    || typeof (parsed as Record<string, unknown>).client_email !== 'string'
+    || typeof (parsed as Record<string, unknown>).private_key !== 'string'
+  ) {
+    console.error(`❌ Service account key at ${KEY_PATH} is missing client_email or private_key strings.`);
+    console.error('   Re-download the JSON key from GCP IAM → Service Accounts → Keys.');
+    process.exit(1);
+  }
+
+  return parsed as ServiceAccountKey;
 }
 
 async function getAccessToken(): Promise<string> {

@@ -36,6 +36,9 @@ yarn-error.*
 # secrets (Google Indexing API service account key, etc.)
 secrets/
 
+# SEO submission state (regenerated locally; not worth committing)
+scripts/seo/state/
+
 # typescript
 *.tsbuildinfo
 
