@@ -6,9 +6,12 @@ import { gushimishaCategories } from '@/constants/gushimisha-categories';
 import type { SongCategory } from '@/constants/gushimisha-categories';
 import { getPlaylistName } from '@/constants/playlists';
 import type { Song } from '@/constants/types';
+import { useEngagement } from '@/contexts/engagement-context';
 import { useSongs } from '@/contexts/songs-context';
+import { trackEvent } from '@/utils/analytics';
+import { shareCategory } from '@/utils/share';
 import { useLocalSearchParams } from 'expo-router';
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 
 function findCategory(slug: string, playlist?: string): { category: SongCategory | undefined; resolvedPlaylist: string } {
   if (playlist === 'cantiques-kirundi') {
@@ -40,6 +43,7 @@ export default function CategoryScreen() {
   const { category, resolvedPlaylist } = findCategory(slug, playlist);
 
   const { gushimisha, cantiquesKirundi } = useSongs();
+  const { notifyShareSuccess } = useEngagement();
   const songs = useMemo(() => {
     if (!category) return [];
     const allSongs = resolvedPlaylist === 'cantiques-kirundi'
@@ -54,6 +58,20 @@ export default function CategoryScreen() {
   const categoryName = category?.name || 'Category';
   const categoryIcon = (category?.icon || 'music.note.list') as IconSymbolName;
   const playlistDisplayName = getPlaylistName(resolvedPlaylist);
+
+  const handleShare = useCallback(async () => {
+    if (!category) return;
+    trackEvent('share_category', {
+      playlist: resolvedPlaylist,
+      slug: category.slug,
+      category_name: category.name,
+    });
+    const completed = await shareCategory({
+      categoryName: category.name,
+      slug: category.slug,
+    });
+    if (completed) notifyShareSuccess();
+  }, [category, resolvedPlaylist, notifyShareSuccess]);
 
   return (
     <>
@@ -70,6 +88,8 @@ export default function CategoryScreen() {
         songs={songs}
         playlist={resolvedPlaylist}
         source="category"
+        onShare={category ? handleShare : undefined}
+        shareAccessibilityLabel="Share category"
       />
     </>
   );
