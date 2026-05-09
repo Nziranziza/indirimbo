@@ -4,71 +4,84 @@
  */
 
 import { Platform } from 'react-native';
+import type { TranslationKey } from '@/constants/translations';
 import type { ThemePreference } from '@/utils/storage';
 
 // Predefined tint color options that work well in both light and dark modes
 export const TintColorOptions = {
   blue: {
     name: 'Blue',
+    nameKey: 'settings.color.blue',
     light: '#0a7ea4',
     dark: '#4A9EFF',
   },
   purple: {
     name: 'Purple',
+    nameKey: 'settings.color.purple',
     light: '#7C3AED',
     dark: '#A78BFA',
   },
   green: {
     name: 'Green',
+    nameKey: 'settings.color.green',
     light: '#059669',
     dark: '#10B981',
   },
   teal: {
     name: 'Teal',
+    nameKey: 'settings.color.teal',
     light: '#0D9488',
     dark: '#14B8A6',
   },
   orange: {
     name: 'Orange',
+    nameKey: 'settings.color.orange',
     light: '#EA580C',
     dark: '#FB923C',
   },
   pink: {
     name: 'Pink',
+    nameKey: 'settings.color.pink',
     light: '#DB2777',
     dark: '#F472B6',
   },
   indigo: {
     name: 'Indigo',
+    nameKey: 'settings.color.indigo',
     light: '#4F46E5',
     dark: '#818CF8',
   },
   emerald: {
     name: 'Emerald',
+    nameKey: 'settings.color.emerald',
     light: '#047857',
     dark: '#34D399',
   },
   red: {
     name: 'Red',
+    nameKey: 'settings.color.red',
     light: '#DC2626',
     dark: '#F87171',
   },
   yellow: {
     name: 'Gold',
+    nameKey: 'settings.color.yellow',
     light: '#CA8A04',
     dark: '#FCD34D',
   },
   cyan: {
     name: 'Cyan',
+    nameKey: 'settings.color.cyan',
     light: '#0891B2',
     dark: '#22D3EE',
   },
   rose: {
     name: 'Rose',
+    nameKey: 'settings.color.rose',
     light: '#E11D48',
     dark: '#FB7185',
   },
-} as const;
+} as const satisfies Record<string, { name: string; nameKey: TranslationKey; light: string; dark: string }>;
 
 export type TintColorKey = keyof typeof TintColorOptions;
 
@@ -128,8 +141,15 @@ export const Fonts = Platform.select({
   },
 });
 
-export const THEME_OPTIONS: { label: string; value: ThemePreference; description: string; icon: string }[] = [
-  { label: 'Light', value: 'light', description: 'Always use light theme', icon: 'sun.max' },
-  { label: 'Dark', value: 'dark', description: 'Always use dark theme', icon: 'moon' },
-  { label: 'Auto', value: 'auto', description: 'Follow system setting', icon: 'circle.lefthalf.filled' },
+export interface ThemeOption {
+  readonly value: ThemePreference;
+  readonly labelKey: TranslationKey;
+  readonly descriptionKey: TranslationKey;
+  readonly icon: string;
+}
+
+export const THEME_OPTIONS: readonly ThemeOption[] = [
+  { value: 'light', labelKey: 'settings.theme.lightLabel', descriptionKey: 'settings.theme.lightDescription', icon: 'sun.max' },
+  { value: 'dark', labelKey: 'settings.theme.darkLabel', descriptionKey: 'settings.theme.darkDescription', icon: 'moon' },
+  { value: 'auto', labelKey: 'settings.theme.autoLabel', descriptionKey: 'settings.theme.autoDescription', icon: 'circle.lefthalf.filled' },
 ];

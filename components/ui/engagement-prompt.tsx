@@ -1,4 +1,6 @@
+import type { TranslationKey } from '@/constants/translations';
 import { useColors } from '@/hooks/use-colors';
+import { useTranslation } from '@/hooks/use-translation';
 import { useCallback, useEffect, useRef } from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
@@ -28,23 +30,16 @@ interface EngagementPromptProps {
 
 const PROMPT_CONFIG: Record<
   EngagementPromptType,
-  { icon: IconSymbolName; text: string; button: string }
+  { icon: IconSymbolName; textKey: TranslationKey | null; buttonKey: TranslationKey }
 > = {
-  rate: { icon: 'star.fill', text: 'Enjoying Indirimbo?', button: 'Rate' },
-  share_app: { icon: 'person.2.fill', text: 'Know someone who\'d love this?', button: 'Share' },
-  share_song: { icon: 'square.and.arrow.up', text: '', button: 'Share' },
+  rate: { icon: 'star.fill', textKey: 'engagement.rate.text', buttonKey: 'engagement.rate.button' },
+  share_app: { icon: 'person.2.fill', textKey: 'engagement.shareApp.text', buttonKey: 'engagement.shareApp.button' },
+  share_song: { icon: 'square.and.arrow.up', textKey: null, buttonKey: 'engagement.shareSong.button' },
 };
-
-function getPromptText(type: EngagementPromptType, songName?: string): string {
-  if (type === 'share_song' && songName) {
-    const truncated = songName.length > 22 ? `${songName.slice(0, 22)}...` : songName;
-    return `Share ${truncated}`;
-  }
-  return PROMPT_CONFIG[type].text;
-}
 
 export function EngagementPrompt({ type, songName, bottom, onAccept, onDismiss }: EngagementPromptProps) {
   const colors = useColors();
+  const { t } = useTranslation();
   const translateY = useSharedValue(100);
   const opacity = useSharedValue(0);
   const animatedBottom = useSharedValue(bottom);
@@ -56,7 +51,14 @@ export function EngagementPrompt({ type, songName, bottom, onAccept, onDismiss }
   }, [bottom, animatedBottom]);
 
   const config = PROMPT_CONFIG[type];
-  const text = getPromptText(type, songName);
+  const buttonLabel = t(config.buttonKey);
+  const text = type === 'share_song' && songName
+    ? t('engagement.shareSong.text', {
+        songName: songName.length > 22 ? `${songName.slice(0, 22)}...` : songName,
+      })
+    : config.textKey
+      ? t(config.textKey)
+      : '';
 
   const dismiss = useCallback(() => {
     if (isDismissing.current) return;
@@ -139,11 +141,11 @@ export function EngagementPrompt({ type, songName, bottom, onAccept, onDismiss }
             onPress={accept}
             style={[styles.button, { backgroundColor: colors.tint }]}
             activeOpacity={0.8}
-            accessibilityLabel={config.button}
+            accessibilityLabel={buttonLabel}
             accessibilityRole="button"
           >
             <ThemedText style={[styles.buttonText, { color: colors.tintForeground }]}>
-              {config.button}
+              {buttonLabel}
             </ThemedText>
           </TouchableOpacity>
         </Animated.View>

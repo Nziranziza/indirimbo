@@ -1,32 +1,55 @@
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { IconSymbol } from '@/components/ui/icon-symbol';
-import type { IconSymbolName } from '@/components/ui/icon-symbol';
-import { THEME_OPTIONS } from '@/constants/theme';
+import type { Locale } from '@/constants/translations';
 import { useColors } from '@/hooks/use-colors';
 import { useTranslation } from '@/hooks/use-translation';
-import type { ThemePreference } from '@/utils/storage';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 
-interface AppearanceSettingProps {
-  readonly themePreference: ThemePreference;
-  readonly onThemeChange: (theme: ThemePreference) => void;
+interface LanguageSettingProps {
+  readonly language: Locale;
+  readonly onLanguageChange: (language: Locale) => void;
 }
 
-export function AppearanceSetting({ themePreference, onThemeChange }: AppearanceSettingProps) {
+interface LanguageOption {
+  readonly value: Locale;
+  // Label and description are intentionally hardcoded in each option's own
+  // language so users can recognize their language regardless of the current UI locale.
+  readonly label: string;
+  readonly description: string;
+  readonly badge: string;
+}
+
+const LANGUAGE_OPTIONS: readonly LanguageOption[] = [
+  {
+    value: 'en',
+    label: 'English',
+    description: 'Use English throughout the app',
+    badge: 'EN',
+  },
+  {
+    value: 'fr',
+    label: 'Français',
+    description: "Utiliser le français dans l'application",
+    badge: 'FR',
+  },
+];
+
+export function LanguageSetting({ language, onLanguageChange }: LanguageSettingProps) {
   const colors = useColors();
   const { t } = useTranslation();
 
   return (
     <ThemedView style={styles.optionsContainer}>
-      {THEME_OPTIONS.map((option) => {
-        const isSelected = themePreference === option.value;
-        const label = t(option.labelKey);
-        const description = t(option.descriptionKey);
+      {LANGUAGE_OPTIONS.map((option) => {
+        const isSelected = language === option.value;
+        const { label, description, badge } = option;
         return (
           <TouchableOpacity
             key={option.value}
-            onPress={() => onThemeChange(option.value)}
+            onPress={() => {
+              if (option.value !== language) onLanguageChange(option.value);
+            }}
             style={[
               styles.optionCard,
               {
@@ -34,7 +57,7 @@ export function AppearanceSetting({ themePreference, onThemeChange }: Appearance
                 backgroundColor: isSelected ? colors.tint + '10' : 'transparent',
               },
             ]}
-            accessibilityLabel={t('settings.theme.optionA11y', { label, description })}
+            accessibilityLabel={t('settings.language.optionA11y', { label, description })}
             accessibilityRole="radio"
             accessibilityState={{ selected: isSelected }}
             activeOpacity={0.7}
@@ -42,11 +65,24 @@ export function AppearanceSetting({ themePreference, onThemeChange }: Appearance
             <View style={styles.optionContent}>
               <View style={styles.optionHeader}>
                 <View style={styles.optionHeaderLeft}>
-                  <IconSymbol
-                    name={option.icon as IconSymbolName}
-                    size={20}
-                    color={isSelected ? colors.tint : colors.icon}
-                  />
+                  <View
+                    style={[
+                      styles.languageBadge,
+                      {
+                        borderColor: isSelected ? colors.tint : colors.icon + '60',
+                        backgroundColor: isSelected ? colors.tint + '15' : 'transparent',
+                      },
+                    ]}
+                  >
+                    <ThemedText
+                      style={[
+                        styles.languageBadgeText,
+                        { color: isSelected ? colors.tint : colors.icon },
+                      ]}
+                    >
+                      {badge}
+                    </ThemedText>
+                  </View>
                   <ThemedText
                     type="defaultSemiBold"
                     style={[
@@ -95,6 +131,21 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 12,
+  },
+  languageBadge: {
+    minWidth: 32,
+    height: 24,
+    paddingHorizontal: 6,
+    borderRadius: 6,
+    borderWidth: 1.5,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  languageBadgeText: {
+    fontSize: 11,
+    fontWeight: '700',
+    letterSpacing: 0.5,
+    lineHeight: 12
   },
   optionLabel: {
     fontSize: 16,

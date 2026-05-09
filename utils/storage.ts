@@ -1,5 +1,9 @@
+import { LANGUAGE_PREFERENCE_KEY } from '@/constants/storage-keys';
 import { TintColorKey } from '@/constants/theme';
+import type { Locale } from '@/constants/translations';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
+export { LANGUAGE_PREFERENCE_KEY };
 
 const FAVORITES_KEY = '@indirimbo:favorites';
 const RECENT_SONGS_KEY = '@indirimbo:recent_songs';
@@ -181,6 +185,26 @@ export async function setThemePreference(preference: ThemePreference): Promise<v
     await AsyncStorage.setItem(THEME_PREFERENCE_KEY, preference);
   } catch (error) {
     console.error('Error setting theme preference:', error);
+  }
+}
+
+// Language Preference
+export async function getLanguagePreference(): Promise<Locale | null> {
+  try {
+    const value = await AsyncStorage.getItem(LANGUAGE_PREFERENCE_KEY);
+    if (value === 'en' || value === 'fr') return value;
+    return null;
+  } catch (error) {
+    console.error('Error getting language preference:', error);
+    return null;
+  }
+}
+
+export async function setLanguagePreference(language: Locale): Promise<void> {
+  try {
+    await AsyncStorage.setItem(LANGUAGE_PREFERENCE_KEY, language);
+  } catch (error) {
+    console.error('Error setting language preference:', error);
   }
 }
 

@@ -2,6 +2,7 @@ import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { IconSymbol } from '@/components/ui/icon-symbol';
 import { useColors } from '@/hooks/use-colors';
+import { useTranslation } from '@/hooks/use-translation';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 
 interface SongNavigationBarProps {
@@ -20,6 +21,7 @@ export function SongNavigationBar({
   bottomInset,
 }: SongNavigationBarProps) {
   const colors = useColors();
+  const { t } = useTranslation();
   const isFirst = currentIndex === 0;
   const isLast = currentIndex === totalSongs - 1;
 
@@ -41,7 +43,7 @@ export function SongNavigationBar({
         ]}
         onPress={onPrevious}
         disabled={isFirst}
-        accessibilityLabel="Previous song"
+        accessibilityLabel={t('common.song.previousA11y')}
         accessibilityRole="button"
         activeOpacity={0.7}
         hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}
@@ -67,7 +69,7 @@ export function SongNavigationBar({
         ]}
         onPress={onNext}
         disabled={isLast}
-        accessibilityLabel="Next song"
+        accessibilityLabel={t('common.song.nextA11y')}
         accessibilityRole="button"
         activeOpacity={0.7}
         hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}

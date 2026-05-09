@@ -7,6 +7,7 @@ import type { IconSymbolName } from '@/components/ui/icon-symbol';
 import { InfoCard } from '@/components/ui/info-card';
 import { useSongbookPreference } from '@/contexts/songbook-preference-context';
 import { useColors } from '@/hooks/use-colors';
+import { useTranslation } from '@/hooks/use-translation';
 import Constants from 'expo-constants';
 import { router } from 'expo-router';
 import { PageHead } from '@/components/page-head';
@@ -31,18 +32,17 @@ function FeatureItem({ icon, title, description }: { icon: IconSymbolName; title
 export default function AboutScreen() {
   const colors = useColors();
   const { isBurundi } = useSongbookPreference();
+  const { t } = useTranslation();
 
   return (
     <>
     <PageHead
-      title="About | Indirimbo"
-      description={isBurundi
-        ? 'Indirimbo brings hymns and worship songs to your fingertips. Browse Cantiques Kirundi, Gushimisha Imana, and Agakiza hymnbooks.'
-        : 'Indirimbo brings Rwandan hymns and worship songs to your fingertips. Browse Gushimisha Imana and Agakiza hymnbooks.'}
+      title={t('about.pageTitle')}
+      description={isBurundi ? t('about.pageDescriptionKirundi') : t('about.pageDescriptionKinyarwanda')}
       canonicalPath="/about/"
     />
     <CollapsibleHeaderScrollView
-      title="About Indirimbo"
+      title={t('about.title')}
       headerMaxHeight={240}
       contentGap={20}
       hasFab
@@ -52,13 +52,13 @@ export default function AboutScreen() {
           <Image
             source={require('@/assets/images/icon.png')}
             style={styles.appIcon}
-            accessibilityLabel="Indirimbo app icon"
+            accessibilityLabel={t('about.iconA11y')}
           />
           <ThemedText type="title" style={styles.appName}>
             Indirimbo
           </ThemedText>
           <ThemedText style={styles.tagline}>
-            {isBurundi ? 'Cantiques Kirundi, Gushimisha & Agakiza' : 'Gushimisha Imana & Agakiza'}
+            {isBurundi ? t('about.taglineKirundi') : t('about.taglineKinyarwanda')}
           </ThemedText>
         </View>
       }>
@@ -69,51 +69,53 @@ export default function AboutScreen() {
           { borderColor: colors.tint + '30', backgroundColor: colors.tint + '08' },
         ]}>
         <ThemedText style={styles.description}>
-          {isBurundi
-            ? "Indirimbo brings the beloved hymns and worship songs of Rwandan and Burundian churches to your fingertips. Whether you're leading worship, singing along at church, or practicing at home, Indirimbo is your perfect companion."
-            : "Indirimbo brings the beloved hymns and worship songs of Rwandan churches to your fingertips. Whether you're leading worship, singing along at church, or practicing at home, Indirimbo is your perfect companion."}
+          {isBurundi ? t('about.descriptionKirundi') : t('about.descriptionKinyarwanda')}
         </ThemedText>
       </ThemedView>
 
       {/* Features */}
       <ThemedView style={styles.featuresSection}>
         <ThemedText type="subtitle" style={styles.sectionTitle}>
-          Features
+          {t('about.featuresTitle')}
         </ThemedText>
 
-        <FeatureItem icon="music.note.list" title="Complete Hymnbooks" description={isBurundi
-          ? 'Access songs from Cantiques Kirundi, Gushimisha Imana, and Agakiza hymnbooks, with all verses and choruses.'
-          : 'Access songs from Gushimisha Imana and Agakiza hymnbooks, with all verses and choruses.'} />
-        <FeatureItem icon="magnifyingglass" title="Powerful Search" description="Find any song instantly by number, title, or even words from the lyrics." />
-        <FeatureItem icon="heart" title="Favorites" description="Save your most-used songs for quick access during worship or practice." />
-        <FeatureItem icon="clock" title="Recent Songs" description="Quickly return to songs you've recently viewed." />
-        <FeatureItem icon="textformat.size" title="Adjustable Text" description="Customize the font size for comfortable reading on any device." />
-        <FeatureItem icon="chart.bar.fill" title="Song Navigation" description="Visual heatmap shows all verses and choruses. Tap any section to jump directly to it." />
-        <FeatureItem icon="square.and.arrow.up" title="Easy Sharing" description="Share songs with friends, family, or your worship team." />
-        <FeatureItem icon="icloud.slash" title="Works Offline" description="All songs are stored on your device. No internet needed after installation." />
-        <FeatureItem icon="moon" title="Dark Mode" description="Easy on the eyes with automatic dark mode support." />
+        <FeatureItem
+          icon="music.note.list"
+          title={t('about.feature.completeHymnbooks.title')}
+          description={isBurundi
+            ? t('about.feature.completeHymnbooks.kirundi')
+            : t('about.feature.completeHymnbooks.kinyarwanda')}
+        />
+        <FeatureItem icon="magnifyingglass" title={t('about.feature.search.title')} description={t('about.feature.search.description')} />
+        <FeatureItem icon="heart" title={t('about.feature.favorites.title')} description={t('about.feature.favorites.description')} />
+        <FeatureItem icon="clock" title={t('about.feature.recent.title')} description={t('about.feature.recent.description')} />
+        <FeatureItem icon="textformat.size" title={t('about.feature.adjustableText.title')} description={t('about.feature.adjustableText.description')} />
+        <FeatureItem icon="chart.bar.fill" title={t('about.feature.songNavigation.title')} description={t('about.feature.songNavigation.description')} />
+        <FeatureItem icon="square.and.arrow.up" title={t('about.feature.sharing.title')} description={t('about.feature.sharing.description')} />
+        <FeatureItem icon="icloud.slash" title={t('about.feature.offline.title')} description={t('about.feature.offline.description')} />
+        <FeatureItem icon="moon" title={t('about.feature.darkMode.title')} description={t('about.feature.darkMode.description')} />
       </ThemedView>
 
       {/* Playlists */}
-      <InfoCard icon="music.mic" title="Available Hymnbooks">
+      <InfoCard icon="music.mic" title={t('about.hymnbooks.title')}>
         {isBurundi && (
           <View style={styles.playlistItem}>
             <ThemedText type="defaultSemiBold">Cantiques Kirundi</ThemedText>
             <ThemedText style={styles.playlistDescription}>
-              Indirimbo zo Guhimbaza Imana — hymns and worship songs in Kirundi.
+              {t('about.hymnbook.kirundi.description')}
             </ThemedText>
           </View>
         )}
         <View style={styles.playlistItem}>
           <ThemedText type="defaultSemiBold">Gushimisha Imana</ThemedText>
           <ThemedText style={styles.playlistDescription}>
-            A collection of praise and worship songs widely used in Rwandan churches.
+            {t('about.hymnbook.gushimisha.description')}
           </ThemedText>
         </View>
         <View style={[styles.playlistItem, styles.playlistItemLast]}>
           <ThemedText type="defaultSemiBold">Agakiza</ThemedText>
           <ThemedText style={styles.playlistDescription}>
-            Traditional hymns focused on salvation and spiritual themes.
+            {t('about.hymnbook.agakiza.description')}
           </ThemedText>
         </View>
       </InfoCard>
@@ -122,31 +124,31 @@ export default function AboutScreen() {
       <ThemedView style={styles.ctaSection}>
         <TouchableOpacity
           onPress={() => router.navigate('/(tabs)/(home)')}
-          accessibilityLabel="Start exploring songs"
+          accessibilityLabel={t('about.ctaA11y')}
           accessibilityRole="button"
           activeOpacity={0.8}
           style={[styles.ctaButton, { backgroundColor: colors.tint }]}>
           <IconSymbol name="play.fill" size={20} color={colors.tintForeground} />
-          <ThemedText style={[styles.ctaText, { color: colors.tintForeground }]}>Start Exploring Songs</ThemedText>
+          <ThemedText style={[styles.ctaText, { color: colors.tintForeground }]}>{t('about.cta')}</ThemedText>
         </TouchableOpacity>
       </ThemedView>
 
       {/* Footer Links */}
       <ThemedView style={styles.footerLinks}>
         <TouchableOpacity onPress={() => router.navigate('/support')} accessibilityRole="link" activeOpacity={0.7}>
-          <ThemedText style={[styles.footerLink, { color: colors.tint }]}>Support</ThemedText>
+          <ThemedText style={[styles.footerLink, { color: colors.tint }]}>{t('about.footer.support')}</ThemedText>
         </TouchableOpacity>
         <ThemedText style={styles.footerDot}>•</ThemedText>
         <TouchableOpacity onPress={() => router.navigate('/privacy-policy')} accessibilityRole="link" activeOpacity={0.7}>
-          <ThemedText style={[styles.footerLink, { color: colors.tint }]}>Privacy Policy</ThemedText>
+          <ThemedText style={[styles.footerLink, { color: colors.tint }]}>{t('about.footer.privacy')}</ThemedText>
         </TouchableOpacity>
         <ThemedText style={styles.footerDot}>•</ThemedText>
         <TouchableOpacity onPress={() => router.navigate('/terms-of-service')} accessibilityRole="link" activeOpacity={0.7}>
-          <ThemedText style={[styles.footerLink, { color: colors.tint }]}>Terms</ThemedText>
+          <ThemedText style={[styles.footerLink, { color: colors.tint }]}>{t('about.footer.terms')}</ThemedText>
         </TouchableOpacity>
       </ThemedView>
 
-      <ThemedText style={styles.version}>Version {Constants.expoConfig?.version ?? '1.0.0'}</ThemedText>
+      <ThemedText style={styles.version}>{t('about.version', { version: Constants.expoConfig?.version ?? '1.0.0' })}</ThemedText>
     </CollapsibleHeaderScrollView>
     <FloatingShareButton />
     </>

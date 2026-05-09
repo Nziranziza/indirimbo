@@ -3,15 +3,19 @@ import { TabCollapsibleScrollView } from '@/components/tab-collapsible-scroll-vi
 import { ThemedView } from '@/components/themed-view';
 import { AccentColorSetting } from '@/components/settings/accent-color-setting';
 import { AppearanceSetting } from '@/components/settings/appearance-setting';
+import { LanguageSetting } from '@/components/settings/language-setting';
 import { SongbookSetting } from '@/components/settings/songbook-setting';
 import { TextSizeSetting } from '@/components/settings/text-size-setting';
 import { FloatingShareButton } from '@/components/ui/floating-share-button';
 import { SettingsGroup } from '@/components/ui/settings-group';
 import { SettingsLinkRow } from '@/components/ui/settings-link-row';
 import { APP_STORE_REVIEW_URL, PLAY_STORE_REVIEW_URL } from '@/constants/app-links';
+import type { Locale } from '@/constants/translations';
 import { useEngagement } from '@/contexts/engagement-context';
+import { useLanguage } from '@/contexts/language-context';
 import { useSongbookPreference } from '@/contexts/songbook-preference-context';
 import { useColorScheme, useTheme } from '@/contexts/theme-context';
+import { useTranslation } from '@/hooks/use-translation';
 import { trackEvent } from '@/utils/analytics';
 import { lightImpact } from '@/utils/haptics';
 import { shareApp } from '@/utils/share';
@@ -37,7 +41,9 @@ export default function SettingsScreen() {
   } = useTheme();
   const colorScheme = useColorScheme();
   const { isBurundi, songbookPreference, updateSongbookPreference } = useSongbookPreference();
+  const { language, setLanguage } = useLanguage();
   const { notifyShareSuccess, markAsRated } = useEngagement();
+  const { t } = useTranslation();
 
   useFocusEffect(
     useCallback(() => {
@@ -69,9 +75,15 @@ export default function SettingsScreen() {
     lightImpact();
   };
 
+  const handleLanguageChange = async (newLanguage: Locale) => {
+    await setLanguage(newLanguage);
+    trackEvent('change_language', { language: newLanguage });
+    lightImpact();
+  };
+
   const handleShareApp = async () => {
     trackEvent('share_app', { songbook: isBurundi ? 'kirundi' : 'kinyarwanda' });
-    await shareApp({ isBurundi });
+    await shareApp({ isBurundi, t });
     notifyShareSuccess();
   };
 
@@ -90,20 +102,20 @@ export default function SettingsScreen() {
   return (
     <ThemedView style={styles.container}>
       <PageHead
-        title="Settings | Indirimbo"
-        description="Customize your Indirimbo reading experience. Adjust text size, theme, and accent color."
+        title={t('settings.pageTitle')}
+        description={t('settings.pageDescription')}
         canonicalPath="/settings"
       />
       <TabCollapsibleScrollView
-        title="Settings"
-        subtitle="Customize your reading experience"
+        title={t('settings.title')}
+        subtitle={t('settings.subtitle')}
         contentGap={20}
         hasFab
       >
         <SettingsGroup
           icon="textformat.size"
-          title="Text Size"
-          description="Adjust the font size for song lyrics"
+          title={t('settings.textSize.title')}
+          description={t('settings.textSize.description')}
         >
           <TextSizeSetting
             fontSize={fontSize}
@@ -115,8 +127,8 @@ export default function SettingsScreen() {
         {isBurundi && (
           <SettingsGroup
             icon="books.vertical.fill"
-            title="Songbook"
-            description="Choose which songbooks to display"
+            title={t('settings.songbook.title')}
+            description={t('settings.songbook.description')}
           >
             <SongbookSetting
               songbookPreference={songbookPreference}
@@ -126,9 +138,20 @@ export default function SettingsScreen() {
         )}
 
         <SettingsGroup
+          icon="globe"
+          title={t('settings.language.title')}
+          description={t('settings.language.description')}
+        >
+          <LanguageSetting
+            language={language}
+            onLanguageChange={handleLanguageChange}
+          />
+        </SettingsGroup>
+
+        <SettingsGroup
           icon="paintbrush.fill"
-          title="Appearance"
-          description="Choose your preferred theme"
+          title={t('settings.appearance.title')}
+          description={t('settings.appearance.description')}
         >
           <AppearanceSetting
             themePreference={themePreference ?? 'auto'}
@@ -138,8 +161,8 @@ export default function SettingsScreen() {
 
         <SettingsGroup
           icon="paintpalette.fill"
-          title="Accent Color"
-          description="Choose your preferred accent color"
+          title={t('settings.accentColor.title')}
+          description={t('settings.accentColor.description')}
         >
           <AccentColorSetting
             tintColor={tintColor ?? 'blue'}
@@ -149,13 +172,13 @@ export default function SettingsScreen() {
 
         <SettingsGroup
           icon="square.and.arrow.up"
-          title={Platform.OS === 'web' ? 'Share & Download' : 'Share & Rate'}
-          description="Spread the word and help others discover Indirimbo"
+          title={Platform.OS === 'web' ? t('settings.share.titleWeb') : t('settings.share.titleMobile')}
+          description={t('settings.share.description')}
         >
           <ThemedView style={styles.linksContainer}>
             <SettingsLinkRow
               icon="person.2.fill"
-              label="Share with Friends"
+              label={t('settings.share.shareWithFriends')}
               onPress={handleShareApp}
               isLast={Platform.OS === 'web'}
               trailingIcon="arrow.up.forward"
@@ -165,8 +188,8 @@ export default function SettingsScreen() {
                 icon="star.fill"
                 label={
                   Platform.OS === 'ios'
-                    ? 'Rate on App Store'
-                    : 'Rate on Play Store'
+                    ? t('settings.share.rateAppStore')
+                    : t('settings.share.ratePlayStore')
                 }
                 onPress={handleRateApp}
                 isLast
@@ -176,7 +199,7 @@ export default function SettingsScreen() {
             {Platform.OS === 'web' && (
               <SettingsLinkRow
                 icon="arrow.down.circle.fill"
-                label="Download the App"
+                label={t('settings.share.downloadApp')}
                 onPress={() => router.navigate('/download')}
                 isLast
               />
@@ -186,34 +209,34 @@ export default function SettingsScreen() {
 
         <SettingsGroup
           icon="info.circle.fill"
-          title="Legal & Information"
-          description="About the app, support, and legal policies"
+          title={t('settings.legal.title')}
+          description={t('settings.legal.description')}
         >
           <ThemedView style={styles.linksContainer}>
             <SettingsLinkRow
               icon="music.note.list"
-              label="About Indirimbo"
+              label={t('settings.legal.about')}
               onPress={() => router.navigate('/about')}
             />
             <SettingsLinkRow
               icon="book.fill"
-              label="Song Book References"
+              label={t('settings.legal.bookReferences')}
               onPress={() => router.navigate('/book-references')}
-              badge="New"
+              badge={t('settings.legal.bookReferencesBadge')}
             />
             <SettingsLinkRow
               icon="questionmark.circle.fill"
-              label="Help & Support"
+              label={t('settings.legal.help')}
               onPress={() => router.navigate('/support')}
             />
             <SettingsLinkRow
               icon="lock.shield.fill"
-              label="Privacy Policy"
+              label={t('settings.legal.privacy')}
               onPress={() => router.navigate('/privacy-policy')}
             />
             <SettingsLinkRow
               icon="doc.text.fill"
-              label="Terms of Service"
+              label={t('settings.legal.terms')}
               onPress={() => router.navigate('/terms-of-service')}
               isLast
             />

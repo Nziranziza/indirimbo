@@ -1,5 +1,6 @@
 import { IconSymbol } from '@/components/ui/icon-symbol';
 import { useColors } from '@/hooks/use-colors';
+import { useTranslation } from '@/hooks/use-translation';
 import { router, type Href } from 'expo-router';
 import { Platform, StyleSheet, TouchableOpacity, type ViewStyle } from 'react-native';
 
@@ -23,6 +24,7 @@ function handleBack(fallback: Href) {
 
 export function BackButton({ onPress, fallbackHref, color, style, hitSlop }: BackButtonProps) {
   const colors = useColors();
+  const { t } = useTranslation();
   const fallback = fallbackHref ?? '/(tabs)/(home)';
 
   return (
@@ -30,7 +32,7 @@ export function BackButton({ onPress, fallbackHref, color, style, hitSlop }: Bac
       onPress={onPress ?? (() => handleBack(fallback))}
       style={[styles.backButton, style]}
       activeOpacity={0.7}
-      accessibilityLabel="Go back"
+      accessibilityLabel={t('common.goBackA11y')}
       accessibilityRole="button"
       hitSlop={hitSlop ?? { left: 20, right: 10, top: 10, bottom: 10 }}>
       <IconSymbol name="arrow.left" size={24} color={color ?? colors.tint} />

@@ -1,3 +1,4 @@
+import { useLanguage } from '@/contexts/language-context';
 import { useIsFocused } from '@react-navigation/native';
 import Head from 'expo-router/head';
 
@@ -15,6 +16,7 @@ interface PageHeadProps {
 
 export function PageHead({ title, description, canonicalPath, keywords, playlist }: PageHeadProps) {
   const isFocused = useIsFocused();
+  const { language } = useLanguage();
 
   if (!isFocused) return null;
 
@@ -22,7 +24,10 @@ export function PageHead({ title, description, canonicalPath, keywords, playlist
   const canonicalUrl = rawUrl.endsWith('/') ? rawUrl : `${rawUrl}/`;
   const isKirundi = playlist === 'cantiques-kirundi';
   const ogImage = isKirundi ? OG_IMAGE_KIRUNDI : OG_IMAGE;
-  const ogLocale = isKirundi ? 'rn_BI' : 'rw_RW';
+  // Song pages keep their content language; static pages reflect the active UI language.
+  const ogLocale = playlist
+    ? (isKirundi ? 'rn_BI' : 'rw_RW')
+    : (language === 'fr' ? 'fr_FR' : 'en_US');
 
   return (
     <Head>

@@ -5,69 +5,72 @@ import { ContactSection } from '@/components/ui/contact-section';
 import { FloatingShareButton } from '@/components/ui/floating-share-button';
 import { InfoCard } from '@/components/ui/info-card';
 import { PageHead } from '@/components/page-head';
+import { useTranslation } from '@/hooks/use-translation';
 import { StyleSheet } from 'react-native';
 
 export default function PrivacyPolicyScreen() {
+  const { t } = useTranslation();
+
   return (
     <>
     <PageHead
-      title="Privacy Policy | Indirimbo"
-      description="Privacy policy for the Indirimbo app. Learn how we handle your information."
+      title={t('privacy.pageTitle')}
+      description={t('privacy.pageDescription')}
       canonicalPath="/privacy-policy/"
     />
     <CollapsibleHeaderScrollView
-      title="Privacy Policy"
-      subtitle="How we handle information in the app"
+      title={t('privacy.title')}
+      subtitle={t('privacy.subtitle')}
       hasFab
       fallbackHref="/(tabs)/settings">
       <ThemedText style={[styles.date, { opacity: 0.5 }]}>
-        Last Updated: February 1, 2026
+        {t('common.lastUpdated', { date: t('common.lastUpdatedDate') })}
       </ThemedText>
 
       {/* Summary */}
-      <InfoCard icon="sparkles" title="Summary" isHighlighted>
-        <BulletItem>We collect limited technical data to improve the app.</BulletItem>
-        <BulletItem>We do not sell or share your data.</BulletItem>
-        <BulletItem>Contact us anytime with questions or concerns.</BulletItem>
+      <InfoCard icon="sparkles" title={t('common.summary')} isHighlighted>
+        <BulletItem>{t('privacy.summary.collect')}</BulletItem>
+        <BulletItem>{t('privacy.summary.noShare')}</BulletItem>
+        <BulletItem>{t('privacy.summary.contact')}</BulletItem>
       </InfoCard>
 
       {/* What We Collect */}
-      <InfoCard icon="doc.text" title="What We Collect">
+      <InfoCard icon="doc.text" title={t('privacy.collect.title')}>
         <ThemedText style={styles.paragraph}>
-          We collect limited technical information to improve the app:
+          {t('privacy.collect.body')}
         </ThemedText>
-        <BulletItem>Anonymous usage data (feature usage, crashes)</BulletItem>
-        <BulletItem>Device information (model and OS version)</BulletItem>
+        <BulletItem>{t('privacy.collect.usage')}</BulletItem>
+        <BulletItem>{t('privacy.collect.device')}</BulletItem>
       </InfoCard>
 
       {/* What We Don't Collect */}
-      <InfoCard icon="xmark.circle" title="What We Do Not Collect">
-        <BulletItem>Personal information (name, email, phone)</BulletItem>
-        <BulletItem>Location data</BulletItem>
-        <BulletItem>Photos or contacts</BulletItem>
-        <BulletItem>Payment information</BulletItem>
+      <InfoCard icon="xmark.circle" title={t('privacy.notCollect.title')}>
+        <BulletItem>{t('privacy.notCollect.personal')}</BulletItem>
+        <BulletItem>{t('privacy.notCollect.location')}</BulletItem>
+        <BulletItem>{t('privacy.notCollect.photos')}</BulletItem>
+        <BulletItem>{t('privacy.notCollect.payment')}</BulletItem>
       </InfoCard>
 
       {/* How We Use Your Data */}
-      <InfoCard icon="gearshape" title="How We Use Your Data">
+      <InfoCard icon="gearshape" title={t('privacy.use.title')}>
         <ThemedText style={styles.paragraph}>
-          We use this data only to:
+          {t('privacy.use.body')}
         </ThemedText>
-        <BulletItem>Fix bugs and improve stability</BulletItem>
-        <BulletItem>Understand general usage patterns</BulletItem>
+        <BulletItem>{t('privacy.use.fixBugs')}</BulletItem>
+        <BulletItem>{t('privacy.use.patterns')}</BulletItem>
       </InfoCard>
 
       {/* Sharing */}
-      <InfoCard icon="lock.shield" title="Sharing">
+      <InfoCard icon="lock.shield" title={t('privacy.sharing.title')}>
         <ThemedText style={styles.paragraph}>
-          We do not share, sell, or rent your data. The information we collect is used only for improving the app.
+          {t('privacy.sharing.body')}
         </ThemedText>
       </InfoCard>
 
       {/* Children */}
-      <InfoCard icon="figure.2.and.child.holdinghands" title="Children">
+      <InfoCard icon="figure.2.and.child.holdinghands" title={t('privacy.children.title')}>
         <ThemedText style={styles.paragraph}>
-          The app is intended for all ages. We do not knowingly collect personal information. Parents or guardians should supervise children using the app.
+          {t('privacy.children.body')}
         </ThemedText>
       </InfoCard>
 

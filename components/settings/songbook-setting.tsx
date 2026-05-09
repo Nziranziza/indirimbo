@@ -3,6 +3,7 @@ import { ThemedView } from '@/components/themed-view';
 import { IconSymbol } from '@/components/ui/icon-symbol';
 import type { IconSymbolName } from '@/components/ui/icon-symbol';
 import { useColors } from '@/hooks/use-colors';
+import { useTranslation } from '@/hooks/use-translation';
 import type { SongbookPreference } from '@/utils/storage';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 
@@ -39,6 +40,7 @@ const SONGBOOK_OPTIONS: readonly {
 
 export function SongbookSetting({ songbookPreference, onSongbookChange }: SongbookSettingProps) {
   const colors = useColors();
+  const { t } = useTranslation();
 
   return (
     <ThemedView style={styles.optionsContainer}>
@@ -55,7 +57,10 @@ export function SongbookSetting({ songbookPreference, onSongbookChange }: Songbo
                 backgroundColor: isSelected ? colors.tint + '10' : 'transparent',
               },
             ]}
-            accessibilityLabel={`${option.label}: ${option.description}`}
+            accessibilityLabel={t('settings.songbook.optionA11y', {
+              label: option.label,
+              description: option.description,
+            })}
             accessibilityRole="radio"
             accessibilityState={{ selected: isSelected }}
             activeOpacity={0.7}

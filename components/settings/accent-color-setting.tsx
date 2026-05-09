@@ -3,6 +3,7 @@ import { ThemedView } from '@/components/themed-view';
 import { IconSymbol } from '@/components/ui/icon-symbol';
 import { TintColorOptions } from '@/constants/theme';
 import { useColors } from '@/hooks/use-colors';
+import { useTranslation } from '@/hooks/use-translation';
 import type { TintColorKey } from '@/utils/storage';
 import { useEffect, useState } from 'react';
 import { Dimensions, Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
@@ -25,6 +26,7 @@ interface AccentColorSettingProps {
 
 export function AccentColorSetting({ tintColor, onTintColorChange }: AccentColorSettingProps) {
   const colors = useColors();
+  const { t } = useTranslation();
 
   const [colorOptionWidth, setColorOptionWidth] = useState(() => {
     if (Platform.OS === 'web') {
@@ -81,8 +83,11 @@ export function AccentColorSetting({ tintColor, onTintColorChange }: AccentColor
               )}
               <ThemedText
                 style={[styles.colorLabel, { opacity: isSelected ? 1 : 0.7 }]}
+                numberOfLines={1}
+                adjustsFontSizeToFit
+                minimumFontScale={0.7}
               >
-                {colorOption.name}
+                {t(colorOption.nameKey)}
               </ThemedText>
             </TouchableOpacity>
           </View>

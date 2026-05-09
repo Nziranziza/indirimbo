@@ -2,6 +2,7 @@ import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { RecentSongCard } from '@/components/ui/recent-song-card';
 import type { Song } from '@/constants/types';
+import { useTranslation } from '@/hooks/use-translation';
 import { StyleSheet, View } from 'react-native';
 import type { RecentSong } from '@/utils/storage';
 
@@ -12,10 +13,11 @@ interface RecentSongsListProps {
 }
 
 export function RecentSongsList({ recentSongs, allSongs, onSongPress }: RecentSongsListProps) {
+  const { t } = useTranslation();
   return (
     <ThemedView>
       <ThemedText type="subtitle" style={styles.sectionTitle}>
-        Recent Songs
+        {t('home.recentSongs')}
       </ThemedText>
       <View style={styles.list}>
         {recentSongs.map((recent, index) => (
