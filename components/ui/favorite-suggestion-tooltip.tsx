@@ -1,4 +1,5 @@
 import { useColors } from '@/hooks/use-colors';
+import { useTranslation } from '@/hooks/use-translation';
 import { lightImpact } from '@/utils/haptics';
 import { useCallback, useEffect, useRef } from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
@@ -31,6 +32,7 @@ export function FavoriteSuggestionTooltip({
   onAddToFavorites,
 }: FavoriteSuggestionTooltipProps) {
   const colors = useColors();
+  const { t } = useTranslation();
   const translateY = useSharedValue(-15);
   const opacity = useSharedValue(0);
   const isDismissing = useRef(false);
@@ -117,16 +119,16 @@ export function FavoriteSuggestionTooltip({
               style={styles.content}
               onPress={accept}
               activeOpacity={0.8}
-              accessibilityLabel="Add to favorites"
+              accessibilityLabel={t('common.favoriteSuggestion.addA11y')}
               accessibilityRole="button"
             >
               <View style={[styles.iconContainer, { backgroundColor: colors.tint + '15' }]}>
                 <IconSymbol name="heart.fill" size={24} color={colors.tint} />
               </View>
               <View style={styles.textContainer}>
-                <ThemedText style={styles.title}>Add to Your Favorites</ThemedText>
+                <ThemedText style={styles.title}>{t('common.favoriteSuggestion.title')}</ThemedText>
                 <ThemedText style={[styles.description, { color: colors.icon }]}>
-                  Save songs you love for quick access anytime.
+                  {t('common.favoriteSuggestion.description')}
                 </ThemedText>
               </View>
             </TouchableOpacity>
@@ -134,7 +136,7 @@ export function FavoriteSuggestionTooltip({
               onPress={dismiss}
               style={[styles.closeButton, { backgroundColor: colors.icon + '20' }]}
               activeOpacity={0.7}
-              accessibilityLabel="Dismiss"
+              accessibilityLabel={t('common.favoriteSuggestion.dismissA11y')}
               accessibilityRole="button"
               hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
             >

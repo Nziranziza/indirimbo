@@ -5,6 +5,7 @@ import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { ThemedText } from '@/components/themed-text';
 import { useColors } from '@/hooks/use-colors';
 import { useFabBottom } from '@/hooks/use-fab-bottom';
+import { useTranslation } from '@/hooks/use-translation';
 import { trackEvent } from '@/utils/analytics';
 import { openStoreForCurrentPlatform } from '@/utils/store';
 
@@ -19,6 +20,7 @@ export const UpdateAvailableBanner = memo(function UpdateAvailableBanner({
 }: UpdateAvailableBannerProps) {
   const colors = useColors();
   const bottom = useFabBottom(inTabs);
+  const { t } = useTranslation();
 
   const handlePress = useCallback(() => {
     trackEvent('update_tap', { variant: 'banner-available' });
@@ -30,7 +32,7 @@ export const UpdateAvailableBanner = memo(function UpdateAvailableBanner({
       onPress={handlePress}
       activeOpacity={0.85}
       accessibilityRole="button"
-      accessibilityLabel="New version available — tap to update"
+      accessibilityLabel={t('common.update.bannerA11y')}
       style={[
         styles.container,
         {
@@ -42,11 +44,11 @@ export const UpdateAvailableBanner = memo(function UpdateAvailableBanner({
     >
       <Image source={APP_ICON} style={styles.icon} contentFit="contain" />
       <View style={styles.text}>
-        <ThemedText style={styles.title}>New version available</ThemedText>
-        <ThemedText style={[styles.subtitle, { color: colors.icon }]}>Tap to update</ThemedText>
+        <ThemedText style={styles.title}>{t('common.update.bannerTitle')}</ThemedText>
+        <ThemedText style={[styles.subtitle, { color: colors.icon }]}>{t('common.update.bannerSubtitle')}</ThemedText>
       </View>
       <View style={[styles.cta, { backgroundColor: colors.tint }]}>
-        <ThemedText style={[styles.ctaText, { color: colors.tintForeground }]}>Update</ThemedText>
+        <ThemedText style={[styles.ctaText, { color: colors.tintForeground }]}>{t('common.update.bannerCta')}</ThemedText>
       </View>
     </TouchableOpacity>
   );

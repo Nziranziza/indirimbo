@@ -2,6 +2,7 @@ import { useEngagement, useFabLift } from '@/contexts/engagement-context';
 import { useSongbookPreference } from '@/contexts/songbook-preference-context';
 import { useColors } from '@/hooks/use-colors';
 import { useFabBottom } from '@/hooks/use-fab-bottom';
+import { useTranslation } from '@/hooks/use-translation';
 import { mediumImpact } from '@/utils/haptics';
 import { shareApp } from '@/utils/share';
 import { useFocusEffect } from 'expo-router';
@@ -26,6 +27,7 @@ export function FloatingShareButton({ inTabs = false }: { inTabs?: boolean }) {
   const { notifyShareSuccess } = useEngagement();
   const lift = useFabLift(inTabs);
   const expanded = useSharedValue(1);
+  const { t } = useTranslation();
 
   useFocusEffect(
     useCallback(() => {
@@ -49,7 +51,7 @@ export function FloatingShareButton({ inTabs = false }: { inTabs?: boolean }) {
 
   const handlePress = async () => {
     mediumImpact();
-    await shareApp({ isBurundi });
+    await shareApp({ isBurundi, t });
     notifyShareSuccess();
   };
 
@@ -65,7 +67,7 @@ export function FloatingShareButton({ inTabs = false }: { inTabs?: boolean }) {
       <TouchableOpacity
         onPress={handlePress}
         activeOpacity={0.85}
-        accessibilityLabel="Share app"
+        accessibilityLabel={t('common.shareAppA11y')}
         accessibilityRole="button"
         style={styles.touchable}>
         <View style={styles.iconContainer}>
@@ -74,7 +76,7 @@ export function FloatingShareButton({ inTabs = false }: { inTabs?: boolean }) {
         <Animated.Text
           numberOfLines={1}
           style={[styles.label, { color: colors.tintForeground }, labelStyle]}>
-          Share App
+          {t('common.shareAppLabel')}
         </Animated.Text>
       </TouchableOpacity>
     </Animated.View>

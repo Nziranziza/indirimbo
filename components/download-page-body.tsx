@@ -6,6 +6,7 @@ import { IconSymbol } from '@/components/ui/icon-symbol';
 import type { IconSymbolName } from '@/components/ui/icon-symbol';
 import { APP_STORE_URL, APP_UNIVERSAL_LINK_URL, PLAY_STORE_URL } from '@/constants/app-links';
 import { useColors } from '@/hooks/use-colors';
+import { useTranslation } from '@/hooks/use-translation';
 import { trackEvent } from '@/utils/analytics';
 import { useEffect } from 'react';
 import { Image, Linking, Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
@@ -18,6 +19,7 @@ interface DownloadPageBodyProps {
 
 export function DownloadPageBody({ variant = 'default' }: DownloadPageBodyProps) {
   const colors = useColors();
+  const { t } = useTranslation();
   const isKirundi = variant === 'kirundi';
 
   useEffect(() => {
@@ -38,17 +40,12 @@ export function DownloadPageBody({ variant = 'default' }: DownloadPageBodyProps)
     }
   };
 
-  const tagline = isKirundi
-    ? 'Cantiques Kirundi, Gushimisha Imana & Agakiza'
-    : 'Gushimisha Imana & Agakiza';
-
-  const description = isKirundi
-    ? 'Get the Indirimbo app for the best experience. Browse Cantiques Kirundi, Gushimisha Imana, and Agakiza offline, save favorites, customize your reading experience, and more.'
-    : 'Get the Indirimbo app for the best experience. Browse hymns offline, save favorites, customize your reading experience, and more.';
+  const tagline = isKirundi ? t('download.taglineKirundi') : t('download.taglineKinyarwanda');
+  const description = isKirundi ? t('download.descriptionKirundi') : t('download.descriptionKinyarwanda');
 
   return (
     <CollapsibleHeaderScrollView
-      title="Download"
+      title={t('download.title')}
       headerMaxHeight={260}
       contentGap={20}
       fallbackHref="/(tabs)/settings"
@@ -77,8 +74,8 @@ export function DownloadPageBody({ variant = 'default' }: DownloadPageBodyProps)
             style={[styles.storeButton, { borderColor: colors.icon + '40' }]}>
             <IconSymbol name="apple.logo" size={32} color="#FFFFFF" />
             <View>
-              <ThemedText style={styles.storeLabel}>Download on the</ThemedText>
-              <ThemedText style={styles.storeName}>App Store</ThemedText>
+              <ThemedText style={styles.storeLabel}>{t('download.appStoreLabel')}</ThemedText>
+              <ThemedText style={styles.storeName}>{t('download.appStoreName')}</ThemedText>
             </View>
           </TouchableOpacity>
         )}
@@ -90,8 +87,8 @@ export function DownloadPageBody({ variant = 'default' }: DownloadPageBodyProps)
             style={[styles.storeButton, { borderColor: colors.icon + '40' }]}>
             <GooglePlayIcon size={32} />
             <View>
-              <ThemedText style={styles.storeLabel}>Get it on</ThemedText>
-              <ThemedText style={styles.storeName}>Google Play</ThemedText>
+              <ThemedText style={styles.storeLabel}>{t('download.playStoreLabel')}</ThemedText>
+              <ThemedText style={styles.storeName}>{t('download.playStoreName')}</ThemedText>
             </View>
           </TouchableOpacity>
         )}
@@ -102,23 +99,23 @@ export function DownloadPageBody({ variant = 'default' }: DownloadPageBodyProps)
         <View style={styles.cardHeader}>
           <IconSymbol name="sparkles" size={20} color={colors.tint} />
           <ThemedText type="defaultSemiBold" style={styles.cardTitle}>
-            Why download the app?
+            {t('download.whyDownload')}
           </ThemedText>
         </View>
 
         <View style={styles.featureList}>
-          <FeatureRow icon="icloud.slash" text="Works completely offline" colors={colors} />
-          <FeatureRow icon="heart.fill" text="Save your favorite hymns" colors={colors} />
-          <FeatureRow icon="magnifyingglass" text="Search by title, number, or lyrics" colors={colors} />
-          <FeatureRow icon="textformat.size" text="Adjustable text size" colors={colors} />
-          <FeatureRow icon="moon.fill" text="Dark mode support" colors={colors} />
-          <FeatureRow icon="square.and.arrow.up" text="Share songs with friends" colors={colors} />
+          <FeatureRow icon="icloud.slash" text={t('download.feature.offline')} colors={colors} />
+          <FeatureRow icon="heart.fill" text={t('download.feature.favorites')} colors={colors} />
+          <FeatureRow icon="magnifyingglass" text={t('download.feature.search')} colors={colors} />
+          <FeatureRow icon="textformat.size" text={t('download.feature.textSize')} colors={colors} />
+          <FeatureRow icon="moon.fill" text={t('download.feature.darkMode')} colors={colors} />
+          <FeatureRow icon="square.and.arrow.up" text={t('download.feature.sharing')} colors={colors} />
         </View>
       </ThemedView>
 
       {Platform.OS === 'web' && (
         <ThemedText style={styles.webNote}>
-          You can also browse songs directly on the web at{' '}
+          {t('download.webNotePrefix')}
           <ThemedText
             style={[styles.webLink, { color: colors.tint }]}
             onPress={() => Linking.openURL(APP_UNIVERSAL_LINK_URL)}>

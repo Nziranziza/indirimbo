@@ -1,5 +1,6 @@
 import { APP_STORE_REVIEW_URL, APP_UNIVERSAL_LINK_URL, PLAY_STORE_REVIEW_URL } from '@/constants/app-links';
 import { EngagementPrompt, type EngagementPromptType } from '@/components/ui/engagement-prompt';
+import { useTranslation } from '@/hooks/use-translation';
 import { mediumImpact, successNotification } from '@/utils/haptics';
 import { shareSong } from '@/utils/share';
 import {
@@ -123,6 +124,7 @@ function isEligibleForShareApp(
 
 export function EngagementProvider({ children }: { readonly children: ReactNode }) {
   const insets = useSafeAreaInsets();
+  const { t } = useTranslation();
 
   const [activePrompt, setActivePrompt] = useState<ActivePrompt | null>(null);
   const [bottomChrome, setBottomChrome] = useState(0);
@@ -304,7 +306,7 @@ export function EngagementProvider({ children }: { readonly children: ReactNode 
         const message = `Check out Indirimbo - Agakiza no Gushimisha Imana\n\n${APP_UNIVERSAL_LINK_URL}/download`;
         const result = await Share.share(
           { message, title: 'Indirimbo - Rwandan Hymns & Worship Songs' },
-          { dialogTitle: 'Share Indirimbo' },
+          { dialogTitle: t('share.dialog.app') },
         );
         if (Platform.OS !== 'ios' || result.action === 'sharedAction') {
           notifyShareSuccess();
@@ -315,13 +317,14 @@ export function EngagementProvider({ children }: { readonly children: ReactNode 
           songName: prompt.song.name,
           playlist: prompt.song.playlist,
           songNumber: prompt.song.number,
+          t,
         });
         if (completed) notifyShareSuccess();
       }
     } catch (error) {
       console.error('Error handling engagement action:', error);
     }
-  }, [activePrompt, notifyShareSuccess, writeState]);
+  }, [activePrompt, notifyShareSuccess, writeState, t]);
 
   const handleDismiss = useCallback(() => {
     const prompt = activePrompt;

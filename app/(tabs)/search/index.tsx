@@ -9,6 +9,7 @@ import { useColorScheme } from '@/contexts/theme-context';
 import { useDebounce } from '@/hooks/use-debounce';
 import { useSearch } from '@/hooks/use-search';
 import { useSongbooks } from '@/hooks/use-songbooks';
+import { useTranslation } from '@/hooks/use-translation';
 import {
   addRecentSearch,
   clearRecentSearches,
@@ -40,6 +41,7 @@ export default function SearchScreen() {
   const colors = useColors();
   const colorScheme = useColorScheme();
   const insets = useSafeAreaInsets();
+  const { t } = useTranslation();
   const [searchQuery, setSearchQuery] = useState('');
   const [debouncedSearchQuery, flushSearch] = useDebounce(searchQuery, 150);
   const searchBarRef = useRef<SearchBarCommands>(null);
@@ -166,16 +168,16 @@ export default function SearchScreen() {
   return (
     <>
       <PageHead
-        title="Search Songs | Indirimbo"
-        description="Search Rwandan hymns and worship songs by title, number, or lyrics across Gushimisha Imana and Agakiza hymnbooks."
+        title={t('search.pageTitle')}
+        description={t('search.pageDescription')}
         canonicalPath="/search"
       />
       {isIOS && (
         <>
-          <Stack.Screen options={{ title: "Search" }} />
+          <Stack.Screen options={{ title: t('search.title') }} />
           <Stack.SearchBar
             ref={searchBarRef as any}
-            placeholder="Title, Number or Lyrics"
+            placeholder={t('search.placeholder')}
             onChangeText={(e: { nativeEvent: { text: string } }) =>
               setSearchQuery(e.nativeEvent.text)
             }
@@ -193,13 +195,13 @@ export default function SearchScreen() {
             <ThemedView
               style={[styles.header, { paddingTop: insets.top + 20 }]}
             >
-              <ThemedText type="title">Search</ThemedText>
+              <ThemedText type="title">{t('search.title')}</ThemedText>
             </ThemedView>
             <SearchInput
               ref={searchInputRef}
               value={searchQuery}
               onChangeText={setSearchQuery}
-              placeholder="Title, Number or Lyrics"
+              placeholder={t('search.placeholder')}
               style={styles.searchInput}
               onFocus={() => setIsInputFocused(true)}
               onBlur={() => setIsInputFocused(false)}
@@ -229,7 +231,7 @@ export default function SearchScreen() {
                   parseInt(String(Platform.Version), 10) >= 26 &&
                   isInputFocused && (
                     <ThemedText type="title" style={{ marginBottom: 20 }}>
-                      Search
+                      {t('search.title')}
                     </ThemedText>
                   )}
               </View>
@@ -238,17 +240,17 @@ export default function SearchScreen() {
               debouncedSearchQuery.trim().length < 2 ? (
                 <ThemedView style={styles.emptyState}>
                   <ThemedText style={[styles.emptyHint, { color: colors.icon }]}>
-                    Keep typing to search...
+                    {t('search.keepTyping')}
                   </ThemedText>
                 </ThemedView>
               ) : (
                 <ThemedView style={styles.emptyState}>
                   <ThemedText style={styles.emptyEmoji}>{colorScheme === 'dark' ? '🤷🏼' : '🤷🏾'}</ThemedText>
                   <ThemedText style={[styles.emptyTitle, { color: colors.text }]}>
-                    No songs found
+                    {t('search.noResults')}
                   </ThemedText>
                   <ThemedText style={[styles.emptySubtext, { color: colors.icon }]}>
-                    Try a different title, number, or lyrics
+                    {t('search.noResultsHint')}
                   </ThemedText>
                 </ThemedView>
               )

@@ -2,8 +2,8 @@ import { ThemedView } from '@/components/themed-view';
 import { BackButton } from '@/components/ui/back-button';
 import { useBottomPadding } from '@/hooks/use-bottom-padding';
 import { useColors } from '@/hooks/use-colors';
-import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { StyleSheet, Text, View, type NativeSyntheticEvent, type TextLayoutEventData } from 'react-native';
 import type { Href } from 'expo-router';
 import Animated, {
   Extrapolation,
@@ -16,6 +16,8 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const DEFAULT_HEADER_MAX_HEIGHT = 150;
 const HEADER_MIN_HEIGHT = 52;
+// Extra vertical room added when the title wraps to a second line.
+const MULTI_LINE_TITLE_EXTRA = 44;
 
 interface CollapsibleHeaderScrollViewProps {
   title: string;
@@ -38,11 +40,24 @@ export function CollapsibleHeaderScrollView({
   fallbackHref,
   children,
 }: CollapsibleHeaderScrollViewProps) {
-  const HEADER_SCROLL_DISTANCE = headerMaxHeight - HEADER_MIN_HEIGHT;
   const colors = useColors();
   const insets = useSafeAreaInsets();
   const paddingBottom = useBottomPadding({ hasFab });
   const scrollY = useSharedValue(0);
+  const [titleLines, setTitleLines] = useState(1);
+  const effectiveHeaderMax = headerMaxHeight + (titleLines > 1 ? MULTI_LINE_TITLE_EXTRA : 0);
+  const HEADER_SCROLL_DISTANCE = effectiveHeaderMax - HEADER_MIN_HEIGHT;
+
+  // Reset measurement when the title changes; otherwise we latch high so a
+  // transient re-layout during scroll animations can't shrink the header.
+  useEffect(() => {
+    setTitleLines(1);
+  }, [title]);
+
+  const handleTitleLayout = (event: NativeSyntheticEvent<TextLayoutEventData>) => {
+    const measured = Math.min(event.nativeEvent.lines.length, 2);
+    setTitleLines((prev) => (measured > prev ? measured : prev));
+  };
 
   const scrollHandler = useAnimatedScrollHandler({
     onScroll: (event) => {
@@ -57,11 +72,11 @@ export function CollapsibleHeaderScrollView({
     const height = interpolate(
       scrollY.value,
       [0, HEADER_SCROLL_DISTANCE],
-      [headerMaxHeight + insets.top, HEADER_MIN_HEIGHT + insets.top],
+      [effectiveHeaderMax + insets.top, HEADER_MIN_HEIGHT + insets.top],
       Extrapolation.CLAMP
     );
     return { height };
-  }, [insets.top, headerMaxHeight, HEADER_SCROLL_DISTANCE]);
+  }, [insets.top, effectiveHeaderMax, HEADER_SCROLL_DISTANCE]);
 
   const largeTitleAnimatedStyle = useAnimatedStyle(() => {
     'worklet';
@@ -84,7 +99,7 @@ export function CollapsibleHeaderScrollView({
       Extrapolation.CLAMP
     );
     return { opacity, transform: [{ translateY }, { scale }] };
-  }, []);
+  }, [HEADER_SCROLL_DISTANCE]);
 
   const smallTitleAnimatedStyle = useAnimatedStyle(() => {
     'worklet';
@@ -95,7 +110,7 @@ export function CollapsibleHeaderScrollView({
       Extrapolation.CLAMP
     );
     return { opacity };
-  }, []);
+  }, [HEADER_SCROLL_DISTANCE]);
 
   const navBarBgAnimatedStyle = useAnimatedStyle(() => {
     'worklet';
@@ -106,7 +121,7 @@ export function CollapsibleHeaderScrollView({
       Extrapolation.CLAMP
     );
     return { opacity };
-  }, []);
+  }, [HEADER_SCROLL_DISTANCE]);
 
   const borderAnimatedStyle = useAnimatedStyle(() => {
     'worklet';
@@ -117,7 +132,7 @@ export function CollapsibleHeaderScrollView({
       Extrapolation.CLAMP
     );
     return { opacity };
-  }, []);
+  }, [HEADER_SCROLL_DISTANCE]);
 
   return (
     <ThemedView style={styles.container}>
@@ -131,13 +146,16 @@ export function CollapsibleHeaderScrollView({
           ]}>
           {headerContent ?? (
             <>
-              <Animated.Text style={[styles.largeTitle, { color: colors.text }]}>
+              <Text
+                style={[styles.largeTitle, { color: colors.text }]}
+                numberOfLines={2}
+                onTextLayout={handleTitleLayout}>
                 {title}
-              </Animated.Text>
+              </Text>
               {subtitle && (
-                <Animated.Text style={[styles.subtitle, { color: colors.text, opacity: 0.7 }]}>
+                <Text style={[styles.subtitle, { color: colors.text, opacity: 0.7 }]}>
                   {subtitle}
-                </Animated.Text>
+                </Text>
               )}
             </>
           )}
@@ -164,7 +182,9 @@ export function CollapsibleHeaderScrollView({
         <Animated.View style={[styles.smallTitleContainer, smallTitleAnimatedStyle]}>
           <Animated.Text
             style={[styles.smallTitle, { color: colors.text }]}
-            numberOfLines={1}>
+            numberOfLines={1}
+            adjustsFontSizeToFit
+            minimumFontScale={0.7}>
             {title}
           </Animated.Text>
         </Animated.View>
@@ -178,7 +198,7 @@ export function CollapsibleHeaderScrollView({
         contentContainerStyle={[
           styles.scrollContent,
           {
-            paddingTop: headerMaxHeight + insets.top + 16,
+            paddingTop: effectiveHeaderMax + insets.top + 16,
             paddingBottom,
             gap: contentGap,
           },

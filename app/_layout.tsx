@@ -12,6 +12,7 @@ import { ThemedView } from '@/components/themed-view';
 import { AppInstallBanner } from '@/components/ui/app-install-banner';
 import { ForceUpdateModal } from '@/components/ui/force-update-modal';
 import { EngagementProvider } from '@/contexts/engagement-context';
+import { LanguageProvider } from '@/contexts/language-context';
 import { SongbookPreferenceProvider } from '@/contexts/songbook-preference-context';
 import { SongsProvider } from '@/contexts/songs-context';
 import { ThemeProvider, useColorScheme } from '@/contexts/theme-context';
@@ -141,6 +142,7 @@ export default function RootLayout() {
   const inner = (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <SafeAreaProvider>
+        <LanguageProvider>
         <SongsProvider>
         <SongbookPreferenceProvider>
         <ThemeProvider>
@@ -161,6 +163,7 @@ export default function RootLayout() {
         </ThemeProvider>
         </SongbookPreferenceProvider>
         </SongsProvider>
+        </LanguageProvider>
       </SafeAreaProvider>
     </GestureHandlerRootView>
   );

@@ -16,6 +16,7 @@ import { FONT_SIZES } from "@/constants/typography";
 import { useEngagement, useBottomChrome } from "@/contexts/engagement-context";
 import { useSongs } from "@/contexts/songs-context";
 import { useColors } from "@/hooks/use-colors";
+import { useTranslation } from "@/hooks/use-translation";
 import { useFavoriteSuggestion } from "@/hooks/use-favorite-suggestion";
 import { useKeepAwake } from "@/hooks/use-keep-awake";
 import {
@@ -164,6 +165,7 @@ export default function SongScreen() {
   const favoriteButtonRef = useRef<View>(null);
   const containerRef = useRef<View>(null);
   const colors = useColors();
+  const { t } = useTranslation();
   const insets = useSafeAreaInsets();
 
   const { agakiza, gushimisha, cantiquesKirundi } = useSongs();
@@ -319,7 +321,7 @@ export default function SongScreen() {
         song: `${playlist}/${currentSong.number}`,
         song_name: currentSong.name,
       });
-      const completed = await shareSong({ songName: currentSong.name, playlist, songNumber: currentSong.number });
+      const completed = await shareSong({ songName: currentSong.name, playlist, songNumber: currentSong.number, t });
       if (completed) notifyShareSuccess();
     } catch (error) {
       console.error("Error sharing song:", error);
@@ -339,13 +341,13 @@ export default function SongScreen() {
           section_type: sectionType,
           section_index: String(sectionIndex),
         });
-        const completed = await shareSongSection({ song: currentSong, playlist, sectionIndex });
+        const completed = await shareSongSection({ song: currentSong, playlist, sectionIndex, t });
         if (completed) notifyShareSuccess();
       } catch (error) {
         console.error("Error sharing section:", error);
       }
     },
-    [currentSong, playlist, notifyShareSuccess],
+    [currentSong, playlist, notifyShareSuccess, t],
   );
 
   const triggerSectionLongPress = useCallback(
@@ -412,15 +414,15 @@ export default function SongScreen() {
         setAlertState({
           icon: 'doc.text',
           message: sectionType === 'chorus'
-            ? 'Chorus copied — paste it anywhere'
-            : 'Verse copied — paste it anywhere',
+            ? t('song.copied.chorus')
+            : t('song.copied.verse'),
           nonce: Date.now(),
         });
       } catch (error) {
         console.error("Error copying section:", error);
       }
     },
-    [currentSong, playlist],
+    [currentSong, playlist, t],
   );
 
   const fontSizeStyles = useMemo(() => FONT_SIZES[fontSize], [fontSize]);
@@ -443,14 +445,14 @@ export default function SongScreen() {
         {item.type === "verse" && item.number && showVerseLabel && (
           <ThemedView style={styles.verseHeader}>
             <ThemedText style={[styles.verseLabel, { color: colors.icon }]} accessibilityRole="header">
-              Verse {item.number}
+              {t('song.verseLabel', { number: item.number })}
             </ThemedText>
           </ThemedView>
         )}
         {item.type === "chorus" && (
           <View style={styles.chorusHeader}>
             <ThemedText style={[styles.chorusLabel, { color: colors.tint }]} accessibilityRole="header">
-              Chorus
+              {t('song.chorusLabel')}
             </ThemedText>
           </View>
         )}
@@ -467,7 +469,7 @@ export default function SongScreen() {
         />
       </ThemedView>
     );
-  }, [currentSong, colors, fontSizeStyles]);
+  }, [currentSong, colors, fontSizeStyles, t]);
 
   const measureFavoriteButton = useCallback(() => {
     favoriteButtonRef.current?.measureInWindow((x, _y, width) => {
@@ -495,7 +497,7 @@ export default function SongScreen() {
             scrollEventThrottle={16}
           >
             <ThemedView style={styles.emptyState}>
-              <ThemedText>No songs available</ThemedText>
+              <ThemedText>{t('song.empty')}</ThemedText>
             </ThemedView>
           </Animated.ScrollView>
         </View>
@@ -580,7 +582,7 @@ export default function SongScreen() {
           <TouchableOpacity
             onPress={handleShare}
             style={[styles.headerActionButton, { borderColor: colors.icon + "30" }]}
-            accessibilityLabel="Share song"
+            accessibilityLabel={t('common.song.shareA11y')}
             accessibilityRole="button"
             activeOpacity={0.7}
             hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
@@ -689,13 +691,13 @@ export default function SongScreen() {
         items={contextMenu ? [
           {
             key: 'copy',
-            label: contextMenu.sectionType === 'chorus' ? 'Copy chorus' : 'Copy verse',
+            label: contextMenu.sectionType === 'chorus' ? t('song.menu.copyChorus') : t('song.menu.copyVerse'),
             icon: 'doc.text',
             onPress: () => { void handleCopySection(contextMenu.sectionIndex, contextMenu.sectionType); },
           },
           {
             key: 'share',
-            label: contextMenu.sectionType === 'chorus' ? 'Share chorus' : 'Share verse',
+            label: contextMenu.sectionType === 'chorus' ? t('song.menu.shareChorus') : t('song.menu.shareVerse'),
             icon: 'square.and.arrow.up',
             onPress: () => { void handleShareSection(contextMenu.sectionIndex, contextMenu.sectionType); },
           },

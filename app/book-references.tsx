@@ -6,6 +6,7 @@ import { IconSymbol } from '@/components/ui/icon-symbol';
 import { BOOKS, type BookDefinition } from '@/constants/book-names';
 import { PageHead } from '@/components/page-head';
 import { useColors } from '@/hooks/use-colors';
+import { useTranslation } from '@/hooks/use-translation';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 
@@ -35,16 +36,17 @@ const BookCard = React.memo(function BookCard({
 
 export default function BookReferencesScreen() {
   const colors = useColors();
+  const { t } = useTranslation();
 
   return (
     <>
       <PageHead
-        title="Song Book References | Indirimbo"
-        description="Learn what the abbreviation codes in song references mean. Each code refers to a hymn book from which songs were adapted or translated."
+        title={t('bookRefs.pageTitle')}
+        description={t('bookRefs.pageDescription')}
         canonicalPath="/book-references/"
       />
       <CollapsibleHeaderScrollView
-        title="Song Book References"
+        title={t('bookRefs.title')}
         headerMaxHeight={200}
         contentGap={12}
         hasFab
@@ -60,7 +62,7 @@ export default function BookReferencesScreen() {
               <IconSymbol name="book.fill" size={32} color={colors.tint} />
             </View>
             <ThemedText type="title" style={styles.heroTitle}>
-              Song Book References
+              {t('bookRefs.title')}
             </ThemedText>
           </View>
         }
@@ -75,9 +77,7 @@ export default function BookReferencesScreen() {
           ]}
         >
           <ThemedText style={styles.introText}>
-            Many songs in the hymnbooks were adapted or translated from other
-            collections. The reference codes at the bottom of each song indicate
-            the original source and number.
+            {t('bookRefs.intro')}
           </ThemedText>
         </ThemedView>
 

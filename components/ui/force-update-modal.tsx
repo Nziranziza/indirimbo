@@ -4,8 +4,10 @@ import { Modal, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { ThemedText } from '@/components/themed-text';
+import type { TranslationKey } from '@/constants/translations';
 import { useUpdateCheck } from '@/contexts/update-check-context';
 import { useColors } from '@/hooks/use-colors';
+import { useTranslation } from '@/hooks/use-translation';
 import { trackEvent } from '@/utils/analytics';
 import { openStoreForCurrentPlatform } from '@/utils/store';
 
@@ -13,14 +15,14 @@ import { IconSymbol } from './icon-symbol';
 
 const APP_ICON = require('@/assets/images/icon.png');
 
-const COPY: Record<'required' | 'available', { title: string; body: string }> = {
+const COPY_KEYS: Record<'required' | 'available', { titleKey: TranslationKey; bodyKey: TranslationKey }> = {
   required: {
-    title: 'Update Required',
-    body: 'A new version of Indirimbo is available. Please update to the latest version to continue.',
+    titleKey: 'common.update.requiredTitle',
+    bodyKey: 'common.update.requiredBody',
   },
   available: {
-    title: 'Update Available',
-    body: 'A new version of Indirimbo is available with improvements and fixes. Update now for the best experience.',
+    titleKey: 'common.update.availableTitle',
+    bodyKey: 'common.update.availableBody',
   },
 };
 
@@ -28,6 +30,7 @@ export function ForceUpdateModal() {
   const colors = useColors();
   const insets = useSafeAreaInsets();
   const { mode, acknowledgeSkip } = useUpdateCheck();
+  const { t } = useTranslation();
 
   const isVisible = mode === 'modal-required' || mode === 'modal-available';
   const variant = mode === 'modal-required' ? 'required' : 'available';
@@ -42,7 +45,9 @@ export function ForceUpdateModal() {
     if (canSkip) acknowledgeSkip();
   }, [canSkip, acknowledgeSkip]);
 
-  const { title, body } = COPY[variant];
+  const { titleKey, bodyKey } = COPY_KEYS[variant];
+  const title = t(titleKey);
+  const body = t(bodyKey);
 
   return (
     <Modal
@@ -78,10 +83,10 @@ export function ForceUpdateModal() {
             style={[styles.button, { backgroundColor: colors.tint }]}
             activeOpacity={0.85}
             accessibilityRole="button"
-            accessibilityLabel="Update Now"
+            accessibilityLabel={t('common.update.updateNow')}
           >
             <ThemedText style={[styles.buttonText, { color: colors.tintForeground }]}>
-              Update Now
+              {t('common.update.updateNow')}
             </ThemedText>
           </TouchableOpacity>
           {canSkip && (
@@ -90,10 +95,10 @@ export function ForceUpdateModal() {
               style={styles.skipButton}
               activeOpacity={0.6}
               accessibilityRole="button"
-              accessibilityLabel="Maybe later"
+              accessibilityLabel={t('common.update.maybeLater')}
             >
               <ThemedText style={[styles.skipButtonText, { color: colors.icon }]}>
-                Maybe later
+                {t('common.update.maybeLater')}
               </ThemedText>
             </TouchableOpacity>
           )}

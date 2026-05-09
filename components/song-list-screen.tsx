@@ -7,6 +7,7 @@ import { SongNumberBadge } from '@/components/ui/song-number-badge';
 import { useBottomPadding } from '@/hooks/use-bottom-padding';
 import { useColors } from '@/hooks/use-colors';
 import { useColorScheme } from '@/contexts/theme-context';
+import { useTranslation } from '@/hooks/use-translation';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useRouter } from 'expo-router';
 import React, { useCallback, useRef, useState } from 'react';
@@ -40,6 +41,7 @@ export function SongListScreen({ title, iconName, songs, playlist, source, onSha
   const router = useRouter();
   const colors = useColors();
   const colorScheme = useColorScheme();
+  const { t } = useTranslation();
   const isDark = colorScheme === 'dark';
   const gradientBase = isDark ? 'transparent' : colors.tint + '00';
   const insets = useSafeAreaInsets();
@@ -133,7 +135,7 @@ export function SongListScreen({ title, iconName, songs, playlist, source, onSha
         <TouchableOpacity
           style={[styles.songCard, { borderColor: colors.icon + '20' }]}
           onPress={() => handleSongPress(song.number)}
-          accessibilityLabel={`${song.name}, number ${song.number}`}
+          accessibilityLabel={t('songList.songCardA11y', { name: song.name, number: song.number })}
           accessibilityRole="button"
           activeOpacity={0.7}>
           <SongNumberBadge number={song.number} />
@@ -146,7 +148,7 @@ export function SongListScreen({ title, iconName, songs, playlist, source, onSha
         </TouchableOpacity>
       );
     },
-    [colors, handleSongPress]
+    [colors, handleSongPress, t]
   );
 
   const getItemKey = useCallback((item: Song, index: number) => {
@@ -175,7 +177,7 @@ export function SongListScreen({ title, iconName, songs, playlist, source, onSha
             {title}
           </Animated.Text>
           <Animated.Text style={[styles.subtitle, { color: colors.text, opacity: 0.7 }]}>
-            {songs.length} songs
+            {t('songList.count', { count: songs.length })}
           </Animated.Text>
         </Animated.View>
       </Animated.View>

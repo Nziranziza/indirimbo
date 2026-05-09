@@ -1,6 +1,7 @@
 import { ThemedText } from '@/components/themed-text';
 import { InfoCard } from '@/components/ui/info-card';
 import { useColors } from '@/hooks/use-colors';
+import { useTranslation } from '@/hooks/use-translation';
 import * as Clipboard from 'expo-clipboard';
 import { Alert, StyleSheet, TouchableOpacity } from 'react-native';
 
@@ -10,18 +11,24 @@ interface ContactSectionProps {
   readonly preamble?: string;
 }
 
-export function ContactSection({ preamble = 'Questions or concerns? Email us at:' }: ContactSectionProps) {
+export function ContactSection({ preamble }: ContactSectionProps) {
   const colors = useColors();
+  const { t } = useTranslation();
+  const preambleText = preamble ?? t('common.contact.defaultPreamble');
 
   const handleEmailPress = async () => {
-    await Clipboard.setStringAsync(SUPPORT_EMAIL);
-    Alert.alert('Email copied', 'The address is copied to your clipboard.');
+    try {
+      await Clipboard.setStringAsync(SUPPORT_EMAIL);
+      Alert.alert(t('common.contact.emailCopiedTitle'), t('common.contact.emailCopiedBody'));
+    } catch (error) {
+      console.error('Failed to copy support email', error);
+    }
   };
 
   return (
-    <InfoCard icon="envelope" title="Contact">
+    <InfoCard icon="envelope" title={t('common.contact')}>
       <ThemedText style={styles.paragraph}>
-        {preamble}{' '}
+        {preambleText}{' '}
       </ThemedText>
       <TouchableOpacity
         onPress={handleEmailPress}
@@ -31,7 +38,7 @@ export function ContactSection({ preamble = 'Questions or concerns? Email us at:
           {SUPPORT_EMAIL}
         </ThemedText>
         <ThemedText style={styles.contactHint}>
-          Tap to copy
+          {t('common.contact.tapToCopy')}
         </ThemedText>
       </TouchableOpacity>
     </InfoCard>

@@ -5,6 +5,7 @@ import { getPlaylistName } from '@/constants/playlists';
 import type { Song } from '@/constants/types';
 import { useEngagement } from '@/contexts/engagement-context';
 import { useSongs } from '@/contexts/songs-context';
+import { useTranslation } from '@/hooks/use-translation';
 import { trackEvent } from '@/utils/analytics';
 import { sharePlaylist } from '@/utils/share';
 import { useLocalSearchParams, usePathname } from 'expo-router';
@@ -42,6 +43,7 @@ export default function PlaylistScreen() {
 
   const { agakiza, gushimisha, cantiquesKirundi } = useSongs();
   const { notifyShareSuccess } = useEngagement();
+  const { t } = useTranslation();
   const songs = useMemo(() => {
     const songsByPlaylist: Record<string, Song[]> = {
       agakiza,
@@ -63,9 +65,9 @@ export default function PlaylistScreen() {
     trackEvent('share_playlist', {
       playlist: name,
     });
-    const completed = await sharePlaylist({ playlistId: name });
+    const completed = await sharePlaylist({ playlistId: name, t });
     if (completed) notifyShareSuccess();
-  }, [name, notifyShareSuccess]);
+  }, [name, notifyShareSuccess, t]);
 
   return (
     <>
@@ -83,7 +85,7 @@ export default function PlaylistScreen() {
         playlist={name}
         source="playlist"
         onShare={handleShare}
-        shareAccessibilityLabel="Share playlist"
+        shareAccessibilityLabel={t('songList.sharePlaylistA11y')}
       />
     </>
   );

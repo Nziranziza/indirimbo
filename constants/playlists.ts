@@ -1,20 +1,22 @@
+import type { TranslationKey } from '@/constants/translations';
+
 export const PLAYLISTS = {
   gushimisha: {
     id: 'gushimisha',
     name: 'Gushimisha Imana',
-    description: 'Songs of praise',
+    descriptionKey: 'playlist.gushimisha.description',
   },
   agakiza: {
     id: 'agakiza',
     name: 'Agakiza',
-    description: 'Songs of salvation',
+    descriptionKey: 'playlist.agakiza.description',
   },
   'cantiques-kirundi': {
     id: 'cantiques-kirundi',
     name: 'Cantiques Kirundi',
-    description: 'Indirimbo zo Guhimbaza Imana',
+    descriptionKey: 'playlist.cantiquesKirundi.description',
   },
-} as const;
+} as const satisfies Record<string, { id: string; name: string; descriptionKey: TranslationKey }>;
 
 export type PlaylistId = keyof typeof PLAYLISTS;
 
@@ -22,8 +24,8 @@ export function getPlaylistName(playlistId: string): string {
   return PLAYLISTS[playlistId as PlaylistId]?.name || playlistId;
 }
 
-export function getPlaylistDescription(playlistId: string): string {
-  return PLAYLISTS[playlistId as PlaylistId]?.description || '';
+export function getPlaylistDescriptionKey(playlistId: string): TranslationKey | null {
+  return PLAYLISTS[playlistId as PlaylistId]?.descriptionKey ?? null;
 }
 
 // "mu Gakiza" (Kinyarwanda — "a-" prefix dropped after "mu") vs "muri Cantiques Kirundi" (Kirundi)

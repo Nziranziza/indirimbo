@@ -1,6 +1,7 @@
 import { ThemedText } from '@/components/themed-text';
 import { FONT_SIZE_OPTIONS, FONT_SIZES } from '@/constants/typography';
 import { useColors } from '@/hooks/use-colors';
+import { useTranslation } from '@/hooks/use-translation';
 import type { FontSize } from '@/utils/storage';
 import SegmentedControl from '@react-native-segmented-control/segmented-control';
 import { StyleSheet, View } from 'react-native';
@@ -13,12 +14,14 @@ interface TextSizeSettingProps {
 
 export function TextSizeSetting({ fontSize, onFontSizeChange, colorScheme }: TextSizeSettingProps) {
   const colors = useColors();
+  const { t } = useTranslation();
   const fontSizePreview = FONT_SIZES;
+  const activeOption = FONT_SIZE_OPTIONS.find((o) => o.value === fontSize);
 
   return (
     <>
       <SegmentedControl
-        values={FONT_SIZE_OPTIONS.map((o) => o.label)}
+        values={FONT_SIZE_OPTIONS.map((o) => t(o.labelKey))}
         selectedIndex={FONT_SIZE_OPTIONS.findIndex((o) => o.value === fontSize)}
         onChange={(event) => {
           const index = event.nativeEvent.selectedSegmentIndex;
@@ -40,10 +43,10 @@ export function TextSizeSetting({ fontSize, onFontSizeChange, colorScheme }: Tex
         <ThemedText
           style={[styles.previewLabel, { color: colors.icon, opacity: 0.6 }]}
         >
-          Preview
+          {t('settings.textSize.preview')}
         </ThemedText>
         <ThemedText style={[styles.sizeDescription, { opacity: 0.5 }]}>
-          {FONT_SIZE_OPTIONS.find((o) => o.value === fontSize)?.description}
+          {activeOption ? t(activeOption.descriptionKey) : ''}
         </ThemedText>
         <ThemedText
           style={{

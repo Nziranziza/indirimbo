@@ -8,6 +8,8 @@ import { getPlaylistName } from '@/constants/playlists';
 import { useColors } from '@/hooks/use-colors';
 import { useHydrated } from '@/hooks/use-hydrated';
 import { useSongbooks } from '@/hooks/use-songbooks';
+import { useTranslation } from '@/hooks/use-translation';
+import { formatLongTimeAgo } from '@/utils/format-date';
 import { getFavorites, removeFavorite, type FavoriteSong } from '@/utils/storage';
 import { useFocusEffect, useRouter } from 'expo-router';
 import { useCallback, useState } from 'react';
@@ -18,6 +20,7 @@ export default function FavoritesTabScreen() {
   const [favorites, setFavorites] = useState<FavoriteSong[]>([]);
   const colors = useColors();
   const hasHydrated = useHydrated();
+  const { t, language } = useTranslation();
 
   useFocusEffect(
     useCallback(() => {
@@ -48,55 +51,34 @@ export default function FavoritesTabScreen() {
 
   const { allSongsForFavorites: allSongs } = useSongbooks();
 
-  const formatDate = (timestamp: number): string => {
-    const date = new Date(timestamp);
-    const now = new Date();
-    const diffInMs = now.getTime() - date.getTime();
-    const diffInDays = Math.floor(diffInMs / (1000 * 60 * 60 * 24));
-
-    if (diffInDays === 0) {
-      return 'today';
-    } else if (diffInDays === 1) {
-      return 'yesterday';
-    } else if (diffInDays < 7) {
-      return `${diffInDays} days ago`;
-    } else if (diffInDays < 30) {
-      const weeks = Math.floor(diffInDays / 7);
-      return `${weeks} ${weeks === 1 ? 'week' : 'weeks'} ago`;
-    } else if (diffInDays < 365) {
-      const months = Math.floor(diffInDays / 30);
-      return `${months} ${months === 1 ? 'month' : 'months'} ago`;
-    } else {
-      return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-    }
-  };
+  const formatDate = (timestamp: number): string => formatLongTimeAgo(timestamp, t, language);
 
   return (
     <ThemedView style={styles.container}>
       <PageHead
-        title="Favorites | Indirimbo"
-        description="Your favorite Rwandan hymns and worship songs from Gushimisha Imana and Agakiza hymnbooks."
+        title={t('favorites.pageTitle')}
+        description={t('favorites.pageDescription')}
         canonicalPath="/favorites"
       />
       <TabCollapsibleScrollView
-        title="Favorites"
-        subtitle="Your favorite songs"
+        title={t('favorites.title')}
+        subtitle={t('favorites.subtitle')}
       >
         {!hasHydrated || favorites.length === 0 ? (
           <ThemedView style={styles.emptyState}>
             <IconSymbol name="heart" size={64} color={colors.icon} />
-            <ThemedText style={styles.emptyText}>No favorites yet</ThemedText>
+            <ThemedText style={styles.emptyText}>{t('favorites.empty.title')}</ThemedText>
             <ThemedText style={[styles.emptySubtext, { opacity: 0.6 }]}>
-              Tap the heart icon on any song to add it to favorites
+              {t('favorites.empty.subtitle')}
             </ThemedText>
             <TouchableOpacity
               onPress={() => router.navigate('/(tabs)/(home)')}
-              accessibilityLabel="Start exploring songs"
+              accessibilityLabel={t('favorites.empty.ctaA11y')}
               accessibilityRole="button"
               activeOpacity={0.8}
               style={[styles.ctaButton, { backgroundColor: colors.tint }]}>
               <IconSymbol name="play.fill" size={20} color={colors.tintForeground} />
-              <ThemedText style={[styles.ctaText, { color: colors.tintForeground }]}>Start Exploring Songs</ThemedText>
+              <ThemedText style={[styles.ctaText, { color: colors.tintForeground }]}>{t('favorites.empty.cta')}</ThemedText>
             </TouchableOpacity>
           </ThemedView>
         ) : (
@@ -104,13 +86,14 @@ export default function FavoritesTabScreen() {
             const playlistSongs = allSongs[favorite.playlist] || [];
             const song = playlistSongs.find(s => String(s.number) === String(favorite.songNumber));
             const playlistTitle = getPlaylistName(favorite.playlist);
-            
+            const songName = song?.name || favorite.songName;
+
             return (
               <TouchableOpacity
                 key={`${favorite.playlist}-${favorite.songNumber}-${index}`}
                 style={[styles.songCard, { borderColor: colors.icon + '20' }]}
                 onPress={() => handleSongPress(favorite)}
-                accessibilityLabel={`${song?.name || favorite.songName}, ${playlistTitle}`}
+                accessibilityLabel={t('favorites.songCardA11y', { songName, playlistTitle })}
                 accessibilityRole="button"
                 activeOpacity={0.7}>
                 <SongNumberBadge number={favorite.songNumber} />
@@ -126,13 +109,13 @@ export default function FavoritesTabScreen() {
                     )}
                   </View>
                   <ThemedText type="defaultSemiBold" style={styles.songTitle} numberOfLines={2}>
-                    {song?.name || favorite.songName}
+                    {songName}
                   </ThemedText>
                 </View>
                 <TouchableOpacity
                   onPress={() => handleRemoveFavorite(favorite.playlist, favorite.songNumber)}
                   style={styles.favoriteButton}
-                  accessibilityLabel="Remove from favorites"
+                  accessibilityLabel={t('favorites.removeA11y')}
                   accessibilityRole="button"
                   activeOpacity={0.7}>
                   <IconSymbol name="heart.fill" size={24} color="#FF3B30" />
@@ -177,7 +160,6 @@ const styles = StyleSheet.create({
   likedDate: {
     fontSize: 11,
     lineHeight: 12,
-    textTransform: 'capitalize'
   },
   favoriteButton: {
     padding: 8,

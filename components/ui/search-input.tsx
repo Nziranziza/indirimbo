@@ -1,5 +1,6 @@
 import { IconSymbol } from '@/components/ui/icon-symbol';
 import { useColors } from '@/hooks/use-colors';
+import { useTranslation } from '@/hooks/use-translation';
 import { Pressable, StyleSheet, TextInput } from 'react-native';
 import { forwardRef, useImperativeHandle, useRef } from 'react';
 
@@ -20,6 +21,7 @@ interface SearchInputProps {
 export const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
   ({ value, onChangeText, placeholder = 'Search...', style, autoFocus, onFocus, onBlur }, ref) => {
     const colors = useColors();
+    const { t } = useTranslation();
     const inputRef = useRef<TextInput>(null);
 
     useImperativeHandle(ref, () => ({
@@ -46,7 +48,7 @@ export const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
           value={value}
           onChangeText={onChangeText}
           returnKeyType="search"
-          accessibilityLabel="Search songs"
+          accessibilityLabel={t('common.search.inputA11y')}
           autoFocus={autoFocus}
           onFocus={onFocus}
           onBlur={onBlur}
@@ -57,7 +59,7 @@ export const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
               e.stopPropagation();
               onChangeText('');
             }}
-            accessibilityLabel="Clear search"
+            accessibilityLabel={t('common.search.clearA11y')}
             accessibilityRole="button"
             hitSlop={{ top: 16, bottom: 16, left: 16, right: 16 }}>
             <IconSymbol name="xmark.circle.fill" size={20} color={colors.icon} />

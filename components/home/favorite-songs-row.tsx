@@ -5,6 +5,7 @@ import { SongNumberBadge } from '@/components/ui/song-number-badge';
 import { getPlaylistName } from '@/constants/playlists';
 import type { Song } from '@/constants/types';
 import { useColors } from '@/hooks/use-colors';
+import { useTranslation } from '@/hooks/use-translation';
 import { useRouter } from 'expo-router';
 import { useCallback } from 'react';
 import { ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
@@ -19,6 +20,7 @@ interface FavoriteSongsRowProps {
 export function FavoriteSongsRow({ favoriteSongs, allSongs, onSongPress }: FavoriteSongsRowProps) {
   const router = useRouter();
   const colors = useColors();
+  const { t } = useTranslation();
 
   const handleViewAll = useCallback(() => {
     router.navigate('/(tabs)/favorites');
@@ -28,16 +30,16 @@ export function FavoriteSongsRow({ favoriteSongs, allSongs, onSongPress }: Favor
     <ThemedView>
       <View style={styles.sectionHeader}>
         <ThemedText type="subtitle" style={styles.sectionTitle}>
-          Favorite Songs
+          {t('home.favoriteSongs')}
         </ThemedText>
         <TouchableOpacity
           onPress={handleViewAll}
-          accessibilityLabel="See all favorites"
+          accessibilityLabel={t('home.seeAllFavoritesA11y')}
           accessibilityRole="button"
           activeOpacity={0.7}
           style={[styles.viewMoreButton, { backgroundColor: colors.tint + '20' }]}>
           <ThemedText style={[styles.viewMoreText, { color: colors.tint }]}>
-            See all
+            {t('home.seeAll')}
           </ThemedText>
           <IconSymbol name="arrow.right" size={14} color={colors.tint} />
         </TouchableOpacity>

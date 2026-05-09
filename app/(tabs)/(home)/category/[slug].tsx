@@ -8,6 +8,7 @@ import { getPlaylistName } from '@/constants/playlists';
 import type { Song } from '@/constants/types';
 import { useEngagement } from '@/contexts/engagement-context';
 import { useSongs } from '@/contexts/songs-context';
+import { useTranslation } from '@/hooks/use-translation';
 import { trackEvent } from '@/utils/analytics';
 import { shareCategory } from '@/utils/share';
 import { useLocalSearchParams } from 'expo-router';
@@ -44,6 +45,7 @@ export default function CategoryScreen() {
 
   const { gushimisha, cantiquesKirundi } = useSongs();
   const { notifyShareSuccess } = useEngagement();
+  const { t } = useTranslation();
   const songs = useMemo(() => {
     if (!category) return [];
     const allSongs = resolvedPlaylist === 'cantiques-kirundi'
@@ -69,9 +71,10 @@ export default function CategoryScreen() {
     const completed = await shareCategory({
       categoryName: category.name,
       slug: category.slug,
+      t,
     });
     if (completed) notifyShareSuccess();
-  }, [category, resolvedPlaylist, notifyShareSuccess]);
+  }, [category, resolvedPlaylist, notifyShareSuccess, t]);
 
   return (
     <>
@@ -89,7 +92,7 @@ export default function CategoryScreen() {
         playlist={resolvedPlaylist}
         source="category"
         onShare={category ? handleShare : undefined}
-        shareAccessibilityLabel="Share category"
+        shareAccessibilityLabel={t('songList.shareCategoryA11y')}
       />
     </>
   );

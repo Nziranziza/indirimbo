@@ -1,4 +1,7 @@
+import { LANGUAGE_PREFERENCE_KEY } from '@/constants/storage-keys';
 import { ScrollViewStyleReset } from 'expo-router/html';
+
+const restoreLangScript = `(function(){try{var v=localStorage.getItem('${LANGUAGE_PREFERENCE_KEY}');if(v==='fr'||v==='en'){document.documentElement.lang=v;}}catch(e){}})();`;
 
 export default function Root({ children }: { children: React.ReactNode }) {
   return (
@@ -12,6 +15,7 @@ export default function Root({ children }: { children: React.ReactNode }) {
         />
         <meta name="color-scheme" content="light dark" />
 
+        <script dangerouslySetInnerHTML={{ __html: restoreLangScript }} />
         <ScrollViewStyleReset />
       </head>
       <body>{children}</body>

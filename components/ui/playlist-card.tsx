@@ -3,6 +3,7 @@ import { ThemedView } from '@/components/themed-view';
 import { IconSymbol } from '@/components/ui/icon-symbol';
 import { PLAYLISTS, type PlaylistId } from '@/constants/playlists';
 import { useColors } from '@/hooks/use-colors';
+import { useTranslation } from '@/hooks/use-translation';
 import { ComponentProps } from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 
@@ -16,6 +17,7 @@ interface PlaylistCardProps {
 
 export function PlaylistCard({ playlistId, iconName, onPress }: PlaylistCardProps) {
   const colors = useColors();
+  const { t } = useTranslation();
   const playlist = PLAYLISTS[playlistId];
 
   return (
@@ -43,7 +45,7 @@ export function PlaylistCard({ playlistId, iconName, onPress }: PlaylistCardProp
           {playlist.name}
         </ThemedText>
         <ThemedText style={styles.playlistDescription}>
-          {playlist.description}
+          {t(playlist.descriptionKey)}
         </ThemedText>
       </View>
       <IconSymbol name="arrow.right" size={24} color={colors.icon} />

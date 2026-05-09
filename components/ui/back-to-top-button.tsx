@@ -2,6 +2,7 @@ import { IconSymbol } from '@/components/ui/icon-symbol';
 import { useFabLift } from '@/contexts/engagement-context';
 import { useColors } from '@/hooks/use-colors';
 import { useFabBottom } from '@/hooks/use-fab-bottom';
+import { useTranslation } from '@/hooks/use-translation';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import Animated, {
   Extrapolation,
@@ -23,6 +24,7 @@ export function BackToTopButton({ scrollY, onPress }: BackToTopButtonProps) {
   const colors = useColors();
   const bottom = useFabBottom(true);
   const lift = useFabLift(true);
+  const { t } = useTranslation();
 
   const containerStyle = useAnimatedStyle(() => ({
     bottom: bottom + lift.value,
@@ -61,7 +63,7 @@ export function BackToTopButton({ scrollY, onPress }: BackToTopButtonProps) {
         <TouchableOpacity
           onPress={onPress}
           activeOpacity={0.8}
-          accessibilityLabel="Scroll to top"
+          accessibilityLabel={t('common.scrollToTopA11y')}
           accessibilityRole="button"
           style={[styles.touchable, { backgroundColor: colors.tint }]}>
           <View pointerEvents="none">

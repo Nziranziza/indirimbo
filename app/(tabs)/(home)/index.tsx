@@ -17,6 +17,8 @@ import { useUpdateCheck } from '@/contexts/update-check-context';
 import { useColors } from '@/hooks/use-colors';
 import { useHydrated } from '@/hooks/use-hydrated';
 import { useSongbooks } from '@/hooks/use-songbooks';
+import { useTranslation } from '@/hooks/use-translation';
+import type { TranslationKey } from '@/constants/translations';
 import { trackEvent } from '@/utils/analytics';
 import { mediumImpact } from '@/utils/haptics';
 import { shareApp } from '@/utils/share';
@@ -36,11 +38,11 @@ const SHARE_HEIGHT_COLLAPSED = 44;
 
 const AnimatedTouchableOpacity = Animated.createAnimatedComponent(TouchableOpacity);
 
-const getGreeting = (): string => {
+const getGreetingKey = (): TranslationKey => {
   const hour = new Date().getHours();
-  if (hour < 12) return 'Good morning';
-  if (hour < 17) return 'Good afternoon';
-  return 'Good evening';
+  if (hour < 12) return 'home.greeting.morning';
+  if (hour < 17) return 'home.greeting.afternoon';
+  return 'home.greeting.evening';
 };
 
 const PLAYLIST_ICONS: Record<string, IconSymbolName> = {
@@ -56,6 +58,7 @@ export default function HomeScreen() {
   const isDark = colorScheme === 'dark';
   const insets = useSafeAreaInsets();
   const hasHydrated = useHydrated();
+  const { t } = useTranslation();
   const { visiblePlaylistIds, showCategoryChips, allSongsForFavorites } = useSongbooks();
   const { isBurundi } = useSongbookPreference();
   const { mode: updateMode } = useUpdateCheck();
@@ -122,17 +125,21 @@ export default function HomeScreen() {
   const handleShareApp = useCallback(async () => {
     mediumImpact();
     trackEvent('share_app', { songbook: isBurundi ? 'kirundi' : 'kinyarwanda' });
-    await shareApp({ isBurundi });
-    notifyShareSuccess();
-  }, [isBurundi, notifyShareSuccess]);
+    try {
+      await shareApp({ isBurundi, t });
+      notifyShareSuccess();
+    } catch (error) {
+      console.error('shareApp failed', error);
+    }
+  }, [isBurundi, notifyShareSuccess, t]);
 
   return (
     <ThemedView style={styles.container}>
       <PageHead
-        title="Indirimbo - z'Agakiza no Gushimisha Imana"
-        description="Shakisha indirimbo z'agakiza n'izo gushimisha Imana. Igitabo cy'indirimbo zo mu matorero, amagambo yose y'indirimbo z'abarokore. Find Rwandan worship songs with full lyrics."
+        title={t('home.pageTitle')}
+        description={t('home.pageDescription')}
         canonicalPath=""
-        keywords="indirimbo, indirimbo zo mugitabo, indirimbo z'agakiza, indirimbo zo gushimisha imana, igitabo cy'indirimbo, indirimbo z'abarokore, indirimbo zo guhimbaza imana, rwandan hymns, worship songs"
+        keywords={t('home.pageKeywords')}
       />
 
       <LinearGradient
@@ -148,7 +155,7 @@ export default function HomeScreen() {
         <View style={styles.headerContent}>
         <View style={styles.headerText}>
           <ThemedText style={[styles.greeting, { color: colors.tint }]}>
-            {getGreeting()}
+            {t(getGreetingKey())}
           </ThemedText>
           <ThemedText type="title">
             Indirimbo
@@ -157,7 +164,7 @@ export default function HomeScreen() {
         <AnimatedTouchableOpacity
           onPress={handleShareApp}
           activeOpacity={0.7}
-          accessibilityLabel="Share app"
+          accessibilityLabel={t('home.shareAppA11y')}
           accessibilityRole="button"
           style={[styles.shareButton, { backgroundColor: colors.tint, borderColor: colors.tint }, shareButtonStyle]}>
           <Animated.View style={[styles.shareIconWrapper, shareIconStyle]}>
@@ -166,7 +173,7 @@ export default function HomeScreen() {
           <Animated.Text
             numberOfLines={1}
             style={[styles.shareButtonLabel, { color: colors.tintForeground }, shareLabelStyle]}>
-            Share app
+            {t('home.shareApp')}
           </Animated.Text>
         </AnimatedTouchableOpacity>
         </View>

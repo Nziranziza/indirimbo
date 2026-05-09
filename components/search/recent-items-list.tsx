@@ -3,6 +3,7 @@ import { ThemedView } from '@/components/themed-view';
 import { IconSymbol } from '@/components/ui/icon-symbol';
 import { RecentSongCard } from '@/components/ui/recent-song-card';
 import type { Song } from '@/constants/types';
+import { useTranslation } from '@/hooks/use-translation';
 import React, { useMemo } from 'react';
 import {
   Platform,
@@ -48,6 +49,7 @@ export function RecentItemsList({
   onClearSearches,
   onSongPress,
 }: RecentItemsListProps) {
+  const { t } = useTranslation();
   const recentSections = useMemo(() => {
     const sections: { key: string; title: string; data: RecentItem[] }[] = [];
     if (recentSearches.length > 0) {
@@ -95,25 +97,25 @@ export function RecentItemsList({
       ListHeaderComponent={
         <>
           {Platform.OS === 'ios' && parseInt(String(Platform.Version), 10) >= 26 && isInputFocused && (
-            <ThemedText type="title" style={{ marginBottom: 20 }}>Search</ThemedText>
+            <ThemedText type="title" style={{ marginBottom: 20 }}>{t('search.title')}</ThemedText>
           )}
           <View style={styles.recentHeader}>
             {(recentSearches.length > 0 || recentSongs.length > 0) && (
               <ThemedText type="defaultSemiBold" style={styles.recentTitle}>
-                Recent
+                {t('search.recentTitle')}
               </ThemedText>
             )}
             {recentSearches.length > 0 && (
               <TouchableOpacity
                 onPress={onClearSearches}
-                accessibilityLabel="Clear all recent searches"
+                accessibilityLabel={t('search.clearAllA11y')}
                 accessibilityRole="button"
                 activeOpacity={0.7}
               >
                 <ThemedText
                   style={[styles.clearAllText, { color: colors.tint }]}
                 >
-                  Clear all
+                  {t('search.clearAll')}
                 </ThemedText>
               </TouchableOpacity>
             )}
@@ -133,7 +135,7 @@ export function RecentItemsList({
                 },
               ]}
               onPress={() => onSearchTap(item.query)}
-              accessibilityLabel={`Search for ${item.query}`}
+              accessibilityLabel={t('search.searchForA11y', { query: item.query })}
               accessibilityRole="button"
               activeOpacity={0.7}
             >
@@ -147,7 +149,7 @@ export function RecentItemsList({
               </ThemedText>
               <TouchableOpacity
                 onPress={() => onRemoveSearch(item.query)}
-                accessibilityLabel={`Remove ${item.query} from recent searches`}
+                accessibilityLabel={t('search.removeRecentA11y', { query: item.query })}
                 accessibilityRole="button"
                 activeOpacity={0.7}
                 hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}
@@ -180,9 +182,9 @@ export function RecentItemsList({
             size={48}
             color={colors.icon + '40'}
           />
-          <ThemedText style={styles.emptyTitle}>Search Songs</ThemedText>
+          <ThemedText style={styles.emptyTitle}>{t('search.searchSongsTitle')}</ThemedText>
           <ThemedText style={styles.emptyText}>
-            Search across all playlists by song name, number, or lyrics
+            {t('search.searchSongsHint')}
           </ThemedText>
         </ThemedView>
       }
