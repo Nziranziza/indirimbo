@@ -21,6 +21,7 @@ export function trackEvent(
   eventName: string,
   properties?: Record<string, string | number>,
 ): void {
+  if (!isInitialized) initAnalytics();
   aptabaseTrackEvent(eventName, properties);
 }
 
