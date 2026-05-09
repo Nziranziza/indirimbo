@@ -49,7 +49,11 @@ async function submitBatch(urls: string[]): Promise<void> {
 
   console.error(`❌ ${res.status} — ${body}`);
   if (res.status === 403) {
-    console.error('   Key file mismatch. Verify https://indirimbo.rw/' + INDEXNOW_KEY + '.txt is reachable and contains the key string.');
+    if (body.includes('SiteVerificationNotCompleted')) {
+      console.error('   First-time verification is still pending. Bing fetches the key file asynchronously; retry in 10–30 minutes.');
+    } else {
+      console.error(`   Key file mismatch. Verify https://indirimbo.rw/${INDEXNOW_KEY}.txt is reachable and contains the key string.`);
+    }
   }
   process.exit(1);
 }
