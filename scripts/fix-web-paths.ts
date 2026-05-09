@@ -48,30 +48,36 @@ if (entryScriptMatch) {
   }
 }
 
+const HOMEPAGE_TITLE = "Indirimbo - z'Agakiza, Gushimisha Imana, na Cantiques Kirundi";
+const HOMEPAGE_DESCRIPTION = 'Browse and search Rwandan and Burundian church hymns from Agakiza, Gushimisha Imana, and Cantiques Kirundi hymnbooks. Find lyrics, save favorites, and share worship songs.';
+const HOMEPAGE_TWITTER_DESCRIPTION = 'Browse and search church hymns from Agakiza, Gushimisha Imana, and Cantiques Kirundi hymnbooks.';
+const HOMEPAGE_KEYWORDS = "indirimbo, agakiza, gushimisha imana, cantiques kirundi, indirimbo z'agakiza, indirimbo zo gushimisha imana, indirimbo zo guhimbaza imana, rwandan hymns, burundian hymns, worship songs, church hymns, kinyarwanda, kirundi, rwanda, burundi";
+
 // Replace empty title with default SEO title
 html = html.replace(
   /<title data-rh="true"><\/title>/,
-  `<title data-rh="true">Indirimbo - z'Agakiza no Gushimisha Imana</title>`
+  `<title data-rh="true">${HOMEPAGE_TITLE}</title>`
 );
 
 // Inject SEO meta tags into <head>
 const seoMetaTags = `
-  <meta name="description" content="Browse and search Rwandan church hymns from Agakiza and Gushimisha Imana hymnbooks. Find lyrics, save favorites, and share worship songs." />
-  <meta name="keywords" content="indirimbo, agakiza, gushimisha imana, indirimbo z'agakiza, indirimbo zo gushimisha imana, rwandan hymns, worship songs, church hymns, kinyarwanda, rwanda" />
+  <meta name="description" content="${HOMEPAGE_DESCRIPTION}" />
+  <meta name="keywords" content="${HOMEPAGE_KEYWORDS}" />
   <meta name="theme-color" content="#0a7ea4" />
   <meta property="og:site_name" content="Indirimbo" />
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Indirimbo - z'Agakiza no Gushimisha Imana" />
-  <meta property="og:description" content="Browse and search Rwandan church hymns from Agakiza and Gushimisha Imana hymnbooks. Find lyrics, save favorites, and share worship songs." />
+  <meta property="og:title" content="${HOMEPAGE_TITLE}" />
+  <meta property="og:description" content="${HOMEPAGE_DESCRIPTION}" />
   <meta property="og:image" content="${BASE_URL}/og-image.jpg" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta property="og:image:type" content="image/jpeg" />
   <meta property="og:url" content="${BASE_URL}/" />
   <meta property="og:locale" content="rw_RW" />
+  <meta property="og:locale:alternate" content="rn_BI" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Indirimbo - z'Agakiza no Gushimisha Imana" />
-  <meta name="twitter:description" content="Browse and search Rwandan church hymns from Agakiza and Gushimisha Imana hymnbooks." />
+  <meta name="twitter:title" content="${HOMEPAGE_TITLE}" />
+  <meta name="twitter:description" content="${HOMEPAGE_TWITTER_DESCRIPTION}" />
   <meta name="twitter:image" content="${BASE_URL}/og-image.jpg" />
   <link rel="canonical" href="${BASE_URL}/" />
   <meta name="apple-itunes-app" content="app-id=6758376573" />
@@ -84,12 +90,13 @@ if (!html.includes('og:title')) {
 // Inject noscript block with crawlable homepage content
 const homepageNoscript = `
 <noscript><article>
-<h1>Indirimbo - z'Agakiza no Gushimisha Imana</h1>
-<p>Browse and search Rwandan church hymns from Agakiza and Gushimisha Imana hymnbooks. Find lyrics, save favorites, and share worship songs.</p>
+<h1>${HOMEPAGE_TITLE}</h1>
+<p>${HOMEPAGE_DESCRIPTION}</p>
 <h2>Hymnbooks</h2>
 <ul>
 <li><a href="${BASE_URL}/playlist/agakiza">Agakiza</a> - Indirimbo z'Agakiza</li>
 <li><a href="${BASE_URL}/playlist/gushimisha">Gushimisha Imana</a> - Indirimbo zo Gushimisha Imana</li>
+<li><a href="${BASE_URL}/playlist/cantiques-kirundi">Cantiques Kirundi</a> - Indirimbo zo Guhimbaza Imana</li>
 </ul>
 <nav>
 <a href="${BASE_URL}/about">About</a> |
@@ -106,8 +113,8 @@ const websiteJsonLd = buildJsonLdTag({
   '@type': 'WebSite',
   name: 'Indirimbo',
   url: `${BASE_URL}/`,
-  description: 'Browse and search Rwandan church hymns from Agakiza and Gushimisha Imana hymnbooks.',
-  inLanguage: 'rw',
+  description: HOMEPAGE_DESCRIPTION,
+  inLanguage: ['rw', 'rn'],
   potentialAction: {
     '@type': 'SearchAction',
     target: `${BASE_URL}/search?q={search_term_string}`,

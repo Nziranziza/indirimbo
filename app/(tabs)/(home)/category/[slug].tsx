@@ -17,7 +17,17 @@ function findCategory(slug: string, playlist?: string): { category: SongCategory
       resolvedPlaylist: 'cantiques-kirundi',
     };
   }
-  // Default to gushimisha (backwards compatible)
+  if (playlist === 'gushimisha') {
+    return {
+      category: gushimishaCategories.find((c) => c.slug === slug),
+      resolvedPlaylist: 'gushimisha',
+    };
+  }
+  // No explicit playlist (e.g. direct URL hit, SEO crawler): resolve from the slug.
+  const kirundiMatch = cantiquesKirundiCategories.find((c) => c.slug === slug);
+  if (kirundiMatch) {
+    return { category: kirundiMatch, resolvedPlaylist: 'cantiques-kirundi' };
+  }
   return {
     category: gushimishaCategories.find((c) => c.slug === slug),
     resolvedPlaylist: 'gushimisha',
@@ -52,6 +62,7 @@ export default function CategoryScreen() {
         description={`Browse ${categoryName} hymns from ${playlistDisplayName} hymnbook. ${songs.length} worship songs with full lyrics.`}
         canonicalPath={`/category/${slug}/`}
         keywords={`${categoryName}, ${playlistDisplayName}, indirimbo, hymns, worship songs`}
+        playlist={resolvedPlaylist}
       />
       <SongListScreen
         title={categoryName}

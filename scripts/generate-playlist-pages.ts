@@ -39,16 +39,18 @@ interface PageOptions {
   canonicalUrl: string;
   keywords: string;
   ogImage?: string;
+  ogLocale?: string;
   noscriptHtml?: string;
   jsonLdTags?: string;
 }
 
-function generatePage({ title, ogTitle, description, canonicalUrl, keywords, ogImage, noscriptHtml, jsonLdTags }: PageOptions): string {
+function generatePage({ title, ogTitle, description, canonicalUrl, keywords, ogImage, ogLocale, noscriptHtml, jsonLdTags }: PageOptions): string {
   const escapedTitle = escapeHtml(title);
   const escapedOgTitle = escapeHtml(ogTitle);
   const escapedDescription = escapeHtml(description);
   const escapedKeywords = escapeHtml(keywords);
   const image = ogImage ?? OG_IMAGE;
+  const locale = ogLocale ?? 'rw_RW';
 
   const metaTags = `
   <meta name="description" content="${escapedDescription}" />
@@ -62,7 +64,7 @@ function generatePage({ title, ogTitle, description, canonicalUrl, keywords, ogI
   <meta property="og:image:height" content="630" />
   <meta property="og:image:type" content="image/jpeg" />
   <meta property="og:url" content="${canonicalUrl}" />
-  <meta property="og:locale" content="rw_RW" />
+  <meta property="og:locale" content="${locale}" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="${escapedOgTitle}" />
   <meta name="twitter:description" content="${escapedDescription}" />
@@ -184,6 +186,7 @@ for (const playlist of playlists) {
     canonicalUrl,
     keywords: playlist.keywords,
     ogImage: playlist.id === 'cantiques-kirundi' ? OG_IMAGE_KIRUNDI : undefined,
+    ogLocale: playlist.id === 'cantiques-kirundi' ? 'rn_BI' : undefined,
     noscriptHtml: noscript,
     jsonLdTags: `${collectionJsonLd}\n${breadcrumbJsonLd}`,
   });
@@ -264,6 +267,7 @@ for (const { playlistId, playlistName, categories, songMap } of categoryPlaylist
       canonicalUrl,
       keywords,
       ogImage: playlistId === 'cantiques-kirundi' ? OG_IMAGE_KIRUNDI : undefined,
+      ogLocale: playlistId === 'cantiques-kirundi' ? 'rn_BI' : undefined,
       noscriptHtml: noscript,
       jsonLdTags: `${collectionJsonLd}\n${breadcrumbJsonLd}`,
     });
