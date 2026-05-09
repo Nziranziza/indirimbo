@@ -20,7 +20,9 @@ export function PageHead({ title, description, canonicalPath, keywords, playlist
 
   const rawUrl = `${BASE_URL}${canonicalPath}`;
   const canonicalUrl = rawUrl.endsWith('/') ? rawUrl : `${rawUrl}/`;
-  const ogImage = playlist === 'cantiques-kirundi' ? OG_IMAGE_KIRUNDI : OG_IMAGE;
+  const isKirundi = playlist === 'cantiques-kirundi';
+  const ogImage = isKirundi ? OG_IMAGE_KIRUNDI : OG_IMAGE;
+  const ogLocale = isKirundi ? 'rn_BI' : 'rw_RW';
 
   return (
     <Head>
@@ -31,6 +33,7 @@ export function PageHead({ title, description, canonicalPath, keywords, playlist
       <meta property="og:description" content={description} />
       <meta property="og:url" content={canonicalUrl} />
       <meta property="og:image" content={ogImage} />
+      <meta property="og:locale" content={ogLocale} />
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={ogImage} />
