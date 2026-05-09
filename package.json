@@ -16,7 +16,9 @@
     "submit:ios": "npx eas-cli submit --platform ios",
     "update": "npx eas-cli update --channel production",
     "ios:device": "expo run:ios --device",
-    "android:device": "expo run:android --device"
+    "android:device": "expo run:android --device",
+    "seo:indexnow": "tsx scripts/seo/submit-indexnow.ts",
+    "seo:indexing-api": "tsx scripts/seo/submit-indexing-api.ts"
   },
   "dependencies": {
     "@aptabase/react-native": "^0.4.0",
@@ -61,6 +63,7 @@
     "@types/react": "~19.2.10",
     "eslint": "^9.25.0",
     "eslint-config-expo": "~55.0.0",
+    "google-auth-library": "^10.6.2",
     "tsx": "^4.21.0",
     "typescript": "~5.9.2"
   },

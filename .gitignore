@@ -33,6 +33,9 @@ yarn-error.*
 # local env files
 .env*.local
 
+# secrets (Google Indexing API service account key, etc.)
+secrets/
+
 # typescript
 *.tsbuildinfo
 
