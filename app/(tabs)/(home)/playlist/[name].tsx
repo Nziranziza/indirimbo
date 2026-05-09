@@ -3,9 +3,12 @@ import { SongListScreen } from '@/components/song-list-screen';
 import type { IconSymbolName } from '@/components/ui/icon-symbol';
 import { getPlaylistName } from '@/constants/playlists';
 import type { Song } from '@/constants/types';
+import { useEngagement } from '@/contexts/engagement-context';
 import { useSongs } from '@/contexts/songs-context';
+import { trackEvent } from '@/utils/analytics';
+import { sharePlaylist } from '@/utils/share';
 import { useLocalSearchParams, usePathname } from 'expo-router';
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 
 export default function PlaylistScreen() {
   const params = useLocalSearchParams<{ name: string | string[] }>();
@@ -38,6 +41,7 @@ export default function PlaylistScreen() {
   }, [params.name, pathname]);
 
   const { agakiza, gushimisha, cantiquesKirundi } = useSongs();
+  const { notifyShareSuccess } = useEngagement();
   const songs = useMemo(() => {
     const songsByPlaylist: Record<string, Song[]> = {
       agakiza,
@@ -55,6 +59,14 @@ export default function PlaylistScreen() {
   };
   const iconName: IconSymbolName = PLAYLIST_ICONS[name] ?? 'music.note.list';
 
+  const handleShare = useCallback(async () => {
+    trackEvent('share_playlist', {
+      playlist: name,
+    });
+    const completed = await sharePlaylist({ playlistId: name });
+    if (completed) notifyShareSuccess();
+  }, [name, notifyShareSuccess]);
+
   return (
     <>
       <PageHead
@@ -70,6 +82,8 @@ export default function PlaylistScreen() {
         songs={songs}
         playlist={name}
         source="playlist"
+        onShare={handleShare}
+        shareAccessibilityLabel="Share playlist"
       />
     </>
   );

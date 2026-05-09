@@ -32,9 +32,11 @@ interface SongListScreenProps {
   songs: Song[];
   playlist: string;
   source: 'playlist' | 'category';
+  onShare?: () => void | Promise<void>;
+  shareAccessibilityLabel?: string;
 }
 
-export function SongListScreen({ title, iconName, songs, playlist, source }: SongListScreenProps) {
+export function SongListScreen({ title, iconName, songs, playlist, source, onShare, shareAccessibilityLabel }: SongListScreenProps) {
   const router = useRouter();
   const colors = useColors();
   const colorScheme = useColorScheme();
@@ -191,7 +193,21 @@ export function SongListScreen({ title, iconName, songs, playlist, source }: Son
           </Animated.Text>
         </Animated.View>
 
-        <View style={styles.placeholder} />
+        {onShare ? (
+          <View style={[styles.headerActions, { borderColor: colors.icon + '30' }]}>
+            <TouchableOpacity
+              onPress={() => { void onShare(); }}
+              style={styles.headerActionButton}
+              accessibilityLabel={shareAccessibilityLabel ?? 'Share'}
+              accessibilityRole="button"
+              activeOpacity={0.7}
+              hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}>
+              <IconSymbol name="square.and.arrow.up" size={22} color={colors.text} />
+            </TouchableOpacity>
+          </View>
+        ) : (
+          <View style={styles.placeholder} />
+        )}
       </View>
 
       {/* Scrollable Content */}
@@ -266,6 +282,16 @@ const styles = StyleSheet.create({
   },
   placeholder: {
     width: 40,
+  },
+  headerActions: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+    borderRadius: 999,
+    borderWidth: 1,
+  },
+  headerActionButton: {
+    padding: 8,
   },
   largeTitleContainer: {
     paddingHorizontal: 20,
