@@ -1,5 +1,5 @@
 import type { Song } from '@/constants/types';
-import { getMatchSnippet } from '@/utils/search-helpers';
+import { collapseContractions, countWordCoverage, getMatchSnippet } from '@/utils/search-helpers';
 import type FuseType from 'fuse.js';
 import { useEffect, useMemo, useState } from 'react';
 
@@ -9,6 +9,8 @@ interface FlatSong extends Song {
   readonly searchText: string;
   readonly lowerSearchText: string;
   readonly numberStr: string;
+  readonly nameCollapsed: string;
+  readonly searchTextCollapsed: string;
 }
 
 export interface SearchResult {
@@ -16,6 +18,7 @@ export interface SearchResult {
   readonly song: FlatSong;
   readonly rank: number;
   readonly score: number;
+  readonly coverage: number;
   readonly snippet: { label: string; snippet: string } | null;
 }
 
@@ -34,6 +37,8 @@ export function useSearch(allSongs: Record<string, Song[]>, debouncedQuery: stri
           searchText,
           lowerSearchText,
           numberStr: String(song.number),
+          nameCollapsed: collapseContractions(lowerName),
+          searchTextCollapsed: collapseContractions(lowerSearchText),
         };
       })
     );
@@ -49,8 +54,10 @@ export function useSearch(allSongs: Record<string, Song[]>, debouncedQuery: stri
       if (cancelled) return;
       const keys = [
         { name: 'numberStr' as const, weight: 0.3 },
-        { name: 'name' as const, weight: 0.5 },
-        { name: 'searchText' as const, weight: 0.2 },
+        { name: 'name' as const, weight: 0.25 },
+        { name: 'nameCollapsed' as const, weight: 0.25 },
+        { name: 'searchText' as const, weight: 0.1 },
+        { name: 'searchTextCollapsed' as const, weight: 0.1 },
       ];
       const index = Fuse.createIndex(keys, allSongsFlat);
       const instance = new Fuse(allSongsFlat, {
@@ -73,33 +80,40 @@ export function useSearch(allSongs: Record<string, Song[]>, debouncedQuery: stri
 
     const query = debouncedQuery.trim();
     const lowerQuery = query.toLowerCase();
+    const collapsedQuery = collapseContractions(lowerQuery);
     const words = lowerQuery.split(/\s+/).filter(w => w.length >= 2 || /^\d+$/.test(w));
 
     if (words.length === 0) return [];
 
-    const results = fuseInstance.search(query, { limit: 30 });
+    const results = fuseInstance.search(query, { limit: 50 });
+    const collapsedWords = words.map(w => collapseContractions(w));
 
     const ranked = results.map((r: { item: FlatSong; score?: number }) => {
       const item = r.item;
       let rank = 3;
       if (item.numberStr === lowerQuery) rank = 0;
-      else if (item.lowerName.includes(lowerQuery)) rank = 1;
-      else if (item.lowerSearchText.includes(lowerQuery)) rank = 2;
+      else if (item.lowerName.includes(lowerQuery) || item.nameCollapsed.includes(collapsedQuery)) rank = 1;
+      else if (item.lowerSearchText.includes(lowerQuery) || item.searchTextCollapsed.includes(collapsedQuery)) rank = 2;
+
+      const coverageHaystack = `${item.searchTextCollapsed} ${item.nameCollapsed}`;
+      const coverage = countWordCoverage(collapsedWords, coverageHaystack);
 
       return {
         playlist: item.playlist,
         song: item,
         rank,
         score: r.score ?? 1,
+        coverage,
         snippet: getMatchSnippet(item, words),
       };
     });
 
     ranked.sort((a, b) => {
       if (a.rank !== b.rank) return a.rank - b.rank;
+      if (a.coverage !== b.coverage) return b.coverage - a.coverage;
       return a.score - b.score;
     });
 
-    return ranked;
+    return ranked.slice(0, 30);
   }, [debouncedQuery, fuseInstance]);
 }
