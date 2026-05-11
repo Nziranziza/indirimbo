@@ -168,7 +168,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     paddingVertical: 80,
-    gap: 16,
+    gap: 8,
   },
   ctaButton: {
     flexDirection: 'row',
@@ -184,8 +184,10 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   emptyText: {
-    fontSize: 18,
+    fontSize: 24,
     fontWeight: '700',
+    maxWidth: 200,
+    textAlign: 'center'
   },
   emptySubtext: {
     fontSize: 14,

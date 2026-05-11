@@ -164,7 +164,7 @@ export default function HomeScreen() {
         <AnimatedTouchableOpacity
           onPress={handleShareApp}
           activeOpacity={0.7}
-          accessibilityLabel={t('home.shareAppA11y')}
+          accessibilityLabel={t('common.shareAppA11y')}
           accessibilityRole="button"
           style={[styles.shareButton, { backgroundColor: colors.tint, borderColor: colors.tint }, shareButtonStyle]}>
           <Animated.View style={[styles.shareIconWrapper, shareIconStyle]}>
@@ -173,7 +173,7 @@ export default function HomeScreen() {
           <Animated.Text
             numberOfLines={1}
             style={[styles.shareButtonLabel, { color: colors.tintForeground }, shareLabelStyle]}>
-            {t('home.shareApp')}
+            {t('common.shareAppLabel')}
           </Animated.Text>
         </AnimatedTouchableOpacity>
         </View>
