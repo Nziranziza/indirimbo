@@ -11,8 +11,6 @@ export const fr: EnTranslations = {
   'home.greeting.morning': 'Bonjour',
   'home.greeting.afternoon': 'Bon après-midi',
   'home.greeting.evening': 'Bonsoir',
-  'home.shareApp': 'Partager',
-  'home.shareAppA11y': "Partager l'application",
   'home.recentSongs': 'Récemment vues',
   'home.favoriteSongs': 'Chansons favorites',
   'home.seeAll': 'Tout voir',

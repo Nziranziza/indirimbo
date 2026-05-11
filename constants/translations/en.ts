@@ -9,8 +9,6 @@ export const en = {
   'home.greeting.morning': 'Good morning',
   'home.greeting.afternoon': 'Good afternoon',
   'home.greeting.evening': 'Good evening',
-  'home.shareApp': 'Share app',
-  'home.shareAppA11y': 'Share app',
   'home.recentSongs': 'Recent Songs',
   'home.favoriteSongs': 'Favorite Songs',
   'home.seeAll': 'See all',
@@ -24,7 +22,7 @@ export const en = {
   // Favorites
   'favorites.title': 'Favorites',
   'favorites.subtitle': 'Your favorite songs',
-  'favorites.empty.title': 'No favorites yet',
+  'favorites.empty.title': 'No Favorites Yet',
   'favorites.empty.subtitle': 'Tap the heart icon on any song to add it to favorites',
   'favorites.empty.cta': 'Start Exploring Songs',
   'favorites.empty.ctaA11y': 'Start exploring songs',
@@ -262,8 +260,8 @@ export const en = {
   'common.time.yearsAgoShort': '{count}y ago',
 
   // Playlists
-  'playlist.gushimisha.description': 'Songs of praise',
-  'playlist.agakiza.description': 'Songs of salvation',
+  'playlist.gushimisha.description': 'Songs of Praise',
+  'playlist.agakiza.description': 'Songs of Salvation',
   'playlist.cantiquesKirundi.description': 'Indirimbo zo Guhimbaza Imana',
 
   // Song screen
