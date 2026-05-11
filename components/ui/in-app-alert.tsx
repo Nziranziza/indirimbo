@@ -21,10 +21,12 @@ export interface InAppAlertAction {
   readonly onPress: () => void;
 }
 
-interface InAppAlertProps {
+interface InAppAlertBaseProps {
   readonly visible: boolean;
   readonly icon: IconSymbolName;
   readonly message: string;
+  /** Optional secondary line shown beneath the message in a lighter style. */
+  readonly description?: string;
   readonly onDismiss: () => void;
   /** Distance from the bottom of the screen. Caller decides how much to clear (safe area, nav bars, etc.). */
   readonly bottomOffset: number;
@@ -33,14 +35,24 @@ interface InAppAlertProps {
   readonly action?: InAppAlertAction;
 }
 
+/** When dismissible, dismissA11y is required so non-English locales aren't silently served the English fallback. */
+type InAppAlertDismissProps =
+  | { readonly dismissible: true; readonly dismissA11y: string }
+  | { readonly dismissible?: false; readonly dismissA11y?: never };
+
+type InAppAlertProps = InAppAlertBaseProps & InAppAlertDismissProps;
+
 export function InAppAlert({
   visible,
   icon,
   message,
+  description,
   onDismiss,
   bottomOffset,
   duration = DEFAULT_DURATION_MS,
   action,
+  dismissible,
+  dismissA11y,
 }: InAppAlertProps) {
   const colors = useColors();
   const translateY = useSharedValue(100);
@@ -121,9 +133,16 @@ export function InAppAlert({
             <IconSymbol name={icon} size={18} color={colors.tint} />
           </View>
 
-          <ThemedText style={styles.text} numberOfLines={2}>
-            {message}
-          </ThemedText>
+          <View style={styles.textContainer}>
+            <ThemedText style={styles.text} numberOfLines={description ? 1 : 2}>
+              {message}
+            </ThemedText>
+            {description && (
+              <ThemedText style={[styles.description, { color: colors.icon }]} numberOfLines={2}>
+                {description}
+              </ThemedText>
+            )}
+          </View>
 
           {action && (
             <TouchableOpacity
@@ -136,6 +155,19 @@ export function InAppAlert({
               <ThemedText style={[styles.buttonText, { color: colors.tintForeground }]}>
                 {action.label}
               </ThemedText>
+            </TouchableOpacity>
+          )}
+
+          {dismissible && (
+            <TouchableOpacity
+              onPress={dismiss}
+              style={[styles.closeButton, { backgroundColor: colors.icon + '20' }]}
+              activeOpacity={0.7}
+              accessibilityLabel={dismissA11y}
+              accessibilityRole="button"
+              hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
+            >
+              <IconSymbol name="xmark" size={11} color={colors.icon} />
             </TouchableOpacity>
           )}
         </Animated.View>
@@ -172,10 +204,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  text: {
+  textContainer: {
     flex: 1,
+    gap: 2,
+  },
+  text: {
     fontSize: 14,
     fontWeight: '600',
+  },
+  description: {
+    fontSize: 12,
+    lineHeight: 16,
   },
   button: {
     paddingVertical: 7,
@@ -185,5 +224,12 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 13,
     fontWeight: '700',
+  },
+  closeButton: {
+    width: 24,
+    height: 24,
+    borderRadius: 12,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });

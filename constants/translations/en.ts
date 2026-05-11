@@ -398,6 +398,12 @@ export const en = {
   'common.favoriteSuggestion.description': 'Save songs you love for quick access anytime.',
   'common.favoriteSuggestion.addA11y': 'Add to favorites',
   'common.favoriteSuggestion.dismissA11y': 'Dismiss',
+
+  // Common — Kirundi pin suggestion banner
+  'common.kirundiPinSuggestion.title': 'Pin Cantiques Kirundi',
+  'common.kirundiPinSuggestion.description': 'Add it to your home for quick access.',
+  'common.kirundiPinSuggestion.acceptCta': 'Pin',
+  'common.kirundiPinSuggestion.dismissA11y': 'Dismiss',
 } as const;
 
 export type TranslationKey = keyof typeof en;

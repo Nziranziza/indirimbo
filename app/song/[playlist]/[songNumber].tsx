@@ -18,6 +18,7 @@ import { useSongs } from "@/contexts/songs-context";
 import { useColors } from "@/hooks/use-colors";
 import { useTranslation } from "@/hooks/use-translation";
 import { useFavoriteSuggestion } from "@/hooks/use-favorite-suggestion";
+import { useKirundiPinSuggestion } from "@/hooks/use-kirundi-pin-suggestion";
 import { useKeepAwake } from "@/hooks/use-keep-awake";
 import {
   addFavorite,
@@ -202,6 +203,15 @@ export default function SongScreen() {
     playlist,
     songNumber: currentSong?.number,
     isFavorite: isFav,
+  });
+
+  const {
+    showBanner: showKirundiBanner,
+    handleAccept: handleAcceptKirundiPin,
+    handleDismiss: handleDismissKirundiPin,
+  } = useKirundiPinSuggestion({
+    playlist,
+    songNumber: currentSong?.number,
   });
 
   useEffect(() => {
@@ -710,6 +720,22 @@ export default function SongScreen() {
         message={alertState?.message ?? ''}
         onDismiss={() => setAlertState(null)}
         bottomOffset={NAV_BAR_HEIGHT + insets.bottom + 8}
+      />
+
+      <InAppAlert
+        visible={showKirundiBanner}
+        icon="book.fill"
+        message={t('common.kirundiPinSuggestion.title')}
+        description={t('common.kirundiPinSuggestion.description')}
+        onDismiss={handleDismissKirundiPin}
+        bottomOffset={NAV_BAR_HEIGHT + insets.bottom + 8}
+        duration={0}
+        action={{
+          label: t('common.kirundiPinSuggestion.acceptCta'),
+          onPress: handleAcceptKirundiPin,
+        }}
+        dismissible
+        dismissA11y={t('common.kirundiPinSuggestion.dismissA11y')}
       />
 
     </ThemedView>

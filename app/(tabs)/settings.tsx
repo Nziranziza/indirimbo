@@ -40,7 +40,7 @@ export default function SettingsScreen() {
     setTintColor: setTintColorContext,
   } = useTheme();
   const colorScheme = useColorScheme();
-  const { isBurundi, songbookPreference, updateSongbookPreference } = useSongbookPreference();
+  const { isBurundi, hasUnlockedKirundi, songbookPreference, updateSongbookPreference } = useSongbookPreference();
   const { language, setLanguage } = useLanguage();
   const { notifyShareSuccess, markAsRated } = useEngagement();
   const { t } = useTranslation();
@@ -124,7 +124,7 @@ export default function SettingsScreen() {
           />
         </SettingsGroup>
 
-        {isBurundi && (
+        {(isBurundi || hasUnlockedKirundi) && (
           <SettingsGroup
             icon="books.vertical.fill"
             title={t('settings.songbook.title')}
