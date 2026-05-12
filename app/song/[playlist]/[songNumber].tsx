@@ -36,6 +36,7 @@ import { APP_UNIVERSAL_LINK_URL } from "@/constants/app-links";
 import * as Clipboard from "expo-clipboard";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { PageHead } from "@/components/page-head";
+import { buildSongSeoDescription } from "@/utils/seo-description";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   Dimensions,
@@ -454,14 +455,14 @@ export default function SongScreen() {
         )}
         {item.type === "verse" && item.number && showVerseLabel && (
           <ThemedView style={styles.verseHeader}>
-            <ThemedText style={[styles.verseLabel, { color: colors.icon }]} accessibilityRole="header">
+            <ThemedText style={[styles.verseLabel, { color: colors.icon }]} accessibilityRole="header" aria-level={2}>
               {t('song.verseLabel', { number: item.number })}
             </ThemedText>
           </ThemedView>
         )}
         {item.type === "chorus" && (
           <View style={styles.chorusHeader}>
-            <ThemedText style={[styles.chorusLabel, { color: colors.tint }]} accessibilityRole="header">
+            <ThemedText style={[styles.chorusLabel, { color: colors.tint }]} accessibilityRole="header" aria-level={2}>
               {t('song.chorusLabel')}
             </ThemedText>
           </View>
@@ -539,10 +540,7 @@ export default function SongScreen() {
     }
   };
 
-  const firstSection = currentSong.body?.find((s) => s.type === "verse" || s.type === "chorus");
-  const seoDescription = firstSection
-    ? firstSection.content.replace(/\n/g, " ")
-    : `${currentSong.name} - ${playlistTitle} hymn #${currentSong.number}`;
+  const seoDescription = buildSongSeoDescription(currentSong);
 
   const hasFooterContent = Boolean(
     currentSong.key || (currentSong.references && currentSong.references.length > 0),
@@ -583,7 +581,7 @@ export default function SongScreen() {
             {playlistTitle}
           </ThemedText>
           <View style={styles.titleRow}>
-            <ThemedText type="title" style={styles.songTitle} numberOfLines={1}>
+            <ThemedText type="title" style={styles.songTitle} numberOfLines={1} accessibilityRole="header">
               {currentSong.name}
             </ThemedText>
           </View>

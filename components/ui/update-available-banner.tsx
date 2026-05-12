@@ -42,7 +42,7 @@ export const UpdateAvailableBanner = memo(function UpdateAvailableBanner({
         },
       ]}
     >
-      <Image source={APP_ICON} style={styles.icon} contentFit="contain" />
+      <Image source={APP_ICON} style={styles.icon} contentFit="contain" accessibilityLabel="Indirimbo app icon" />
       <View style={styles.text}>
         <ThemedText style={styles.title}>{t('common.update.bannerTitle')}</ThemedText>
         <ThemedText style={[styles.subtitle, { color: colors.icon }]}>{t('common.update.bannerSubtitle')}</ThemedText>
