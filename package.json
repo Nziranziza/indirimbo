@@ -17,6 +17,8 @@
     "update": "npx eas-cli update --channel production",
     "ios:device": "expo run:ios --device",
     "android:device": "expo run:android --device",
+    "ios:release": "expo run:ios --device --configuration release",
+    "android:release": "expo run:android --device --variant release",
     "seo:indexnow": "tsx scripts/seo/submit-indexnow.ts",
     "seo:indexing-api": "tsx scripts/seo/submit-indexing-api.ts",
     "seo:verify-prepare": "tsx scripts/seo/verify-service-account.ts prepare",
