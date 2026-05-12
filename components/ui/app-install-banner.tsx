@@ -145,6 +145,7 @@ export function AppInstallBanner() {
           source={require('@/assets/images/icon.png')}
           style={styles.appIcon}
           contentFit="cover"
+          accessibilityLabel="Indirimbo app icon"
         />
         <View style={styles.textColumn}>
           <View style={styles.storeRow}>

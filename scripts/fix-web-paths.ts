@@ -59,27 +59,29 @@ html = html.replace(
   `<title data-rh="true">${HOMEPAGE_TITLE}</title>`
 );
 
-// Inject SEO meta tags into <head>
+// Inject SEO meta tags into <head>.
+// Tags re-rendered by <PageHead> at runtime get data-rh="true" so react-helmet-async
+// replaces them in place instead of appending duplicates after hydration.
 const seoMetaTags = `
-  <meta name="description" content="${HOMEPAGE_DESCRIPTION}" />
-  <meta name="keywords" content="${HOMEPAGE_KEYWORDS}" />
+  <meta data-rh="true" name="description" content="${HOMEPAGE_DESCRIPTION}" />
+  <meta data-rh="true" name="keywords" content="${HOMEPAGE_KEYWORDS}" />
   <meta name="theme-color" content="#0a7ea4" />
   <meta property="og:site_name" content="Indirimbo" />
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="${HOMEPAGE_TITLE}" />
-  <meta property="og:description" content="${HOMEPAGE_DESCRIPTION}" />
-  <meta property="og:image" content="${BASE_URL}/og-image.jpg" />
+  <meta data-rh="true" property="og:title" content="${HOMEPAGE_TITLE}" />
+  <meta data-rh="true" property="og:description" content="${HOMEPAGE_DESCRIPTION}" />
+  <meta data-rh="true" property="og:image" content="${BASE_URL}/og-image.jpg" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta property="og:image:type" content="image/jpeg" />
-  <meta property="og:url" content="${BASE_URL}/" />
-  <meta property="og:locale" content="rw_RW" />
+  <meta data-rh="true" property="og:url" content="${BASE_URL}/" />
+  <meta data-rh="true" property="og:locale" content="rw_RW" />
   <meta property="og:locale:alternate" content="rn_BI" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="${HOMEPAGE_TITLE}" />
-  <meta name="twitter:description" content="${HOMEPAGE_TWITTER_DESCRIPTION}" />
-  <meta name="twitter:image" content="${BASE_URL}/og-image.jpg" />
-  <link rel="canonical" href="${BASE_URL}/" />
+  <meta data-rh="true" name="twitter:title" content="${HOMEPAGE_TITLE}" />
+  <meta data-rh="true" name="twitter:description" content="${HOMEPAGE_TWITTER_DESCRIPTION}" />
+  <meta data-rh="true" name="twitter:image" content="${BASE_URL}/og-image.jpg" />
+  <link data-rh="true" rel="canonical" href="${BASE_URL}/" />
   <meta name="apple-itunes-app" content="app-id=6758376573" />
 `;
 

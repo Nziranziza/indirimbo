@@ -67,7 +67,7 @@ export function ForceUpdateModal() {
           },
         ]}
       >
-        <Image source={APP_ICON} style={styles.appIcon} contentFit="contain" />
+        <Image source={APP_ICON} style={styles.appIcon} contentFit="contain" accessibilityLabel="Indirimbo app icon" />
         <View style={styles.content}>
           <View style={[styles.iconCircle, { backgroundColor: colors.tint + '15' }]}>
             <IconSymbol name="arrow.down.circle.fill" size={56} color={colors.tint} />

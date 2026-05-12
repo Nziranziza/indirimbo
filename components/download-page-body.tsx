@@ -51,7 +51,7 @@ export function DownloadPageBody({ variant = 'default' }: DownloadPageBodyProps)
       fallbackHref="/(tabs)/settings"
       headerContent={
         <View style={styles.heroSection}>
-          <Image source={require('@/assets/images/icon.png')} style={styles.appIcon} />
+          <Image source={require('@/assets/images/icon.png')} style={styles.appIcon} accessibilityLabel="Indirimbo app icon" />
           <ThemedText type="title" style={styles.appName}>
             Indirimbo
           </ThemedText>

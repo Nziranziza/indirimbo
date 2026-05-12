@@ -56,24 +56,26 @@ function generatePage({
   const escapedDescription = escapeHtml(description);
   const escapedKeywords = escapeHtml(keywords);
 
+  // Tags re-rendered by <PageHead> at runtime get data-rh="true" so react-helmet-async
+  // replaces them in place instead of appending duplicates after hydration.
   const metaTags = `
-  <meta name="description" content="${escapedDescription}" />
-  <meta name="keywords" content="${escapedKeywords}" />
+  <meta data-rh="true" name="description" content="${escapedDescription}" />
+  <meta data-rh="true" name="keywords" content="${escapedKeywords}" />
   <meta property="og:site_name" content="Indirimbo" />
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="${escapedTitle}" />
-  <meta property="og:description" content="${escapedDescription}" />
-  <meta property="og:image" content="${ogImage}" />
+  <meta data-rh="true" property="og:title" content="${escapedTitle}" />
+  <meta data-rh="true" property="og:description" content="${escapedDescription}" />
+  <meta data-rh="true" property="og:image" content="${ogImage}" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta property="og:image:type" content="image/jpeg" />
-  <meta property="og:url" content="${canonicalUrl}" />
-  <meta property="og:locale" content="${ogLocale}" />
+  <meta data-rh="true" property="og:url" content="${canonicalUrl}" />
+  <meta data-rh="true" property="og:locale" content="${ogLocale}" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="${escapedTitle}" />
-  <meta name="twitter:description" content="${escapedDescription}" />
-  <meta name="twitter:image" content="${ogImage}" />
-  <link rel="canonical" href="${canonicalUrl}" />
+  <meta data-rh="true" name="twitter:title" content="${escapedTitle}" />
+  <meta data-rh="true" name="twitter:description" content="${escapedDescription}" />
+  <meta data-rh="true" name="twitter:image" content="${ogImage}" />
+  <link data-rh="true" rel="canonical" href="${canonicalUrl}" />
   <meta name="apple-itunes-app" content="app-id=6758376573" />`;
 
   let html = templateHtml;
@@ -82,12 +84,13 @@ function generatePage({
   html = html.replace(/<title[^>]*>.*?<\/title>/, `<title>${escapedTitle}</title>`);
 
   // Remove existing default OG/Twitter/description/canonical/keywords/smart-banner meta tags
-  html = html.replace(/<meta\s+name="description"[^>]*>/g, '');
-  html = html.replace(/<meta\s+name="keywords"[^>]*>/g, '');
-  html = html.replace(/<meta\s+property="og:[^"]*"[^>]*>/g, '');
-  html = html.replace(/<meta\s+name="twitter:[^"]*"[^>]*>/g, '');
-  html = html.replace(/<link\s+rel="canonical"[^>]*>/g, '');
-  html = html.replace(/<meta\s+name="apple-itunes-app"[^>]*>/g, '');
+  // (attributes may appear in any order, including the leading data-rh marker).
+  html = html.replace(/<meta\b[^>]*\bname="description"[^>]*>/g, '');
+  html = html.replace(/<meta\b[^>]*\bname="keywords"[^>]*>/g, '');
+  html = html.replace(/<meta\b[^>]*\bproperty="og:[^"]*"[^>]*>/g, '');
+  html = html.replace(/<meta\b[^>]*\bname="twitter:[^"]*"[^>]*>/g, '');
+  html = html.replace(/<link\b[^>]*\brel="canonical"[^>]*>/g, '');
+  html = html.replace(/<meta\b[^>]*\bname="apple-itunes-app"[^>]*>/g, '');
 
   // Inject specific meta tags right after <head>
   html = html.replace(/<head>/, `<head>${metaTags}`);

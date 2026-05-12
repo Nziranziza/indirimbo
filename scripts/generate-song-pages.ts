@@ -17,6 +17,7 @@ import { songs as agakizaSongs } from '../constants/agakiza-songs';
 import { songs as kirundiSongs } from '../constants/cantiques-kirundi-songs';
 import { getSongTitleLabel } from '../constants/playlists';
 import type { Song } from '../constants/types';
+import { buildSongSeoDescription } from '../utils/seo-description';
 import { escapeHtml, buildJsonLdTag, stripJsonLd } from './utils';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -31,14 +32,6 @@ const indexPath = path.join(distDir, 'index.html');
 const templateHtml = fs.readFileSync(indexPath, 'utf8');
 
 // --- helpers ----------------------------------------------------------------
-
-function buildDescription(song: Song): string {
-  const firstSection = song.body[0];
-  if (firstSection) {
-    return firstSection.content.replace(/\n/g, ' ');
-  }
-  return `${song.name} - hymn #${song.number}`;
-}
 
 function buildNoscriptContent(song: Song, playlist: string, playlistName: string): string {
   let noscript = `<noscript><article>`;
@@ -67,28 +60,30 @@ function generateSongHtml(song: Song, playlist: string, playlistName: string): s
   const titleText = `${song.name} | ${getSongTitleLabel(playlist, song.number)}`;
   const title = escapeHtml(titleText);
   const ogTitle = title;
-  const description = escapeHtml(buildDescription(song));
+  const description = escapeHtml(buildSongSeoDescription(song));
   const canonicalUrl = `${BASE_URL}/song/${playlist}/${encodeURIComponent(song.number)}/`;
   const ogImage = playlist === 'cantiques-kirundi' ? OG_IMAGE_KIRUNDI : OG_IMAGE;
 
-  // Song-specific meta tags to inject
+  // Song-specific meta tags to inject.
+  // Tags re-rendered by <PageHead> at runtime get data-rh="true" so react-helmet-async
+  // replaces them in place instead of appending duplicates after hydration.
   const songMeta = `
-  <meta name="description" content="${description}" />
+  <meta data-rh="true" name="description" content="${description}" />
   <meta property="og:site_name" content="Indirimbo" />
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="${ogTitle}" />
-  <meta property="og:description" content="${description}" />
-  <meta property="og:image" content="${ogImage}" />
+  <meta data-rh="true" property="og:title" content="${ogTitle}" />
+  <meta data-rh="true" property="og:description" content="${description}" />
+  <meta data-rh="true" property="og:image" content="${ogImage}" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta property="og:image:type" content="image/jpeg" />
-  <meta property="og:url" content="${canonicalUrl}" />
-  <meta property="og:locale" content="rw_RW" />
+  <meta data-rh="true" property="og:url" content="${canonicalUrl}" />
+  <meta data-rh="true" property="og:locale" content="${playlist === 'cantiques-kirundi' ? 'rn_BI' : 'rw_RW'}" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="${ogTitle}" />
-  <meta name="twitter:description" content="${description}" />
-  <meta name="twitter:image" content="${ogImage}" />
-  <link rel="canonical" href="${canonicalUrl}" />
+  <meta data-rh="true" name="twitter:title" content="${ogTitle}" />
+  <meta data-rh="true" name="twitter:description" content="${description}" />
+  <meta data-rh="true" name="twitter:image" content="${ogImage}" />
+  <link data-rh="true" rel="canonical" href="${canonicalUrl}" />
   <meta name="apple-itunes-app" content="app-id=6758376573" />`;
 
   let html = templateHtml;
@@ -96,12 +91,14 @@ function generateSongHtml(song: Song, playlist: string, playlistName: string): s
   // Replace the title
   html = html.replace(/<title[^>]*>.*?<\/title>/, `<title>${title}</title>`);
 
-  // Remove existing default OG/Twitter/description/canonical/smart-banner meta tags
-  html = html.replace(/<meta\s+name="description"[^>]*>/g, '');
-  html = html.replace(/<meta\s+property="og:[^"]*"[^>]*>/g, '');
-  html = html.replace(/<meta\s+name="twitter:[^"]*"[^>]*>/g, '');
-  html = html.replace(/<link\s+rel="canonical"[^>]*>/g, '');
-  html = html.replace(/<meta\s+name="apple-itunes-app"[^>]*>/g, '');
+  // Remove existing default OG/Twitter/description/canonical/keywords/smart-banner meta tags
+  // (attributes may appear in any order, including the leading data-rh marker).
+  html = html.replace(/<meta\b[^>]*\bname="description"[^>]*>/g, '');
+  html = html.replace(/<meta\b[^>]*\bname="keywords"[^>]*>/g, '');
+  html = html.replace(/<meta\b[^>]*\bproperty="og:[^"]*"[^>]*>/g, '');
+  html = html.replace(/<meta\b[^>]*\bname="twitter:[^"]*"[^>]*>/g, '');
+  html = html.replace(/<link\b[^>]*\brel="canonical"[^>]*>/g, '');
+  html = html.replace(/<meta\b[^>]*\bname="apple-itunes-app"[^>]*>/g, '');
 
   // Inject song-specific meta tags right after <head>
   html = html.replace(/<head>/, `<head>${songMeta}`);
