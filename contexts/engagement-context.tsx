@@ -1,7 +1,9 @@
 import { APP_STORE_REVIEW_URL, APP_UNIVERSAL_LINK_URL, PLAY_STORE_REVIEW_URL } from '@/constants/app-links';
-import { EngagementPrompt, type EngagementPromptType } from '@/components/ui/engagement-prompt';
+import { InAppAlert } from '@/components/ui/in-app-alert';
+import { type IconSymbolName } from '@/components/ui/icon-symbol';
+import { type TranslationKey } from '@/constants/translations';
 import { useTranslation } from '@/hooks/use-translation';
-import { mediumImpact, successNotification } from '@/utils/haptics';
+import { mediumImpact } from '@/utils/haptics';
 import { shareSong } from '@/utils/share';
 import {
   getEngagementState,
@@ -47,6 +49,8 @@ const MIN_SONGS_FOR_SHARE_APP = 20;
 const MIN_FAVORITES_FOR_SHARE_APP = 5;
 const MIN_DAYS_FOR_SHARE_APP = 5;
 
+type EngagementPromptType = 'rate' | 'share_app' | 'share_song';
+
 interface CurrentSong {
   readonly playlist: string;
   readonly number: number | string;
@@ -59,6 +63,34 @@ interface ActivePrompt {
   // Carried for share_song so the share survives the song screen unmounting.
   readonly song?: CurrentSong;
 }
+
+const PROMPT_CONFIG: Record<
+  EngagementPromptType,
+  {
+    readonly icon: IconSymbolName;
+    readonly titleKey: TranslationKey | null;
+    readonly buttonKey: TranslationKey;
+  }
+> = {
+  rate: {
+    icon: 'star.fill',
+    titleKey: 'engagement.rate.text',
+    buttonKey: 'engagement.rate.button',
+  },
+  share_app: {
+    icon: 'person.2.fill',
+    titleKey: 'engagement.shareApp.text',
+    buttonKey: 'engagement.shareApp.button',
+  },
+  share_song: {
+    icon: 'square.and.arrow.up',
+    titleKey: null,
+    buttonKey: 'engagement.shareSong.button',
+  },
+};
+
+const PROMPT_AUTO_DISMISS_MS = 8_000;
+const SONG_NAME_TRUNCATE_LENGTH = 22;
 
 interface EngagementContextValue {
   readonly recordSongView: (song: CurrentSong) => void;
@@ -137,6 +169,9 @@ export function EngagementProvider({ children }: { readonly children: ReactNode 
   const shareTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const sessionPromptShownRef = useRef(false);
   const chromeRegistrationsRef = useRef<Map<symbol, number>>(new Map());
+  // Set when the user taps the action button, so the trailing onDismiss
+  // skips dismiss-specific state writes (e.g. ratePromptDismissCount).
+  const wasAcceptedRef = useRef(false);
   // Mirror of activePrompt for use inside delayed callbacks — reading state
   // directly there closes over a stale snapshot.
   const activePromptRef = useRef<ActivePrompt | null>(null);
@@ -175,7 +210,7 @@ export function EngagementProvider({ children }: { readonly children: ReactNode 
 
   const showPromptInternal = useCallback(
     (prompt: ActivePrompt) => {
-      successNotification();
+      wasAcceptedRef.current = false;
       activePromptRef.current = prompt;
       setActivePrompt(prompt);
       if (prompt.type !== 'share_song') {
@@ -285,7 +320,7 @@ export function EngagementProvider({ children }: { readonly children: ReactNode 
     const prompt = activePrompt;
     if (!prompt) return;
 
-    setActivePrompt(null);
+    wasAcceptedRef.current = true;
     mediumImpact();
 
     try {
@@ -332,6 +367,8 @@ export function EngagementProvider({ children }: { readonly children: ReactNode 
 
     setActivePrompt(null);
 
+    if (wasAcceptedRef.current) return;
+
     if (prompt.type === 'rate') {
       writeState((prev) => ({
         ratePromptDismissCount: prev.ratePromptDismissCount + 1,
@@ -367,15 +404,38 @@ export function EngagementProvider({ children }: { readonly children: ReactNode 
 
   const promptBottom = insets.bottom + bottomChrome + PROMPT_BOTTOM_GAP;
 
+  const promptConfig = activePrompt ? PROMPT_CONFIG[activePrompt.type] : null;
+  const promptTitle = activePrompt && promptConfig
+    ? activePrompt.type === 'share_song' && activePrompt.songName
+      ? t('engagement.shareSong.text', {
+          songName:
+            activePrompt.songName.length > SONG_NAME_TRUNCATE_LENGTH
+              ? `${activePrompt.songName.slice(0, SONG_NAME_TRUNCATE_LENGTH)}...`
+              : activePrompt.songName,
+        })
+      : promptConfig.titleKey
+        ? t(promptConfig.titleKey)
+        : ''
+    : '';
+
   return (
     <EngagementContext.Provider value={value}>
       {children}
-      {activePrompt ? (
-        <EngagementPrompt
-          type={activePrompt.type}
-          songName={activePrompt.songName}
-          bottom={promptBottom}
-          onAccept={handleAccept}
+      {activePrompt && promptConfig ? (
+        <InAppAlert
+          visible
+          icon={promptConfig.icon}
+          title={promptTitle}
+          titleNumberOfLines={1}
+          bottomOffset={promptBottom}
+          duration={activePrompt.type === 'rate' ? 0 : PROMPT_AUTO_DISMISS_MS}
+          haptic="success"
+          action={{
+            label: t(promptConfig.buttonKey),
+            onPress: () => {
+              void handleAccept();
+            },
+          }}
           onDismiss={handleDismiss}
         />
       ) : null}

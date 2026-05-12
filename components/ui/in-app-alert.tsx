@@ -1,7 +1,13 @@
 import { useColors } from '@/hooks/use-colors';
+import {
+  heavyImpact,
+  lightImpact,
+  mediumImpact,
+  successNotification,
+} from '@/utils/haptics';
 import { useCallback, useEffect, useRef } from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
-import { Gesture, GestureDetector, GestureHandlerRootView } from 'react-native-gesture-handler';
+import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import Animated, {
   runOnJS,
   useAnimatedStyle,
@@ -15,6 +21,11 @@ import { IconSymbol, type IconSymbolName } from './icon-symbol';
 
 const DEFAULT_DURATION_MS = 3_000;
 const DISMISS_THRESHOLD = 40;
+const ANIMATION_OUT_MS = 250;
+const ANIMATION_IN_MS = 200;
+const BOTTOM_TWEEN_MS = 250;
+
+export type InAppAlertHaptic = 'none' | 'light' | 'medium' | 'heavy' | 'success';
 
 export interface InAppAlertAction {
   readonly label: string;
@@ -24,15 +35,20 @@ export interface InAppAlertAction {
 interface InAppAlertBaseProps {
   readonly visible: boolean;
   readonly icon: IconSymbolName;
-  readonly message: string;
-  /** Optional secondary line shown beneath the message in a lighter style. */
-  readonly description?: string;
+  /** Primary text (bold). */
+  readonly title: string;
+  /** Optional secondary line shown beneath the title in a lighter style. */
+  readonly message?: string;
   readonly onDismiss: () => void;
-  /** Distance from the bottom of the screen. Caller decides how much to clear (safe area, nav bars, etc.). */
+  /** Distance from the bottom of the screen. Animates when changed. */
   readonly bottomOffset: number;
   /** Auto-dismiss timeout in ms. Defaults to 3000. Pass 0 to disable auto-dismiss. */
   readonly duration?: number;
   readonly action?: InAppAlertAction;
+  /** Haptic fired once when the alert appears. Defaults to 'light'. */
+  readonly haptic?: InAppAlertHaptic;
+  /** Cap the title to N lines. Defaults to 1 when `message` is set, else 2. */
+  readonly titleNumberOfLines?: number;
 }
 
 /** When dismissible, dismissA11y is required so non-English locales aren't silently served the English fallback. */
@@ -42,57 +58,91 @@ type InAppAlertDismissProps =
 
 type InAppAlertProps = InAppAlertBaseProps & InAppAlertDismissProps;
 
+function fireHaptic(haptic: InAppAlertHaptic): void {
+  switch (haptic) {
+    case 'light':
+      lightImpact();
+      return;
+    case 'medium':
+      mediumImpact();
+      return;
+    case 'heavy':
+      heavyImpact();
+      return;
+    case 'success':
+      successNotification();
+      return;
+    case 'none':
+      return;
+  }
+}
+
 export function InAppAlert({
   visible,
   icon,
+  title,
   message,
-  description,
   onDismiss,
   bottomOffset,
   duration = DEFAULT_DURATION_MS,
   action,
+  haptic = 'light',
+  titleNumberOfLines,
   dismissible,
   dismissA11y,
 }: InAppAlertProps) {
   const colors = useColors();
   const translateY = useSharedValue(100);
   const opacity = useSharedValue(0);
+  const animatedBottom = useSharedValue(bottomOffset);
   const isDismissing = useRef(false);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const wasVisibleRef = useRef(false);
+
+  useEffect(() => {
+    animatedBottom.value = withTiming(bottomOffset, { duration: BOTTOM_TWEEN_MS });
+  }, [bottomOffset, animatedBottom]);
 
   const dismiss = useCallback(() => {
     if (isDismissing.current) return;
     isDismissing.current = true;
     if (timerRef.current) clearTimeout(timerRef.current);
-    translateY.value = withTiming(100, { duration: 250 });
-    opacity.value = withTiming(0, { duration: 250 });
-    timerRef.current = setTimeout(onDismiss, 260);
+    translateY.value = withTiming(100, { duration: ANIMATION_OUT_MS });
+    opacity.value = withTiming(0, { duration: ANIMATION_OUT_MS });
+    timerRef.current = setTimeout(onDismiss, ANIMATION_OUT_MS + 10);
   }, [onDismiss, translateY, opacity]);
 
   const handleAction = useCallback(() => {
     if (!action || isDismissing.current) return;
     isDismissing.current = true;
     if (timerRef.current) clearTimeout(timerRef.current);
-    translateY.value = withTiming(100, { duration: 250 });
-    opacity.value = withTiming(0, { duration: 250 });
+    translateY.value = withTiming(100, { duration: ANIMATION_OUT_MS });
+    opacity.value = withTiming(0, { duration: ANIMATION_OUT_MS });
     timerRef.current = setTimeout(() => {
       action.onPress();
       onDismiss();
-    }, 260);
+    }, ANIMATION_OUT_MS + 10);
   }, [action, onDismiss, translateY, opacity]);
 
   useEffect(() => {
-    if (!visible) return;
+    if (!visible) {
+      wasVisibleRef.current = false;
+      return;
+    }
     isDismissing.current = false;
     translateY.value = withSpring(0, { damping: 15, stiffness: 120 });
-    opacity.value = withTiming(1, { duration: 200 });
+    opacity.value = withTiming(1, { duration: ANIMATION_IN_MS });
+    if (!wasVisibleRef.current) {
+      wasVisibleRef.current = true;
+      fireHaptic(haptic);
+    }
     if (duration > 0) {
       timerRef.current = setTimeout(dismiss, duration);
     }
     return () => {
       if (timerRef.current) clearTimeout(timerRef.current);
     };
-  }, [visible, duration, dismiss, translateY, opacity]);
+  }, [visible, duration, dismiss, haptic, translateY, opacity]);
 
   const panGesture = Gesture.Pan()
     .onUpdate((event) => {
@@ -113,10 +163,14 @@ export function InAppAlert({
     opacity: opacity.value,
   }));
 
+  const rootStyle = useAnimatedStyle(() => ({
+    bottom: animatedBottom.value,
+  }));
+
   if (!visible) return null;
 
   return (
-    <GestureHandlerRootView style={[styles.gestureRoot, { bottom: bottomOffset }]}>
+    <Animated.View style={[styles.gestureRoot, rootStyle]} pointerEvents="box-none">
       <GestureDetector gesture={panGesture}>
         <Animated.View
           style={[
@@ -134,12 +188,12 @@ export function InAppAlert({
           </View>
 
           <View style={styles.textContainer}>
-            <ThemedText style={styles.text} numberOfLines={description ? 1 : 2}>
-              {message}
+            <ThemedText style={styles.title} numberOfLines={titleNumberOfLines ?? (message ? 1 : 2)}>
+              {title}
             </ThemedText>
-            {description && (
-              <ThemedText style={[styles.description, { color: colors.icon }]} numberOfLines={2}>
-                {description}
+            {message && (
+              <ThemedText style={[styles.message, { color: colors.icon }]} numberOfLines={2}>
+                {message}
               </ThemedText>
             )}
           </View>
@@ -172,7 +226,7 @@ export function InAppAlert({
           )}
         </Animated.View>
       </GestureDetector>
-    </GestureHandlerRootView>
+    </Animated.View>
   );
 }
 
@@ -208,11 +262,11 @@ const styles = StyleSheet.create({
     flex: 1,
     gap: 2,
   },
-  text: {
+  title: {
     fontSize: 14,
     fontWeight: '600',
   },
-  description: {
+  message: {
     fontSize: 12,
     lineHeight: 16,
   },

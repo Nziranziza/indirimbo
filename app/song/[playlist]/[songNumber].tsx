@@ -286,6 +286,8 @@ export default function SongScreen() {
     }
   }, [resetKeepAwake, sectionPositions, contentHeight, scrollViewHeight, animatedScrollY]);
 
+  const handleDismissAlert = useCallback(() => setAlertState(null), []);
+
   const handleToggleFavorite = async () => {
     if (!currentSong || !playlist) return;
     try {
@@ -715,16 +717,16 @@ export default function SongScreen() {
       <InAppAlert
         visible={alertState !== null}
         icon={alertState?.icon ?? 'doc.text'}
-        message={alertState?.message ?? ''}
-        onDismiss={() => setAlertState(null)}
+        title={alertState?.message ?? ''}
+        onDismiss={handleDismissAlert}
         bottomOffset={NAV_BAR_HEIGHT + insets.bottom + 8}
       />
 
       <InAppAlert
         visible={showKirundiBanner}
         icon="book.fill"
-        message={t('common.kirundiPinSuggestion.title')}
-        description={t('common.kirundiPinSuggestion.description')}
+        title={t('common.kirundiPinSuggestion.title')}
+        message={t('common.kirundiPinSuggestion.description')}
         onDismiss={handleDismissKirundiPin}
         bottomOffset={NAV_BAR_HEIGHT + insets.bottom + 8}
         duration={0}

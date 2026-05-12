@@ -5,7 +5,7 @@ import { useBottomChrome } from '@/contexts/engagement-context';
 import { useColors } from '@/hooks/use-colors';
 import { useTranslation } from '@/hooks/use-translation';
 
-// EngagementPrompt renders at the root (above the tab navigator), so its
+// The engagement alert renders at the root (above the tab navigator), so its
 // bottom offset must clear the native tab bar visible on tab screens. The
 // safe-area inset is added separately by the provider.
 // iOS UITabBar: ~49pt above the home-indicator inset.
