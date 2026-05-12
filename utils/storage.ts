@@ -15,6 +15,8 @@ const ENGAGEMENT_KEY = '@indirimbo:engagement';
 const SONG_VIEW_COUNTS_KEY = '@indirimbo:song_view_counts';
 const FAVORITE_SUGGESTIONS_DISMISSED_KEY = '@indirimbo:favorite_suggestions_dismissed';
 const FAVORITE_SUGGESTION_STATE_KEY = '@indirimbo:favorite_suggestion_state';
+const KIRUNDI_PIN_STATE_KEY = '@indirimbo:kirundi_pin_state';
+const KIRUNDI_PLAYLIST_PREFIX = 'cantiques-kirundi:';
 const UPDATE_SKIP_ACKNOWLEDGED_KEY = '@indirimbo:update_skip_acknowledged';
 const MAX_RECENT_SONGS = 20;
 const MAX_RECENT_SEARCHES = 5;
@@ -475,6 +477,78 @@ export async function recordFavoriteSuggestionDismissed(): Promise<void> {
     );
   } catch (error) {
     console.error('Error recording favorite suggestion dismissed:', error);
+  }
+}
+
+// Kirundi Pin Suggestion (behavior-based — for non-Burundi users)
+export interface KirundiPinState {
+  readonly acceptedAt: number | null;
+  readonly dismissCount: number;
+  readonly lastShownAt: number | null;
+}
+
+const DEFAULT_KIRUNDI_PIN_STATE: KirundiPinState = {
+  acceptedAt: null,
+  dismissCount: 0,
+  lastShownAt: null,
+};
+
+export async function getKirundiPinState(): Promise<KirundiPinState> {
+  try {
+    const data = await AsyncStorage.getItem(KIRUNDI_PIN_STATE_KEY);
+    return data ? { ...DEFAULT_KIRUNDI_PIN_STATE, ...JSON.parse(data) } : DEFAULT_KIRUNDI_PIN_STATE;
+  } catch (error) {
+    console.error('Error getting kirundi pin state:', error);
+    return DEFAULT_KIRUNDI_PIN_STATE;
+  }
+}
+
+// Serialize concurrent updaters so read→merge→write can't drop updates when
+// shown/accept/dismiss writes race. Mirrors engagementUpdateQueue.
+let kirundiPinUpdateQueue: Promise<unknown> = Promise.resolve();
+
+function updateKirundiPinState(
+  updater: (prev: KirundiPinState) => Partial<KirundiPinState>,
+): Promise<KirundiPinState> {
+  const next = kirundiPinUpdateQueue.then(async () => {
+    const current = await getKirundiPinState();
+    const merged = { ...current, ...updater(current) };
+    try {
+      await AsyncStorage.setItem(KIRUNDI_PIN_STATE_KEY, JSON.stringify(merged));
+    } catch (error) {
+      console.error('Error updating kirundi pin state:', error);
+      throw error;
+    }
+    return merged;
+  });
+  kirundiPinUpdateQueue = next.catch(() => undefined);
+  return next;
+}
+
+export async function recordKirundiPinShown(): Promise<void> {
+  await updateKirundiPinState(() => ({ lastShownAt: Date.now() }));
+}
+
+export async function recordKirundiPinDismissed(): Promise<void> {
+  await updateKirundiPinState((prev) => ({
+    dismissCount: prev.dismissCount + 1,
+    lastShownAt: Date.now(),
+  }));
+}
+
+export async function acceptKirundiPin(): Promise<void> {
+  await updateKirundiPinState(() => ({ acceptedAt: Date.now() }));
+}
+
+export async function getDistinctKirundiViewCount(): Promise<number> {
+  try {
+    const data = await AsyncStorage.getItem(SONG_VIEW_COUNTS_KEY);
+    if (!data) return 0;
+    const counts: Record<string, number> = JSON.parse(data);
+    return Object.keys(counts).filter((k) => k.startsWith(KIRUNDI_PLAYLIST_PREFIX)).length;
+  } catch (error) {
+    console.error('Error counting distinct kirundi views:', error);
+    return 0;
   }
 }
 

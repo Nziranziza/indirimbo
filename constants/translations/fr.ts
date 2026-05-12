@@ -432,4 +432,11 @@ export const fr: EnTranslations = {
     'Enregistrez les chansons que vous aimez pour un accès rapide.',
   'common.favoriteSuggestion.addA11y': 'Ajouter aux favoris',
   'common.favoriteSuggestion.dismissA11y': 'Fermer',
+
+  // Common — Kirundi pin suggestion banner
+  'common.kirundiPinSuggestion.title': 'Épingler Cantiques Kirundi',
+  'common.kirundiPinSuggestion.description':
+    "Ajoutez-le à votre accueil pour un accès rapide.",
+  'common.kirundiPinSuggestion.acceptCta': 'Épingler',
+  'common.kirundiPinSuggestion.dismissA11y': 'Fermer',
 };
