@@ -17,7 +17,15 @@ export function translate<K extends TranslationKey>(
   key: K,
   params?: TranslationParams,
 ): string {
-  const template = translations[language][key];
+  const localeTranslations = translations[language];
+  let resolvedKey: TranslationKey = key;
+  if (params && params.count === 1) {
+    const oneKey = `${key}One`;
+    if (oneKey in localeTranslations) {
+      resolvedKey = oneKey as TranslationKey;
+    }
+  }
+  const template = localeTranslations[resolvedKey];
   return interpolate(template, params);
 }
 

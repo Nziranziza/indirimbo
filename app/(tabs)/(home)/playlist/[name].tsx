@@ -1,7 +1,7 @@
 import { PageHead } from '@/components/page-head';
 import { SongListScreen } from '@/components/song-list-screen';
 import type { IconSymbolName } from '@/components/ui/icon-symbol';
-import { getPlaylistName } from '@/constants/playlists';
+import { PLAYLISTS, getPlaylistName, type PlaylistId } from '@/constants/playlists';
 import type { Song } from '@/constants/types';
 import { useEngagement } from '@/contexts/engagement-context';
 import { useSongs } from '@/contexts/songs-context';
@@ -54,12 +54,7 @@ export default function PlaylistScreen() {
   }, [name, agakiza, gushimisha, cantiquesKirundi]);
 
   const playlistTitle = getPlaylistName(name);
-  const PLAYLIST_ICONS: Record<string, IconSymbolName> = {
-    agakiza: 'music.note.list',
-    gushimisha: 'music.mic',
-    'cantiques-kirundi': 'book.fill',
-  };
-  const iconName: IconSymbolName = PLAYLIST_ICONS[name] ?? 'music.note.list';
+  const iconName: IconSymbolName = PLAYLISTS[name as PlaylistId]?.icon ?? 'music.note.list';
 
   const handleShare = useCallback(async () => {
     trackEvent('share_playlist', {

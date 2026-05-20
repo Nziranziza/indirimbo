@@ -1,15 +1,13 @@
 import { CategoryChips } from '@/components/home/category-chips';
 import { FavoriteSongsRow } from '@/components/home/favorite-songs-row';
 import { PageHead } from '@/components/page-head';
+import { PlaylistSection } from '@/components/home/playlist-section';
 import { RecentSongsList } from '@/components/home/recent-songs-list';
 import { TabScrollView } from '@/components/tab-scroll-view';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { IconSymbol } from '@/components/ui/icon-symbol';
-import type { IconSymbolName } from '@/components/ui/icon-symbol';
-import { PlaylistCard } from '@/components/ui/playlist-card';
 import { UpdateAvailableBanner } from '@/components/ui/update-available-banner';
-import type { PlaylistId } from '@/constants/playlists';
 import { useEngagement } from '@/contexts/engagement-context';
 import { useSongbookPreference } from '@/contexts/songbook-preference-context';
 import { useColorScheme } from '@/contexts/theme-context';
@@ -45,12 +43,6 @@ const getGreetingKey = (): TranslationKey => {
   return 'home.greeting.evening';
 };
 
-const PLAYLIST_ICONS: Record<string, IconSymbolName> = {
-  gushimisha: 'music.mic',
-  agakiza: 'music.note.list',
-  'cantiques-kirundi': 'book.fill',
-};
-
 export default function HomeScreen() {
   const router = useRouter();
   const colors = useColors();
@@ -59,7 +51,7 @@ export default function HomeScreen() {
   const insets = useSafeAreaInsets();
   const hasHydrated = useHydrated();
   const { t } = useTranslation();
-  const { visiblePlaylistIds, showCategoryChips, allSongsForFavorites } = useSongbooks();
+  const { showCategoryChips, allSongsForFavorites } = useSongbooks();
   const { isBurundi } = useSongbookPreference();
   const { mode: updateMode } = useUpdateCheck();
   const { notifyShareSuccess } = useEngagement();
@@ -111,14 +103,6 @@ export default function HomeScreen() {
     router.navigate({
       pathname: '/song/[playlist]/[songNumber]',
       params: { playlist, songNumber: String(songNumber), source: 'home_recent' },
-    });
-  }, [router]);
-
-  const handlePlaylistPress = useCallback((id: PlaylistId) => {
-    trackEvent('view_playlist', { playlist: id });
-    router.navigate({
-      pathname: '/(tabs)/(home)/playlist/[name]',
-      params: { name: id },
     });
   }, [router]);
 
@@ -183,16 +167,7 @@ export default function HomeScreen() {
         {showCategoryChips && <CategoryChips />}
 
         <View style={styles.playlistSection}>
-          <ThemedView style={styles.playlistContainer}>
-            {visiblePlaylistIds.map((id) => (
-              <PlaylistCard
-                key={id}
-                playlistId={id as PlaylistId}
-                iconName={PLAYLIST_ICONS[id] ?? 'music.note.list'}
-                onPress={() => handlePlaylistPress(id as PlaylistId)}
-              />
-            ))}
-          </ThemedView>
+          <PlaylistSection />
 
           {hasHydrated && favoriteSongs.length > 0 && (
             <FavoriteSongsRow
@@ -276,8 +251,5 @@ const styles = StyleSheet.create({
   },
   playlistSection: {
     gap: 28,
-  },
-  playlistContainer: {
-    gap: 16,
   },
 });
