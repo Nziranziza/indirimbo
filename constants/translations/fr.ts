@@ -306,6 +306,7 @@ export const fr: EnTranslations = {
 
   // Song list screen
   'songList.count': '{count} chansons',
+  'songList.countOne': '1 chanson',
   'songList.songCardA11y': '{name}, numéro {number}',
   'songList.sharePlaylistA11y': 'Partager la playlist',
   'songList.shareCategoryA11y': 'Partager la catégorie',

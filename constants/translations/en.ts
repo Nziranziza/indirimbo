@@ -293,6 +293,7 @@ export const en = {
 
   // Song list screen
   'songList.count': '{count} songs',
+  'songList.countOne': '1 song',
   'songList.songCardA11y': '{name}, number {number}',
   'songList.sharePlaylistA11y': 'Share playlist',
   'songList.shareCategoryA11y': 'Share category',

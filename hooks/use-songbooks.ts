@@ -1,3 +1,4 @@
+import type { PlaylistId } from '@/constants/playlists';
 import type { Song } from '@/constants/types';
 import { useSongbookPreference } from '@/contexts/songbook-preference-context';
 import { useSongs } from '@/contexts/songs-context';
@@ -7,7 +8,7 @@ interface SongbookResult {
   readonly visibleSongs: Record<string, Song[]>;
   readonly allSongsForFavorites: Record<string, Song[]>;
   readonly showCategoryChips: boolean;
-  readonly visiblePlaylistIds: readonly string[];
+  readonly visiblePlaylistIds: readonly PlaylistId[];
 }
 
 export function useSongbooks(): SongbookResult {
@@ -23,7 +24,7 @@ export function useSongbooks(): SongbookResult {
 
     let visibleSongs: Record<string, Song[]>;
     let showCategoryChips: boolean;
-    let visiblePlaylistIds: readonly string[];
+    let visiblePlaylistIds: readonly PlaylistId[];
 
     switch (songbookPreference) {
       case 'kirundi':

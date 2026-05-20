@@ -1,3 +1,4 @@
+import type { IconSymbolName } from '@/components/ui/icon-symbol';
 import type { TranslationKey } from '@/constants/translations';
 
 export const PLAYLISTS = {
@@ -5,18 +6,21 @@ export const PLAYLISTS = {
     id: 'gushimisha',
     name: 'Gushimisha Imana',
     descriptionKey: 'playlist.gushimisha.description',
+    icon: 'music.mic',
   },
   agakiza: {
     id: 'agakiza',
     name: 'Agakiza',
     descriptionKey: 'playlist.agakiza.description',
+    icon: 'music.note.list',
   },
   'cantiques-kirundi': {
     id: 'cantiques-kirundi',
     name: 'Cantiques Kirundi',
     descriptionKey: 'playlist.cantiquesKirundi.description',
+    icon: 'book.fill',
   },
-} as const satisfies Record<string, { id: string; name: string; descriptionKey: TranslationKey }>;
+} as const satisfies Record<string, { id: string; name: string; descriptionKey: TranslationKey; icon: IconSymbolName }>;
 
 export type PlaylistId = keyof typeof PLAYLISTS;
 
