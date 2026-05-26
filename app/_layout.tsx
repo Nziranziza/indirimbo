@@ -19,7 +19,10 @@ import { ThemeProvider, useColorScheme } from '@/contexts/theme-context';
 import { UpdateCheckProvider } from '@/contexts/update-check-context';
 import { useHydrated } from '@/hooks/use-hydrated';
 import { initAnalytics, trackAppUpdateIfChanged } from '@/utils/analytics';
+import { Sentry, initSentry } from '@/utils/sentry';
 import { recordAppOpen } from '@/utils/storage';
+
+initSentry();
 
 const BASE_URL = 'https://indirimbo.rw';
 
@@ -143,7 +146,7 @@ function RootLayoutContent() {
   );
 }
 
-export default function RootLayout() {
+function RootLayout() {
   const hasHydrated = useHydrated();
   const content = hasHydrated ? <RootLayoutContent /> : <ThemedView style={{ flex: 1 }} />;
   
@@ -192,3 +195,5 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
 });
+
+export default Sentry.wrap(RootLayout);
