@@ -46,6 +46,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import { SongScreenSkeleton } from "@/components/ui/song-screen-skeleton";
 import {
   Gesture,
   GestureDetector,
@@ -170,7 +171,7 @@ export default function SongScreen() {
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();
 
-  const { agakiza, gushimisha, cantiquesKirundi } = useSongs();
+  const { agakiza, gushimisha, cantiquesKirundi, isLoaded: areSongsLoaded } = useSongs();
   const songsByPlaylist: Record<string, Song[]> = useMemo(() => ({
     agakiza,
     gushimisha,
@@ -502,17 +503,13 @@ export default function SongScreen() {
           <BackButton color={colors.text}  />
         </ThemedView>
         <View style={styles.contentContainer}>
-          <Animated.ScrollView
-            ref={scrollViewRef}
-            style={styles.scrollView}
-            contentContainerStyle={styles.scrollContent}
-            onScroll={handleScroll}
-            scrollEventThrottle={16}
-          >
+          {areSongsLoaded ? (
             <ThemedView style={styles.emptyState}>
               <ThemedText>{t('song.empty')}</ThemedText>
             </ThemedView>
-          </Animated.ScrollView>
+          ) : (
+            <SongScreenSkeleton />
+          )}
         </View>
       </ThemedView>
     );
@@ -879,6 +876,7 @@ const styles = StyleSheet.create({
     paddingRight: 5,
   },
   emptyState: {
+    flex: 1,
     alignItems: "center",
     justifyContent: "center",
     paddingVertical: 60,
