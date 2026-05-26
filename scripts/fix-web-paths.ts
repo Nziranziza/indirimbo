@@ -29,6 +29,24 @@ const normalizedBasePath = basePath
 
 const BASE_URL = 'https://indirimbo.rw';
 
+const FAVICON_SIZES = ['16x16', '32x32', '96x96', '128x128', '196x196'] as const;
+
+const buildFaviconLinks = (prefix: string): string => {
+  const iconLinks = FAVICON_SIZES.map(
+    (size) =>
+      `  <link rel="icon" type="image/png" sizes="${size}" href="${prefix}/favicon-${size}.png" />`
+  ).join('\n');
+  const appleTouch = `  <link rel="apple-touch-icon" sizes="196x196" href="${prefix}/favicon-196x196.png" />`;
+  return `${iconLinks}\n${appleTouch}`;
+};
+
+const faviconLinks = buildFaviconLinks(normalizedBasePath);
+
+const injectFaviconLinks = (pageHtml: string): string => {
+  if (pageHtml.includes('favicon-96x96.png')) return pageHtml;
+  return pageHtml.replace('</head>', `${faviconLinks}\n</head>`);
+};
+
 if (normalizedBasePath) {
   // Replace absolute paths with paths relative to the base path
   html = html.replace(/href="\/_expo\//g, `href="${normalizedBasePath}/_expo/`);
@@ -37,6 +55,8 @@ if (normalizedBasePath) {
 } else {
   console.log('ℹ️  No BASE_PATH set; leaving asset paths unchanged');
 }
+
+html = injectFaviconLinks(html);
 
 // Inject preload hint for the main entry JS bundle (speeds up resource discovery)
 const entryScriptMatch = html.match(/src="([^"]*entry-[^"]*\.js)"/);
@@ -161,6 +181,8 @@ const fixHtmlFile = (filePath: string): void => {
     pageHtml = pageHtml.replace(/src="\/_expo\//g, `src="${normalizedBasePath}/_expo/`);
     pageHtml = pageHtml.replace(/href="\/favicon\.ico"/g, `href="${normalizedBasePath}/favicon.ico"`);
   }
+
+  pageHtml = injectFaviconLinks(pageHtml);
 
   fs.writeFileSync(filePath, pageHtml);
 };

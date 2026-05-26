@@ -4,39 +4,160 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Page Not Found | Indirimbo</title>
+    <meta
+      name="description"
+      content="The page you were looking for couldn't be found. Browse Indirimbo hymns instead."
+    />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <style>
+      :root {
+        --bg: #ffffff;
+        --text: #11181C;
+        --muted: rgba(17, 24, 28, 0.65);
+        --tint: #0a7ea4;
+        --tint-foreground: #ffffff;
+        --glow: rgba(10, 126, 164, 0.22);
+        --glow-spread: 50%;
+        --shadow: rgba(10, 126, 164, 0.25);
+        --focus-ring: rgba(10, 126, 164, 0.45);
+      }
+
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #151718;
+          --text: #ECEDEE;
+          --muted: rgba(236, 237, 238, 0.6);
+          --tint: #4A9EFF;
+          --tint-foreground: #ffffff;
+          --glow: transparent;
+          --glow-spread: 0%;
+          --shadow: rgba(0, 0, 0, 0.4);
+          --focus-ring: rgba(74, 158, 255, 0.55);
+        }
+      }
+
       * { margin: 0; padding: 0; box-sizing: border-box; }
+
+      html, body { height: 100%; }
+
       body {
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        background: var(--bg);
+        color: var(--text);
         display: flex;
         justify-content: center;
         align-items: center;
-        min-height: 100vh;
-        background: #0a0a0a;
-        color: #e5e5e5;
-        padding: 20px;
+        padding: 24px;
         text-align: center;
+        position: relative;
+        overflow: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
       }
-      h1 { font-size: 48px; font-weight: 700; margin-bottom: 12px; }
-      p { font-size: 16px; opacity: 0.7; margin-bottom: 24px; line-height: 1.5; }
-      a {
+
+      .glow {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        background:
+          radial-gradient(circle at 50% 42%, var(--glow) 0%, transparent var(--glow-spread));
+        z-index: 0;
+      }
+
+      .container {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        max-width: 480px;
+      }
+
+      .logo {
+        width: 88px;
+        height: 88px;
+        border-radius: 22px;
+        display: block;
+      }
+
+      .code {
+        font-size: clamp(72px, 14vw, 120px);
+        font-weight: 800;
+        letter-spacing: -0.04em;
+        line-height: 1;
+        margin-top: 4px;
+      }
+
+      .title {
+        font-size: 20px;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+      }
+
+      .body {
+        font-size: 16px;
+        line-height: 1.5;
+        color: var(--muted);
+        max-width: 360px;
+      }
+
+      .actions {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+        margin-top: 8px;
+      }
+
+      .cta {
         display: inline-block;
-        color: #fff;
-        background: #0a7ea4;
+        background: var(--tint);
+        color: var(--tint-foreground);
         text-decoration: none;
-        padding: 12px 28px;
-        border-radius: 24px;
         font-weight: 600;
         font-size: 15px;
+        padding: 14px 28px;
+        border-radius: 999px;
+        box-shadow: 0 4px 14px var(--shadow);
+        transition: transform 120ms ease, box-shadow 120ms ease, opacity 120ms ease;
       }
-      a:hover { opacity: 0.9; }
+
+      @media (prefers-reduced-motion: no-preference) {
+        .cta:hover {
+          transform: translateY(-1px);
+          box-shadow: 0 8px 20px var(--shadow);
+        }
+      }
+
+      .cta:active { opacity: 0.9; }
+
+      .cta:focus-visible,
+      .secondary:focus-visible {
+        outline: 2px solid var(--focus-ring);
+        outline-offset: 3px;
+      }
+
+      .secondary {
+        color: var(--tint);
+        font-size: 14px;
+        font-weight: 500;
+        text-decoration: underline;
+        text-underline-offset: 3px;
+      }
     </style>
   </head>
   <body>
-    <div>
-      <h1>404</h1>
-      <p>This page doesn't exist. Browse hymns from Agakiza and Gushimisha Imana.</p>
-      <a href="/">Go to Indirimbo</a>
-    </div>
+    <div class="glow" aria-hidden="true"></div>
+    <main class="container">
+      <img class="logo" src="/favicon-196x196.png" alt="Indirimbo" />
+      <h1 class="code">404</h1>
+      <p class="title">Page not found</p>
+      <p class="body">We couldn't find this hymn. It may have moved, or the link is broken.</p>
+      <div class="actions">
+        <a class="cta" href="/">Browse hymns</a>
+        <a class="secondary" href="/search">Back to search</a>
+      </div>
+    </main>
   </body>
 </html>

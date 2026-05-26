@@ -2,6 +2,7 @@ import * as StoreReview from 'expo-store-review';
 import { Linking, Platform } from 'react-native';
 
 import { APP_STORE_REVIEW_URL, APP_STORE_URL, PLAY_STORE_REVIEW_URL, PLAY_STORE_URL } from '@/constants/app-links';
+import { getEngagementState } from '@/utils/storage';
 
 export async function openStoreForCurrentPlatform(): Promise<void> {
   const url = Platform.OS === 'ios' ? APP_STORE_URL : PLAY_STORE_URL;
@@ -14,16 +15,22 @@ export async function openStoreForCurrentPlatform(): Promise<void> {
 }
 
 // Presents the native in-app review sheet when available, otherwise opens the
-// store review URL. In dev we always take the URL path: SKStoreReviewController
-// is silently no-op'd in iOS Simulator and Play In-App Review requires a
-// Play-installed build, so the in-app path leaves nothing visible for testing.
+// store review URL. We skip the in-app attempt:
+//  - in dev (silently no-op'd in iOS Simulator and Play In-App Review needs a
+//    Play-installed build)
+//  - after the user has already been through the rate flow once (`hasRated`),
+//    since Apple/Google's per-app quota means a second prompt would almost
+//    certainly no-op silently
 export async function requestAppReview(): Promise<void> {
   try {
     if (!__DEV__) {
-      const isAvailable = await StoreReview.isAvailableAsync();
-      if (isAvailable) {
-        await StoreReview.requestReview();
-        return;
+      const { hasRated } = await getEngagementState();
+      if (!hasRated) {
+        const isAvailable = await StoreReview.isAvailableAsync();
+        if (isAvailable) {
+          await StoreReview.requestReview();
+          return;
+        }
       }
     }
     const url = Platform.OS === 'ios' ? APP_STORE_REVIEW_URL : PLAY_STORE_REVIEW_URL;
