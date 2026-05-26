@@ -90,15 +90,11 @@ interface ShareAppOptions {
   readonly t: Translator;
 }
 
-export async function shareApp({ isBurundi = false, t }: ShareAppOptions): Promise<void> {
-  await shareLink({
-    text: isBurundi
-      ? 'Check out Indirimbo - Cantiques Kirundi, Gushimisha Imana & Agakiza.'
-      : 'Check out Indirimbo - Agakiza no Gushimisha Imana.',
+export async function shareApp({ isBurundi = false, t }: ShareAppOptions): Promise<boolean> {
+  return shareLink({
+    text: t(isBurundi ? 'share.app.messageKirundi' : 'share.app.messageKinyarwanda'),
     url: `${APP_UNIVERSAL_LINK_URL}/${isBurundi ? 'download-kirundi' : 'download'}`,
-    title: isBurundi
-      ? 'Indirimbo - Cantiques Kirundi & Kinyarwanda'
-      : 'Indirimbo - Rwandan Hymns & Worship Songs',
+    title: t(isBurundi ? 'share.app.titleKirundi' : 'share.app.titleKinyarwanda'),
     dialogTitle: t('share.dialog.app'),
   });
 }

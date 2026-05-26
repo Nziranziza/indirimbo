@@ -1,18 +1,20 @@
-import { APP_STORE_REVIEW_URL, APP_UNIVERSAL_LINK_URL, PLAY_STORE_REVIEW_URL } from '@/constants/app-links';
 import { InAppAlert } from '@/components/ui/in-app-alert';
 import { type IconSymbolName } from '@/components/ui/icon-symbol';
 import { type TranslationKey } from '@/constants/translations';
+import { useSongbookPreference } from '@/contexts/songbook-preference-context';
+import { useUpdateCheck } from '@/contexts/update-check-context';
 import { useTranslation } from '@/hooks/use-translation';
+import { trackEvent } from '@/utils/analytics';
 import { mediumImpact } from '@/utils/haptics';
-import { shareSong } from '@/utils/share';
+import { shareApp, shareSong } from '@/utils/share';
+import { openStoreForCurrentPlatform, requestAppReview } from '@/utils/store';
 import {
   getEngagementState,
   getFavorites,
   updateEngagementState,
   type EngagementState,
 } from '@/utils/storage';
-import { useFocusEffect } from 'expo-router';
-import * as StoreReview from 'expo-store-review';
+import { useFocusEffect, usePathname } from 'expo-router';
 import {
   createContext,
   useCallback,
@@ -23,7 +25,7 @@ import {
   useState,
   type ReactNode,
 } from 'react';
-import { Linking, Platform, Share } from 'react-native';
+import { Platform } from 'react-native';
 import {
   useDerivedValue,
   useSharedValue,
@@ -38,6 +40,9 @@ const READING_DELAY = 30_000;
 const FAVORITE_DELAY = 2_000;
 const POST_SHARE_DELAY = 1_500;
 const PROMPT_BOTTOM_GAP = 8;
+const ALERT_STACK_OFFSET = 60;
+const HOME_PATHNAME = '/';
+const APP_ICON = require('@/assets/images/icon.png');
 
 const MAX_RATE_DISMISSALS = 3;
 const MIN_SONGS_FOR_RATE = 5;
@@ -157,6 +162,9 @@ function isEligibleForShareApp(
 export function EngagementProvider({ children }: { readonly children: ReactNode }) {
   const insets = useSafeAreaInsets();
   const { t } = useTranslation();
+  const { isBurundi } = useSongbookPreference();
+  const { mode: updateMode } = useUpdateCheck();
+  const pathname = usePathname();
 
   const [activePrompt, setActivePrompt] = useState<ActivePrompt | null>(null);
   const [bottomChrome, setBottomChrome] = useState(0);
@@ -325,27 +333,15 @@ export function EngagementProvider({ children }: { readonly children: ReactNode 
 
     try {
       if (prompt.type === 'rate') {
-        const isAvailable = await StoreReview.isAvailableAsync();
-        if (isAvailable) {
-          await StoreReview.requestReview();
-        } else {
-          const url = Platform.OS === 'ios' ? APP_STORE_REVIEW_URL : PLAY_STORE_REVIEW_URL;
-          if (url) await Linking.openURL(url);
-        }
+        await requestAppReview();
         await writeState(() => ({
           hasRated: true,
           lastRatePromptAt: Date.now(),
         }));
       } else if (prompt.type === 'share_app') {
         await writeState(() => ({ lastShareAppPromptAt: Date.now() }));
-        const message = `Check out Indirimbo - Agakiza no Gushimisha Imana\n\n${APP_UNIVERSAL_LINK_URL}/download`;
-        const result = await Share.share(
-          { message, title: 'Indirimbo - Rwandan Hymns & Worship Songs' },
-          { dialogTitle: t('share.dialog.app') },
-        );
-        if (Platform.OS !== 'ios' || result.action === 'sharedAction') {
-          notifyShareSuccess();
-        }
+        const completed = await shareApp({ isBurundi, t });
+        if (completed) notifyShareSuccess();
       } else if (prompt.type === 'share_song' && prompt.song) {
         await writeState(() => ({ lastShareSongPromptAt: Date.now() }));
         const completed = await shareSong({
@@ -359,7 +355,7 @@ export function EngagementProvider({ children }: { readonly children: ReactNode 
     } catch (error) {
       console.error('Error handling engagement action:', error);
     }
-  }, [activePrompt, notifyShareSuccess, writeState, t]);
+  }, [activePrompt, isBurundi, notifyShareSuccess, writeState, t]);
 
   const handleDismiss = useCallback(() => {
     const prompt = activePrompt;
@@ -418,6 +414,13 @@ export function EngagementProvider({ children }: { readonly children: ReactNode 
         : ''
     : '';
 
+  const showUpdateBanner = updateMode === 'banner-available' && pathname === HOME_PATHNAME;
+  const updateBannerBottom = activePrompt ? promptBottom + ALERT_STACK_OFFSET : promptBottom;
+  const handleUpdateTap = useCallback(() => {
+    trackEvent('update_tap', { variant: 'banner-available' });
+    void openStoreForCurrentPlatform();
+  }, []);
+
   return (
     <EngagementContext.Provider value={value}>
       {children}
@@ -439,6 +442,20 @@ export function EngagementProvider({ children }: { readonly children: ReactNode 
           onDismiss={handleDismiss}
         />
       ) : null}
+      <InAppAlert
+        visible={showUpdateBanner}
+        iconImage={APP_ICON}
+        iconSize={36}
+        title={t('common.update.bannerTitle')}
+        message={t('common.update.bannerSubtitle')}
+        actionLabel={t('common.update.bannerCta')}
+        bottomOffset={updateBannerBottom}
+        duration={0}
+        swipeable={false}
+        haptic="none"
+        onPress={handleUpdateTap}
+        accessibilityLabel={t('common.update.bannerA11y')}
+      />
     </EngagementContext.Provider>
   );
 }

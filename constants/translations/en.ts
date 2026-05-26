@@ -283,6 +283,12 @@ export const en = {
   'share.dialog.playlist': 'Share playlist',
   'share.dialog.category': 'Share category',
 
+  // Share app message/title shown inside the system share sheet
+  'share.app.messageKinyarwanda': 'Check out Indirimbo - Agakiza no Gushimisha Imana.',
+  'share.app.messageKirundi': 'Check out Indirimbo - Cantiques Kirundi, Gushimisha Imana & Agakiza.',
+  'share.app.titleKinyarwanda': 'Indirimbo - Rwandan Hymns & Worship Songs',
+  'share.app.titleKirundi': 'Indirimbo - Cantiques Kirundi & Kinyarwanda',
+
   // Engagement prompts
   'engagement.rate.text': 'Enjoying Indirimbo?',
   'engagement.rate.button': 'Rate',

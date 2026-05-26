@@ -9,7 +9,6 @@ import { TextSizeSetting } from '@/components/settings/text-size-setting';
 import { FloatingShareButton } from '@/components/ui/floating-share-button';
 import { SettingsGroup } from '@/components/ui/settings-group';
 import { SettingsLinkRow } from '@/components/ui/settings-link-row';
-import { APP_STORE_REVIEW_URL, PLAY_STORE_REVIEW_URL } from '@/constants/app-links';
 import type { Locale } from '@/constants/translations';
 import { useEngagement } from '@/contexts/engagement-context';
 import { useLanguage } from '@/contexts/language-context';
@@ -19,6 +18,7 @@ import { useTranslation } from '@/hooks/use-translation';
 import { trackEvent } from '@/utils/analytics';
 import { lightImpact } from '@/utils/haptics';
 import { shareApp } from '@/utils/share';
+import { requestAppReview } from '@/utils/store';
 import {
   getFontSize,
   setFontSize,
@@ -29,7 +29,7 @@ import {
 } from '@/utils/storage';
 import { router, useFocusEffect } from 'expo-router';
 import { useCallback, useState } from 'react';
-import { Linking, Platform, StyleSheet } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 
 export default function SettingsScreen() {
   const [fontSize, setFontSizeState] = useState<FontSize>('medium');
@@ -88,14 +88,12 @@ export default function SettingsScreen() {
   };
 
   const handleRateApp = async () => {
-    const url = Platform.OS === 'ios' ? APP_STORE_REVIEW_URL : PLAY_STORE_REVIEW_URL;
-    if (!url) return;
     try {
       trackEvent('rate_app', { platform: Platform.OS });
-      await Linking.openURL(url);
+      await requestAppReview();
       await markAsRated();
     } catch (error) {
-      console.error('Failed to open review URL:', error);
+      console.error('handleRateApp error', error);
     }
   };
 

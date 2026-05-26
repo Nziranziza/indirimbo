@@ -296,6 +296,12 @@ export const fr: EnTranslations = {
   'share.dialog.playlist': 'Partager la playlist',
   'share.dialog.category': 'Partager la catégorie',
 
+  // Share app message/title shown inside the system share sheet
+  'share.app.messageKinyarwanda': 'Découvrez Indirimbo - Agakiza no Gushimisha Imana.',
+  'share.app.messageKirundi': 'Découvrez Indirimbo - Cantiques Kirundi, Gushimisha Imana & Agakiza.',
+  'share.app.titleKinyarwanda': 'Indirimbo - Cantiques rwandais et chants de louange',
+  'share.app.titleKirundi': 'Indirimbo - Cantiques Kirundi et Kinyarwanda',
+
   // Engagement prompts
   'engagement.rate.text': 'Vous aimez Indirimbo ?',
   'engagement.rate.button': 'Noter',
