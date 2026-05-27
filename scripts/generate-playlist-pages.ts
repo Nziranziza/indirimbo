@@ -119,25 +119,29 @@ const playlists = [
   {
     id: 'gushimisha',
     name: 'Gushimisha Imana',
+    seoTitle: 'Gushimisha Imana — Rwandan Worship Songs & Lyrics | Indirimbo',
     songs: gushimishaSongs,
     keywords: 'gushimisha imana, indirimbo zo gushimisha imana, rwandan hymns, worship songs, kinyarwanda',
   },
   {
     id: 'agakiza',
     name: 'Agakiza',
+    seoTitle: 'Agakiza — Rwandan Church Hymns with Full Lyrics | Indirimbo',
     songs: agakizaSongs,
     keywords: "agakiza, indirimbo z'agakiza, rwandan hymns, worship songs, kinyarwanda",
   },
   {
     id: 'cantiques-kirundi',
     name: 'Cantiques Kirundi',
+    seoTitle: 'Cantiques Kirundi — Burundian Worship Songs | Indirimbo',
     songs: kirundiSongs,
     keywords: 'cantiques kirundi, indirimbo zo guhimbaza imana, burundian hymns, worship songs, kirundi',
   },
 ];
 
 for (const playlist of playlists) {
-  const description = `Browse all ${playlist.songs.length} songs in the ${playlist.name} hymnbook. ${playlist.id === 'cantiques-kirundi' ? 'Burundian' : 'Rwandan'} church worship songs with full lyrics.`;
+  const region = playlist.id === 'cantiques-kirundi' ? 'Burundian' : 'Rwandan';
+  const description = `Browse all ${playlist.songs.length} hymns in the ${playlist.name} hymnbook — ${region} church worship songs with full lyrics, verses, and choruses. Search by number, title, or lyrics.`;
   const canonicalUrl = `${BASE_URL}/playlist/${playlist.id}/`;
 
   // Build noscript with song list for crawlers
@@ -183,8 +187,8 @@ for (const playlist of playlists) {
   });
 
   const html = generatePage({
-    title: `${playlist.name} | Indirimbo`,
-    ogTitle: `${playlist.name} | Indirimbo`,
+    title: playlist.seoTitle,
+    ogTitle: playlist.seoTitle,
     description,
     canonicalUrl,
     keywords: playlist.keywords,
@@ -216,7 +220,8 @@ const categoryPlaylists = [
 
 for (const { playlistId, playlistName, categories, songMap } of categoryPlaylists) {
   for (const category of categories) {
-    const description = `Browse ${category.name} hymns from ${playlistName} hymnbook. ${category.songs.length} worship songs with full lyrics.`;
+    const region = playlistId === 'cantiques-kirundi' ? 'Burundian' : 'Rwandan';
+    const description = `Browse ${category.songs.length} ${category.name} hymns from the ${playlistName} hymnbook — ${region} church worship songs with full lyrics, verses, and choruses for worship and personal devotion.`;
     const canonicalUrl = `${BASE_URL}/category/${category.slug}/`;
     const keywords = `${category.name}, ${playlistName.toLowerCase()}, indirimbo, ${playlistId === 'cantiques-kirundi' ? 'burundian hymns' : 'rwandan hymns'}, worship songs`;
 
@@ -264,8 +269,8 @@ for (const { playlistId, playlistName, categories, songMap } of categoryPlaylist
     });
 
     const html = generatePage({
-      title: `${category.name} - ${playlistName} | Indirimbo`,
-      ogTitle: `${category.name} - ${playlistName} | Indirimbo`,
+      title: `${category.name} Hymns — ${playlistName} | Indirimbo`,
+      ogTitle: `${category.name} Hymns — ${playlistName} | Indirimbo`,
       description,
       canonicalUrl,
       keywords,

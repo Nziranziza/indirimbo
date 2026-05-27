@@ -61,7 +61,7 @@ export default function BookReferencesScreen() {
             >
               <IconSymbol name="book.fill" size={32} color={colors.tint} />
             </View>
-            <ThemedText type="title" style={styles.heroTitle}>
+            <ThemedText type="title" style={styles.heroTitle} accessibilityRole="header">
               {t('bookRefs.title')}
             </ThemedText>
           </View>

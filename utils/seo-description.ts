@@ -1,6 +1,6 @@
 import type { Song } from '@/constants/types';
 
-const TARGET_MIN = 70;
+const TARGET_MIN = 140;
 const TARGET_MAX = 160;
 const TRUNCATE_AT = 155;
 

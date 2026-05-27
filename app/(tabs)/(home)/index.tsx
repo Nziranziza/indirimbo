@@ -138,7 +138,7 @@ export default function HomeScreen() {
           <ThemedText style={[styles.greeting, { color: colors.tint }]}>
             {t(getGreetingKey())}
           </ThemedText>
-          <ThemedText type="title">
+          <ThemedText type="title" accessibilityRole="header">
             Indirimbo
           </ThemedText>
         </View>
