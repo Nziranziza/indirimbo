@@ -15,6 +15,8 @@ import { fileURLToPath } from 'node:url';
 import { songs as gushimishaSongs } from '../constants/gushimisha-songs';
 import { songs as agakizaSongs } from '../constants/agakiza-songs';
 import { songs as kirundiSongs } from '../constants/cantiques-kirundi-songs';
+import { gushimishaCategories, type SongCategory } from '../constants/gushimisha-categories';
+import { cantiquesKirundiCategories } from '../constants/cantiques-kirundi-categories';
 import { getSongTitleLabel } from '../constants/playlists';
 import type { Song } from '../constants/types';
 import { buildSongSeoDescription } from '../utils/seo-description';
@@ -31,11 +33,67 @@ const indexPath = path.join(distDir, 'index.html');
 // Read the built & fixed index.html as our template
 const templateHtml = fs.readFileSync(indexPath, 'utf8');
 
+const SONG_CATEGORIES: Record<string, SongCategory[]> = {
+  gushimisha: gushimishaCategories,
+  'cantiques-kirundi': cantiquesKirundiCategories,
+};
+const MAX_INTER_SONG_LINKS = 8;
+
 // --- helpers ----------------------------------------------------------------
 
-function buildNoscriptContent(song: Song, playlist: string, playlistName: string): string {
+function songLinkItem(playlist: string, number: number | string, name: string): string {
+  const url = `${BASE_URL}/song/${playlist}/${encodeURIComponent(number)}/`;
+  return `<li><a href="${url}">${escapeHtml(String(number))}. ${escapeHtml(name)}</a></li>`;
+}
+
+/**
+ * Builds a crawlable list of links to adjacent (prev/next) and same-category
+ * songs, with keyword-rich "{number}. {name}" anchor text. Lives in the
+ * noscript block so it strengthens the internal link graph for crawlers
+ * without affecting the rendered app.
+ */
+function buildInterSongLinks(
+  song: Song,
+  playlist: string,
+  songs: readonly Song[],
+  nameByNumber: Map<string, string>,
+): string {
+  const current = String(song.number);
+  const seen = new Set<string>([current]);
+  const items: string[] = [];
+
+  const pushSong = (s: Song | undefined): void => {
+    if (!s) return;
+    const key = String(s.number);
+    if (seen.has(key)) return;
+    seen.add(key);
+    items.push(songLinkItem(playlist, s.number, s.name));
+  };
+
+  const idx = songs.findIndex((s) => String(s.number) === current);
+  if (idx > 0) pushSong(songs[idx - 1]);
+  if (idx >= 0 && idx < songs.length - 1) pushSong(songs[idx + 1]);
+
+  for (const category of SONG_CATEGORIES[playlist] ?? []) {
+    if (!category.songs.some((n) => String(n) === current)) continue;
+    for (const n of category.songs) {
+      const key = String(n);
+      const name = nameByNumber.get(key);
+      if (!name || seen.has(key)) continue;
+      seen.add(key);
+      items.push(songLinkItem(playlist, n, name));
+      if (items.length >= MAX_INTER_SONG_LINKS) break;
+    }
+    if (items.length >= MAX_INTER_SONG_LINKS) break;
+  }
+
+  if (items.length === 0) return '';
+  return `<h2>Izindi ndirimbo</h2><ul>${items.join('')}</ul>`;
+}
+
+function buildNoscriptContent(song: Song, playlist: string, playlistName: string, interSongLinks: string): string {
   let noscript = `<noscript><article>`;
-  noscript += `<h1>${escapeHtml(song.name)}</h1>`;
+  noscript += `<h1>${escapeHtml(String(song.number))}. ${escapeHtml(song.name)}</h1>`;
   noscript += `<h2>${escapeHtml(getSongTitleLabel(playlist, song.number))}</h2>`;
 
   for (const section of song.body) {
@@ -48,6 +106,8 @@ function buildNoscriptContent(song: Song, playlist: string, playlistName: string
     noscript += `</p>`;
   }
 
+  noscript += interSongLinks;
+
   noscript += `<nav>`;
   noscript += `<a href="${BASE_URL}/playlist/${playlist}">${escapeHtml(playlistName)}</a>`;
   noscript += ` | <a href="${BASE_URL}">Indirimbo</a>`;
@@ -56,11 +116,11 @@ function buildNoscriptContent(song: Song, playlist: string, playlistName: string
   return noscript;
 }
 
-function generateSongHtml(song: Song, playlist: string, playlistName: string): string {
+function generateSongHtml(song: Song, playlist: string, playlistName: string, interSongLinks: string): string {
   const titleText = `${song.name} | ${getSongTitleLabel(playlist, song.number)}`;
   const title = escapeHtml(titleText);
   const ogTitle = title;
-  const description = escapeHtml(buildSongSeoDescription(song));
+  const description = escapeHtml(buildSongSeoDescription(song, playlist));
   const canonicalUrl = `${BASE_URL}/song/${playlist}/${encodeURIComponent(song.number)}/`;
   const ogImage = playlist === 'cantiques-kirundi' ? OG_IMAGE_KIRUNDI : OG_IMAGE;
 
@@ -70,7 +130,7 @@ function generateSongHtml(song: Song, playlist: string, playlistName: string): s
   const songMeta = `
   <meta data-rh="true" name="description" content="${description}" />
   <meta property="og:site_name" content="Indirimbo" />
-  <meta property="og:type" content="website" />
+  <meta property="og:type" content="music.song" />
   <meta data-rh="true" property="og:title" content="${ogTitle}" />
   <meta data-rh="true" property="og:description" content="${description}" />
   <meta data-rh="true" property="og:image" content="${ogImage}" />
@@ -108,15 +168,22 @@ function generateSongHtml(song: Song, playlist: string, playlistName: string): s
 
   // Inject song-specific JSON-LD
   const lyricsText = song.body.map((s) => s.content).join('\n\n');
-  const creativeWorkJsonLd = buildJsonLdTag({
+  const inLanguage = playlist === 'cantiques-kirundi' ? 'rn' : 'rw';
+  const musicCompositionJsonLd = buildJsonLdTag({
     '@context': 'https://schema.org',
-    '@type': 'CreativeWork',
+    '@type': 'MusicComposition',
     name: song.name,
-    text: lyricsText,
-    inLanguage: playlist === 'cantiques-kirundi' ? 'rn' : 'rw',
+    alternativeHeadline: getSongTitleLabel(playlist, song.number),
+    musicCompositionForm: 'Hymn',
+    inLanguage,
     url: canonicalUrl,
-    isPartOf: {
+    lyrics: {
       '@type': 'CreativeWork',
+      text: lyricsText,
+      inLanguage,
+    },
+    isPartOf: {
+      '@type': 'MusicAlbum',
       name: playlistName,
       url: `${BASE_URL}/playlist/${playlist}/`,
     },
@@ -132,13 +199,13 @@ function generateSongHtml(song: Song, playlist: string, playlistName: string): s
     ],
   });
 
-  html = html.replace('</head>', `${creativeWorkJsonLd}\n${breadcrumbJsonLd}\n</head>`);
+  html = html.replace('</head>', `${musicCompositionJsonLd}\n${breadcrumbJsonLd}\n</head>`);
 
   // Remove the homepage noscript block injected by fix-web-paths.ts
   html = html.replace(/<noscript><article>[\s\S]*?<\/article><\/noscript>/, '');
 
   // Inject noscript block with full lyrics right after <body>
-  const noscript = buildNoscriptContent(song, playlist, playlistName);
+  const noscript = buildNoscriptContent(song, playlist, playlistName, interSongLinks);
   html = html.replace(/<body>/, `<body>${noscript}`);
 
   return html;
@@ -155,11 +222,15 @@ const playlists = [
 let totalPages = 0;
 
 for (const playlist of playlists) {
+  const nameByNumber = new Map<string, string>(
+    playlist.songs.map((s): [string, string] => [String(s.number), s.name]),
+  );
   for (const song of playlist.songs) {
     const dir = path.join(distDir, 'song', playlist.id, String(song.number));
     fs.mkdirSync(dir, { recursive: true });
 
-    const html = generateSongHtml(song, playlist.id, playlist.name);
+    const interSongLinks = buildInterSongLinks(song, playlist.id, playlist.songs, nameByNumber);
+    const html = generateSongHtml(song, playlist.id, playlist.name, interSongLinks);
     fs.writeFileSync(path.join(dir, 'index.html'), html);
     totalPages++;
   }

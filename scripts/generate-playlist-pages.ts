@@ -15,6 +15,7 @@ import { fileURLToPath } from 'node:url';
 import { songs as gushimishaSongs } from '../constants/gushimisha-songs';
 import { songs as agakizaSongs } from '../constants/agakiza-songs';
 import { songs as kirundiSongs } from '../constants/cantiques-kirundi-songs';
+import type { Song } from '../constants/types';
 import { gushimishaCategories } from '../constants/gushimisha-categories';
 import { cantiquesKirundiCategories } from '../constants/cantiques-kirundi-categories';
 import { escapeHtml, buildJsonLdTag, stripJsonLd } from './utils';
@@ -110,12 +111,24 @@ function generatePage({ title, ogTitle, description, canonicalUrl, keywords, ogI
   return html;
 }
 
+interface Playlist {
+  id: string;
+  name: string;
+  seoTitle: string;
+  songs: Song[];
+  keywords: string;
+}
+
+function getRegion(playlistId: string): 'Burundian' | 'Rwandan' {
+  return playlistId === 'cantiques-kirundi' ? 'Burundian' : 'Rwandan';
+}
+
 // --- main -------------------------------------------------------------------
 
 let totalPages = 0;
 
 // Generate playlist pages
-const playlists = [
+const playlists: Playlist[] = [
   {
     id: 'gushimisha',
     name: 'Gushimisha Imana',
@@ -140,7 +153,7 @@ const playlists = [
 ];
 
 for (const playlist of playlists) {
-  const region = playlist.id === 'cantiques-kirundi' ? 'Burundian' : 'Rwandan';
+  const region = getRegion(playlist.id);
   const description = `Browse all ${playlist.songs.length} hymns in the ${playlist.name} hymnbook — ${region} church worship songs with full lyrics, verses, and choruses. Search by number, title, or lyrics.`;
   const canonicalUrl = `${BASE_URL}/playlist/${playlist.id}/`;
 
@@ -220,7 +233,7 @@ const categoryPlaylists = [
 
 for (const { playlistId, playlistName, categories, songMap } of categoryPlaylists) {
   for (const category of categories) {
-    const region = playlistId === 'cantiques-kirundi' ? 'Burundian' : 'Rwandan';
+    const region = getRegion(playlistId);
     const description = `Browse ${category.songs.length} ${category.name} hymns from the ${playlistName} hymnbook — ${region} church worship songs with full lyrics, verses, and choruses for worship and personal devotion.`;
     const canonicalUrl = `${BASE_URL}/category/${category.slug}/`;
     const keywords = `${category.name}, ${playlistName.toLowerCase()}, indirimbo, ${playlistId === 'cantiques-kirundi' ? 'burundian hymns' : 'rwandan hymns'}, worship songs`;

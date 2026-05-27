@@ -81,6 +81,7 @@ for (const { slug, songs } of songPlaylists) {
   for (const song of songs) {
     xml += `  <url>
     <loc>${BASE_URL}/song/${slug}/${encodeURIComponent(song.number)}/</loc>
+    <lastmod>${today}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
