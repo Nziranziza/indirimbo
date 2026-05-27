@@ -17,6 +17,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { escapeHtml, buildJsonLdTag, stripJsonLd } from './utils';
+import { BOOKS } from '../constants/book-names';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -40,6 +41,7 @@ interface PageOptions {
   jsonLdTags?: string;
   ogImage?: string;
   ogLocale?: string;
+  noindex?: boolean;
 }
 
 function generatePage({
@@ -51,6 +53,7 @@ function generatePage({
   jsonLdTags,
   ogImage = DEFAULT_OG_IMAGE,
   ogLocale = DEFAULT_OG_LOCALE,
+  noindex,
 }: PageOptions): string {
   const escapedTitle = escapeHtml(title);
   const escapedDescription = escapeHtml(description);
@@ -76,7 +79,7 @@ function generatePage({
   <meta data-rh="true" name="twitter:description" content="${escapedDescription}" />
   <meta data-rh="true" name="twitter:image" content="${ogImage}" />
   <link data-rh="true" rel="canonical" href="${canonicalUrl}" />
-  <meta name="apple-itunes-app" content="app-id=6758376573" />`;
+  <meta name="apple-itunes-app" content="app-id=6758376573" />${noindex ? '\n  <meta name="robots" content="noindex,follow" />' : ''}`;
 
   let html = templateHtml;
 
@@ -114,6 +117,18 @@ function generatePage({
 
 // --- SPA routes to generate -------------------------------------------------
 
+const bookReferenceItems = BOOKS.map(
+  (book) => `<li><strong>${escapeHtml(book.abbreviation)}</strong> — ${escapeHtml(book.name)}</li>`
+).join('');
+
+const bookReferencesNoscript = `<noscript><article>
+<h1>Song Book References</h1>
+<p>Many songs in the Indirimbo hymnbooks were adapted or translated from other collections. The reference codes at the bottom of each song indicate the original hymn book and number. Here is what each abbreviation stands for.</p>
+<h2>Reference codes</h2>
+<ul>${bookReferenceItems}</ul>
+<nav><a href="${BASE_URL}/about">About</a> | <a href="${BASE_URL}">Home</a></nav>
+</article></noscript>`;
+
 const spaPages: Array<{
   path: string;
   title: string;
@@ -123,11 +138,19 @@ const spaPages: Array<{
   extraJsonLd?: object;
   ogImage?: string;
   ogLocale?: string;
+  noindex?: boolean;
 }> = [
   {
+    path: 'book-references',
+    title: 'Song Book References — Hymnal Abbreviation Codes | Indirimbo',
+    description: 'Learn what the abbreviation codes in Indirimbo song references mean — each code identifies the original hymn book a song was adapted or translated from.',
+    keywords: 'song book references, hymn book abbreviations, indirimbo references, hymnal sources, keswick hymn book, golden bells',
+    noscriptHtml: bookReferencesNoscript,
+  },
+  {
     path: 'about',
-    title: 'About | Indirimbo',
-    description: 'Indirimbo brings Rwandan hymns and worship songs to your fingertips. Browse Gushimisha Imana and Agakiza hymnbooks.',
+    title: 'About Indirimbo — The Rwandan & Burundian Hymnal App',
+    description: 'Indirimbo brings Rwandan and Burundian church hymns to your fingertips — browse the Gushimisha Imana, Agakiza, and Cantiques Kirundi hymnbooks with full lyrics.',
     keywords: 'about indirimbo, rwandan hymns app, gushimisha imana, agakiza',
     noscriptHtml: `<noscript><article>
 <h1>About Indirimbo</h1>
@@ -154,8 +177,8 @@ const spaPages: Array<{
   },
   {
     path: 'support',
-    title: 'Support | Indirimbo',
-    description: 'Get help with using Indirimbo. Find FAQs, usage guide, and contact information for the Rwandan hymnal app.',
+    title: 'Support & Help — Indirimbo Hymnal App FAQ & Contact',
+    description: 'Get help using Indirimbo, the Rwandan and Burundian hymnal app — find FAQs, a usage guide, and contact details for search, favorites, and offline access.',
     keywords: 'indirimbo support, help, FAQ, contact',
     extraJsonLd: {
       '@context': 'https://schema.org',
@@ -213,8 +236,8 @@ const spaPages: Array<{
   },
   {
     path: 'terms-of-service',
-    title: 'Terms of Service | Indirimbo',
-    description: 'Terms of service for the Indirimbo app. Guidelines for using the Rwandan hymnal app.',
+    title: 'Terms of Service — Indirimbo Hymnal App',
+    description: 'Terms of service for Indirimbo, the Rwandan and Burundian hymnal app — guidelines for fair, personal, non-commercial use of the worship song collection.',
     keywords: 'indirimbo terms of service, terms, legal',
     noscriptHtml: `<noscript><article>
 <h1>Terms of Service</h1>
@@ -247,8 +270,8 @@ const spaPages: Array<{
   },
   {
     path: 'privacy-policy',
-    title: 'Privacy Policy | Indirimbo',
-    description: 'Privacy policy for the Indirimbo app. Learn how we handle your information.',
+    title: 'Privacy Policy — Indirimbo Hymnal App',
+    description: 'Privacy policy for Indirimbo, the Rwandan and Burundian hymnal app — learn what limited data we collect, how it is used, and what we never collect or share.',
     keywords: 'indirimbo privacy policy, privacy, data',
     noscriptHtml: `<noscript><article>
 <h1>Privacy Policy</h1>
@@ -332,6 +355,7 @@ const spaPages: Array<{
   },
   {
     path: 'search',
+    noindex: true,
     title: 'Search Songs | Indirimbo',
     description: 'Search Rwandan hymns and worship songs by title, number, or lyrics across Gushimisha Imana and Agakiza hymnbooks.',
     keywords: 'search indirimbo, search hymns, search worship songs, kinyarwanda songs',
@@ -343,6 +367,7 @@ const spaPages: Array<{
   },
   {
     path: 'favorites',
+    noindex: true,
     title: 'Favorites | Indirimbo',
     description: 'Your favorite Rwandan hymns and worship songs from Gushimisha Imana and Agakiza hymnbooks.',
     keywords: 'favorite hymns, saved songs, indirimbo favorites',
@@ -354,6 +379,7 @@ const spaPages: Array<{
   },
   {
     path: 'settings',
+    noindex: true,
     title: 'Settings | Indirimbo',
     description: 'Customize your Indirimbo reading experience. Adjust text size, theme, and accent color.',
     keywords: 'indirimbo settings, text size, theme, dark mode, accent color',
@@ -377,7 +403,7 @@ for (const page of spaPages) {
     '@type': 'BreadcrumbList',
     itemListElement: [
       { '@type': 'ListItem', position: 1, name: 'Indirimbo', item: `${BASE_URL}/` },
-      { '@type': 'ListItem', position: 2, name: page.title.split(' | ')[0].split(' - ')[0], item: canonicalUrl },
+      { '@type': 'ListItem', position: 2, name: page.title.split(' | ')[0].split(' — ')[0].split(' - ')[0], item: canonicalUrl },
     ],
   });
 
@@ -395,6 +421,7 @@ for (const page of spaPages) {
     jsonLdTags,
     ogImage: page.ogImage,
     ogLocale: page.ogLocale,
+    noindex: page.noindex,
   });
 
   // Fix the flat .html file that expo export generated (e.g. dist/about.html)

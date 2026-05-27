@@ -26,6 +26,7 @@ const staticPages = [
   { url: '/download/', priority: '0.5', changefreq: 'monthly' },
   { url: '/download-kirundi/', priority: '0.5', changefreq: 'monthly' },
   { url: '/support/', priority: '0.4', changefreq: 'monthly' },
+  { url: '/book-references/', priority: '0.4', changefreq: 'yearly' },
   { url: '/privacy-policy/', priority: '0.3', changefreq: 'yearly' },
   { url: '/terms-of-service/', priority: '0.3', changefreq: 'yearly' },
 ];
@@ -80,6 +81,7 @@ for (const { slug, songs } of songPlaylists) {
   for (const song of songs) {
     xml += `  <url>
     <loc>${BASE_URL}/song/${slug}/${encodeURIComponent(song.number)}/</loc>
+    <lastmod>${today}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
