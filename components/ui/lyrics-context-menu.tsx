@@ -52,10 +52,11 @@ export function LyricsContextMenu({
   const colors = useColors();
   const { width: windowWidth, height: windowHeight } = Dimensions.get('window');
   const [previewHeight, setPreviewHeight] = useState<number | null>(null);
-
-  useEffect(() => {
+  const [prevVisible, setPrevVisible] = useState(visible);
+  if (prevVisible !== visible) {
+    setPrevVisible(visible);
     if (!visible) setPreviewHeight(null);
-  }, [visible]);
+  }
 
   // Android hardware back button dismisses the menu while it's open.
   useEffect(() => {

@@ -2,7 +2,7 @@ import { ThemedView } from '@/components/themed-view';
 import { BackButton } from '@/components/ui/back-button';
 import { useBottomPadding } from '@/hooks/use-bottom-padding';
 import { useColors } from '@/hooks/use-colors';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Text, View, type NativeSyntheticEvent, type TextLayoutEventData } from 'react-native';
 import type { Href } from 'expo-router';
 import Animated, {
@@ -45,14 +45,15 @@ export function CollapsibleHeaderScrollView({
   const paddingBottom = useBottomPadding({ hasFab });
   const scrollY = useSharedValue(0);
   const [titleLines, setTitleLines] = useState(1);
-  const effectiveHeaderMax = headerMaxHeight + (titleLines > 1 ? MULTI_LINE_TITLE_EXTRA : 0);
-  const HEADER_SCROLL_DISTANCE = effectiveHeaderMax - HEADER_MIN_HEIGHT;
-
   // Reset measurement when the title changes; otherwise we latch high so a
   // transient re-layout during scroll animations can't shrink the header.
-  useEffect(() => {
+  const [prevTitle, setPrevTitle] = useState(title);
+  if (prevTitle !== title) {
+    setPrevTitle(title);
     setTitleLines(1);
-  }, [title]);
+  }
+  const effectiveHeaderMax = headerMaxHeight + (titleLines > 1 ? MULTI_LINE_TITLE_EXTRA : 0);
+  const HEADER_SCROLL_DISTANCE = effectiveHeaderMax - HEADER_MIN_HEIGHT;
 
   const handleTitleLayout = (event: NativeSyntheticEvent<TextLayoutEventData>) => {
     const measured = Math.min(event.nativeEvent.lines.length, 2);

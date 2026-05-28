@@ -1,5 +1,5 @@
 import { Image } from 'expo-image';
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Linking, Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 import { GooglePlayIcon } from '@/components/ui/google-play-icon';
@@ -31,38 +31,35 @@ function getMobilePlatform(userAgent: string) {
   return null;
 }
 
+function detectInitialBannerState() {
+  if (Platform.OS !== 'web' || typeof window === 'undefined') {
+    return { platform: null as 'ios' | 'android' | null, isVisible: false };
+  }
+  const userAgent = window.navigator.userAgent || '';
+  const detectedPlatform = getMobilePlatform(userAgent);
+  const isStandalone =
+    window.matchMedia?.('(display-mode: standalone)')?.matches ||
+    (window.navigator as typeof window.navigator & { standalone?: boolean }).standalone ||
+    false;
+  return {
+    platform: detectedPlatform,
+    isVisible: Boolean(detectedPlatform) && !isStandalone,
+  };
+}
+
 export function AppInstallBanner() {
   const colors = useColors();
-  const [isVisible, setIsVisible] = useState(false);
-  const [platform, setPlatform] = useState<'ios' | 'android' | null>(null);
-  const [canOpenApp, setCanOpenApp] = useState(false);
-
-  useEffect(() => {
-    if (Platform.OS !== 'web' || typeof window === 'undefined') {
-      return;
-    }
-
-    const userAgent = window.navigator.userAgent || '';
-    const detectedPlatform = getMobilePlatform(userAgent);
-    const isStandalone =
-      window.matchMedia?.('(display-mode: standalone)')?.matches ||
-      (window.navigator as typeof window.navigator & { standalone?: boolean }).standalone ||
-      false;
-
-    setPlatform(detectedPlatform);
-    setIsVisible(Boolean(detectedPlatform) && !isStandalone);
-  }, []);
-
-  useEffect(() => {
-    // On mobile web, Linking.canOpenURL for custom schemes is unreliable
-    // (always fails on iOS Safari). When we know the app exists (store URL
-    // is set), optimistically assume it can be opened — handleOpenApp will
-    // fall back to the store if the app isn't installed.
-    if (platform) {
-      const hasStoreUrl = (platform === 'ios' && APP_STORE_URL) || (platform === 'android' && PLAY_STORE_URL);
-      setCanOpenApp(Boolean(hasStoreUrl));
-    }
-  }, [platform]);
+  const [initialState] = useState(detectInitialBannerState);
+  const [isVisible, setIsVisible] = useState(initialState.isVisible);
+  const platform = initialState.platform;
+  // On mobile web, Linking.canOpenURL for custom schemes is unreliable
+  // (always fails on iOS Safari). When we know the app exists (store URL
+  // is set), optimistically assume it can be opened — handleOpenApp will
+  // fall back to the store if the app isn't installed.
+  const canOpenApp = Boolean(
+    platform &&
+      ((platform === 'ios' && APP_STORE_URL) || (platform === 'android' && PLAY_STORE_URL))
+  );
 
   const storeUrl = useMemo(() => {
     if (platform === 'ios') {

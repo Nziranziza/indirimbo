@@ -1,3 +1,6 @@
+// Reanimated's `sharedValue.value = ...` is the documented mutation API; React Compiler's
+// static analysis flags it because it can't see Reanimated's escape hatch.
+/* eslint-disable react-hooks/immutability */
 import { CategoryChips } from '@/components/home/category-chips';
 import { FavoriteSongsRow } from '@/components/home/favorite-songs-row';
 import { PageHead } from '@/components/page-head';

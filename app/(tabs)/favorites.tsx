@@ -22,16 +22,16 @@ export default function FavoritesTabScreen() {
   const hasHydrated = useHydrated();
   const { t, language } = useTranslation();
 
+  const loadFavorites = useCallback(async () => {
+    const favs = await getFavorites();
+    setFavorites(favs);
+  }, []);
+
   useFocusEffect(
     useCallback(() => {
       loadFavorites();
-    }, [])
+    }, [loadFavorites])
   );
-
-  const loadFavorites = async () => {
-    const favs = await getFavorites();
-    setFavorites(favs);
-  };
 
   const handleSongPress = (favorite: FavoriteSong) => {
     router.navigate({
