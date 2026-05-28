@@ -1,6 +1,5 @@
 // Reanimated's `sharedValue.value = ...` is the documented mutation API; React Compiler's
 // static analysis flags it because it can't see Reanimated's escape hatch.
-/* eslint-disable react-hooks/immutability */
 import { ThemedText } from "@/components/themed-text";
 import { ThemedView } from "@/components/themed-view";
 import { BackButton } from "@/components/ui/back-button";
@@ -34,10 +33,13 @@ import {
 import { trackEvent } from "@/utils/analytics";
 import { formatSectionForSharing } from "@/utils/format-song-text";
 import { heavyImpact, lightImpact } from "@/utils/haptics";
+import { IS_IOS_26_OR_HIGHER } from "@/utils/platform";
 import { shareSong, shareSongSection } from "@/utils/share";
 import { APP_UNIVERSAL_LINK_URL } from "@/constants/app-links";
 import * as Clipboard from "expo-clipboard";
-import { useLocalSearchParams, useRouter } from "expo-router";
+import { BlurView } from "expo-blur";
+import { Stack, useLocalSearchParams, useRouter } from "expo-router";
+import { useHeaderHeight } from "expo-router/react-navigation";
 import { PageHead } from "@/components/page-head";
 import { buildSongSeoDescription } from "@/utils/seo-description";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
@@ -47,6 +49,7 @@ import {
   Platform,
   StyleSheet,
   TouchableOpacity,
+  useWindowDimensions,
   View,
 } from "react-native";
 import { SongScreenSkeleton } from "@/components/ui/song-screen-skeleton";
@@ -65,6 +68,12 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 // Matches the SongNavigationBar height: paddingTop(16) + button(48) + paddingBottom(safe area + 16) + border(1).
 // Used to position floating overlays (alerts, prompts) above the nav bar.
 const NAV_BAR_HEIGHT = 16 + 48 + 16 + 1;
+
+// Approximate width reserved by the native iOS nav bar on each side for the back button slot
+// and the right items slot (2 buttons). Used to cap the custom headerTitle's maxWidth so it
+// truncates before overlapping the side items. react-native-screens does not constrain custom
+// titleViews; this is the community-standard workaround.
+const NATIVE_HEADER_SIDE_SLOT = 96;
 
 function normalizeBookCodes(codes: string): string {
   return codes
@@ -173,6 +182,9 @@ export default function SongScreen() {
   const colors = useColors();
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();
+  const nativeHeaderHeight = useHeaderHeight();
+  const { width: windowWidth } = useWindowDimensions();
+  const iosHeaderTitleMaxWidth = windowWidth - NATIVE_HEADER_SIDE_SLOT * 2;
 
   const { agakiza, gushimisha, cantiquesKirundi, isLoaded: areSongsLoaded } = useSongs();
   const songsByPlaylist: Record<string, Song[]> = useMemo(() => ({
@@ -548,7 +560,13 @@ export default function SongScreen() {
     currentSong.key || (currentSong.references && currentSong.references.length > 0),
   );
 
-  const headerHeight = insets.top + 8 + 40 + 8;
+  const headerHeight = IS_IOS_26_OR_HIGHER ? nativeHeaderHeight : insets.top + 8 + 40 + 8;
+  // On iOS 26 the contentContainer extends behind the floating native bar, so
+  // scrollViewHeight includes that hidden top area. Subtract headerHeight so
+  // the heatmap fits the visible viewport and doesn't run off-screen.
+  const heatmapScrollViewHeight = IS_IOS_26_OR_HIGHER
+    ? Math.max(0, scrollViewHeight - headerHeight)
+    : scrollViewHeight;
 
   return (
     <ThemedView ref={containerRef} style={styles.container}>
@@ -559,70 +577,117 @@ export default function SongScreen() {
         keywords={`${currentSong.name}, indirimbo ya ${currentSong.number}, ${playlistTitle}, ${playlist === 'cantiques-kirundi' ? 'cantiques kirundi, indirimbo zo guhimbaza imana, burundian hymns' : "indirimbo, indirimbo zo mugitabo, rwandan hymns"}, worship songs`}
         playlist={playlist}
       />
-      <ThemedView style={[styles.header, { paddingTop: insets.top + 8 }]}>
-        <BackButton
-          color={colors.text}
-          style={styles.backButton}
-          fallbackHref={{ pathname: '/(tabs)/(home)/playlist/[name]', params: { name: playlist } }}
-        />
-        <TouchableOpacity
-          onPress={() => {
-            const fallback = { pathname: '/(tabs)/(home)/playlist/[name]' as const, params: { name: playlist } };
-            if (Platform.OS === 'web') {
-              router.replace(fallback);
-            } else {
-              if (router.canGoBack()) { router.back(); } else { router.replace(fallback); }
-            }
+      {IS_IOS_26_OR_HIGHER ? (
+        <Stack.Screen
+          options={{
+            headerShown: true,
+            headerTransparent: true,
+            headerShadowVisible: false,
+            headerTintColor: colors.tint,
+            
+            headerBackground: () => (
+              <BlurView
+                style={[styles.iosHeaderBackground, { backgroundColor: colors.background + '20' }]}
+                intensity={10}
+              />
+            ),
+            headerTitle: () => (
+              <View style={[styles.iosHeaderTitle, { maxWidth: iosHeaderTitleMaxWidth }]}>
+                <SongNumberBadge number={currentSong.number} size="large" />
+                <View style={styles.iosHeaderTitleText}>
+                  <ThemedText type="subtitle" style={styles.playlistLabel} numberOfLines={1}>
+                    {playlistTitle}
+                  </ThemedText>
+                  <ThemedText type="title" style={styles.songTitle} numberOfLines={1} accessibilityRole="header">
+                    {currentSong.name}
+                  </ThemedText>
+                </View>
+              </View>
+            ),
+            unstable_headerRightItems: () => [
+              {
+                type: 'button',
+                label: t('common.song.shareA11y'),
+                icon: { type: 'sfSymbol', name: 'square.and.arrow.up' },
+                onPress: handleShare,
+              },
+              {
+                type: 'button',
+                label: isFav ? 'Remove from favorites' : 'Add to favorites',
+                icon: { type: 'sfSymbol', name: isFav ? 'heart.fill' : 'heart' },
+                tintColor: isFav ? '#FF3B30' : undefined,
+                onPress: handleToggleFavorite,
+              },
+            ],
           }}
-          activeOpacity={0.7}
-        >
-          <SongNumberBadge number={currentSong.number} size="large" style={styles.songNumberBadge} />
-        </TouchableOpacity>
-        <ThemedView style={styles.headerCenter}>
-          <ThemedText type="subtitle" style={styles.playlistLabel}>
-            {playlistTitle}
-          </ThemedText>
-          <View style={styles.titleRow}>
-            <ThemedText type="title" style={styles.songTitle} numberOfLines={1} accessibilityRole="header">
-              {currentSong.name}
+        />
+      ) : (
+        <ThemedView style={[styles.header, { paddingTop: insets.top + 8 }]}>
+          <BackButton
+            color={colors.text}
+            style={styles.backButton}
+            fallbackHref={{ pathname: '/(tabs)/(home)/playlist/[name]', params: { name: playlist } }}
+          />
+          <TouchableOpacity
+            onPress={() => {
+              const fallback = { pathname: '/(tabs)/(home)/playlist/[name]' as const, params: { name: playlist } };
+              if (Platform.OS === 'web') {
+                router.replace(fallback);
+              } else {
+                if (router.canGoBack()) { router.back(); } else { router.replace(fallback); }
+              }
+            }}
+            activeOpacity={0.7}
+          >
+            <SongNumberBadge number={currentSong.number} size="large" style={styles.songNumberBadge} />
+          </TouchableOpacity>
+          <ThemedView style={styles.headerCenter}>
+            <ThemedText type="subtitle" style={styles.playlistLabel}>
+              {playlistTitle}
             </ThemedText>
+            <View style={styles.titleRow}>
+              <ThemedText type="title" style={styles.songTitle} numberOfLines={1} accessibilityRole="header">
+                {currentSong.name}
+              </ThemedText>
+            </View>
+          </ThemedView>
+          <View style={[styles.headerActions, { borderColor: colors.icon + "30" }]}>
+            <TouchableOpacity
+              onPress={handleShare}
+              style={[styles.headerActionButton, { borderColor: colors.icon + "30" }]}
+              accessibilityLabel={t('common.song.shareA11y')}
+              accessibilityRole="button"
+              activeOpacity={0.7}
+              hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+            >
+              <IconSymbol name="square.and.arrow.up" size={22} color={colors.icon} />
+            </TouchableOpacity>
+            <TouchableOpacity
+              ref={favoriteButtonRef as React.RefObject<View>}
+              onLayout={measureFavoriteButton}
+              onPress={handleToggleFavorite}
+              style={styles.headerActionButton}
+              accessibilityLabel={isFav ? "Remove from favorites" : "Add to favorites"}
+              accessibilityRole="button"
+              activeOpacity={0.7}
+              hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+            >
+              <IconSymbol
+                name={isFav ? "heart.fill" : "heart"}
+                size={22}
+                color={isFav ? "#FF3B30" : colors.icon}
+              />
+            </TouchableOpacity>
           </View>
         </ThemedView>
-        <View style={[styles.headerActions, { borderColor: colors.icon + "30" }]}>
-          <TouchableOpacity
-            onPress={handleShare}
-            style={[styles.headerActionButton, { borderColor: colors.icon + "30" }]}
-            accessibilityLabel={t('common.song.shareA11y')}
-            accessibilityRole="button"
-            activeOpacity={0.7}
-            hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
-          >
-            <IconSymbol name="square.and.arrow.up" size={22} color={colors.icon} />
-          </TouchableOpacity>
-          <TouchableOpacity
-            ref={favoriteButtonRef as React.RefObject<View>}
-            onLayout={measureFavoriteButton}
-            onPress={handleToggleFavorite}
-            style={styles.headerActionButton}
-            accessibilityLabel={isFav ? "Remove from favorites" : "Add to favorites"}
-            accessibilityRole="button"
-            activeOpacity={0.7}
-            hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
-          >
-            <IconSymbol
-              name={isFav ? "heart.fill" : "heart"}
-              size={22}
-              color={isFav ? "#FF3B30" : colors.icon}
-            />
-          </TouchableOpacity>
-        </View>
-      </ThemedView>
+      )}
 
       <View style={styles.contentContainer}>
         <Animated.ScrollView
           ref={scrollViewRef}
           style={styles.scrollView}
           contentContainerStyle={[styles.scrollContent, !hasFooterContent && styles.scrollContentNoFooter]}
+          contentInsetAdjustmentBehavior="never"
           onScroll={handleScroll}
           scrollEventThrottle={16}
           onContentSizeChange={(_w, h) => setContentHeight(h)}
@@ -632,7 +697,7 @@ export default function SongScreen() {
           alwaysBounceVertical={true}
           onScrollBeginDrag={resetKeepAwake}
         >
-          <View style={{ height: 8 }}/>
+          <View style={{ height: (IS_IOS_26_OR_HIGHER ? nativeHeaderHeight : 0) + 8 }}/>
           {currentSong.body?.filter((item) => item && item.type).map((item, index) => (
             <SectionLongPressable
               key={`${playlist}-${currentSongNumber}-${item.type}-${item.number ?? index}`}
@@ -665,7 +730,7 @@ export default function SongScreen() {
       <SongHeatmap
         sectionPositions={sectionPositions}
         contentHeight={contentHeight}
-        scrollViewHeight={scrollViewHeight}
+        scrollViewHeight={heatmapScrollViewHeight}
         animatedScrollY={animatedScrollY}
         headerHeight={headerHeight}
         songBody={currentSong.body}
@@ -767,6 +832,18 @@ const styles = StyleSheet.create({
     borderRadius: 999,
     borderWidth: 1,
   },
+  iosHeaderTitle: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: 'center',
+    gap: 8,
+  },
+  iosHeaderBackground: {
+    flex: 1,
+  },
+  iosHeaderTitleText: {
+    flexShrink: 1,
+  },
   headerCenter: {
     flex: 1,
   },
@@ -783,7 +860,6 @@ const styles = StyleSheet.create({
   songTitle: {
     fontSize: 17,
     lineHeight: 20,
-    flex: 1,
   },
   referencesContainer: {
     marginTop: "auto",

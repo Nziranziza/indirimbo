@@ -20,6 +20,7 @@ import {
   type RecentSong,
 } from '@/utils/storage';
 import { trackEvent } from '@/utils/analytics';
+import { IS_IOS_26_OR_HIGHER } from '@/utils/platform';
 import { Stack, useFocusEffect, useRouter } from 'expo-router';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { FlatList, Platform, StyleSheet, View } from 'react-native';
@@ -227,13 +228,11 @@ export default function SearchScreen() {
             removeClippedSubviews={true}
             ListHeaderComponent={
               <View>
-                {Platform.OS === "ios" &&
-                  parseInt(String(Platform.Version), 10) >= 26 &&
-                  isInputFocused && (
-                    <ThemedText type="title" style={{ marginBottom: 20 }}>
-                      {t('search.title')}
-                    </ThemedText>
-                  )}
+                {IS_IOS_26_OR_HIGHER && isInputFocused && (
+                  <ThemedText type="title" style={{ marginBottom: 20 }}>
+                    {t('search.title')}
+                  </ThemedText>
+                )}
               </View>
             }
             ListEmptyComponent={

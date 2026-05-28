@@ -6,12 +6,12 @@ import type { Song } from '@/constants/types';
 import { useTranslation } from '@/hooks/use-translation';
 import React, { useMemo } from 'react';
 import {
-  Platform,
   SectionList,
   StyleSheet,
   TouchableOpacity,
   View,
 } from 'react-native';
+import { IS_IOS_26_OR_HIGHER } from '@/utils/platform';
 import type { RecentSearch, RecentSong } from '@/utils/storage';
 
 type RecentSearchItem = { type: 'search'; query: string };
@@ -96,7 +96,7 @@ export function RecentItemsList({
       }
       ListHeaderComponent={
         <>
-          {Platform.OS === 'ios' && parseInt(String(Platform.Version), 10) >= 26 && isInputFocused && (
+          {IS_IOS_26_OR_HIGHER && isInputFocused && (
             <ThemedText type="title" style={{ marginBottom: 20 }}>{t('search.title')}</ThemedText>
           )}
           <View style={styles.recentHeader}>

@@ -8,8 +8,10 @@ import { useBottomPadding } from '@/hooks/use-bottom-padding';
 import { useColors } from '@/hooks/use-colors';
 import { useColorScheme } from '@/contexts/theme-context';
 import { useTranslation } from '@/hooks/use-translation';
+import { IS_IOS_26_OR_HIGHER } from '@/utils/platform';
+import { BlurView } from 'expo-blur';
 import { LinearGradient } from 'expo-linear-gradient';
-import { useRouter } from 'expo-router';
+import { Stack, useRouter } from 'expo-router';
 import React, { useCallback, useRef, useState } from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import Animated, {
@@ -125,6 +127,18 @@ export function SongListScreen({ title, iconName, songs, playlist, source, onSha
     return { opacity };
   }, []);
 
+  // Inverse of navBarAnimatedStyle: gradient fades out as the title appears in the bar.
+  const gradientAnimatedStyle = useAnimatedStyle(() => {
+    'worklet';
+    const opacity = interpolate(
+      scrollY.value,
+      [HEADER_SCROLL_DISTANCE - 50, HEADER_SCROLL_DISTANCE],
+      [1, 0],
+      Extrapolation.CLAMP
+    );
+    return { opacity };
+  }, []);
+
   const handleBackToTop = useCallback(() => {
     flatListRef.current?.scrollToOffset({ offset: 0, animated: true });
   }, []);
@@ -159,14 +173,52 @@ export function SongListScreen({ title, iconName, songs, playlist, source, onSha
 
   return (
     <ThemedView style={styles.container}>
+      {IS_IOS_26_OR_HIGHER && (
+        <Stack.Screen
+          options={{
+            headerShown: true,
+            headerTransparent: true,
+            headerBackButtonDisplayMode: 'minimal',
+            headerShadowVisible: false,
+            headerTintColor: colors.tint,
+            headerBackground: () => (
+              <BlurView
+                style={[styles.iosHeaderBackground, { backgroundColor: colors.background + '20' }]}
+                intensity={10}
+              />
+            ),
+            headerTitle: () => (
+              <Animated.Text
+                style={[styles.smallTitle, { color: colors.text }, smallTitleAnimatedStyle]}
+                numberOfLines={1}
+              >
+                {title}
+              </Animated.Text>
+            ),
+            ...(onShare && {
+              unstable_headerRightItems: () => [
+                {
+                  type: 'button',
+                  label: shareAccessibilityLabel ?? 'Share',
+                  icon: { type: 'sfSymbol', name: 'square.and.arrow.up' },
+                  onPress: () => { void onShare(); },
+                },
+              ],
+            }),
+          }}
+        />
+      )}
+
       {/* Animated gradient background */}
       <Animated.View pointerEvents="none" style={[styles.gradientWrapper, headerAnimatedStyle]}>
-        <LinearGradient
-          colors={[gradientBase, colors.tint]}
-          start={{ x: 0, y: 1 }}
-          end={{ x: 0, y: 0 }}
-          style={StyleSheet.absoluteFill}
-        />
+        <Animated.View style={[StyleSheet.absoluteFill, gradientAnimatedStyle]}>
+          <LinearGradient
+            colors={[gradientBase, colors.tint]}
+            start={{ x: 0, y: 1 }}
+            end={{ x: 0, y: 0 }}
+            style={StyleSheet.absoluteFill}
+          />
+        </Animated.View>
 
         <Animated.View
           style={[styles.largeTitleContainer, { paddingTop: NAV_HEIGHT }, largeTitleAnimatedStyle]}>
@@ -182,35 +234,37 @@ export function SongListScreen({ title, iconName, songs, playlist, source, onSha
         </Animated.View>
       </Animated.View>
 
-      {/* Fixed navigation bar */}
-      <View style={[styles.navBar, { height: NAV_HEIGHT, paddingTop: insets.top }]}>
-        <Animated.View
-          style={[StyleSheet.absoluteFill, { backgroundColor: colors.background }, navBarAnimatedStyle]}
-        />
-        <BackButton color={colors.text} style={styles.backButton} />
+      {/* Fixed navigation bar (replaced by native Stack.Screen header on iOS 26+) */}
+      {!IS_IOS_26_OR_HIGHER && (
+        <View style={[styles.navBar, { height: NAV_HEIGHT, paddingTop: insets.top }]}>
+          <Animated.View
+            style={[StyleSheet.absoluteFill, { backgroundColor: colors.background }, navBarAnimatedStyle]}
+          />
+          <BackButton color={colors.text} style={styles.backButton} />
 
-        <Animated.View style={[styles.smallTitleContainer, smallTitleAnimatedStyle]}>
-          <Animated.Text style={[styles.smallTitle, { color: colors.text }]}>
-            {title}
-          </Animated.Text>
-        </Animated.View>
+          <Animated.View style={[styles.smallTitleContainer, smallTitleAnimatedStyle]}>
+            <Animated.Text style={[styles.smallTitle, { color: colors.text }]}>
+              {title}
+            </Animated.Text>
+          </Animated.View>
 
-        {onShare ? (
-          <View style={[styles.headerActions, { borderColor: colors.icon + '30' }]}>
-            <TouchableOpacity
-              onPress={() => { void onShare(); }}
-              style={styles.headerActionButton}
-              accessibilityLabel={shareAccessibilityLabel ?? 'Share'}
-              accessibilityRole="button"
-              activeOpacity={0.7}
-              hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}>
-              <IconSymbol name="square.and.arrow.up" size={22} color={colors.text} />
-            </TouchableOpacity>
-          </View>
-        ) : (
-          <View style={styles.placeholder} />
-        )}
-      </View>
+          {onShare ? (
+            <View style={[styles.headerActions, { borderColor: colors.icon + '30' }]}>
+              <TouchableOpacity
+                onPress={() => { void onShare(); }}
+                style={styles.headerActionButton}
+                accessibilityLabel={shareAccessibilityLabel ?? 'Share'}
+                accessibilityRole="button"
+                activeOpacity={0.7}
+                hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}>
+                <IconSymbol name="square.and.arrow.up" size={22} color={colors.text} />
+              </TouchableOpacity>
+            </View>
+          ) : (
+            <View style={styles.placeholder} />
+          )}
+        </View>
+      )}
 
       {/* Scrollable Content */}
       <Animated.FlatList
@@ -220,6 +274,7 @@ export function SongListScreen({ title, iconName, songs, playlist, source, onSha
         keyExtractor={getItemKey}
         onScroll={scrollHandler}
         scrollEventThrottle={16}
+        contentInsetAdjustmentBehavior="never"
         contentContainerStyle={[
           styles.listContent,
           {
@@ -337,5 +392,8 @@ const styles = StyleSheet.create({
   },
   songTitle: {
     fontSize: 16,
+  },
+  iosHeaderBackground: {
+    flex: 1,
   },
 });

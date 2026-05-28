@@ -32,6 +32,7 @@
     "@react-native-segmented-control/segmented-control": "2.5.7",
     "@sentry/react-native": "~7.11.0",
     "expo": "^56.0.0",
+    "expo-blur": "~56.0.3",
     "expo-build-properties": "~56.0.15",
     "expo-clipboard": "~56.0.3",
     "expo-constants": "~56.0.16",
