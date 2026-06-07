@@ -126,7 +126,7 @@ export function RecentItemsList({
         if (item.type === 'search') {
           const isLast = index === section.data.length - 1;
           return (
-            <TouchableOpacity
+            <View
               style={[
                 styles.recentItem,
                 !isLast && {
@@ -134,19 +134,23 @@ export function RecentItemsList({
                   borderBottomColor: colors.icon + '40',
                 },
               ]}
-              onPress={() => onSearchTap(item.query)}
-              accessibilityLabel={t('search.searchForA11y', { query: item.query })}
-              accessibilityRole="button"
-              activeOpacity={0.7}
             >
-              <IconSymbol
-                name="clock.arrow.circlepath"
-                size={18}
-                color={colors.icon}
-              />
-              <ThemedText style={styles.recentQuery} numberOfLines={1}>
-                {item.query}
-              </ThemedText>
+              <TouchableOpacity
+                style={styles.recentItemPressable}
+                onPress={() => onSearchTap(item.query)}
+                accessibilityLabel={t('search.searchForA11y', { query: item.query })}
+                accessibilityRole="button"
+                activeOpacity={0.7}
+              >
+                <IconSymbol
+                  name="clock.arrow.circlepath"
+                  size={18}
+                  color={colors.icon}
+                />
+                <ThemedText style={styles.recentQuery} numberOfLines={1}>
+                  {item.query}
+                </ThemedText>
+              </TouchableOpacity>
               <TouchableOpacity
                 onPress={() => onRemoveSearch(item.query)}
                 accessibilityLabel={t('search.removeRecentA11y', { query: item.query })}
@@ -160,7 +164,7 @@ export function RecentItemsList({
                   color={colors.icon + '60'}
                 />
               </TouchableOpacity>
-            </TouchableOpacity>
+            </View>
           );
         }
         return (
@@ -215,6 +219,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 12,
     paddingVertical: 14,
+  },
+  recentItemPressable: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
   },
   recentQuery: {
     flex: 1,

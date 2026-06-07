@@ -89,29 +89,32 @@ export default function FavoritesTabScreen() {
             const songName = song?.name || favorite.songName;
 
             return (
-              <TouchableOpacity
+              <View
                 key={`${favorite.playlist}-${favorite.songNumber}-${index}`}
-                style={[styles.songCard, { borderColor: colors.icon + '20' }]}
-                onPress={() => handleSongPress(favorite)}
-                accessibilityLabel={t('favorites.songCardA11y', { songName, playlistTitle })}
-                accessibilityRole="button"
-                activeOpacity={0.7}>
-                <SongNumberBadge number={favorite.songNumber} />
-                <View style={styles.songInfo}>
-                  <View style={styles.playlistRow}>
-                    <ThemedText style={[styles.playlistLabel, { color: colors.icon, opacity: 0.7 }]}>
-                      {playlistTitle}
-                    </ThemedText>
-                    {favorite.likedAt && hasHydrated && (
-                      <ThemedText style={[styles.likedDate, { color: colors.icon, opacity: 0.5 }]}>
-                        • {formatDate(favorite.likedAt)}
+                style={[styles.songCard, { borderColor: colors.icon + '20' }]}>
+                <TouchableOpacity
+                  style={styles.songPressable}
+                  onPress={() => handleSongPress(favorite)}
+                  accessibilityLabel={t('favorites.songCardA11y', { songName, playlistTitle })}
+                  accessibilityRole="button"
+                  activeOpacity={0.7}>
+                  <SongNumberBadge number={favorite.songNumber} />
+                  <View style={styles.songInfo}>
+                    <View style={styles.playlistRow}>
+                      <ThemedText style={[styles.playlistLabel, { color: colors.icon, opacity: 0.7 }]}>
+                        {playlistTitle}
                       </ThemedText>
-                    )}
+                      {favorite.likedAt && hasHydrated && (
+                        <ThemedText style={[styles.likedDate, { color: colors.icon, opacity: 0.5 }]}>
+                          • {formatDate(favorite.likedAt)}
+                        </ThemedText>
+                      )}
+                    </View>
+                    <ThemedText type="defaultSemiBold" style={styles.songTitle} numberOfLines={2}>
+                      {songName}
+                    </ThemedText>
                   </View>
-                  <ThemedText type="defaultSemiBold" style={styles.songTitle} numberOfLines={2}>
-                    {songName}
-                  </ThemedText>
-                </View>
+                </TouchableOpacity>
                 <TouchableOpacity
                   onPress={() => handleRemoveFavorite(favorite.playlist, favorite.songNumber)}
                   style={styles.favoriteButton}
@@ -120,7 +123,7 @@ export default function FavoritesTabScreen() {
                   activeOpacity={0.7}>
                   <IconSymbol name="heart.fill" size={24} color="#FF3B30" />
                 </TouchableOpacity>
-              </TouchableOpacity>
+              </View>
             );
           })
         )}
@@ -139,6 +142,12 @@ const styles = StyleSheet.create({
     padding: 16,
     borderRadius: 12,
     borderWidth: 1,
+    gap: 12,
+  },
+  songPressable: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
     gap: 12,
   },
   songInfo: {

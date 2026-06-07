@@ -5,6 +5,11 @@ export const en = {
   'tabs.search': 'Search',
   'tabs.settings': 'Settings',
 
+  // Web shell (wide-screen desktop layout)
+  'webShell.toggleThemeA11y': 'Toggle theme',
+  'webShell.downloadTitle': 'Get the Indirimbo App',
+  'webShell.downloadPitch': 'Browse hymns offline, save favorites, and more.',
+
   // Home
   'home.greeting.morning': 'Good morning',
   'home.greeting.afternoon': 'Good afternoon',

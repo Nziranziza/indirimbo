@@ -3,14 +3,14 @@ import { Stack } from 'expo-router';
 import Head from 'expo-router/head';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
-import { Platform, StyleSheet, View } from 'react-native';
+import { Platform } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import 'react-native-reanimated';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import { ThemedView } from '@/components/themed-view';
-import { AppInstallBanner } from '@/components/ui/app-install-banner';
 import { ForceUpdateModal } from '@/components/ui/force-update-modal';
+import { WebShell } from '@/components/web/web-shell';
 import { EngagementProvider } from '@/contexts/engagement-context';
 import { LanguageProvider } from '@/contexts/language-context';
 import { SongbookPreferenceProvider } from '@/contexts/songbook-preference-context';
@@ -159,16 +159,7 @@ function RootLayout() {
         <ThemeProvider>
         <UpdateCheckProvider>
         <EngagementProvider>
-          {Platform.OS === 'web' ? (
-            <ThemedView style={{ flex: 1}}>
-            <View style={styles.webWrapper}>
-              <AppInstallBanner />
-              {content}
-            </View>
-            </ThemedView>
-          ) : (
-            content
-          )}
+          {Platform.OS === 'web' ? <WebShell>{content}</WebShell> : content}
         </EngagementProvider>
         </UpdateCheckProvider>
         </ThemeProvider>
@@ -186,14 +177,5 @@ function RootLayout() {
     </Head.Provider>
   );
 }
-
-const styles = StyleSheet.create({
-  webWrapper: {
-    flex: 1,
-    width: '100%',
-    maxWidth: 428, // Typical mobile width (iPhone 14 Pro Max)
-    alignSelf: 'center',
-  },
-});
 
 export default Sentry.wrap(RootLayout);

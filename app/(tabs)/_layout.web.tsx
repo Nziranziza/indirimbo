@@ -2,12 +2,16 @@ import { Tabs } from 'expo-router';
 
 import { IconSymbol } from '@/components/ui/icon-symbol';
 import { useColors } from '@/hooks/use-colors';
+import { useIsWideScreen } from '@/hooks/use-is-wide-screen';
 
 export default function TabLayout() {
   const colors = useColors();
+  const isWide = useIsWideScreen();
 
   return (
     <Tabs
+      // On wide screens the left sidebar handles navigation, so drop the bottom tab bar.
+      tabBar={isWide ? () => null : undefined}
       screenOptions={{
         headerShown: false,
         tabBarActiveTintColor: colors.tint,

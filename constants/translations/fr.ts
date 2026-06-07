@@ -7,6 +7,11 @@ export const fr: EnTranslations = {
   'tabs.search': 'Recherche',
   'tabs.settings': 'Paramètres',
 
+  // Web shell (wide-screen desktop layout)
+  'webShell.toggleThemeA11y': 'Changer le thème',
+  'webShell.downloadTitle': "Obtenez l'application Indirimbo",
+  'webShell.downloadPitch': 'Parcourez les cantiques hors ligne, enregistrez vos favoris, et plus encore.',
+
   // Home
   'home.greeting.morning': 'Bonjour',
   'home.greeting.afternoon': 'Bon après-midi',
