@@ -1,5 +1,5 @@
 import { DarkTheme, DefaultTheme, ThemeProvider as NavigationThemeProvider } from '@react-navigation/native';
-import { Stack } from 'expo-router';
+import { Stack, useNavigationContainerRef } from 'expo-router';
 import Head from 'expo-router/head';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
@@ -19,7 +19,7 @@ import { ThemeProvider, useColorScheme } from '@/contexts/theme-context';
 import { UpdateCheckProvider } from '@/contexts/update-check-context';
 import { useHydrated } from '@/hooks/use-hydrated';
 import { initAnalytics, trackAppUpdateIfChanged } from '@/utils/analytics';
-import { Sentry, initSentry } from '@/utils/sentry';
+import { Sentry, initSentry, navigationIntegration } from '@/utils/sentry';
 import { recordAppOpen } from '@/utils/storage';
 
 initSentry();
@@ -148,6 +148,14 @@ function RootLayoutContent() {
 
 function RootLayout() {
   const hasHydrated = useHydrated();
+  const navigationRef = useNavigationContainerRef();
+
+  useEffect(() => {
+    if (navigationRef?.current) {
+      navigationIntegration.registerNavigationContainer(navigationRef);
+    }
+  }, [navigationRef]);
+
   const content = hasHydrated ? <RootLayoutContent /> : <ThemedView style={{ flex: 1 }} />;
   
   const inner = (

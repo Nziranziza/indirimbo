@@ -129,7 +129,6 @@ export const en = {
   'settings.legal.description': 'About the app, support, and legal policies',
   'settings.legal.about': 'About Indirimbo',
   'settings.legal.bookReferences': 'Song Book References',
-  'settings.legal.bookReferencesBadge': 'New',
   'settings.legal.help': 'Help & Support',
   'settings.legal.privacy': 'Privacy Policy',
   'settings.legal.terms': 'Terms of Service',

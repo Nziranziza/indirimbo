@@ -133,7 +133,6 @@ export const fr: EnTranslations = {
   'settings.legal.description': "À propos de l'application, support et politiques",
   'settings.legal.about': 'À propos d’Indirimbo',
   'settings.legal.bookReferences': 'Références des recueils',
-  'settings.legal.bookReferencesBadge': 'Nouveau',
   'settings.legal.help': 'Aide et support',
   'settings.legal.privacy': 'Politique de confidentialité',
   'settings.legal.terms': "Conditions d'utilisation",

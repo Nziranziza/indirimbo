@@ -220,7 +220,6 @@ export default function SettingsScreen() {
               icon="book.fill"
               label={t('settings.legal.bookReferences')}
               onPress={() => router.navigate('/book-references')}
-              badge={t('settings.legal.bookReferencesBadge')}
             />
             <SettingsLinkRow
               icon="questionmark.circle.fill"

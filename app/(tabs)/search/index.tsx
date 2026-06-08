@@ -224,7 +224,7 @@ export default function SearchScreen() {
             initialNumToRender={8}
             maxToRenderPerBatch={5}
             windowSize={3}
-            removeClippedSubviews={true}
+            removeClippedSubviews={false}
             ListHeaderComponent={
               <View>
                 {Platform.OS === "ios" &&
