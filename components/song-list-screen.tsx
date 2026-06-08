@@ -234,7 +234,7 @@ export function SongListScreen({ title, iconName, songs, playlist, source, onSha
         }}
         showsVerticalScrollIndicator={false}
         keyboardShouldPersistTaps="handled"
-        removeClippedSubviews={true}
+        removeClippedSubviews={false}
         maxToRenderPerBatch={20}
         initialNumToRender={30}
         windowSize={10}
