@@ -111,6 +111,11 @@ interface EngagementContextValue {
 
 const EngagementContext = createContext<EngagementContextValue | null>(null);
 
+// Carries the alert overlay node so it can be mounted inside the web content
+// column (via WebShell) instead of at the provider root, where it would span
+// the full viewport. On native it is rendered at the root directly.
+const EngagementOverlayContext = createContext<ReactNode>(null);
+
 function isOnCooldown(lastShownAt: number | null, cooldownMs: number): boolean {
   if (!lastShownAt) return false;
   return Date.now() - lastShownAt < cooldownMs;
@@ -421,9 +426,8 @@ export function EngagementProvider({ children }: { readonly children: ReactNode 
     void openStoreForCurrentPlatform();
   }, []);
 
-  return (
-    <EngagementContext.Provider value={value}>
-      {children}
+  const overlayNode = (
+    <>
       {activePrompt && promptConfig ? (
         <InAppAlert
           visible
@@ -456,8 +460,23 @@ export function EngagementProvider({ children }: { readonly children: ReactNode 
         onPress={handleUpdateTap}
         accessibilityLabel={t('common.update.bannerA11y')}
       />
+    </>
+  );
+
+  return (
+    <EngagementContext.Provider value={value}>
+      <EngagementOverlayContext.Provider value={overlayNode}>
+        {children}
+        {/* Native renders the overlay at the root; on web WebShell mounts it
+            inside the content column so it stays column-bound. */}
+        {Platform.OS === 'web' ? null : overlayNode}
+      </EngagementOverlayContext.Provider>
     </EngagementContext.Provider>
   );
+}
+
+export function useEngagementOverlay(): ReactNode {
+  return useContext(EngagementOverlayContext);
 }
 
 export function useEngagement(): EngagementContextValue {

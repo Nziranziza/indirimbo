@@ -7,6 +7,7 @@ import { AppInstallBanner } from '@/components/ui/app-install-banner';
 import { WebRightColumn } from '@/components/web/web-right-column';
 import { WebSidebar } from '@/components/web/web-sidebar';
 import { CONTENT_MAX_WIDTH } from '@/constants/layout';
+import { useEngagementOverlay } from '@/contexts/engagement-context';
 import { useColors } from '@/hooks/use-colors';
 import { useIsWideScreen } from '@/hooks/use-is-wide-screen';
 
@@ -21,6 +22,7 @@ export function WebShell({ children }: WebShellProps) {
   const colors = useColors();
   const isWide = useIsWideScreen();
   const pathname = usePathname();
+  const engagementOverlay = useEngagementOverlay();
 
   const isExcluded = FRAME_EXCLUDED_PREFIXES.some((prefix) => pathname.startsWith(prefix));
 
@@ -30,6 +32,7 @@ export function WebShell({ children }: WebShellProps) {
         <View style={styles.narrowWrapper}>
           <AppInstallBanner />
           {children}
+          {engagementOverlay}
         </View>
       </ThemedView>
     );
@@ -50,6 +53,7 @@ export function WebShell({ children }: WebShellProps) {
               },
             ]}>
             {children}
+            {engagementOverlay}
           </View>
           <WebRightColumn />
         </View>
