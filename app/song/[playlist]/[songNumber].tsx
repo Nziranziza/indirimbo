@@ -39,7 +39,6 @@ import { PageHead } from "@/components/page-head";
 import { buildSongSeoDescription } from "@/utils/seo-description";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
-  Dimensions,
   LayoutChangeEvent,
   Platform,
   StyleSheet,
@@ -486,13 +485,20 @@ export default function SongScreen() {
   }, [currentSong, colors, fontSizeStyles, t]);
 
   const measureFavoriteButton = useCallback(() => {
-    favoriteButtonRef.current?.measureInWindow((x, _y, width) => {
-      if (x > 0) {
-        const screenWidth = Dimensions.get('window').width;
-        const buttonCenterFromRight = screenWidth - (x + width / 2);
+    const buttonView = favoriteButtonRef.current;
+    const containerView = containerRef.current;
+    if (!buttonView || !containerView) return;
+    // Measure the heart's center against the container's right edge — not the
+    // window's. On web the content column is inset from the viewport (sidebar +
+    // right column), so window-relative math pushes the arrow far off target.
+    buttonView.measureInWindow((x, _y, width) => {
+      if (x <= 0) return;
+      containerView.measureInWindow((containerX, _cy, containerWidth) => {
+        const containerRightEdge = containerX + containerWidth;
+        const buttonCenterFromRight = containerRightEdge - (x + width / 2);
         const cardRightMargin = 12;
         setArrowRightOffset(buttonCenterFromRight - cardRightMargin);
-      }
+      });
     });
   }, []);
 
