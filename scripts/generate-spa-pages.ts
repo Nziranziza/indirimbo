@@ -18,6 +18,13 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { escapeHtml, buildJsonLdTag, stripJsonLd } from './utils';
 import { BOOKS } from '../constants/book-names';
+import {
+  APP_STORE_LISTINGS,
+  APP_NAME,
+  APP_CATEGORY,
+  APP_CONTENT_RATING,
+  type AppStoreListing,
+} from '../constants/app-store-data';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -115,6 +122,75 @@ function generatePage({
   return html;
 }
 
+// --- app store structured data ----------------------------------------------
+
+const RATING_BEST = '5';
+const RATING_WORST = '1';
+
+function starString(rating: number): string {
+  const full = Math.round(rating);
+  return '★'.repeat(full) + '☆'.repeat(Math.max(0, 5 - full));
+}
+
+/**
+ * Builds SoftwareApplication JSON-LD for one store listing, including its
+ * aggregateRating and featured reviews. One node per platform so each rating
+ * maps to the genuine, store-visible value.
+ */
+function buildSoftwareAppJsonLd(listing: AppStoreListing): object {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    name: APP_NAME,
+    operatingSystem: listing.operatingSystem,
+    applicationCategory: APP_CATEGORY,
+    contentRating: APP_CONTENT_RATING,
+    author: { '@type': 'Person', name: listing.developer },
+    url: listing.url,
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: String(listing.ratingValue),
+      ratingCount: String(listing.ratingCount),
+      bestRating: RATING_BEST,
+      worstRating: RATING_WORST,
+    },
+    review: listing.reviews.map((r) => ({
+      '@type': 'Review',
+      author: { '@type': 'Person', name: r.author },
+      datePublished: r.datePublished,
+      ...(r.title ? { name: r.title } : {}),
+      reviewBody: r.body,
+      reviewRating: {
+        '@type': 'Rating',
+        ratingValue: String(r.rating),
+        bestRating: RATING_BEST,
+        worstRating: RATING_WORST,
+      },
+    })),
+  };
+}
+
+/**
+ * Builds a crawlable, page-visible ratings & reviews block so the rating in the
+ * SoftwareApplication JSON-LD is backed by content actually present on the page.
+ */
+function buildAppRatingsNoscript(): string {
+  const listings = APP_STORE_LISTINGS.filter((l) => l.url);
+  const summary = listings
+    .map((l) => `${l.store}: ${l.ratingValue} out of 5 (${l.ratingCount} ratings)`)
+    .join('. ');
+  const reviewItems = listings
+    .flatMap((l) =>
+      l.reviews.map((r) => {
+        const title = r.title ? `<strong>${escapeHtml(r.title)}</strong> — ` : '';
+        return `<li>${starString(r.rating)} ${title}${escapeHtml(r.author)} (${escapeHtml(l.store)}): ${escapeHtml(r.body)}</li>`;
+      })
+    )
+    .join('');
+  return `<h2>Ratings &amp; Reviews</h2><p>${escapeHtml(summary)}.</p><ul>${reviewItems}</ul>`;
+}
+
 // --- SPA routes to generate -------------------------------------------------
 
 const bookReferenceItems = BOOKS.map(
@@ -139,6 +215,7 @@ const spaPages: Array<{
   ogImage?: string;
   ogLocale?: string;
   noindex?: boolean;
+  softwareApp?: boolean;
 }> = [
   {
     path: 'book-references',
@@ -313,6 +390,7 @@ const spaPages: Array<{
     title: 'Download Indirimbo - Rwandan Hymns App',
     description: 'Download Indirimbo for iOS and Android. Browse Rwandan church hymns from Agakiza and Gushimisha Imana hymnbooks. Free on the App Store and Google Play.',
     keywords: 'indirimbo download, indirimbo app, rwandan hymns app, agakiza app, gushimisha app',
+    softwareApp: true,
     noscriptHtml: `<noscript><article>
 <h1>Download Indirimbo</h1>
 <p>Get the Indirimbo app for the best experience. Browse hymns offline, save favorites, customize your reading experience, and more.</p>
@@ -334,6 +412,7 @@ const spaPages: Array<{
     title: 'Download Indirimbo - Cantiques Kirundi & Rwandan Hymns App',
     description: 'Download Indirimbo for iOS and Android. Browse Cantiques Kirundi alongside Gushimisha Imana and Agakiza hymnbooks. Free on the App Store and Google Play.',
     keywords: 'indirimbo download, cantiques kirundi app, burundian hymns app, indirimbo zo guhimbaza imana, kirundi worship songs',
+    softwareApp: true,
     ogImage: `${BASE_URL}/og-image-kirundi.jpg`,
     ogLocale: 'rn_BI',
     noscriptHtml: `<noscript><article>
@@ -407,9 +486,25 @@ for (const page of spaPages) {
     ],
   });
 
-  let jsonLdTags = breadcrumbJsonLd;
+  const extraJsonLd: object[] = [];
   if (page.extraJsonLd) {
-    jsonLdTags += `\n${buildJsonLdTag(page.extraJsonLd)}`;
+    extraJsonLd.push(page.extraJsonLd);
+  }
+
+  let noscriptHtml = page.noscriptHtml;
+  if (page.softwareApp) {
+    for (const listing of APP_STORE_LISTINGS) {
+      if (listing.url) {
+        extraJsonLd.push(buildSoftwareAppJsonLd(listing));
+      }
+    }
+    // Insert the page-visible ratings block before the closing nav.
+    noscriptHtml = noscriptHtml.replace('<nav>', `${buildAppRatingsNoscript()}<nav>`);
+  }
+
+  let jsonLdTags = breadcrumbJsonLd;
+  for (const obj of extraJsonLd) {
+    jsonLdTags += `\n${buildJsonLdTag(obj)}`;
   }
 
   const html = generatePage({
@@ -417,7 +512,7 @@ for (const page of spaPages) {
     description: page.description,
     canonicalUrl,
     keywords: page.keywords,
-    noscriptHtml: page.noscriptHtml,
+    noscriptHtml,
     jsonLdTags,
     ogImage: page.ogImage,
     ogLocale: page.ogLocale,
