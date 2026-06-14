@@ -19,11 +19,9 @@ export function useKeepAwake(lineCount: number) {
   const safeDeactivate = useCallback(() => {
     if (!isActiveRef.current) return;
     isActiveRef.current = false;
-    try {
-      deactivateKeepAwake(KEEP_AWAKE_TAG);
-    } catch (error) {
+    deactivateKeepAwake(KEEP_AWAKE_TAG).catch((error) => {
       console.error(error);
-    }
+    });
   }, []);
 
   const resetKeepAwake = useCallback(() => {
