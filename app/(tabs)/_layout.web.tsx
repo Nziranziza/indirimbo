@@ -1,5 +1,8 @@
 import { Tabs } from 'expo-router';
+import { useCallback } from 'react';
+import type { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 
+import { AdaptiveWebTabBar } from '@/components/web/adaptive-web-tab-bar';
 import { IconSymbol } from '@/components/ui/icon-symbol';
 import { useColors } from '@/hooks/use-colors';
 import { useIsWideScreen } from '@/hooks/use-is-wide-screen';
@@ -8,10 +11,16 @@ export default function TabLayout() {
   const colors = useColors();
   const isWide = useIsWideScreen();
 
+  // On wide screens the left sidebar handles navigation, so drop the bottom tab
+  // bar; on phone widths it slides away on scroll via AdaptiveWebTabBar.
+  const renderTabBar = useCallback(
+    (props: BottomTabBarProps) => (isWide ? null : <AdaptiveWebTabBar {...props} />),
+    [isWide],
+  );
+
   return (
     <Tabs
-      // On wide screens the left sidebar handles navigation, so drop the bottom tab bar.
-      tabBar={isWide ? () => null : undefined}
+      tabBar={renderTabBar}
       screenOptions={{
         headerShown: false,
         tabBarActiveTintColor: colors.tint,
