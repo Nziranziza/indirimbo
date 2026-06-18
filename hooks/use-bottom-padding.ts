@@ -17,5 +17,11 @@ export function useBottomPadding({ inTabs = false, hasFab = false }: BottomPaddi
     ? CONTENT_BOTTOM_SPACING
     : insets.bottom + CONTENT_BOTTOM_SPACING;
 
-  return base + (hasFab ? FAB_CLEARANCE : 0);
+  // On web, a non-tab screen's FAB sits CONTENT_BOTTOM_SPACING higher than one
+  // inside the tabs (no safe-area inset to absorb it), so it would touch the
+  // last item with the standard clearance. Reserve a little extra there only.
+  const webNonTabExtra =
+    hasFab && !inTabs && Platform.OS === 'web' ? CONTENT_BOTTOM_SPACING : 0;
+
+  return base + (hasFab ? FAB_CLEARANCE : 0) + webNonTabExtra;
 }

@@ -151,7 +151,7 @@ export interface ThemeOption {
 }
 
 export const THEME_OPTIONS: readonly ThemeOption[] = [
-  { value: 'light', labelKey: 'settings.theme.lightLabel', descriptionKey: 'settings.theme.lightDescription', icon: 'sun.max' },
-  { value: 'dark', labelKey: 'settings.theme.darkLabel', descriptionKey: 'settings.theme.darkDescription', icon: 'moon' },
   { value: 'auto', labelKey: 'settings.theme.autoLabel', descriptionKey: 'settings.theme.autoDescription', icon: 'circle.lefthalf.filled' },
+  { value: 'dark', labelKey: 'settings.theme.darkLabel', descriptionKey: 'settings.theme.darkDescription', icon: 'moon' },
+  { value: 'light', labelKey: 'settings.theme.lightLabel', descriptionKey: 'settings.theme.lightDescription', icon: 'sun.max' },
 ];
