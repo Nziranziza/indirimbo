@@ -22,7 +22,7 @@ export interface SearchResult {
   readonly snippet: { label: string; snippet: string } | null;
 }
 
-export function useSearch(allSongs: Record<string, Song[]>, debouncedQuery: string): SearchResult[] {
+export function useSearch(allSongs: Record<string, Song[]>, query: string): SearchResult[] {
   // Create flat list with pre-computed search fields
   const allSongsFlat = useMemo(() => {
     return Object.entries(allSongs).flatMap(([playlist, songs]) =>
@@ -74,18 +74,18 @@ export function useSearch(allSongs: Record<string, Song[]>, debouncedQuery: stri
 
   // Compute ranked search results
   return useMemo(() => {
-    if (!debouncedQuery.trim() || !fuseInstance) {
+    if (!query.trim() || !fuseInstance) {
       return [];
     }
 
-    const query = debouncedQuery.trim();
-    const lowerQuery = query.toLowerCase();
+    const trimmedQuery = query.trim();
+    const lowerQuery = trimmedQuery.toLowerCase();
     const collapsedQuery = collapseContractions(lowerQuery);
     const words = lowerQuery.split(/\s+/).filter(w => w.length >= 2 || /^\d+$/.test(w));
 
     if (words.length === 0) return [];
 
-    const results = fuseInstance.search(query, { limit: 50 });
+    const results = fuseInstance.search(trimmedQuery, { limit: 50 });
     const collapsedWords = words.map(w => collapseContractions(w));
 
     const ranked = results.map((r: { item: FlatSong; score?: number }) => {
@@ -115,5 +115,5 @@ export function useSearch(allSongs: Record<string, Song[]>, debouncedQuery: stri
     });
 
     return ranked.slice(0, 30);
-  }, [debouncedQuery, fuseInstance]);
+  }, [query, fuseInstance]);
 }

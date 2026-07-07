@@ -6,7 +6,6 @@ import { SearchInput, type SearchInputRef } from '@/components/ui/search-input';
 import { RecentItemsList } from '@/components/search/recent-items-list';
 import { useColors } from '@/hooks/use-colors';
 import { useColorScheme } from '@/contexts/theme-context';
-import { useDebounce } from '@/hooks/use-debounce';
 import { useSearch } from '@/hooks/use-search';
 import { useSongbooks } from '@/hooks/use-songbooks';
 import { useTranslation } from '@/hooks/use-translation';
@@ -43,7 +42,6 @@ export default function SearchScreen() {
   const insets = useSafeAreaInsets();
   const { t } = useTranslation();
   const [searchQuery, setSearchQuery] = useState('');
-  const [debouncedSearchQuery, flushSearch] = useDebounce(searchQuery, 150);
   const searchBarRef = useRef<SearchBarCommands>(null);
   const searchInputRef = useRef<SearchInputRef>(null);
   const [isInputFocused, setIsInputFocused] = useState(false);
@@ -54,7 +52,7 @@ export default function SearchScreen() {
 
   const { visibleSongs } = useSongbooks();
 
-  const searchResults = useSearch(visibleSongs, debouncedSearchQuery);
+  const searchResults = useSearch(visibleSongs, searchQuery);
 
   const pendingSessionRef = useRef<SearchSession | null>(null);
   const noResultTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -104,7 +102,7 @@ export default function SearchScreen() {
 
   const handleSongPress = useCallback((playlist: string, songNumber: number | string) => {
     _navigatedToSong = true;
-    const trimmed = debouncedSearchQuery.trim();
+    const trimmed = searchQuery.trim();
     if (trimmed.length >= MIN_TRACKED_QUERY_LENGTH) {
       if (!pendingSessionRef.current) {
         pendingSessionRef.current = { query: trimmed, resultCount: searchResults.length };
@@ -120,13 +118,13 @@ export default function SearchScreen() {
       pathname: '/song/[playlist]/[songNumber]',
       params: { playlist, songNumber: String(songNumber), source: 'search' },
     });
-  }, [router, debouncedSearchQuery, searchResults.length, fireSearchEvent]);
+  }, [router, searchQuery, searchResults.length, fireSearchEvent]);
 
   // Track the active search session and schedule a 'no_result' event after
   // the query has been stable with zero results for SEARCH_NO_RESULT_DELAY_MS.
   // 'abandoned' fires when the query is shortened below the threshold.
   useEffect(() => {
-    const trimmed = debouncedSearchQuery.trim();
+    const trimmed = searchQuery.trim();
 
     if (noResultTimerRef.current) {
       clearTimeout(noResultTimerRef.current);
@@ -145,15 +143,14 @@ export default function SearchScreen() {
         fireSearchEvent('no_result');
       }, SEARCH_NO_RESULT_DELAY_MS);
     }
-  }, [debouncedSearchQuery, searchResults.length, fireSearchEvent]);
+  }, [searchQuery, searchResults.length, fireSearchEvent]);
 
   const handleRecentSearchTap = useCallback((query: string) => {
     setSearchQuery(query);
     if (isIOS) {
       searchBarRef.current?.setText(query);
     }
-    flushSearch(query);
-  }, [isIOS, flushSearch]);
+  }, [isIOS]);
 
   const handleRemoveRecentSearch = useCallback((query: string) => {
     removeRecentSearch(query).then(() =>
@@ -208,7 +205,7 @@ export default function SearchScreen() {
             />
           </>
         )}
-        {debouncedSearchQuery.trim() ? (
+        {searchQuery.trim() ? (
           <FlatList
             data={searchResults}
             keyExtractor={(item, index) =>
@@ -237,7 +234,7 @@ export default function SearchScreen() {
               </View>
             }
             ListEmptyComponent={
-              debouncedSearchQuery.trim().length < 2 ? (
+              searchQuery.trim().length < 2 ? (
                 <ThemedView style={styles.emptyState}>
                   <ThemedText style={[styles.emptyHint, { color: colors.icon }]}>
                     {t('search.keepTyping')}
@@ -260,7 +257,7 @@ export default function SearchScreen() {
                 playlist={result.playlist}
                 song={result.song}
                 snippet={result.snippet}
-                query={debouncedSearchQuery}
+                query={searchQuery}
                 onPress={handleSongPress}
                 colors={colors}
               />
