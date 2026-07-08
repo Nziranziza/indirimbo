@@ -7,6 +7,14 @@ const restoreLangScript = `(function(){try{var v=localStorage.getItem('${LANGUAG
 // the input's own styling already conveys focus.
 const focusResetStyle = `input:focus,textarea:focus{outline:none;}`;
 
+// Microsoft Clarity — web-only session analytics. Gated off in dev by default
+// (like Aptabase in utils/analytics.web.ts) so local sessions aren't recorded;
+// set EXPO_PUBLIC_ENABLE_ANALYTICS_IN_DEV=true to opt in.
+const CLARITY_PROJECT_ID = 'xj6ux8ywhp';
+const isAnalyticsEnabled =
+  !__DEV__ || process.env.EXPO_PUBLIC_ENABLE_ANALYTICS_IN_DEV === 'true';
+const clarityScript = `(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window, document, "clarity", "script", "${CLARITY_PROJECT_ID}");`;
+
 export default function Root({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
@@ -20,6 +28,9 @@ export default function Root({ children }: { children: React.ReactNode }) {
         <meta name="color-scheme" content="light dark" />
 
         <script dangerouslySetInnerHTML={{ __html: restoreLangScript }} />
+        {isAnalyticsEnabled && (
+          <script dangerouslySetInnerHTML={{ __html: clarityScript }} />
+        )}
         <style dangerouslySetInnerHTML={{ __html: focusResetStyle }} />
         <ScrollViewStyleReset />
       </head>

@@ -148,7 +148,7 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     alignItems: 'center',
     justifyContent: 'center',
-    rowGap: 6,
+    rowGap: 2,
     columnGap: 12,
   },
   footerLink: {
