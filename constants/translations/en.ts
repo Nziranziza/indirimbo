@@ -415,6 +415,9 @@ export const en = {
   'common.kirundiPinSuggestion.description': 'Add it to your home for quick access.',
   'common.kirundiPinSuggestion.acceptCta': 'Pin',
   'common.kirundiPinSuggestion.dismissA11y': 'Dismiss',
+
+  // App install banner (web smart banner)
+  'appInstallBanner.tagline': 'Continue in the app',
 } as const;
 
 export type TranslationKey = keyof typeof en;

@@ -6,6 +6,7 @@ import { GooglePlayIcon } from '@/components/ui/google-play-icon';
 import { IconSymbol } from '@/components/ui/icon-symbol';
 import { APP_STORE_URL, PLAY_STORE_URL } from '@/constants/app-links';
 import { useColors } from '@/hooks/use-colors';
+import { useTranslation } from '@/hooks/use-translation';
 import { trackEvent } from '@/utils/analytics';
 
 const APP_SCHEME = 'indirimbo://';
@@ -33,6 +34,7 @@ function getMobilePlatform(userAgent: string) {
 
 export function AppInstallBanner() {
   const colors = useColors();
+  const { t } = useTranslation();
   const [isVisible, setIsVisible] = useState(false);
   const [platform, setPlatform] = useState<'ios' | 'android' | null>(null);
   const [canOpenApp, setCanOpenApp] = useState(false);
@@ -159,7 +161,7 @@ export function AppInstallBanner() {
             </Text>
           </View>
           <Text style={[styles.appName, { color: colors.text }]}>Indirimbo</Text>
-          <Text style={[styles.tagline, { color: colors.icon }]}>Agakiza no Gushimisha Imana</Text>
+          <Text style={[styles.tagline, { color: colors.icon }]}>{t('appInstallBanner.tagline')}</Text>
         </View>
         {canOpenApp ? (
           <View style={[styles.actionButton, { backgroundColor: colors.tint }]}>

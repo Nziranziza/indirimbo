@@ -2,7 +2,11 @@ import { IconSymbol } from '@/components/ui/icon-symbol';
 import { useColors } from '@/hooks/use-colors';
 import { useTranslation } from '@/hooks/use-translation';
 import { Pressable, StyleSheet, TextInput } from 'react-native';
-import { forwardRef, useImperativeHandle, useRef } from 'react';
+import { forwardRef, useCallback, useImperativeHandle, useRef, useState } from 'react';
+
+// Neutral focus ring (theme foreground at ~33% opacity) — a visible focus cue
+// for keyboard/switch-control users without the accent-blue border.
+const FOCUS_BORDER_OPACITY = '55';
 
 export interface SearchInputRef {
   focus: () => void;
@@ -23,16 +27,30 @@ export const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
     const colors = useColors();
     const { t } = useTranslation();
     const inputRef = useRef<TextInput>(null);
+    const [isFocused, setIsFocused] = useState(false);
 
     useImperativeHandle(ref, () => ({
       focus: () => inputRef.current?.focus(),
     }));
 
+    const handleFocus = useCallback(() => {
+      setIsFocused(true);
+      onFocus?.();
+    }, [onFocus]);
+
+    const handleBlur = useCallback(() => {
+      setIsFocused(false);
+      onBlur?.();
+    }, [onBlur]);
+
     return (
       <Pressable
         style={[
           styles.container,
-          { backgroundColor: colors.icon + '1A' },
+          {
+            backgroundColor: colors.icon + '1A',
+            borderColor: isFocused ? colors.text + FOCUS_BORDER_OPACITY : 'transparent',
+          },
           style
         ]}
         accessibilityRole="search"
@@ -48,8 +66,8 @@ export const SearchInput = forwardRef<SearchInputRef, SearchInputProps>(
           returnKeyType="search"
           accessibilityLabel={t('common.search.inputA11y')}
           autoFocus={autoFocus}
-          onFocus={onFocus}
-          onBlur={onBlur}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
         />
         {value.length > 0 && (
           <Pressable
@@ -77,6 +95,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 4,
     borderRadius: 999,
+    borderWidth: 1,
+    borderColor: 'transparent',
   },
   input: {
     flex: 1,
