@@ -20,7 +20,7 @@ import {
 } from '@/utils/storage';
 import { trackEvent } from '@/utils/analytics';
 import { Stack, useFocusEffect, useRouter } from 'expo-router';
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useDeferredValue, useEffect, useRef, useState } from 'react';
 import { FlatList, Platform, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import type { SearchBarCommands } from 'react-native-screens';
@@ -42,6 +42,9 @@ export default function SearchScreen() {
   const insets = useSafeAreaInsets();
   const { t } = useTranslation();
   const [searchQuery, setSearchQuery] = useState('');
+  // Keep the input instant while the heavy Fuse search runs at lower priority,
+  // so fast typing never blocks on ranking/snippet work (no fixed debounce delay).
+  const deferredSearchQuery = useDeferredValue(searchQuery);
   const searchBarRef = useRef<SearchBarCommands>(null);
   const searchInputRef = useRef<SearchInputRef>(null);
   const [isInputFocused, setIsInputFocused] = useState(false);
@@ -52,7 +55,7 @@ export default function SearchScreen() {
 
   const { visibleSongs } = useSongbooks();
 
-  const searchResults = useSearch(visibleSongs, searchQuery);
+  const searchResults = useSearch(visibleSongs, deferredSearchQuery);
 
   const pendingSessionRef = useRef<SearchSession | null>(null);
   const noResultTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -102,7 +105,7 @@ export default function SearchScreen() {
 
   const handleSongPress = useCallback((playlist: string, songNumber: number | string) => {
     _navigatedToSong = true;
-    const trimmed = searchQuery.trim();
+    const trimmed = deferredSearchQuery.trim();
     if (trimmed.length >= MIN_TRACKED_QUERY_LENGTH) {
       if (!pendingSessionRef.current) {
         pendingSessionRef.current = { query: trimmed, resultCount: searchResults.length };
@@ -118,13 +121,13 @@ export default function SearchScreen() {
       pathname: '/song/[playlist]/[songNumber]',
       params: { playlist, songNumber: String(songNumber), source: 'search' },
     });
-  }, [router, searchQuery, searchResults.length, fireSearchEvent]);
+  }, [router, deferredSearchQuery, searchResults.length, fireSearchEvent]);
 
   // Track the active search session and schedule a 'no_result' event after
   // the query has been stable with zero results for SEARCH_NO_RESULT_DELAY_MS.
   // 'abandoned' fires when the query is shortened below the threshold.
   useEffect(() => {
-    const trimmed = searchQuery.trim();
+    const trimmed = deferredSearchQuery.trim();
 
     if (noResultTimerRef.current) {
       clearTimeout(noResultTimerRef.current);
@@ -143,7 +146,7 @@ export default function SearchScreen() {
         fireSearchEvent('no_result');
       }, SEARCH_NO_RESULT_DELAY_MS);
     }
-  }, [searchQuery, searchResults.length, fireSearchEvent]);
+  }, [deferredSearchQuery, searchResults.length, fireSearchEvent]);
 
   const handleRecentSearchTap = useCallback((query: string) => {
     setSearchQuery(query);
@@ -234,7 +237,7 @@ export default function SearchScreen() {
               </View>
             }
             ListEmptyComponent={
-              searchQuery.trim().length < 2 ? (
+              deferredSearchQuery.trim().length < 2 ? (
                 <ThemedView style={styles.emptyState}>
                   <ThemedText style={[styles.emptyHint, { color: colors.icon }]}>
                     {t('search.keepTyping')}
@@ -257,7 +260,7 @@ export default function SearchScreen() {
                 playlist={result.playlist}
                 song={result.song}
                 snippet={result.snippet}
-                query={searchQuery}
+                query={deferredSearchQuery}
                 onPress={handleSongPress}
                 colors={colors}
               />

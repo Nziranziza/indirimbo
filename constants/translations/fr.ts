@@ -450,4 +450,7 @@ export const fr: EnTranslations = {
     "Ajoutez-le à votre accueil pour un accès rapide.",
   'common.kirundiPinSuggestion.acceptCta': 'Épingler',
   'common.kirundiPinSuggestion.dismissA11y': 'Fermer',
+
+  // App install banner (web smart banner)
+  'appInstallBanner.tagline': "Continuer dans l'application",
 };
