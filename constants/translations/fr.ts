@@ -453,4 +453,10 @@ export const fr: EnTranslations = {
 
   // App install banner (web smart banner)
   'appInstallBanner.tagline': "Continuer dans l'application",
+
+  // App install prompt (web secondary popup shown after interaction)
+  'appInstallPrompt.title': "Mieux dans l'application",
+  'appInstallPrompt.message': "Installez Indirimbo pour profiter de toute l'expérience",
+  'appInstallPrompt.install': 'Installer',
+  'appInstallPrompt.notNow': 'Plus tard',
 };

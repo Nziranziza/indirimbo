@@ -4,6 +4,7 @@ import { StyleSheet, View } from 'react-native';
 
 import { ThemedView } from '@/components/themed-view';
 import { AppInstallBanner } from '@/components/ui/app-install-banner';
+import { AppInstallPrompt } from '@/components/web/app-install-prompt';
 import { WebRightColumn } from '@/components/web/web-right-column';
 import { WebSidebar } from '@/components/web/web-sidebar';
 import { CONTENT_MAX_WIDTH } from '@/constants/layout';
@@ -33,6 +34,7 @@ export function WebShell({ children }: WebShellProps) {
           <AppInstallBanner />
           {children}
           {engagementOverlay}
+          <AppInstallPrompt />
         </View>
       </ThemedView>
     );
