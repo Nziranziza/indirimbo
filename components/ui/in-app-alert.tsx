@@ -69,6 +69,8 @@ type InAppAlertIconProps =
 type InAppAlertTapProps =
   | {
       readonly action?: InAppAlertAction;
+      /** Optional ghost button shown beside the primary action (e.g. "Not now"). */
+      readonly secondaryAction?: InAppAlertAction;
       readonly onPress?: never;
       readonly actionLabel?: never;
       readonly accessibilityLabel?: never;
@@ -78,6 +80,7 @@ type InAppAlertTapProps =
       readonly actionLabel?: string;
       readonly accessibilityLabel: string;
       readonly action?: never;
+      readonly secondaryAction?: never;
     };
 
 /** When dismissible, dismissA11y is required so non-English locales aren't silently served the English fallback. */
@@ -137,6 +140,7 @@ export function InAppAlert(props: InAppAlertProps) {
   const icon = 'icon' in props ? props.icon : undefined;
   const iconImage = 'iconImage' in props ? props.iconImage : undefined;
   const action = 'action' in props ? props.action : undefined;
+  const secondaryAction = 'secondaryAction' in props ? props.secondaryAction : undefined;
   const onPress = 'onPress' in props ? props.onPress : undefined;
   const actionLabel = 'actionLabel' in props ? props.actionLabel : undefined;
   const accessibilityLabel = 'accessibilityLabel' in props ? props.accessibilityLabel : undefined;
@@ -153,26 +157,36 @@ export function InAppAlert(props: InAppAlertProps) {
     animatedBottom.value = withTiming(bottomOffset, { duration: BOTTOM_TWEEN_MS });
   }, [bottomOffset, animatedBottom]);
 
+  // Plays the exit animation, then fires the optional action callback followed
+  // by onDismiss. Guards against double-dismissal and clears any pending timer.
+  const runDismissSequence = useCallback(
+    (onComplete?: () => void) => {
+      if (isDismissing.current) return;
+      isDismissing.current = true;
+      if (timerRef.current) clearTimeout(timerRef.current);
+      translateY.value = withTiming(100, { duration: ANIMATION_OUT_MS });
+      opacity.value = withTiming(0, { duration: ANIMATION_OUT_MS });
+      timerRef.current = setTimeout(() => {
+        onComplete?.();
+        resolvedOnDismiss();
+      }, ANIMATION_OUT_MS + 10);
+    },
+    [resolvedOnDismiss, translateY, opacity],
+  );
+
   const dismiss = useCallback(() => {
-    if (isDismissing.current) return;
-    isDismissing.current = true;
-    if (timerRef.current) clearTimeout(timerRef.current);
-    translateY.value = withTiming(100, { duration: ANIMATION_OUT_MS });
-    opacity.value = withTiming(0, { duration: ANIMATION_OUT_MS });
-    timerRef.current = setTimeout(resolvedOnDismiss, ANIMATION_OUT_MS + 10);
-  }, [resolvedOnDismiss, translateY, opacity]);
+    runDismissSequence();
+  }, [runDismissSequence]);
 
   const handleAction = useCallback(() => {
-    if (!action || isDismissing.current) return;
-    isDismissing.current = true;
-    if (timerRef.current) clearTimeout(timerRef.current);
-    translateY.value = withTiming(100, { duration: ANIMATION_OUT_MS });
-    opacity.value = withTiming(0, { duration: ANIMATION_OUT_MS });
-    timerRef.current = setTimeout(() => {
-      action.onPress();
-      resolvedOnDismiss();
-    }, ANIMATION_OUT_MS + 10);
-  }, [action, resolvedOnDismiss, translateY, opacity]);
+    if (!action) return;
+    runDismissSequence(action.onPress);
+  }, [action, runDismissSequence]);
+
+  const handleSecondaryAction = useCallback(() => {
+    if (!secondaryAction) return;
+    runDismissSequence(secondaryAction.onPress);
+  }, [secondaryAction, runDismissSequence]);
 
   useEffect(() => {
     if (!visible) {
@@ -268,6 +282,20 @@ export function InAppAlert(props: InAppAlertProps) {
           </ThemedText>
         )}
       </View>
+
+      {secondaryAction && (
+        <TouchableOpacity
+          onPress={handleSecondaryAction}
+          style={styles.secondaryButton}
+          activeOpacity={0.7}
+          accessibilityLabel={secondaryAction.label}
+          accessibilityRole="button"
+        >
+          <ThemedText style={[styles.secondaryButtonText, { color: colors.icon }]}>
+            {secondaryAction.label}
+          </ThemedText>
+        </TouchableOpacity>
+      )}
 
       {action && (
         <TouchableOpacity
@@ -375,6 +403,14 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 13,
     fontWeight: '700',
+  },
+  secondaryButton: {
+    paddingVertical: 7,
+    paddingHorizontal: 10,
+  },
+  secondaryButtonText: {
+    fontSize: 13,
+    fontWeight: '600',
   },
   closeButton: {
     width: 24,

@@ -418,6 +418,12 @@ export const en = {
 
   // App install banner (web smart banner)
   'appInstallBanner.tagline': 'Continue in the app',
+
+  // App install prompt (web secondary popup shown after interaction)
+  'appInstallPrompt.title': 'Better in the app',
+  'appInstallPrompt.message': 'Install Indirimbo for the full experience',
+  'appInstallPrompt.install': 'Install',
+  'appInstallPrompt.notNow': 'Not now',
 } as const;
 
 export type TranslationKey = keyof typeof en;

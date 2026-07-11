@@ -1,126 +1,44 @@
 import { Image } from 'expo-image';
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Linking, Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 import { GooglePlayIcon } from '@/components/ui/google-play-icon';
 import { IconSymbol } from '@/components/ui/icon-symbol';
-import { APP_STORE_URL, PLAY_STORE_URL } from '@/constants/app-links';
 import { useColors } from '@/hooks/use-colors';
 import { useTranslation } from '@/hooks/use-translation';
 import { trackEvent } from '@/utils/analytics';
-
-const APP_SCHEME = 'indirimbo://';
-
-function getCurrentWebPath() {
-  if (typeof window === 'undefined') {
-    return '/';
-  }
-
-  // Preserve route + query + hash so the app can open exactly where the user is.
-  const { pathname, search, hash } = window.location;
-  const path = `${pathname || '/'}${search || ''}${hash || ''}`;
-  return path.startsWith('/') ? path : `/${path}`;
-}
-
-function getMobilePlatform(userAgent: string) {
-  if (/iphone|ipad|ipod/i.test(userAgent)) {
-    return 'ios';
-  }
-  if (/android/i.test(userAgent)) {
-    return 'android';
-  }
-  return null;
-}
+import { getMobileWebPlatform, getStoreUrl, isStandaloneWeb, openAppOrStore, type MobileWebPlatform } from '@/utils/mobile-web';
 
 export function AppInstallBanner() {
   const colors = useColors();
   const { t } = useTranslation();
   const [isVisible, setIsVisible] = useState(false);
-  const [platform, setPlatform] = useState<'ios' | 'android' | null>(null);
-  const [canOpenApp, setCanOpenApp] = useState(false);
+  const [platform, setPlatform] = useState<MobileWebPlatform | null>(null);
 
   useEffect(() => {
     if (Platform.OS !== 'web' || typeof window === 'undefined') {
       return;
     }
 
-    const userAgent = window.navigator.userAgent || '';
-    const detectedPlatform = getMobilePlatform(userAgent);
-    const isStandalone =
-      window.matchMedia?.('(display-mode: standalone)')?.matches ||
-      (window.navigator as typeof window.navigator & { standalone?: boolean }).standalone ||
-      false;
-
+    const detectedPlatform = getMobileWebPlatform();
     setPlatform(detectedPlatform);
-    setIsVisible(Boolean(detectedPlatform) && !isStandalone);
+    setIsVisible(Boolean(detectedPlatform) && !isStandaloneWeb());
   }, []);
 
-  useEffect(() => {
-    // On mobile web, Linking.canOpenURL for custom schemes is unreliable
-    // (always fails on iOS Safari). When we know the app exists (store URL
-    // is set), optimistically assume it can be opened — handleOpenApp will
-    // fall back to the store if the app isn't installed.
-    if (platform) {
-      const hasStoreUrl = (platform === 'ios' && APP_STORE_URL) || (platform === 'android' && PLAY_STORE_URL);
-      setCanOpenApp(Boolean(hasStoreUrl));
-    }
-  }, [platform]);
+  const storeUrl = useMemo(() => (platform ? getStoreUrl(platform) : null), [platform]);
+  // On mobile web, Linking.canOpenURL for custom schemes is unreliable (always
+  // fails on iOS Safari). A known store URL means the app exists, so we
+  // optimistically offer to open it — openAppOrStore falls back to the store
+  // if the app isn't installed.
+  const canOpenApp = Boolean(storeUrl);
 
-  const storeUrl = useMemo(() => {
-    if (platform === 'ios') {
-      return APP_STORE_URL;
-    }
-    if (platform === 'android') {
-      return PLAY_STORE_URL;
-    }
-    return null;
-  }, [platform]);
-
-  const handleOpenApp = async () => {
-    const currentPath = getCurrentWebPath();
-    const scheme = APP_SCHEME.replace(/\/+$/, '');
-    trackEvent('tap_install_banner', { platform: platform ?? 'unknown', action: 'open' });
-
-    if (typeof window !== 'undefined' && platform === 'android') {
-      // On Android, use an Intent URL so Chrome natively falls back to the
-      // Play Store when the app isn't installed. A plain custom-scheme URL
-      // would show an error page instead.
-      const fallback = storeUrl ? `S.browser_fallback_url=${encodeURIComponent(storeUrl)};` : '';
-      const intentUrl = `intent:/${currentPath}#Intent;scheme=indirimbo;package=com.indirimbo.app;${fallback}end`;
-      window.location.href = intentUrl;
+  const handleOpenApp = useCallback(() => {
+    if (!platform) {
       return;
     }
-
-    if (typeof window !== 'undefined' && platform === 'ios') {
-      const schemeUrl = `${scheme}${currentPath}`;
-      const fallback = storeUrl;
-
-      // Navigate to the custom scheme. If the app is installed it will
-      // open; if not, the browser stays on the page and the fallback
-      // timer redirects to the store after a short delay.
-      const fallbackTimer = fallback
-        ? window.setTimeout(() => { window.location.href = fallback; }, 800)
-        : null;
-
-      window.location.href = schemeUrl;
-
-      // If the app opens, the page will be hidden. Clear the fallback
-      // so the user isn't redirected to the store when they return.
-      const onVisibilityChange = () => {
-        if (document.hidden && fallbackTimer) {
-          window.clearTimeout(fallbackTimer);
-        }
-      };
-      document.addEventListener('visibilitychange', onVisibilityChange, { once: true });
-
-      window.setTimeout(() => {
-        document.removeEventListener('visibilitychange', onVisibilityChange);
-      }, 1200);
-      return;
-    }
-
-    await Linking.openURL(`${scheme}${currentPath}`);
-  };
+    trackEvent('tap_install_banner', { platform, action: 'open' });
+    openAppOrStore(platform, storeUrl);
+  }, [platform, storeUrl]);
 
   const handleInstall = async () => {
     if (!storeUrl) {
