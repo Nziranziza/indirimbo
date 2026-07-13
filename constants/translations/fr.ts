@@ -308,6 +308,7 @@ export const fr: EnTranslations = {
 
   // Engagement prompts
   'engagement.rate.text': 'Vous aimez Indirimbo ?',
+  'engagement.rate.description': 'Une note rapide aide les autres à le trouver.',
   'engagement.rate.button': 'Noter',
   'engagement.shareApp.text': 'Connaissez-vous quelqu’un qui adorerait ?',
   'engagement.shareApp.button': 'Partager',

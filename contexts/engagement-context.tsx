@@ -75,12 +75,14 @@ const PROMPT_CONFIG: Record<
   {
     readonly icon: IconSymbolName;
     readonly titleKey: TranslationKey | null;
+    readonly messageKey?: TranslationKey;
     readonly buttonKey: TranslationKey;
   }
 > = {
   rate: {
     icon: 'star.fill',
     titleKey: 'engagement.rate.text',
+    messageKey: 'engagement.rate.description',
     buttonKey: 'engagement.rate.button',
   },
   share_app: {
@@ -426,6 +428,8 @@ export function EngagementProvider({ children }: { readonly children: ReactNode 
         ? t(promptConfig.titleKey)
         : ''
     : '';
+  const promptMessage =
+    activePrompt && promptConfig?.messageKey ? t(promptConfig.messageKey) : undefined;
 
   const showUpdateBanner = updateMode === 'banner-available' && pathname === HOME_PATHNAME;
   const updateBannerBottom = activePrompt ? promptBottom + ALERT_STACK_OFFSET : promptBottom;
@@ -441,6 +445,7 @@ export function EngagementProvider({ children }: { readonly children: ReactNode 
           visible
           icon={promptConfig.icon}
           title={promptTitle}
+          message={promptMessage}
           titleNumberOfLines={1}
           bottomOffset={promptBottom}
           duration={activePrompt.type === 'rate' ? 0 : PROMPT_AUTO_DISMISS_MS}

@@ -295,6 +295,7 @@ export const en = {
 
   // Engagement prompts
   'engagement.rate.text': 'Enjoying Indirimbo?',
+  'engagement.rate.description': 'A quick rating helps others find it.',
   'engagement.rate.button': 'Rate',
   'engagement.shareApp.text': "Know someone who'd love this?",
   'engagement.shareApp.button': 'Share',
