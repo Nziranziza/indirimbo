@@ -45,10 +45,11 @@ const HOME_PATHNAME = '/';
 const APP_ICON = require('@/assets/images/icon.png');
 
 const MAX_RATE_DISMISSALS = 3;
-const MIN_SONGS_FOR_RATE = 5;
+// A user qualifies for the rate prompt by favoriting a song (strong intent) OR
+// by viewing enough songs to have clearly gotten value — see isEngagedEnough.
+const MIN_SONGS_FOR_RATE = 15;
 const MIN_FAVORITES_FOR_RATE = 1;
 const MIN_DAYS_FOR_RATE = 2;
-const MIN_FAVORITES_FOR_RATE_AFTER_SHARE = 1;
 const MIN_DAYS_FOR_RATE_AFTER_SHARE = 2;
 const MIN_SONGS_FOR_SHARE_APP = 20;
 const MIN_FAVORITES_FOR_SHARE_APP = 5;
@@ -126,12 +127,16 @@ function isEligibleForRateStrict(
   favoritesCount: number,
   isWeb: boolean,
 ): boolean {
+  // Favoriting is rare, so requiring it AND a view count previously gated out
+  // nearly everyone. Treat either signal as "engaged enough".
+  const isEngagedEnough =
+    favoritesCount >= MIN_FAVORITES_FOR_RATE ||
+    state.totalSongViews >= MIN_SONGS_FOR_RATE;
   return (
     !isWeb &&
     !state.hasRated &&
     state.ratePromptDismissCount < MAX_RATE_DISMISSALS &&
-    state.totalSongViews >= MIN_SONGS_FOR_RATE &&
-    favoritesCount >= MIN_FAVORITES_FOR_RATE &&
+    isEngagedEnough &&
     state.distinctDaysUsed.length >= MIN_DAYS_FOR_RATE &&
     !isOnCooldown(state.lastRatePromptAt, SEVEN_DAYS)
   );
@@ -139,14 +144,14 @@ function isEligibleForRateStrict(
 
 function isEligibleForRateAfterShare(
   state: EngagementState,
-  favoritesCount: number,
   isWeb: boolean,
 ): boolean {
+  // Sharing is itself a strong positive signal, so we don't require a favorite
+  // here — a returning user who just shared is a great moment to ask.
   return (
     !isWeb &&
     !state.hasRated &&
     state.ratePromptDismissCount < MAX_RATE_DISMISSALS &&
-    favoritesCount >= MIN_FAVORITES_FOR_RATE_AFTER_SHARE &&
     state.distinctDaysUsed.length >= MIN_DAYS_FOR_RATE_AFTER_SHARE &&
     !isOnCooldown(state.lastRatePromptAt, SEVEN_DAYS)
   );
@@ -226,6 +231,7 @@ export function EngagementProvider({ children }: { readonly children: ReactNode 
       wasAcceptedRef.current = false;
       activePromptRef.current = prompt;
       setActivePrompt(prompt);
+      trackEvent('engagement_prompt_shown', { type: prompt.type });
       if (prompt.type !== 'share_song') {
         sessionPromptShownRef.current = true;
         writeState(() => ({ lastPromptShownAt: Date.now() })).catch(console.error);
@@ -294,9 +300,8 @@ export function EngagementProvider({ children }: { readonly children: ReactNode 
     shareTimerRef.current = setTimeout(async () => {
       try {
         const state = stateRef.current ?? (await getEngagementState());
-        const favorites = await getFavorites();
         const isWeb = Platform.OS === 'web';
-        if (!isEligibleForRateAfterShare(state, favorites.length, isWeb)) return;
+        if (!isEligibleForRateAfterShare(state, isWeb)) return;
         showPromptInternal({ type: 'rate' });
       } catch (error) {
         console.error('Error evaluating post-share rate prompt:', error);
@@ -334,6 +339,7 @@ export function EngagementProvider({ children }: { readonly children: ReactNode 
     if (!prompt) return;
 
     wasAcceptedRef.current = true;
+    trackEvent('engagement_prompt_accepted', { type: prompt.type });
     mediumImpact();
 
     try {
@@ -369,6 +375,8 @@ export function EngagementProvider({ children }: { readonly children: ReactNode 
     setActivePrompt(null);
 
     if (wasAcceptedRef.current) return;
+
+    trackEvent('engagement_prompt_dismissed', { type: prompt.type });
 
     if (prompt.type === 'rate') {
       writeState((prev) => ({
