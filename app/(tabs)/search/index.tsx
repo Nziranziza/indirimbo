@@ -4,9 +4,11 @@ import { ThemedView } from '@/components/themed-view';
 import { SearchResultItem } from '@/components/ui/search-result-item';
 import { SearchInput, type SearchInputRef } from '@/components/ui/search-input';
 import { RecentItemsList } from '@/components/search/recent-items-list';
+import { SearchEmptyState } from '@/components/search/search-empty-state';
+import { REFRESH_BAR_HEIGHT, SearchRefreshBar } from '@/components/search/search-refresh-bar';
 import { useColors } from '@/hooks/use-colors';
-import { useColorScheme } from '@/contexts/theme-context';
 import { useSearch } from '@/hooks/use-search';
+import { useTrailingHold } from '@/hooks/use-trailing-hold';
 import { useSongbooks } from '@/hooks/use-songbooks';
 import { useTranslation } from '@/hooks/use-translation';
 import {
@@ -20,7 +22,7 @@ import {
 } from '@/utils/storage';
 import { trackEvent } from '@/utils/analytics';
 import { Stack, useFocusEffect, useRouter } from 'expo-router';
-import React, { useCallback, useDeferredValue, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { FlatList, Platform, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import type { SearchBarCommands } from 'react-native-screens';
@@ -31,6 +33,10 @@ let _navigatedToSong = false;
 
 const SEARCH_NO_RESULT_DELAY_MS = 3000;
 const MIN_TRACKED_QUERY_LENGTH = 2;
+// How long the loading indicator lingers after the query settles, so it stays
+// visible until the results have finished refreshing (and is perceptible on a
+// fast search) instead of cutting off the moment typing stops.
+const SEARCH_LOADER_HOLD_MS = 400;
 
 type SearchSession = { query: string; resultCount: number };
 type SearchOutcome = 'opened' | 'no_result' | 'abandoned';
@@ -38,13 +44,13 @@ type SearchOutcome = 'opened' | 'no_result' | 'abandoned';
 export default function SearchScreen() {
   const router = useRouter();
   const colors = useColors();
-  const colorScheme = useColorScheme();
   const insets = useSafeAreaInsets();
   const { t } = useTranslation();
   const [searchQuery, setSearchQuery] = useState('');
-  // Keep the input instant while the heavy Fuse search runs at lower priority,
-  // so fast typing never blocks on ranking/snippet work (no fixed debounce delay).
-  const deferredSearchQuery = useDeferredValue(searchQuery);
+  // committedQuery is the query the visible results are for. It trails
+  // searchQuery: the input updates instantly, then the blocking Fuse search is
+  // deferred to a later frame (see effect below) so the loading UI paints first.
+  const [committedQuery, setCommittedQuery] = useState('');
   const searchBarRef = useRef<SearchBarCommands>(null);
   const searchInputRef = useRef<SearchInputRef>(null);
   const [isInputFocused, setIsInputFocused] = useState(false);
@@ -52,10 +58,38 @@ export default function SearchScreen() {
   const [recentSongs, setRecentSongs] = useState<RecentSong[]>([]);
 
   const isIOS = Platform.OS === 'ios';
+  // iOS 26+ renders its own large inline "Search" title in the list header when
+  // focused; the refresh bar sits below it and needs to be centered in that gap.
+  const showInlineTitle = isIOS && parseInt(String(Platform.Version), 10) >= 26 && isInputFocused;
 
   const { visibleSongs } = useSongbooks();
 
-  const searchResults = useSearch(visibleSongs, deferredSearchQuery);
+  const { results: searchResults, isReady } = useSearch(visibleSongs, committedQuery);
+
+  // Loading whenever the committed query trails the input, or the index isn't
+  // built yet. Because the search below is deferred, this state is painted
+  // (skeleton or top bar) before the blocking ranking work runs.
+  const isSearching =
+    searchQuery.trim().length >= MIN_TRACKED_QUERY_LENGTH &&
+    (searchQuery !== committedQuery || !isReady);
+  // Keep the indicator up through the refresh settling (and a beat after), so
+  // it doesn't cut off before the new results have rendered.
+  const showLoading = useTrailingHold(isSearching, SEARCH_LOADER_HOLD_MS);
+
+  // Defer the blocking Fuse search to a later frame so the loading UI shows
+  // first, and coalesce rapid keystrokes. Two frames guarantees the pending
+  // frame is on screen before the synchronous ranking/snippet work runs.
+  useEffect(() => {
+    if (searchQuery === committedQuery) return;
+    let secondFrame = 0;
+    const firstFrame = requestAnimationFrame(() => {
+      secondFrame = requestAnimationFrame(() => setCommittedQuery(searchQuery));
+    });
+    return () => {
+      cancelAnimationFrame(firstFrame);
+      if (secondFrame) cancelAnimationFrame(secondFrame);
+    };
+  }, [searchQuery, committedQuery]);
 
   const pendingSessionRef = useRef<SearchSession | null>(null);
   const noResultTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -105,7 +139,7 @@ export default function SearchScreen() {
 
   const handleSongPress = useCallback((playlist: string, songNumber: number | string) => {
     _navigatedToSong = true;
-    const trimmed = deferredSearchQuery.trim();
+    const trimmed = committedQuery.trim();
     if (trimmed.length >= MIN_TRACKED_QUERY_LENGTH) {
       if (!pendingSessionRef.current) {
         pendingSessionRef.current = { query: trimmed, resultCount: searchResults.length };
@@ -121,13 +155,13 @@ export default function SearchScreen() {
       pathname: '/song/[playlist]/[songNumber]',
       params: { playlist, songNumber: String(songNumber), source: 'search' },
     });
-  }, [router, deferredSearchQuery, searchResults.length, fireSearchEvent]);
+  }, [router, committedQuery, searchResults.length, fireSearchEvent]);
 
   // Track the active search session and schedule a 'no_result' event after
   // the query has been stable with zero results for SEARCH_NO_RESULT_DELAY_MS.
   // 'abandoned' fires when the query is shortened below the threshold.
   useEffect(() => {
-    const trimmed = deferredSearchQuery.trim();
+    const trimmed = committedQuery.trim();
 
     if (noResultTimerRef.current) {
       clearTimeout(noResultTimerRef.current);
@@ -146,7 +180,7 @@ export default function SearchScreen() {
         fireSearchEvent('no_result');
       }, SEARCH_NO_RESULT_DELAY_MS);
     }
-  }, [deferredSearchQuery, searchResults.length, fireSearchEvent]);
+  }, [committedQuery, searchResults.length, fireSearchEvent]);
 
   const handleRecentSearchTap = useCallback((query: string) => {
     setSearchQuery(query);
@@ -209,63 +243,52 @@ export default function SearchScreen() {
           </>
         )}
         {searchQuery.trim() ? (
-          <FlatList
-            data={searchResults}
-            keyExtractor={(item, index) =>
-              `${item.playlist}-${item.song.number}-${index}`
-            }
-            contentInsetAdjustmentBehavior="automatic"
-            contentContainerStyle={[
-              styles.scrollContent,
-              { paddingBottom: 0 },
-            ]}
-            keyboardShouldPersistTaps="handled"
-            keyboardDismissMode="on-drag"
-            initialNumToRender={8}
-            maxToRenderPerBatch={5}
-            windowSize={3}
-            removeClippedSubviews={false}
-            ListHeaderComponent={
-              <View>
-                {Platform.OS === "ios" &&
-                  parseInt(String(Platform.Version), 10) >= 26 &&
-                  isInputFocused && (
-                    <ThemedText type="title" style={{ marginBottom: 20 }}>
-                      {t('search.title')}
-                    </ThemedText>
+          <View style={styles.results}>
+            <FlatList
+              style={styles.list}
+              data={searchResults}
+              keyExtractor={(item, index) =>
+                `${item.playlist}-${item.song.number}-${index}`
+              }
+              contentInsetAdjustmentBehavior="automatic"
+              contentContainerStyle={[
+                styles.scrollContent,
+                { paddingBottom: 0 },
+              ]}
+              keyboardShouldPersistTaps="handled"
+              keyboardDismissMode="on-drag"
+              initialNumToRender={8}
+              maxToRenderPerBatch={5}
+              windowSize={3}
+              removeClippedSubviews={false}
+              ListHeaderComponent={
+                <View>
+                  {showInlineTitle && (
+                    <ThemedText type="title">{t('search.title')}</ThemedText>
                   )}
-              </View>
-            }
-            ListEmptyComponent={
-              deferredSearchQuery.trim().length < 2 ? (
-                <ThemedView style={styles.emptyState}>
-                  <ThemedText style={[styles.emptyHint, { color: colors.icon }]}>
-                    {t('search.keepTyping')}
-                  </ThemedText>
-                </ThemedView>
-              ) : (
-                <ThemedView style={styles.emptyState}>
-                  <ThemedText style={styles.emptyEmoji}>{colorScheme === 'dark' ? '🤷🏼' : '🤷🏾'}</ThemedText>
-                  <ThemedText style={[styles.emptyTitle, { color: colors.text }]}>
-                    {t('search.noResults')}
-                  </ThemedText>
-                  <ThemedText style={[styles.emptySubtext, { color: colors.icon }]}>
-                    {t('search.noResultsHint')}
-                  </ThemedText>
-                </ThemedView>
-              )
-            }
-            renderItem={({ item: result }) => (
-              <SearchResultItem
-                playlist={result.playlist}
-                song={result.song}
-                snippet={result.snippet}
-                query={deferredSearchQuery}
-                onPress={handleSongPress}
-                colors={colors}
-              />
-            )}
-          />
+                  <View style={[styles.refreshBarSlot, showInlineTitle && styles.refreshBarSlotWithTitle]}>
+                    {showLoading && searchResults.length > 0 && <SearchRefreshBar />}
+                  </View>
+                </View>
+              }
+              ListEmptyComponent={
+                <SearchEmptyState
+                  isLoading={showLoading}
+                  isShortQuery={committedQuery.trim().length < MIN_TRACKED_QUERY_LENGTH}
+                />
+              }
+              renderItem={({ item: result }) => (
+                <SearchResultItem
+                  playlist={result.playlist}
+                  song={result.song}
+                  snippet={result.snippet}
+                  query={committedQuery}
+                  onPress={handleSongPress}
+                  colors={colors}
+                />
+              )}
+            />
+          </View>
         ) : (
           <RecentItemsList
             recentSearches={recentSearches}
@@ -289,9 +312,32 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  results: {
+    flex: 1,
+  },
+  list: {
+    flex: 1,
+  },
+  // Always reserved (just the bar's height) so toggling the refresh bar never
+  // shifts the list. marginBottom matches the space above the bar (see
+  // scrollContent.paddingTop + the SearchInput margin on web) so it sits
+  // vertically centered in the gap between the search field and the results.
+  refreshBarSlot: {
+    height: REFRESH_BAR_HEIGHT,
+    marginBottom: 6,
+  },
+  // iOS 26+ has a large inline title directly above; expand the slot and center
+  // the bar in it so it sits midway between that title and the first result.
+  refreshBarSlotWithTitle: {
+    height: 28,
+    marginBottom: 0,
+    justifyContent: 'center',
+  },
   scrollContent: {
     paddingHorizontal: 20,
-    paddingTop: 12,
+    // On web the SearchInput's marginBottom already supplies the space above
+    // the bar; on iOS (native search bar) the list padding must supply it.
+    paddingTop: Platform.OS === 'ios' ? 6 : 0,
   },
   header: {
     paddingHorizontal: 20,
@@ -299,26 +345,6 @@ const styles = StyleSheet.create({
   },
   searchInput: {
     marginHorizontal: 20,
-    marginBottom: 12,
-  },
-  emptyState: {
-    alignItems: 'center',
-    paddingVertical: 60,
-    gap: 8,
-  },
-  emptyHint: {
-    fontSize: 15,
-  },
-  emptyEmoji: {
-    fontSize: 48,
-    lineHeight: 58,
-    marginBottom: 4,
-  },
-  emptyTitle: {
-    fontSize: 18,
-    fontWeight: '600',
-  },
-  emptySubtext: {
-    fontSize: 14,
+    marginBottom: 6,
   },
 });

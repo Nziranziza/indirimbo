@@ -48,6 +48,7 @@ export const en = {
   'search.title': 'Search',
   'search.placeholder': 'Title, Number or Lyrics',
   'search.keepTyping': 'Keep typing to search...',
+  'search.searching': 'Searching...',
   'search.noResults': 'No songs found',
   'search.noResultsHint': 'Try a different title, number, or lyrics',
   'search.recentTitle': 'Recent',

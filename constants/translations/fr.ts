@@ -51,6 +51,7 @@ export const fr: EnTranslations = {
   'search.title': 'Recherche',
   'search.placeholder': 'Titre, numéro ou paroles',
   'search.keepTyping': 'Continuez à taper pour rechercher...',
+  'search.searching': 'Recherche en cours...',
   'search.noResults': 'Aucune chanson trouvée',
   'search.noResultsHint': 'Essayez un autre titre, numéro ou paroles',
   'search.recentTitle': 'Récent',
