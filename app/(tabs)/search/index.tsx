@@ -326,10 +326,11 @@ const styles = StyleSheet.create({
     height: REFRESH_BAR_HEIGHT,
     marginBottom: 6,
   },
-  // iOS 26+ has a large inline title directly above; expand the slot and center
-  // the bar in it so it sits midway between that title and the first result.
+  // iOS 26+ has a large inline title directly above; center the bar in a
+  // compact slot so it sits midway between the title and the first result
+  // without opening up a tall gap (matches the ~6px above/below elsewhere).
   refreshBarSlotWithTitle: {
-    height: 28,
+    height: REFRESH_BAR_HEIGHT + 12,
     marginBottom: 0,
     justifyContent: 'center',
   },
