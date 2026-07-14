@@ -81,10 +81,50 @@ function wordMatchesLineFuzzy(w: string, lowerLine: string, collapsedLine: strin
   return wordMatchesFuzzy(w, lowerLine, maxDist) || wordMatchesFuzzy(w, collapsedLine, maxDist);
 }
 
-function findMatchingLine(lines: string[], words: string[], fuzzy: boolean): number {
-  for (let i = 0; i < lines.length; i++) {
-    const lowerLine = lines[i].toLowerCase();
-    const collapsedLine = collapseContractions(lowerLine);
+export interface SnippetSection {
+  readonly label: string;
+  readonly lines: readonly string[];
+  readonly lowerLines: readonly string[];
+  readonly collapsedLines: readonly string[];
+}
+
+/**
+ * Input to getMatchSnippet. The name variants and snippet sections are
+ * precomputed once at index build time (see buildSnippetSections) so the
+ * per-keystroke path never re-lowercases or re-collapses text — but they are
+ * optional: a plain Song works too, with the fields derived from `body`/`name`.
+ */
+export interface SnippetSong {
+  readonly name: string;
+  readonly body: Song['body'];
+  readonly lowerName?: string;
+  readonly nameCollapsed?: string;
+  readonly snippetSections?: readonly SnippetSection[];
+}
+
+/**
+ * Precompute per-section labels plus lowercased and contraction-collapsed
+ * lines once at index build time. Snippet matching runs on every keystroke
+ * for the top results, so caching these strings here keeps the hot path from
+ * re-splitting, re-lowercasing, and re-collapsing every line per result.
+ */
+export function buildSnippetSections(body: Song['body']): SnippetSection[] {
+  return body.map(section => {
+    const label = section.type === 'chorus'
+      ? 'Chorus'
+      : `Verse ${section.number ?? ''}`;
+    const lines = section.content.split('\n');
+    const lowerLines = lines.map(line => line.toLowerCase());
+    const collapsedLines = lowerLines.map(line => collapseContractions(line));
+    return { label, lines, lowerLines, collapsedLines };
+  });
+}
+
+function findMatchingLine(section: SnippetSection, words: string[], fuzzy: boolean): number {
+  const { lowerLines, collapsedLines } = section;
+  for (let i = 0; i < lowerLines.length; i++) {
+    const lowerLine = lowerLines[i];
+    const collapsedLine = collapsedLines[i];
     for (const w of words) {
       if (lowerLine.includes(w) || collapsedLine.includes(w)) return i;
       if (fuzzy && wordMatchesLineFuzzy(w, lowerLine, collapsedLine)) return i;
@@ -93,11 +133,8 @@ function findMatchingLine(lines: string[], words: string[], fuzzy: boolean): num
   return -1;
 }
 
-function buildSectionSnippet(section: Song['body'][number], matchLine: number): { label: string; snippet: string } {
-  const label = section.type === 'chorus'
-    ? 'Chorus'
-    : `Verse ${section.number ?? ''}`;
-  const lines = section.content.split('\n');
+function buildSectionSnippet(section: SnippetSection, matchLine: number): { label: string; snippet: string } {
+  const { label, lines } = section;
   const start = Math.max(0, matchLine - 1);
   const end = Math.min(lines.length, matchLine + 2);
   const contextLines = lines.slice(start, end);
@@ -107,10 +144,9 @@ function buildSectionSnippet(section: Song['body'][number], matchLine: number): 
   return { label, snippet };
 }
 
-function findSnippetInBody(song: Song, words: string[], fuzzy: boolean) {
-  for (const section of song.body) {
-    const lines = section.content.split('\n');
-    const matchLine = findMatchingLine(lines, words, fuzzy);
+function findSnippetInSections(sections: readonly SnippetSection[], words: string[], fuzzy: boolean) {
+  for (const section of sections) {
+    const matchLine = findMatchingLine(section, words, fuzzy);
     if (matchLine !== -1) return buildSectionSnippet(section, matchLine);
   }
   return null;
@@ -122,22 +158,26 @@ function findSnippetInBody(song: Song, words: string[], fuzzy: boolean) {
  * earlier one — otherwise short words like `ari` would stick on `kri` in
  * "Krisito" before reaching the line the user actually searched for.
  */
-export function getMatchSnippet(song: Song, words: string[]): { label: string; snippet: string } | null {
+export function getMatchSnippet(song: SnippetSong, words: string[]): { label: string; snippet: string } | null {
   if (words.length === 0) return null;
 
-  const literal = findSnippetInBody(song, words, false);
+  // Use precomputed fields when present (the useSearch hot path); otherwise
+  // derive them so a plain Song works instead of crashing.
+  const sections = song.snippetSections ?? buildSnippetSections(song.body);
+  const lowerName = song.lowerName ?? song.name.toLowerCase();
+  const nameCollapsed = song.nameCollapsed ?? collapseContractions(lowerName);
+
+  const literal = findSnippetInSections(sections, words, false);
   if (literal) return literal;
 
-  const fuzzy = findSnippetInBody(song, words, true);
+  const fuzzy = findSnippetInSections(sections, words, true);
   if (fuzzy) return fuzzy;
 
-  const lowerName = song.name.toLowerCase();
-  const collapsedName = collapseContractions(lowerName);
   for (const w of words) {
     if (
       lowerName.includes(w) ||
-      collapsedName.includes(w) ||
-      wordMatchesLineFuzzy(w, lowerName, collapsedName)
+      nameCollapsed.includes(w) ||
+      wordMatchesLineFuzzy(w, lowerName, nameCollapsed)
     ) {
       return { label: 'Title', snippet: song.name };
     }

@@ -1,5 +1,6 @@
 import type { Song } from '@/constants/types';
-import { collapseContractions, countWordCoverage, getMatchSnippet } from '@/utils/search-helpers';
+import type { SnippetSection } from '@/utils/search-helpers';
+import { buildSnippetSections, collapseContractions, countWordCoverage, getMatchSnippet } from '@/utils/search-helpers';
 import type FuseType from 'fuse.js';
 import { useEffect, useMemo, useState } from 'react';
 
@@ -11,6 +12,7 @@ interface FlatSong extends Song {
   readonly numberStr: string;
   readonly nameCollapsed: string;
   readonly searchTextCollapsed: string;
+  readonly snippetSections: SnippetSection[];
 }
 
 export interface SearchResult {
@@ -22,7 +24,14 @@ export interface SearchResult {
   readonly snippet: { label: string; snippet: string } | null;
 }
 
-export function useSearch(allSongs: Record<string, Song[]>, query: string): SearchResult[] {
+export interface UseSearchResult {
+  readonly results: SearchResult[];
+  // False until Fuse.js has loaded and the index is built, so the screen can
+  // show a loading state instead of a premature "no results" on cold start.
+  readonly isReady: boolean;
+}
+
+export function useSearch(allSongs: Record<string, Song[]>, query: string): UseSearchResult {
   // Create flat list with pre-computed search fields
   const allSongsFlat = useMemo(() => {
     return Object.entries(allSongs).flatMap(([playlist, songs]) =>
@@ -39,6 +48,7 @@ export function useSearch(allSongs: Record<string, Song[]>, query: string): Sear
           numberStr: String(song.number),
           nameCollapsed: collapseContractions(lowerName),
           searchTextCollapsed: collapseContractions(lowerSearchText),
+          snippetSections: buildSnippetSections(song.body),
         };
       })
     );
@@ -73,7 +83,7 @@ export function useSearch(allSongs: Record<string, Song[]>, query: string): Sear
   }, [allSongsFlat]);
 
   // Compute ranked search results
-  return useMemo(() => {
+  const results = useMemo(() => {
     if (!query.trim() || !fuseInstance) {
       return [];
     }
@@ -104,7 +114,6 @@ export function useSearch(allSongs: Record<string, Song[]>, query: string): Sear
         rank,
         score: r.score ?? 1,
         coverage,
-        snippet: getMatchSnippet(item, words),
       };
     });
 
@@ -114,6 +123,13 @@ export function useSearch(allSongs: Record<string, Song[]>, query: string): Sear
       return a.score - b.score;
     });
 
-    return ranked.slice(0, 30);
+    // Snippet generation is the heaviest per-result step, so run it only for
+    // the results we actually render — after ranking has picked the top 30.
+    return ranked.slice(0, 30).map(result => ({
+      ...result,
+      snippet: getMatchSnippet(result.song, words),
+    }));
   }, [query, fuseInstance]);
+
+  return { results, isReady: fuseInstance !== null };
 }
