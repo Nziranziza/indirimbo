@@ -49,7 +49,7 @@ A Kinyarwanda church hymnal app for browsing and searching songs from the **Agak
 |---|---|
 | `npm start` | Start Expo dev server |
 | `npm run web` | Start web dev server |
-| `npm run build:web:gh-pages` | Full web build with SEO pages and sitemap |
+| `npm run build:web:deploy` | Full web build with SEO pages and sitemap (Cloudflare Pages) |
 | `npm run lint` | Run ESLint |
 | `npm run release` | Build release binaries for iOS and Android via EAS |
 | `npm run update` | Push an OTA update to the production channel |

@@ -26,7 +26,7 @@ Kinyarwanda church hymnal app — browse and search songs from Agakiza and Gushi
 
 - `npm start` — start Expo dev server
 - `npm run web` — start web dev server
-- `npm run build:web:gh-pages` — full web build with SEO pages and sitemap
+- `npm run build:web:deploy` — full web build with SEO pages and sitemap (Cloudflare Pages)
 - `npm run lint` — run ESLint
 
 ## Path Aliases

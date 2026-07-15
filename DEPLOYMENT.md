@@ -1,57 +1,63 @@
-# Deployment to GitHub Pages
+# Deployment to Cloudflare Pages
 
-This app is configured to automatically deploy the web version to GitHub Pages when you push to the master branch.
+The web version deploys to **Cloudflare Pages** via its GitHub (Git) integration: Cloudflare builds
+straight from the repository. A push to `master` publishes production; any other branch or pull
+request gets its own `*.pages.dev` preview build.
 
 ## Setup (One-time)
 
-1. Go to your GitHub repository settings
-2. Navigate to Settings → Pages
-3. Under "Build and deployment", select:
-   - Source: **GitHub Actions**
+In the Cloudflare dashboard, create a Pages project connected to the `Nziranziza/indirimbo` repo:
+
+- **Production branch:** `master`
+- **Framework preset:** None
+- **Build command:** `npm run build:web:deploy`
+- **Build output directory:** `dist`
+- **Environment variable:** `NODE_VERSION = 20`
+
+No other build-time secrets are required. (The Aptabase analytics key is hardcoded, and the Sentry
+DSN lives only in the gitignored `.env.local`, so it is not part of the web build — set
+`EXPO_PUBLIC_SENTRY_DSN` in the project's env vars only if web crash reporting is wanted.)
 
 ## Automatic Deployment
 
-Once configured, the app will automatically deploy when you:
-- Push to the master branch
-- Manually trigger the workflow from the Actions tab
+Once connected, the app deploys automatically when you:
+- Push to `master` → production build served on the Pages custom domain.
+- Push any other branch / open a PR → a preview build on a branch-specific `*.pages.dev` URL.
 
-## Manual Deployment
-
-To manually build and test the web version locally:
+## Manual / local build
 
 ```bash
-npm run build:web
+npm run build:web          # plain Expo web export
+npm run build:web:deploy   # full deploy build: export + SEO pages + sitemap + branded 404
 ```
 
-To build for GitHub Pages deployment (with correct paths):
-
-```bash
-npm run build:web:gh-pages
-```
-
-This will create a `dist` folder with the static web build and fix asset paths for subdirectory deployment.
+`build:web:deploy` writes the full static site to `dist/` — the same command Cloudflare runs.
 
 ## URLs
 
-After deployment, your app will be available at:
-- **Main app**: https://nziranziza.github.io/indirimbo
-- **Privacy Policy**: https://nziranziza.github.io/indirimbo/privacy-policy
-- **Terms of Service**: https://nziranziza.github.io/indirimbo/terms-of-service
+Production runs on the custom domain:
+- **Main app**: https://indirimbo.rw
+- **Privacy Policy**: https://indirimbo.rw/privacy-policy
+- **Terms of Service**: https://indirimbo.rw/terms-of-service
 
-These URLs are already configured in `app.json` for App Store and Play Store submissions.
+These URLs are configured in `app.json` for App Store and Play Store submissions.
 
 ## How It Works
 
-The deployment uses:
-1. **Expo's built-in web support** - converts React Native code to web
-2. **GitHub Actions workflow** (`.github/workflows/deploy-web.yml`) - automates the build and deployment
-3. **GitHub Pages** - hosts the static files
+1. **Expo static web export** — every route is prerendered to `<route>/index.html`; the `scripts/`
+   generators add SEO song/playlist pages, structured data, and the sitemap.
+2. **Cloudflare Pages** — serves `dist/` from Cloudflare's global CDN. A root `404.html` is served
+   for unmatched paths, and `public/_headers` sets the JSON content-type for the Apple deep-link file
+   plus long-lived caching for hashed `/_expo/static/*` assets.
+3. **Custom domain** — `indirimbo.rw` is attached to the Pages project; the zone's nameservers are on
+   Cloudflare, so DNS and TLS are managed there.
 
-The web version uses the same codebase as the mobile app, including all screens like Privacy Policy and Terms of Service, ensuring consistency across platforms.
+The web version shares the mobile codebase, including screens like Privacy Policy and Terms of
+Service, keeping platforms consistent.
 
 ## Force-update Manifest (`public/version.json`)
 
-Installed apps fetch this file from `https://indirimbo.rw/version.json` to decide whether to show an update prompt. It ships as part of the regular GitHub Pages deploy — no extra commands.
+Installed apps fetch this file from `https://indirimbo.rw/version.json` to decide whether to show an update prompt. It ships as part of the regular Cloudflare Pages deploy — no extra commands.
 
 ### Schema
 
@@ -86,7 +92,7 @@ Common configurations (assuming a 1.4.0 build is live in the store, prior versio
 1. Bump `app.json` `version`, build via EAS, submit to both stores.
 2. Wait for approval. **Verify the new version is downloadable in both the App Store and Google Play.**
 3. Edit `public/version.json` to set the new floors (table above).
-4. Push to `master` — the existing `deploy-web.yml` workflow publishes the manifest to gh-pages.
+4. Push to `master` — the Cloudflare Pages build publishes the manifest with the rest of the site.
 
 ### Discipline rules
 
