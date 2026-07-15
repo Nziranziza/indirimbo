@@ -1,0 +1,17 @@
+# Cloudflare Pages response headers.
+# Copied verbatim into dist/ by the Expo static export (public/ -> dist/).
+# Docs: https://developers.cloudflare.com/pages/configuration/headers/
+
+# Serve the extensionless Apple deep-link file as JSON. Cloudflare does not
+# infer a JSON content-type for a file with no extension, and iOS requires it.
+/.well-known/apple-app-site-association
+  Content-Type: application/json
+
+# Expo emits content-hashed asset filenames, so they can be cached forever.
+/_expo/static/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Force-update manifest read at runtime by hooks/use-app-version-check.ts.
+# Keep it near-fresh so update prompts aren't served from a stale edge cache.
+/version.json
+  Cache-Control: public, max-age=300
