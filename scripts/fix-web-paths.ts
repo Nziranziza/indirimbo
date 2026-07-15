@@ -47,6 +47,17 @@ const injectFaviconLinks = (pageHtml: string): string => {
   return pageHtml.replace('</head>', `${faviconLinks}\n</head>`);
 };
 
+// Preload the entry JS bundle at high priority — it's the critical resource on
+// every page (must download, parse, and hydrate before content paints). Applied
+// to index.html AND every prerendered page (song/playlist/etc.) via fixHtmlFile.
+const injectEntryPreload = (pageHtml: string): string => {
+  const match = pageHtml.match(/src="([^"]*entry-[^"]*\.js)"/);
+  // Guard on `as="script"` specifically — Expo already emits a CSS `rel="preload"`.
+  if (!match || pageHtml.includes('as="script"')) return pageHtml;
+  const preloadTag = `<link rel="preload" href="${match[1]}" as="script" fetchpriority="high" />`;
+  return pageHtml.replace('</head>', `  ${preloadTag}\n</head>`);
+};
+
 if (normalizedBasePath) {
   // Replace absolute paths with paths relative to the base path
   html = html.replace(/href="\/_expo\//g, `href="${normalizedBasePath}/_expo/`);
@@ -58,15 +69,7 @@ if (normalizedBasePath) {
 
 html = injectFaviconLinks(html);
 
-// Inject preload hint for the main entry JS bundle (speeds up resource discovery)
-const entryScriptMatch = html.match(/src="([^"]*entry-[^"]*\.js)"/);
-if (entryScriptMatch) {
-  const entryScriptSrc = entryScriptMatch[1];
-  const preloadTag = `<link rel="preload" href="${entryScriptSrc}" as="script" />`;
-  if (!html.includes('rel="preload"')) {
-    html = html.replace('</head>', `  ${preloadTag}\n</head>`);
-  }
-}
+html = injectEntryPreload(html);
 
 const HOMEPAGE_TITLE = "Indirimbo - z'Agakiza, Gushimisha Imana, na Cantiques Kirundi";
 const HOMEPAGE_DESCRIPTION = 'Browse and search Rwandan and Burundian church hymns from Agakiza, Gushimisha Imana, and Cantiques Kirundi hymnbooks. Find lyrics, save favorites, and share worship songs.';
@@ -183,6 +186,7 @@ const fixHtmlFile = (filePath: string): void => {
   }
 
   pageHtml = injectFaviconLinks(pageHtml);
+  pageHtml = injectEntryPreload(pageHtml);
 
   fs.writeFileSync(filePath, pageHtml);
 };

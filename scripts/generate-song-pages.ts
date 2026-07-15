@@ -1,12 +1,18 @@
 /**
- * Generates static HTML pages for each song at:
+ * Finalizes the static HTML page for each song at:
  *   dist/song/<playlist>/<number>/index.html
  *
- * Each page is a copy of the built index.html with:
- *   - Song-specific OG meta tags (for WhatsApp/social crawlers)
- *   - A noscript block with full lyrics for search engine crawlers
+ * Expo's static export now prerenders each song route to real, visible HTML
+ * (title + lyrics in #root) at dist/song/<playlist>/<number>.html — that
+ * server-rendered content is what gives song pages a fast LCP. This script takes
+ * each of those prerendered pages and augments it with:
+ *   - Song-specific title + OG/Twitter meta tags (for WhatsApp/social crawlers)
+ *   - MusicComposition + BreadcrumbList JSON-LD
+ *   - A noscript block with full lyrics + internal links (no-JS / crawler fallback)
+ * then rewrites it to <number>/index.html (matching the canonical trailing-slash
+ * URLs) and removes the flat <number>.html. The prerendered #root is preserved.
  *
- * This script must run AFTER fix-web-paths.ts (so index.html is fully ready).
+ * This script must run AFTER fix-web-paths.ts.
  */
 
 import fs from 'node:fs';
@@ -28,10 +34,6 @@ const BASE_URL = 'https://indirimbo.rw';
 const OG_IMAGE = `${BASE_URL}/og-image.jpg`;
 const OG_IMAGE_KIRUNDI = `${BASE_URL}/og-image-kirundi.jpg`;
 const distDir = path.join(__dirname, '../dist');
-const indexPath = path.join(distDir, 'index.html');
-
-// Read the built & fixed index.html as our template
-const templateHtml = fs.readFileSync(indexPath, 'utf8');
 
 const SONG_CATEGORIES: Record<string, SongCategory[]> = {
   gushimisha: gushimishaCategories,
@@ -116,7 +118,7 @@ function buildNoscriptContent(song: Song, playlist: string, playlistName: string
   return noscript;
 }
 
-function generateSongHtml(song: Song, playlist: string, playlistName: string, interSongLinks: string): string {
+function augmentSongHtml(baseHtml: string, song: Song, playlist: string, playlistName: string, interSongLinks: string): string {
   const titleText = `${song.name} | ${getSongTitleLabel(playlist, song.number)}`;
   const title = escapeHtml(titleText);
   const ogTitle = title;
@@ -146,10 +148,11 @@ function generateSongHtml(song: Song, playlist: string, playlistName: string, in
   <link data-rh="true" rel="canonical" href="${canonicalUrl}" />
   <meta name="apple-itunes-app" content="app-id=6758376573" />`;
 
-  let html = templateHtml;
+  let html = baseHtml;
 
-  // Replace the title
-  html = html.replace(/<title[^>]*>.*?<\/title>/, `<title>${title}</title>`);
+  // Fill in the (empty) prerendered title. Keep data-rh so react-helmet-async
+  // updates it in place on hydration instead of leaving a stale/duplicate.
+  html = html.replace(/<title[^>]*>[\s\S]*?<\/title>/, `<title data-rh="true">${title}</title>`);
 
   // Remove existing default OG/Twitter/description/canonical/keywords/smart-banner meta tags
   // (attributes may appear in any order, including the leading data-rh marker).
@@ -201,10 +204,12 @@ function generateSongHtml(song: Song, playlist: string, playlistName: string, in
 
   html = html.replace('</head>', `${musicCompositionJsonLd}\n${breadcrumbJsonLd}\n</head>`);
 
-  // Remove the homepage noscript block injected by fix-web-paths.ts
+  // Defensive: drop any inherited <noscript><article> block before injecting ours
   html = html.replace(/<noscript><article>[\s\S]*?<\/article><\/noscript>/, '');
 
-  // Inject noscript block with full lyrics right after <body>
+  // Inject noscript block with full lyrics right after <body>. The visible lyrics
+  // already live in #root (prerendered) for JS users; this is the no-JS / crawler
+  // fallback and carries the internal link graph.
   const noscript = buildNoscriptContent(song, playlist, playlistName, interSongLinks);
   html = html.replace(/<body>/, `<body>${noscript}`);
 
@@ -220,20 +225,47 @@ const playlists = [
 ];
 
 let totalPages = 0;
+let missingPages = 0;
 
 for (const playlist of playlists) {
   const nameByNumber = new Map<string, string>(
     playlist.songs.map((s): [string, string] => [String(s.number), s.name]),
   );
   for (const song of playlist.songs) {
-    const dir = path.join(distDir, 'song', playlist.id, String(song.number));
-    fs.mkdirSync(dir, { recursive: true });
+    const num = String(song.number);
+    // Expo prerenders the song route to a flat <number>.html with real content.
+    const prerenderedPath = path.join(distDir, 'song', playlist.id, `${num}.html`);
+    if (!fs.existsSync(prerenderedPath)) {
+      console.warn(`⚠️  No prerendered page for ${playlist.id}/${num} — skipping`);
+      missingPages++;
+      continue;
+    }
 
+    const baseHtml = fs.readFileSync(prerenderedPath, 'utf8');
     const interSongLinks = buildInterSongLinks(song, playlist.id, playlist.songs, nameByNumber);
-    const html = generateSongHtml(song, playlist.id, playlist.name, interSongLinks);
+    const html = augmentSongHtml(baseHtml, song, playlist.id, playlist.name, interSongLinks);
+
+    // Rewrite to <number>/index.html (canonical trailing-slash URL) and drop the
+    // flat file so there's a single source of truth per song.
+    const dir = path.join(distDir, 'song', playlist.id, num);
+    fs.mkdirSync(dir, { recursive: true });
     fs.writeFileSync(path.join(dir, 'index.html'), html);
+    fs.rmSync(prerenderedPath);
     totalPages++;
   }
 }
 
-console.log(`✅ Generated ${totalPages} static song pages with OG tags (using index.html template)`);
+// A broken export (routes not matched by generateStaticParams, or a changed
+// output-path convention) would silently skip pages and still exit 0. Fail hard
+// when nothing was generated or an unexpected fraction is missing, so CI catches
+// a structurally broken build instead of shipping blank song pages.
+const expectedPages = totalPages + missingPages;
+const MAX_MISSING_RATIO = 0.05;
+if (expectedPages === 0 || missingPages / expectedPages > MAX_MISSING_RATIO) {
+  throw new Error(
+    `Song page generation aborted: ${missingPages}/${expectedPages} prerendered pages missing — the static export looks broken.`,
+  );
+}
+
+const missingSuffix = missingPages > 0 ? ` (${missingPages} missing prerenders skipped)` : '';
+console.log(`✅ Finalized ${totalPages} prerendered song pages with SEO meta + noscript${missingSuffix}`);

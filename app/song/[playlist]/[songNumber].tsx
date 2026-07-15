@@ -9,12 +9,14 @@ import { LyricsContent } from "@/components/ui/lyrics-content";
 import { SongHeatmap } from "@/components/ui/song-heatmap";
 import { SongNavigationBar } from "@/components/ui/song-navigation-bar";
 import { SongNumberBadge } from "@/components/ui/song-number-badge";
+import agakizaSongs from "@/constants/agakiza-songs";
+import gushimishaSongs from "@/constants/gushimisha-songs";
+import cantiquesKirundiSongs from "@/constants/cantiques-kirundi-songs";
 import { BOOK_CODE_LOOKUP } from "@/constants/book-names";
 import { getPlaylistName, getSongTitleLabel } from "@/constants/playlists";
 import type { Song } from "@/constants/types";
 import { FONT_SIZES } from "@/constants/typography";
 import { useEngagement, useBottomChrome } from "@/contexts/engagement-context";
-import { useSongs } from "@/contexts/songs-context";
 import { useColors } from "@/hooks/use-colors";
 import { useTranslation } from "@/hooks/use-translation";
 import { useFavoriteSuggestion } from "@/hooks/use-favorite-suggestion";
@@ -45,7 +47,6 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { SongScreenSkeleton } from "@/components/ui/song-screen-skeleton";
 import {
   Gesture,
   GestureDetector,
@@ -61,6 +62,24 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 // Matches the SongNavigationBar height: paddingTop(16) + button(48) + paddingBottom(safe area + 16) + border(1).
 // Used to position floating overlays (alerts, prompts) above the nav bar.
 const NAV_BAR_HEIGHT = 16 + 48 + 16 + 1;
+
+// Resolve song data synchronously so the screen renders real lyrics during the
+// static prerender (and on first client render), instead of waiting on the async
+// SongsProvider — that's what puts the song title + lyrics into the served HTML
+// for a fast LCP, and keeps client hydration matching the prerendered output.
+const SONGS_BY_PLAYLIST: Record<string, Song[]> = {
+  agakiza: agakizaSongs,
+  gushimisha: gushimishaSongs,
+  'cantiques-kirundi': cantiquesKirundiSongs,
+};
+
+// Prerender one static HTML page per song (all playlists) so Expo emits real
+// content for every /song/<playlist>/<number> route rather than a single shell.
+export function generateStaticParams(): { playlist: string; songNumber: string }[] {
+  return Object.entries(SONGS_BY_PLAYLIST).flatMap(([playlist, songs]) =>
+    songs.map((song) => ({ playlist, songNumber: String(song.number) })),
+  );
+}
 
 function normalizeBookCodes(codes: string): string {
   return codes
@@ -170,13 +189,7 @@ export default function SongScreen() {
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();
 
-  const { agakiza, gushimisha, cantiquesKirundi, isLoaded: areSongsLoaded } = useSongs();
-  const songsByPlaylist: Record<string, Song[]> = useMemo(() => ({
-    agakiza,
-    gushimisha,
-    'cantiques-kirundi': cantiquesKirundi,
-  }), [agakiza, gushimisha, cantiquesKirundi]);
-  const allSongs: Song[] = songsByPlaylist[playlist ?? ''] ?? [];
+  const allSongs: Song[] = SONGS_BY_PLAYLIST[playlist ?? ''] ?? [];
 
   const currentSongNumber = songNumber || "1";
   let currentSong = allSongs.find((s) => String(s.number) === String(currentSongNumber));
@@ -509,13 +522,9 @@ export default function SongScreen() {
           <BackButton color={colors.text}  />
         </ThemedView>
         <View style={styles.contentContainer}>
-          {areSongsLoaded ? (
-            <ThemedView style={styles.emptyState}>
-              <ThemedText>{t('song.empty')}</ThemedText>
-            </ThemedView>
-          ) : (
-            <SongScreenSkeleton />
-          )}
+          <ThemedView style={styles.emptyState}>
+            <ThemedText>{t('song.empty')}</ThemedText>
+          </ThemedView>
         </View>
       </ThemedView>
     );
