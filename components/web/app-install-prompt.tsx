@@ -12,7 +12,7 @@ import {
   type MobileWebPlatform,
 } from '@/utils/mobile-web';
 
-const APP_ICON = require('@/assets/images/icon.png');
+const APP_ICON = require('@/assets/images/app-logo.webp');
 const APP_ICON_SIZE = 36;
 const PROMPT_BOTTOM_GAP = 16;
 // Wait a few seconds after the visitor starts interacting before nudging them,
