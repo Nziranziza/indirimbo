@@ -62,7 +62,7 @@ export function AppInstallBanner() {
         style={styles.row}
       >
         <Image
-          source={require('@/assets/images/icon.png')}
+          source={require('@/assets/images/app-logo.webp')}
           style={styles.appIcon}
           contentFit="cover"
           accessibilityLabel="Indirimbo app icon"

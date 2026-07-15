@@ -13,7 +13,7 @@ import { openStoreForCurrentPlatform } from '@/utils/store';
 
 import { IconSymbol } from './icon-symbol';
 
-const APP_ICON = require('@/assets/images/icon.png');
+const APP_ICON = require('@/assets/images/app-logo.webp');
 
 const COPY_KEYS: Record<'required' | 'available', { titleKey: TranslationKey; bodyKey: TranslationKey }> = {
   required: {

@@ -135,7 +135,7 @@ const LogoLink = React.memo(function LogoLink({ onPress }: { readonly onPress: (
       accessibilityLabel="Indirimbo"
       style={styles.logo}>
       <Animated.View style={animatedStyle}>
-        <Image source={require('@/assets/images/icon.png')} style={styles.logoIcon} />
+        <Image source={require('@/assets/images/app-logo.webp')} style={styles.logoIcon} />
       </Animated.View>
     </Pressable>
   );

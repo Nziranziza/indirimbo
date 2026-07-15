@@ -19,17 +19,21 @@ export function useKeepAwake(lineCount: number) {
   const safeDeactivate = useCallback(() => {
     if (!isActiveRef.current) return;
     isActiveRef.current = false;
+    // Best-effort: a missing/denied wake lock is an expected browser
+    // condition (e.g. web Wake Lock API), not an app error worth surfacing.
     deactivateKeepAwake(KEEP_AWAKE_TAG).catch((error) => {
-      console.error(error);
+      if (__DEV__) console.error(error);
     });
   }, []);
 
   const resetKeepAwake = useCallback(() => {
     if (timerRef.current) clearTimeout(timerRef.current);
     isActiveRef.current = true;
+    // On web the Screen Wake Lock request can be denied (no user gesture,
+    // page not visible, permissions policy) — swallow it silently in prod.
     activateKeepAwakeAsync(KEEP_AWAKE_TAG).catch((error) => {
       isActiveRef.current = false;
-      console.error(error);
+      if (__DEV__) console.error(error);
     });
     timerRef.current = setTimeout(safeDeactivate, estimatedDuration);
   }, [estimatedDuration, safeDeactivate]);
