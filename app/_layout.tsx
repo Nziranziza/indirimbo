@@ -8,7 +8,6 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import 'react-native-reanimated';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
-import { ThemedView } from '@/components/themed-view';
 import { ForceUpdateModal } from '@/components/ui/force-update-modal';
 import { WebShell } from '@/components/web/web-shell';
 import { EngagementProvider } from '@/contexts/engagement-context';
@@ -17,12 +16,16 @@ import { SongbookPreferenceProvider } from '@/contexts/songbook-preference-conte
 import { SongsProvider } from '@/contexts/songs-context';
 import { ThemeProvider, useColorScheme } from '@/contexts/theme-context';
 import { UpdateCheckProvider } from '@/contexts/update-check-context';
-import { useHydrated } from '@/hooks/use-hydrated';
 import { initAnalytics, trackAppUpdateIfChanged } from '@/utils/analytics';
+import { runAfterPaint } from '@/utils/defer';
 import { Sentry, initSentry, navigationIntegration } from '@/utils/sentry';
 import { recordAppOpen } from '@/utils/storage';
 
-initSentry();
+// On native, initialize Sentry synchronously at boot. On web its init work is
+// deferred past first paint (see RootLayout) so it stays off the critical path.
+if (Platform.OS !== 'web') {
+  initSentry();
+}
 
 const BASE_URL = 'https://indirimbo.rw';
 
@@ -147,7 +150,6 @@ function RootLayoutContent() {
 }
 
 function RootLayout() {
-  const hasHydrated = useHydrated();
   const navigationRef = useNavigationContainerRef();
 
   useEffect(() => {
@@ -156,8 +158,20 @@ function RootLayout() {
     }
   }, [navigationRef]);
 
-  const content = hasHydrated ? <RootLayoutContent /> : <ThemedView style={{ flex: 1 }} />;
-  
+  // Defer Sentry init past first paint on web; native inits at module scope.
+  useEffect(() => {
+    if (Platform.OS === 'web') {
+      return runAfterPaint(() => initSentry());
+    }
+  }, []);
+
+  // Render real content directly. The former `useHydrated` gate blanked the
+  // whole tree until a post-mount effect flipped it, which excluded every screen
+  // from the static prerender and cost an extra render cycle after hydration.
+  // Web/prerender theme mismatch is already handled in theme-context (forces
+  // 'light' on web for both prerender and first client render).
+  const content = <RootLayoutContent />;
+
   const inner = (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <SafeAreaProvider>

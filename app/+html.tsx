@@ -13,7 +13,11 @@ const focusResetStyle = `input:focus,textarea:focus{outline:none;}`;
 const CLARITY_PROJECT_ID = 'xj6ux8ywhp';
 const isAnalyticsEnabled =
   !__DEV__ || process.env.EXPO_PUBLIC_ENABLE_ANALYTICS_IN_DEV === 'true';
-const clarityScript = `(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window, document, "clarity", "script", "${CLARITY_PROJECT_ID}");`;
+// Load Clarity 2s after the page `load` event rather than during boot, so its
+// script fetch and event listeners don't compete for the main thread while the
+// app hydrates and the user's first interactions land (INP). Its Performance
+// observers use buffered entries, so deferring doesn't lose the initial LCP.
+const clarityScript = `(function(){function loadClarity(){(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","${CLARITY_PROJECT_ID}");}function start(){setTimeout(loadClarity,2000);}if(document.readyState==="complete"){start();}else{window.addEventListener("load",start);}})();`;
 
 export default function Root({ children }: { children: React.ReactNode }) {
   return (
@@ -26,6 +30,10 @@ export default function Root({ children }: { children: React.ReactNode }) {
           content="width=device-width, initial-scale=1, shrink-to-fit=no, viewport-fit=cover"
         />
         <meta name="color-scheme" content="light dark" />
+
+        {isAnalyticsEnabled && (
+          <link rel="dns-prefetch" href="https://www.clarity.ms" />
+        )}
 
         <script dangerouslySetInnerHTML={{ __html: restoreLangScript }} />
         {isAnalyticsEnabled && (
