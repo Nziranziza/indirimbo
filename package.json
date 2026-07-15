@@ -9,7 +9,7 @@
     "ios": "expo run:ios",
     "web": "expo start --web",
     "build:web": "expo export -p web",
-    "build:web:deploy": "npm run build:web && tsx scripts/fix-web-paths.ts && tsx scripts/generate-song-pages.ts && tsx scripts/generate-playlist-pages.ts && tsx scripts/generate-spa-pages.ts && tsx scripts/generate-sitemap.ts && cp public/404.html dist/404.html",
+    "build:web:deploy": "npm run build:web && tsx scripts/fix-web-paths.ts && tsx scripts/generate-song-pages.ts && tsx scripts/generate-playlist-pages.ts && tsx scripts/generate-spa-pages.ts && tsx scripts/generate-sitemap.ts && tsx scripts/relocate-vendor-assets.ts && cp public/404.html dist/404.html",
     "lint": "expo lint",
     "release": "npx eas-cli build --platform all --profile release",
     "submit:android": "npx eas-cli submit --platform android",
