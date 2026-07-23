@@ -107,8 +107,8 @@ export default function HomeScreen() {
     mediumImpact();
     trackEvent('share_app', { songbook: isBurundi ? 'kirundi' : 'kinyarwanda' });
     try {
-      await shareApp({ isBurundi, t });
-      notifyShareSuccess();
+      const completed = await shareApp({ isBurundi, t });
+      if (completed) notifyShareSuccess();
     } catch (error) {
       console.error('shareApp failed', error);
     }

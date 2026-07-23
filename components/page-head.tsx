@@ -1,5 +1,5 @@
 import { useLanguage } from '@/contexts/language-context';
-import { useIsFocused } from '@react-navigation/native';
+import { useIsFocused } from 'expo-router';
 import Head from 'expo-router/head';
 
 const BASE_URL = 'https://indirimbo.rw';

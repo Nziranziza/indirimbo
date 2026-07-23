@@ -206,7 +206,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   smallTitleContainer: {
-    ...StyleSheet.absoluteFillObject,
+    ...StyleSheet.absoluteFill,
     justifyContent: 'flex-end',
     alignItems: 'center',
     paddingBottom: 12,

@@ -1,6 +1,6 @@
 import { lightImpact } from '@/utils/haptics';
-import { BottomTabBarButtonProps } from '@react-navigation/bottom-tabs';
-import { PlatformPressable } from '@react-navigation/elements';
+import { BottomTabBarButtonProps } from 'expo-router/build/react-navigation/bottom-tabs';
+import { PlatformPressable } from 'expo-router/build/react-navigation/elements';
 
 export function HapticTab(props: BottomTabBarButtonProps) {
   return (

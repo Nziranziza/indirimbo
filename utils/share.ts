@@ -14,6 +14,13 @@ interface ShareLinkOptions {
   readonly dialogTitle: string;
 }
 
+// The web Share API (navigator.share) rejects with an AbortError when the user
+// dismisses the share sheet. That's a normal cancellation, not a failure, so we
+// swallow it without logging.
+function isShareCancellation(err: unknown): boolean {
+  return typeof err === 'object' && err !== null && 'name' in err && err.name === 'AbortError';
+}
+
 // iOS uses `url` for the rich link preview; Android ignores it, so we embed
 // the URL in the message text there. Omit `text` for a URL-only share.
 // Returns whether the share completed (sharedAction); Android's Share API
@@ -27,6 +34,7 @@ async function shareLink({ text, url, title, dialogTitle }: ShareLinkOptions): P
     );
     return Platform.OS !== 'ios' || result.action === 'sharedAction';
   } catch (err) {
+    if (isShareCancellation(err)) return false;
     console.error('Share.share failed', { dialogTitle, title, url }, err);
     return false;
   }
