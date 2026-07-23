@@ -83,8 +83,8 @@ export default function SettingsScreen() {
 
   const handleShareApp = async () => {
     trackEvent('share_app', { songbook: isBurundi ? 'kirundi' : 'kinyarwanda' });
-    await shareApp({ isBurundi, t });
-    notifyShareSuccess();
+    const completed = await shareApp({ isBurundi, t });
+    if (completed) notifyShareSuccess();
   };
 
   const handleRateApp = async () => {

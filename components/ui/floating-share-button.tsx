@@ -51,8 +51,8 @@ export function FloatingShareButton({ inTabs = false }: { inTabs?: boolean }) {
 
   const handlePress = async () => {
     mediumImpact();
-    await shareApp({ isBurundi, t });
-    notifyShareSuccess();
+    const completed = await shareApp({ isBurundi, t });
+    if (completed) notifyShareSuccess();
   };
 
   return (
