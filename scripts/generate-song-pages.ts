@@ -93,10 +93,36 @@ function buildInterSongLinks(
   return `<h2>Izindi ndirimbo</h2><ul>${items.join('')}</ul>`;
 }
 
+/**
+ * Original-language hymn titles (first-line incipits) carried in a song's
+ * references — e.g. "Blott en dag" for Agakiza 68 (Lina Sandell's globally
+ * searched hymn). These are the terms international searchers use, so we
+ * surface them in the crawlable layer. The book prints them as truncated
+ * incipits ("Blott en dag..."), so strip the trailing ellipsis/period.
+ */
+function songAlternateTitles(song: Song): string[] {
+  const seen = new Set<string>();
+  const titles: string[] = [];
+  for (const ref of song.references ?? []) {
+    const raw = ref.title?.replace(/[\s.…]+$/, '').trim();
+    if (!raw) continue;
+    const key = raw.toLowerCase();
+    if (seen.has(key)) continue;
+    seen.add(key);
+    titles.push(raw);
+  }
+  return titles;
+}
+
 function buildNoscriptContent(song: Song, playlist: string, playlistName: string, interSongLinks: string): string {
   let noscript = `<noscript><article>`;
   noscript += `<h1>${escapeHtml(String(song.number))}. ${escapeHtml(song.name)}</h1>`;
   noscript += `<h2>${escapeHtml(getSongTitleLabel(playlist, song.number))}</h2>`;
+
+  const altTitles = songAlternateTitles(song);
+  if (altTitles.length > 0) {
+    noscript += `<p><strong>Iyi ndirimbo izwi kandi nka:</strong> ${escapeHtml(altTitles.join(', '))}</p>`;
+  }
 
   for (const section of song.body) {
     if (section.type === 'chorus') {
@@ -172,11 +198,13 @@ function augmentSongHtml(baseHtml: string, song: Song, playlist: string, playlis
   // Inject song-specific JSON-LD
   const lyricsText = song.body.map((s) => s.content).join('\n\n');
   const inLanguage = playlist === 'cantiques-kirundi' ? 'rn' : 'rw';
+  const label = getSongTitleLabel(playlist, song.number);
+  const altTitles = songAlternateTitles(song);
   const musicCompositionJsonLd = buildJsonLdTag({
     '@context': 'https://schema.org',
     '@type': 'MusicComposition',
     name: song.name,
-    alternativeHeadline: getSongTitleLabel(playlist, song.number),
+    alternativeHeadline: altTitles.length > 0 ? [label, ...altTitles] : label,
     musicCompositionForm: 'Hymn',
     inLanguage,
     url: canonicalUrl,
