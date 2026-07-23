@@ -36,7 +36,7 @@ export const songs: Song[] = [
   {
     number: 2,
     name: "Nari naramenyerey’ ibyaha",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/2",
     references: [{"title":"Många år jag gick på syndens stig...","codes":"Sgt. 139"},{"title":"Years I spent...","codes":"R.S. 773"},{"codes":"M.A. 180"},{"codes":"Ny. 41"}],
     body: [
       {
@@ -67,7 +67,7 @@ export const songs: Song[] = [
   {
     number: 3,
     name: "Nari narazimiriye kure, nibagiwe Yesu",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/3",
     references: [{"title":"Jag var borta ifrån Herren...","codes":"Sgt. 2"},{"codes":"Ny. 38"},{"codes":"M.A. 265"}],
     body: [
       {
@@ -98,7 +98,7 @@ export const songs: Song[] = [
   {
     number: 4,
     name: "Niboney’ urukundo rw’ Umukiza",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/4",
     references: [{"title":"Nimeliona pendo la Mwokozi..."}],
     body: [
       {
@@ -130,7 +130,7 @@ export const songs: Song[] = [
   {
     number: 5,
     name: "Sinzibagirw’ igihe nakizwaga",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/5",
     references: [{"title":"Aldrig den härliga dag jag kan glömma..."}],
     body: [
       {
@@ -167,7 +167,7 @@ export const songs: Song[] = [
   {
     number: 6,
     name: "Mu gihe cya Noheli, Turebye mu muvure",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/6",
     references: [{"title":"Når juldagsmorgon...","codes":"Sgt. 307"},{"codes":"Ny. 105"}],
     body: [
       {
@@ -199,7 +199,7 @@ export const songs: Song[] = [
   {
     number: 7,
     name: "Nimuze mwese turirimbe",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/7",
     references: [{"title":"Var hälsad, sköna...","codes":"Sgt. 104"},{"codes":"Ny. 106"}],
     body: [
       {
@@ -231,7 +231,7 @@ export const songs: Song[] = [
   {
     number: 8,
     name: "Umucyo wabonekeye bose bari mu mwijima",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/8",
     body: [
       {
         type: "verse",
@@ -261,7 +261,7 @@ export const songs: Song[] = [
   {
     number: 9,
     name: "Mfit’ Umukiza mwiza cyane",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/9",
     references: [{"title":"Vilken underbar Frälsare...","codes":"Sgt. 397"},{"codes":"Ny. 118"},{"title":"What a wonderful...","codes":"R.H. 164"}],
     body: [
       {
@@ -298,7 +298,7 @@ export const songs: Song[] = [
   {
     number: 10,
     name: "Yesu wonger’ unyigishe iby’ umusaraba",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/10",
     references: [{"title":"Jesus, hall mig vid ditt...","codes":"Sgt. 378"},{"codes":"Ny. 109"},{"title":"Jesus, keep me near the cross...","codes":"R.S. 390"}],
     body: [
       {
@@ -335,7 +335,7 @@ export const songs: Song[] = [
   {
     number: 11,
     name: "Ku musarab’ Umukiza wanjye",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/11",
     references: [{"title":"På Golgata min Jesus tog...","codes":"Sgt. 410"},{"codes":"Ny. 113"},{"title":"On Calvary's brown...","codes":"R.S. 153"}],
     body: [
       {
@@ -372,7 +372,7 @@ export const songs: Song[] = [
   {
     number: 12,
     name: "Waratubambiwe Mukiza ku giti",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/12",
     references: [{"title":"Min blodige Konung...","codes":"Sgt. 103"},{"codes":"Ny. 229"}],
     body: [
       {
@@ -398,7 +398,7 @@ export const songs: Song[] = [
   {
     number: 13,
     name: "Mwana w’ Imana, Yesu, wadupfiriye twese",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/13",
     references: [{"title":"Guds rena Lamm oskyldigt...","codes":"Sgt. 24"},{"codes":"Ny. 108"}],
     body: [
       {
@@ -412,7 +412,7 @@ export const songs: Song[] = [
   {
     number: 14,
     name: "Isezerano ry’ Umwami Mana",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/14",
     references: [{"title":"Guds ord och löften...","codes":"Sgt. 345"},{"codes":"Ny. 160"},{"codes":"M.A. 668"}],
     body: [
       {
@@ -449,7 +449,7 @@ export const songs: Song[] = [
   {
     number: 15,
     name: "Amasezerano yose ukw’ Iman’ iyatanga",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/15",
     references: [{"title":"Löftena kunna ej svika...","codes":"Sgt. 70"},{"codes":"Ny. 163"},{"codes":"M.A. 14"},{"title":"Firm are the promises standing..."}],
     body: [
       {
@@ -498,7 +498,7 @@ export const songs: Song[] = [
   {
     number: 16,
     name: "Za mbaraga zamanukiye abigishwa ba Yesu mu murwa Yerusalemu",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/16",
     references: [{"title":"Den kraft, som föll på...","codes":"Sgt. 62"},{"codes":"Ny. 148"},{"title":"The pow'r that fell...","codes":"R.H. 219"},{"codes":"M.A. 202"}],
     body: [
       {
@@ -535,7 +535,7 @@ export const songs: Song[] = [
   {
     number: 17,
     name: "Umuriro wawe Mukiza",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/17",
     references: [{"title":"O Gud, du klara, rena låga...","codes":"Sgt. 336"},{"codes":"Ny. 151"},{"title":"Thou Christ of burning...","codes":"R.H. 252"},{"codes":"M.A. 661"}],
     body: [
       {
@@ -567,7 +567,7 @@ export const songs: Song[] = [
   {
     number: 18,
     name: "Utwohererez’ Umwuka Wera",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/18",
     references: [{"title":"Låt Anden falla..."},{"title":"Turne Roho kwa sisi sote..."}],
     body: [
       {
@@ -581,7 +581,7 @@ export const songs: Song[] = [
   {
     number: 19,
     name: "Mana, turategereje",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/19",
     references: [{"title":"Herre, se, vi vänta alla...","codes":"Sgt. 46"},{"codes":"Ny. 19"},{"title":"Courage, brother...","codes":"M.A. 430"}],
     body: [
       {
@@ -624,7 +624,7 @@ export const songs: Song[] = [
   {
     number: 20,
     name: "Mana, nyohererez’ umuriro wawe",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/20",
     references: [{"title":"Eld från himlen...","codes":"Sgt. 84"},{"codes":"Ny. 15"},{"codes":"M.A. 392"}],
     body: [
       {
@@ -656,7 +656,7 @@ export const songs: Song[] = [
   {
     number: 21,
     name: "Nimuze tureb’ imbere, Dutegerez’ igitondo",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/21",
     references: [{"title":"Skåda framåt, se...","codes":"Sgt. 294"},{"codes":"Ny. 181"}],
     body: [
       {
@@ -688,7 +688,7 @@ export const songs: Song[] = [
   {
     number: 22,
     name: "Yesu Mwami ni w’ utubaz’ ati: Ni nde ntumye mu murima wanjye",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/22",
     references: [{"title":"Skördens Herre höres...","codes":"T.t. Sgt. 17"},{"codes":"Ny. 180"},{"title":"Hear the Lord of harvest...","codes":"R.H. 559"},{"codes":"M.A. 646"}],
     body: [
       {
@@ -725,7 +725,7 @@ export const songs: Song[] = [
   {
     number: 23,
     name: "Umurima w’ Iman’ ureze",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/23",
     references: [{"title":"Gyllne fält för vinden vaja...","codes":"Sgt. 390"},{"codes":"Ny. 175"},{"title":"Far and near the fields...","codes":"R.S. 638"},{"codes":"R.H. 566"}],
     body: [
       {
@@ -762,7 +762,7 @@ export const songs: Song[] = [
   {
     number: 24,
     name: "Yes’ aduhamagaye mu rukundo",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/24",
     references: [{"title":"Ljuvligt och kärleksfullt...","codes":"Sgt. 138"},{"codes":"Ny. 205"},{"title":"Softly and tenderly...","codes":"R.S. 95"},{"codes":"R.H. 356"}],
     body: [
       {
@@ -799,7 +799,7 @@ export const songs: Song[] = [
   {
     number: 25,
     name: "Yew’ ubabazwa n’ ibyaha",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/25",
     references: [{"title":"Kom som du är...","codes":"Sgt. 83"},{"codes":"Ny. 202"},{"codes":"M.A. 422"}],
     body: [
       {
@@ -840,7 +840,7 @@ export const songs: Song[] = [
   {
     number: 26,
     name: "Ndashakashak’ umwana wanjye",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/26",
     references: [{"title":"Var är mitt vilsna barn...","codes":"Sgt. 432"},{"codes":"Ny. 214"},{"title":"Oh, where is my wandering boy...","codes":"M.A. 557"}],
     body: [
       {
@@ -877,7 +877,7 @@ export const songs: Song[] = [
   {
     number: 27,
     name: "N’ inkuru nziza kur’ uyu munsi",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/27",
     references: [{"title":"Härligt nu skallar frälsningens bud...","codes":"Sgt. 35"},{"codes":"M.A. 428"}],
     body: [
       {
@@ -915,7 +915,7 @@ export const songs: Song[] = [
   {
     number: 28,
     name: "Twarabatuwe rwose rwose",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/28",
     references: [{"title":"Vi är ett folk, ett frigjort...","codes":"Sgt. 547"},{"codes":"Ny. 44"},{"codes":"M.A. 422"}],
     body: [
       {
@@ -947,7 +947,7 @@ export const songs: Song[] = [
   {
     number: 29,
     name: "Yesu ni w’ ufit’ izina ryiza",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/29",
     references: [{"title":"Jesus er det beste Naun au alle...","codes":"M.A. 37"},{"codes":"Ny. 92"}],
     body: [
       {
@@ -984,7 +984,7 @@ export const songs: Song[] = [
   {
     number: 30,
     name: "Ubugingo bwacu ni bugufi cyane",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/30",
     references: [{"title":"Vårt liv är en seglares färd...","codes":"Ny. 79"},{"title":"When out on the ocean of life..."}],
     body: [
       {
@@ -1021,7 +1021,7 @@ export const songs: Song[] = [
   {
     number: 31,
     name: "Musamariyakazi, Yesu yaramubwiye",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/31",
     references: [{"title":"Låt mig dricka ur krukan..."}],
     body: [
       {
@@ -1053,7 +1053,7 @@ export const songs: Song[] = [
   {
     number: 32,
     name: "Sioni sanganir’ Umukwe",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/32",
     references: [{"title":"Gå, Sion, din Konung att...","codes":"Sgt. 122"},{"codes":"Ny. 102"},{"title":"Be glad in the Lord and rejoice..."}],
     body: [
       {
@@ -1096,7 +1096,7 @@ export const songs: Song[] = [
   {
     number: 33,
     name: "Yesu Mukiza yasezeranye",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/33",
     references: [{"title":"På himlens skyr skall...","codes":"Sgt. 374"},{"codes":"Ny. 96"}],
     body: [
       {
@@ -1133,7 +1133,7 @@ export const songs: Song[] = [
   {
     number: 34,
     name: "Nyoborwa mu nzira yose",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/34",
     references: [{"title":"Hela vägen går Han med...","codes":"Sgt. 331"},{"codes":"Ny. 49"},{"title":"All the way my Saviour leads me...","codes":"R.S. 445"}],
     body: [
       {
@@ -1159,7 +1159,7 @@ export const songs: Song[] = [
   {
     number: 35,
     name: "Ni Yesu wangize kub’ umuvandimwe we",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/35",
     references: [{"title":"Jesus har kallat mig till broderskap..."}],
     body: [
       {
@@ -1185,7 +1185,7 @@ export const songs: Song[] = [
   {
     number: 36,
     name: "Ubugingo dufite mw isi",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/36",
     references: [{"title":"En sådd är vårt liv här i tiden...","codes":"Ny. 173"}],
     body: [
       {
@@ -1211,7 +1211,7 @@ export const songs: Song[] = [
   {
     number: 37,
     name: "Nibw’ ugeze mu magorwa, wizere, wizere",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/37",
     references: [{"title":"When opposing forces meet you..."},{"title":"Om du möter många hinder..."}],
     body: [
       {
@@ -1254,7 +1254,7 @@ export const songs: Song[] = [
   {
     number: 38,
     name: "Nowa kuki wubak’ iyo nkuge",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/38",
     references: [{"title":"Varför bygger du Noa en båt..."},{"title":"Mbona Nuhu wajenga safina..."}],
     body: [
       {
@@ -1322,7 +1322,7 @@ export const songs: Song[] = [
   {
     number: 39,
     name: "Kur’ uyu munsi turashobora",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/39",
     references: [{"title":"Mäktiga ting det sker i vår tid...","codes":"Sgt. 562"},{"title":"Ishara za Mungu"}],
     body: [
       {
@@ -1359,7 +1359,7 @@ export const songs: Song[] = [
   {
     number: 40,
     name: "iyo ndebeshej’ ukwizera",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/40",
     references: [{"title":"När jag i tron min Jesus ser...","codes":"Sgt. 355"},{"codes":"Ny. 165"},{"codes":"M.A. 107"}],
     body: [
       {
@@ -1391,7 +1391,7 @@ export const songs: Song[] = [
   {
     number: 41,
     name: "Ndahiriwe kuk’ Umucunguzi wanjye",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/41",
     references: [{"title":"Ljuvliga förvissning...","codes":"Ny. 251"}],
     body: [
       {
@@ -1432,7 +1432,7 @@ export const songs: Song[] = [
   {
     number: 42,
     name: "Mfit’ amahor’ i Gologota",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/42",
     references: [{"title":"O, sköna och ljuvliga vila...","codes":"Ny. 51"}],
     body: [
       {
@@ -1476,7 +1476,7 @@ export const songs: Song[] = [
   {
     number: 43,
     name: "Ngwin’ unyigishe ya nkuru nziza",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/43",
     references: [{"title":"Ett jag dock vet...","codes":"T.t. Sgt. 18"},{"codes":"Ny. 189"}],
     body: [
       {
@@ -1501,7 +1501,7 @@ export const songs: Song[] = [
   {
     number: 44,
     name: "Izina rya Yesu Kristo, Rihorahw iminsi yose",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/44",
     references: [{"title":"Jesu-namnet blekner aldri...","codes":"M.A. 656"},{"codes":"Ny. 280"}],
     body: [
       {
@@ -1532,7 +1532,7 @@ export const songs: Song[] = [
   {
     number: 45,
     name: "Iby’ Iman’ ikora biradutangaza",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/45",
     references: [{"title":"Hur underlig är du i allt...","codes":"Sgt. 167"},{"codes":"Ny. 276"}],
     body: [
       {
@@ -1576,7 +1576,7 @@ export const songs: Song[] = [
   {
     number: 46,
     name: "Yes’ ubu tukuragij’ uyu mwana",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/46",
     references: [{"title":"Vi legger nu vårt barn...","codes":"M.A. 348"},{"title":"Mel. Giv mig den frid...","codes":"Sgt. 245"},{"codes":"Ny. 58 och 287"}],
     body: [
       {
@@ -1608,7 +1608,7 @@ export const songs: Song[] = [
   {
     number: 47,
     name: "N’ igihe git’ intambar’ igashira",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/47",
     references: [{"title":"En liten tid och striden...","codes":"Mel. Sgt. 171"},{"codes":"M.A. 73"},{"codes":"Ny. 262"}],
     body: [
       {
@@ -1640,7 +1640,7 @@ export const songs: Song[] = [
   {
     number: 48,
     name: "Nahaw’ ubugingo buhoraho rwose",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/48",
     references: [{"title":"Ett liv jag nu äger...","codes":"Sgt. 418"},{"codes":"M.A. 536"},{"codes":"Ny. 149"}],
     body: [
       {
@@ -1677,7 +1677,7 @@ export const songs: Song[] = [
   {
     number: 49,
     name: "Tuzanezerwa cyane mw ijuru",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/49",
     references: [{"title":"Vilken sällhet oss väntar...","codes":"Sgt. 289"},{"codes":"M.A. 682"},{"codes":"Ny. 86"}],
     body: [
       {
@@ -1708,7 +1708,7 @@ export const songs: Song[] = [
   {
     number: 50,
     name: "Ririmb’ inkuru nziza: Iman’ ikunda bose",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/50",
     references: [{"title":"Sjung om Guds rika kärlek...","codes":"Sgt. 445"},{"codes":"Ny. 114"}],
     body: [
       {
@@ -1739,7 +1739,7 @@ export const songs: Song[] = [
   {
     number: 51,
     name: "Yemwe bantu mwese, mushimir’ Imana",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/51",
     references: [{"title":"Lova Herren, du Hans egen köpta skara...","codes":"Sgt. 5"},{"codes":"Ny. 135"}],
     body: [
       {
@@ -1782,7 +1782,7 @@ export const songs: Song[] = [
   {
     number: 52,
     name: "Mu bimenyetso byose tubona",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/52",
     references: [{"title":"Jag länge väntat på bud om våren..."},{"title":"Ishara zote..."}],
     body: [
       {
@@ -1820,7 +1820,7 @@ export const songs: Song[] = [
   {
     number: 53,
     name: "Umuns’ umwe tuzabona",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/53",
     references: [{"title":"Snart vil himlens hvælv...","codes":"M.A. 326"},{"codes":"Ny. 98"}],
     body: [
       {
@@ -1863,7 +1863,7 @@ export const songs: Song[] = [
   {
     number: 54,
     name: "Harih’ umuns’ izuba rizarasa",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/54",
     references: [{"title":"Snart gryr en morgon...","codes":"Sgt. 288"},{"codes":"Ny. 97"}],
     body: [
       {
@@ -1894,7 +1894,7 @@ export const songs: Song[] = [
   {
     number: 55,
     name: "Nifuza cyane kuzagera",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/55",
     body: [
       {
         type: "verse",
@@ -1930,7 +1930,7 @@ export const songs: Song[] = [
   {
     number: 56,
     name: "Twese uko tur’aha turanezerewe",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/56",
     references: [{"title":"Så den adla säden Re'n i...","codes":"Sgt. 170"},{"codes":"Ny. 183"},{"title":"Sowing in the morning...","codes":"R.S. 463 (Mel.)"}],
     body: [
       {
@@ -1961,7 +1961,7 @@ export const songs: Song[] = [
   {
     number: 57,
     name: "Umukiza wac’ ashobora Kutunezeza mw isi",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/57",
     references: [{"title":"O, sällhet stor, som...","codes":"Sgt. 436"},{"codes":"Ny. 141"}],
     body: [
       {
@@ -1999,7 +1999,7 @@ export const songs: Song[] = [
   {
     number: 58,
     name: "Turi mu gihe cyiza cy’ umunsi w’ agakiza",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/58",
     references: [{"title":"Nu är försoningsdagen...","codes":"Sgt. 379"},{"codes":"Ny. 138"},{"title":"Speak to my soul, Lord Jesus...","codes":"R.S. 567"}],
     body: [
       {
@@ -2030,7 +2030,7 @@ export const songs: Song[] = [
   {
     number: 59,
     name: "Dor’ urukundo rw’ Imana Rumurik’ iminsi yose",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/59",
     references: [{"title":"Faderns mildhet härligt...","codes":"Sgt. 414"},{"codes":"Ny. 174"},{"title":"Brightly beams our Father's...","codes":"R.S. 455"}],
     body: [
       {
@@ -2061,7 +2061,7 @@ export const songs: Song[] = [
   {
     number: 60,
     name: "Birakomeye gusobanukirwa",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/60",
     references: [{"title":"Guds underbara nåd mot mig...","codes":"Sgt. 273"},{"codes":"Ny. 48"},{"title":"I know not why...","codes":"R.S. 617"}],
     body: [
       {
@@ -2104,7 +2104,7 @@ export const songs: Song[] = [
   {
     number: 61,
     name: "Kubw’ urukundo rwinshi rwa tumy’ aza kunshaka",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/61",
     references: [{"title":"Han kärleksfullt mig sökte...","codes":"Sgt. 34"},{"codes":"Ny. 34"},{"title":"In tenderness He sought...","codes":"R.S. 141"},{"codes":"M.A. 71"}],
     body: [
       {
@@ -2147,7 +2147,7 @@ export const songs: Song[] = [
   {
     number: 62,
     name: "Mu gihe cyo gusenga, amasengesho yacu",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/62",
     references: [{"title":"Långt bortom rymden vida...","codes":"Sgt. 302"},{"codes":"Ny. 21"}],
     body: [
       {
@@ -2173,7 +2173,7 @@ export const songs: Song[] = [
   {
     number: 63,
     name: "Mwami Yesu uranyobore, Mur’ iyi nyanj’ ariyo si",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/63",
     references: [{"title":"Jesus kär, min farkost...","codes":"Sgt. 252"},{"codes":"Ny. 20"},{"title":"Jesus, Saviour, pilot me...","codes":"R.S. 330"},{"codes":"M.A. 184"}],
     body: [
       {
@@ -2199,7 +2199,7 @@ export const songs: Song[] = [
   {
     number: 64,
     name: "Uyu munsi mwiza w’ urwibutso",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/64",
     references: [{"title":"Julen med sin glada sång...","codes":"Sgt. 306"},{"codes":"Ny. 103"}],
     body: [
       {
@@ -2230,7 +2230,7 @@ export const songs: Song[] = [
   {
     number: 65,
     name: "Yesu n’ ibyishimo byanjye",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/65",
     references: [{"title":"All min fröjd jag...","codes":"Sgt. 64"},{"codes":"Ny. 121"},{"codes":"M.A. 490"}],
     body: [
       {
@@ -2256,7 +2256,7 @@ export const songs: Song[] = [
   {
     number: 66,
     name: "Nageze ku Mwami Yesu",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/66",
     references: [{"title":"Jag till Sions...","codes":"Sgt. 440"},{"codes":"Ny. 35"},{"codes":"M.A. 552"}],
     body: [
       {
@@ -2305,7 +2305,7 @@ export const songs: Song[] = [
   {
     number: 67,
     name: "Ba bakobwa cumi biteguye Kujya gusanganira wa mukwe",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/67",
     references: [{"title":"Mel. Säll är den som hoppas...","codes":"Sgt. 174"},{"codes":"Ny. 273"},{"codes":"M.A. 260"}],
     body: [
       {
@@ -2343,7 +2343,7 @@ export const songs: Song[] = [
   {
     number: 68,
     name: "Nta bwo nkwiye kujya niganyira",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/68",
     references: [{"title":"Blott en dag...","codes":"Sgt. 350"},{"codes":"Ny. 46"},{"codes":"M.A. 90"}],
     body: [
       {
@@ -2369,7 +2369,7 @@ export const songs: Song[] = [
   {
     number: 69,
     name: "Igihugu cyiza kiradutegereje mw ijuru",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/69",
     references: [{"title":"Oss ett härligt rike...","codes":"Sgt. 53"},{"codes":"Ny. 95"},{"codes":"M.A. 185"}],
     body: [
       {
@@ -2406,7 +2406,7 @@ export const songs: Song[] = [
   {
     number: 70,
     name: "Reka gutiny’ ibizakubaho Iman’ izakurinda",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/70",
     references: [{"title":"Var ej bekymrad...","codes":"Sgt. 277"},{"codes":"Ny. 54"},{"codes":"M.A. 670"},{"title":"Be not dismayed...","codes":"R.H. 458"}],
     body: [
       {
@@ -2443,7 +2443,7 @@ export const songs: Song[] = [
   {
     number: 71,
     name: "Muri Betesida marayik’ agezemo",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/71",
     references: [{"title":"Betesda är öppet..."},{"title":"Bethesda ni wazi..."}],
     body: [
       {
@@ -2480,7 +2480,7 @@ export const songs: Song[] = [
   {
     number: 72,
     name: "Iman’ iri hamwe natwe",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/72",
     references: [{"title":"Gud är här för att välsigna...","codes":"Sgt. 328"},{"codes":"Ny. 18"},{"title":"God is here and that...","codes":"R.S. 6"},{"codes":"M.A. 250"}],
     body: [
       {
@@ -2517,7 +2517,7 @@ export const songs: Song[] = [
   {
     number: 73,
     name: "Nshut’ iby’ ushidikanyamo",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/73",
     references: [{"title":"Alla tvivel bär till Jesus...","codes":"Sgt. 78"},{"codes":"Ny. 154"},{"title":"All my doubts I give to Jesus...","codes":"R.S. 282"}],
     body: [
       {
@@ -2560,7 +2560,7 @@ export const songs: Song[] = [
   {
     number: 74,
     name: "Harihw igihugu cyiza cyane",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/74",
     body: [
       {
         type: "verse",
@@ -2591,7 +2591,7 @@ export const songs: Song[] = [
   {
     number: 75,
     name: "Umv’ iri jambo n’ iryo kwizerwa",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/75",
     references: [{"title":"Det är ett fast ord...","codes":"Sgt. 27"},{"codes":"Ny. 193"},{"codes":"M.A. 193"}],
     body: [
       {
@@ -2641,7 +2641,7 @@ export const songs: Song[] = [
   {
     number: 76,
     name: "Yemwe mwa bushyo bw’ Imana",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/76",
     references: [{"title":"Mel: Där en fälnad ros skall...","codes":"Ny. 263"}],
     body: [
       {
@@ -2679,7 +2679,7 @@ export const songs: Song[] = [
   {
     number: 77,
     name: "Murebe urukundo rukomeye cyane",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/77",
     references: [{"title":"Fahamuni ni pendo la namna gani..."}],
     body: [
       {
@@ -2722,7 +2722,7 @@ export const songs: Song[] = [
   {
     number: 78,
     name: "Uhamagarwa na Yesu kenshi",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/78",
     references: [{"title":"Ännu en gång Jesus går fram..."},{"title":"Mara kwa mara Yesu aita..."}],
     body: [
       {
@@ -2765,7 +2765,7 @@ export const songs: Song[] = [
   {
     number: 79,
     name: "Kubw’ Umwami Yesu",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/79",
     references: [{"title":"Kwa sifa ya Yesu..."}],
     body: [
       {
@@ -2838,7 +2838,7 @@ export const songs: Song[] = [
   {
     number: 80,
     name: "Nifuza kuzagera muri wa murwa, Wo mw ijuru mwiza cyane",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/80",
     references: [{"title":"Natamani kufika kwa mji wa jul..."}],
     body: [
       {
@@ -2888,7 +2888,7 @@ export const songs: Song[] = [
   {
     number: 81,
     name: "Nkunda kumv’ amakuru y’ umurwa",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/81",
     references: [{"title":"Jag har hört om en stad ovan molnen..."},{"title":"Nasikia habari ya mji..."}],
     body: [
       {
@@ -2914,7 +2914,7 @@ export const songs: Song[] = [
   {
     number: 82,
     name: "Tuzajyanwa kuri wa munsi",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/82",
     body: [
       {
         type: "verse",
@@ -2950,7 +2950,7 @@ export const songs: Song[] = [
   {
     number: 83,
     name: "Amaraso yawe, Mukiza",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/83",
     references: [{"title":"Jesus, du som blodet har gjutit...","codes":"Sgt. 447"},{"title":"Whiter than the snow...","codes":"R.H. 366"},{"codes":"M.A. 75"},{"codes":"Ny. 10"}],
     body: [
       {
@@ -2987,7 +2987,7 @@ export const songs: Song[] = [
   {
     number: 84,
     name: "Mbes’ aho wamenye rya zina ryiza",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/84",
     references: [{"title":"Säg, känner du det...","codes":"Sgt. 90"},{"codes":"Ny. 299"}],
     body: [
       {
@@ -3024,7 +3024,7 @@ export const songs: Song[] = [
   {
     number: 85,
     name: "Urukundo rw’ Umukiza",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/85",
     references: [{"title":"Som en härlig gudomskälla...","codes":"Sgt. 423"},{"codes":"Ny. 144"},{"codes":"M.A. 558"}],
     body: [
       {
@@ -3061,7 +3061,7 @@ export const songs: Song[] = [
   {
     number: 86,
     name: "Uduh’ Umwuka wawe, Mana Yera",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/86",
     references: [{"title":"Låt Anden falle over oss som...","codes":"M.A. 239"},{"codes":"Ny. 294"}],
     body: [
       {
@@ -3099,7 +3099,7 @@ export const songs: Song[] = [
   {
     number: 87,
     name: "Umugisha w’ Imana ni wo nkeneye rwose",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/87",
     references: [{"title":"Jag törstar och jag längtar...","codes":"Sgt. 186"},{"codes":"Ny. 150"}],
     body: [
       {
@@ -3136,7 +3136,7 @@ export const songs: Song[] = [
   {
     number: 88,
     name: "Hazabahw igihe cy’ imperuka",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/88",
     body: [
       {
         type: "verse",
@@ -3179,7 +3179,7 @@ export const songs: Song[] = [
   {
     number: 89,
     name: "Icyubahiro n’ icyawe, Yesu",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/89",
     body: [
       {
         type: "verse",
@@ -3230,7 +3230,7 @@ export const songs: Song[] = [
   {
     number: 90,
     name: "Ai Mana y’ ukuri",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/90",
     references: [{"title":"Mel. Det bästa är för barnen...","codes":"S.Sgt. 178"},{"codes":"Ny. 275"}],
     body: [
       {
@@ -3268,7 +3268,7 @@ export const songs: Song[] = [
   {
     number: 91,
     name: "Namaze kumeny’ ibyiza byinshi",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/91",
     references: [{"title":"Jag har hört om Herren Jesus...","codes":"Sgt. 82"},{"title":"Have you ever heard...","codes":"R.S. 442"},{"codes":"Ny. 283"}],
     body: [
       {
@@ -3305,7 +3305,7 @@ export const songs: Song[] = [
   {
     number: 92,
     name: "Mw ijuru ni heza cyane Kuko hatabamo ibyaha",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/92",
     references: [{"title":"Mel. Få vi alla en gång...","codes":"Sgt. 603"},{"codes":"Ny. 69"},{"title":"Shall we meet beyond...","codes":"M.A. 666"}],
     body: [
       {
@@ -3348,7 +3348,7 @@ export const songs: Song[] = [
   {
     number: 93,
     name: "Yesu Mukiza, ni we wanshunguye kera, Yanyitangiriye ku giti",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/93",
     references: [{"title":"Det är en som har dött...","codes":"Sgt. 127"},{"codes":"Ny. 291"},{"title":"There was one who was...","codes":"R.S. 737"},{"codes":"M.A. 31"}],
     body: [
       {
@@ -3379,7 +3379,7 @@ export const songs: Song[] = [
   {
     number: 94,
     name: "Nezerwa, mutima wanjye, Kuko warons’ agakiza",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/94",
     references: [{"title":"Jubla nu, mitt sälla hjärta...","codes":"Sgt. 188"},{"codes":"Ny. 133"}],
     body: [
       {
@@ -3423,7 +3423,7 @@ export const songs: Song[] = [
   {
     number: 95,
     name: "Ndashaka kuririmbira Yesu",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/95",
     references: [{"title":"Jag vill sjunga om min...","codes":"Sgt. 134"},{"codes":"Ny. 130"},{"title":"I will sing of my Redeemer...","codes":"R.S. 17"}],
     body: [
       {
@@ -3460,7 +3460,7 @@ export const songs: Song[] = [
   {
     number: 96,
     name: "Mukiza wanjye wagiye mw ijuru",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/96",
     references: [{"title":"Du tog din plats på Faderns...","codes":"Sgt. 171"},{"codes":"Ny. 14"}],
     body: [
       {
@@ -3486,7 +3486,7 @@ export const songs: Song[] = [
   {
     number: 97,
     name: "Ifeza n’ izahabu nta bwo zibasha",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/97",
     references: [{"title":"Ej silver, ej guld...","codes":"Sgt. 207"},{"codes":"Ny. 5"},{"codes":"M.A. 344"},{"title":"Nor silver, nor gold...","codes":"R.S. 321"}],
     body: [
       {
@@ -3523,7 +3523,7 @@ export const songs: Song[] = [
   {
     number: 98,
     name: "Abazaba bakijijwe bazateranira hamwe",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/98",
     references: [{"title":"De komma från öst och väst, de...","codes":"Sgt. 565"},{"codes":"Ny. 66"},{"codes":"M.A. 362"}],
     body: [
       {
@@ -3554,7 +3554,7 @@ export const songs: Song[] = [
   {
     number: 99,
     name: "Nshatse kugukurikira Buri munsi, Mwami Yesu",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/99",
     references: [{"title":"Jag vill följa dig, o Jesus...","codes":"Sgt. 230"},{"codes":"Ny. 28"}],
     body: [
       {
@@ -3586,7 +3586,7 @@ export const songs: Song[] = [
   {
     number: 100,
     name: "Abahoze mu mwijima",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/100",
     references: [{"title":"Mel: Mana, turaguhimbaza..."},{"title":"Ind. zo Gush. Imana 14"}],
     body: [
       {
@@ -3624,7 +3624,7 @@ export const songs: Song[] = [
   {
     number: 101,
     name: "Habayeh’ umusozi warih’ umusaraba",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/101",
     references: [{"title":"Kwa kilima cha mbali..."}],
     body: [
       {
@@ -3661,7 +3661,7 @@ export const songs: Song[] = [
   {
     number: 102,
     name: "Ump’ akanya, Yesu, nze nkwegere",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/102",
     references: [{"title":"Låt mig få en stilla stund med Jesus...","codes":"Ny. 297"}],
     body: [
       {
@@ -3692,7 +3692,7 @@ export const songs: Song[] = [
   {
     number: 103,
     name: "Yesu yazutse n’ ukuri",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/103",
     references: [{"title":"Ni nka 100"}],
     body: [
       {
@@ -3736,7 +3736,7 @@ export const songs: Song[] = [
   {
     number: 104,
     name: "Yesu, ni wowe mucyo",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/104",
     references: [{"title":"Hamu nalona rohoni..."}],
     body: [
       {
@@ -3772,7 +3772,7 @@ export const songs: Song[] = [
   {
     number: 105,
     name: "Narimboshwe rwose mu mwijima mwinshi",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/105",
     references: [{"title":"Nilifungwa sana kati giza kuu..."}],
     body: [
       {
@@ -3809,7 +3809,7 @@ export const songs: Song[] = [
   {
     number: 106,
     name: "Abantu bose batuye mw isi",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/106",
     references: [{"title":"Mel: Min Konungs namn är en...","codes":"Sgt. 333"},{"codes":"Ny. 237"},{"codes":"M.A. 367"}],
     body: [
       {
@@ -3852,7 +3852,7 @@ export const songs: Song[] = [
   {
     number: 107,
     name: "Twemezwa n’ iki ko tuzagera mw ijuru",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/107",
     body: [
       {
         type: "verse",
@@ -3887,7 +3887,7 @@ export const songs: Song[] = [
   {
     number: 108,
     name: "Yew’ usonzey’ agakiza",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/108",
     references: [{"title":"Yesu Mwokozi akulta..."}],
     body: [
       {
@@ -3924,7 +3924,7 @@ export const songs: Song[] = [
   {
     number: 109,
     name: "Pasika yacu niy’ itwibutsa",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/109",
     body: [
       {
         type: "verse",
@@ -3966,7 +3966,7 @@ export const songs: Song[] = [
   {
     number: 110,
     name: "N’ utagir’ umwete mu nzira y’ Imana",
-    url: "https://indirimbo.rw/song/agakiza/1",
+    url: "https://indirimbo.rw/song/agakiza/110",
     references: [{"title":"Ingen hinner fram till den eviga...","codes":"Sgt. 347"},{"codes":"Ny. 196"}],
     body: [
       {
