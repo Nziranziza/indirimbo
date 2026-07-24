@@ -1,18 +1,34 @@
 import { PageHead } from '@/components/page-head';
 import { SongListScreen } from '@/components/song-list-screen';
 import type { IconSymbolName } from '@/components/ui/icon-symbol';
+import cantiquesKirundiSongs from '@/constants/cantiques-kirundi-songs';
+import gushimishaSongs from '@/constants/gushimisha-songs';
 import { cantiquesKirundiCategories } from '@/constants/cantiques-kirundi-categories';
 import { gushimishaCategories } from '@/constants/gushimisha-categories';
 import type { SongCategory } from '@/constants/gushimisha-categories';
 import { getPlaylistName } from '@/constants/playlists';
 import type { Song } from '@/constants/types';
 import { useEngagement } from '@/contexts/engagement-context';
-import { useSongs } from '@/contexts/songs-context';
 import { useTranslation } from '@/hooks/use-translation';
 import { trackEvent } from '@/utils/analytics';
 import { shareCategory } from '@/utils/share';
 import { useLocalSearchParams } from 'expo-router';
 import { useCallback, useMemo } from 'react';
+
+// Resolve song data synchronously so the category list renders during the static
+// prerender (and on first client render) instead of waiting on the async
+// SongsProvider — this is what gives category pages a fast LCP and clean hydration.
+const SONGS_BY_PLAYLIST: Record<string, Song[]> = {
+  gushimisha: gushimishaSongs,
+  'cantiques-kirundi': cantiquesKirundiSongs,
+};
+
+// Prerender one static HTML page per category so Expo emits real content for every
+// /category/<slug> route rather than a single shell. Slugs are unique across both
+// category sets, so a flat list is safe.
+export function generateStaticParams(): { slug: string }[] {
+  return [...gushimishaCategories, ...cantiquesKirundiCategories].map((c) => ({ slug: c.slug }));
+}
 
 function findCategory(slug: string, playlist?: string): { category: SongCategory | undefined; resolvedPlaylist: string } {
   if (playlist === 'cantiques-kirundi') {
@@ -43,19 +59,16 @@ export default function CategoryScreen() {
 
   const { category, resolvedPlaylist } = findCategory(slug, playlist);
 
-  const { gushimisha, cantiquesKirundi } = useSongs();
   const { notifyShareSuccess } = useEngagement();
   const { t } = useTranslation();
   const songs = useMemo(() => {
     if (!category) return [];
-    const allSongs = resolvedPlaylist === 'cantiques-kirundi'
-      ? (cantiquesKirundi as Song[])
-      : (gushimisha as Song[]);
+    const allSongs = SONGS_BY_PLAYLIST[resolvedPlaylist] ?? [];
     const songNumberSet = new Set(category.songs);
     return allSongs
       .filter((song) => songNumberSet.has(Number(song.number)))
       .sort((a, b) => Number(a.number) - Number(b.number));
-  }, [category, resolvedPlaylist, gushimisha, cantiquesKirundi]);
+  }, [category, resolvedPlaylist]);
 
   const categoryName = category?.name || 'Category';
   const categoryIcon = (category?.icon || 'music.note.list') as IconSymbolName;
