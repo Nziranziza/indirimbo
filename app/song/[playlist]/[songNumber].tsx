@@ -6,6 +6,7 @@ import { IconSymbol } from "@/components/ui/icon-symbol";
 import { InAppAlert } from "@/components/ui/in-app-alert";
 import { LyricsContextMenu, type LyricsMenuAnchor } from "@/components/ui/lyrics-context-menu";
 import { LyricsContent } from "@/components/ui/lyrics-content";
+import { SongEndCta } from "@/components/song-end-cta";
 import { SongHeatmap } from "@/components/ui/song-heatmap";
 import { SongNavigationBar } from "@/components/ui/song-navigation-bar";
 import { SongNumberBadge } from "@/components/ui/song-number-badge";
@@ -671,6 +672,7 @@ export default function SongScreen() {
               ))}
             </View>
           )}
+          <SongEndCta />
         </Animated.ScrollView>
       </View>
 

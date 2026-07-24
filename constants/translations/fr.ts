@@ -456,9 +456,13 @@ export const fr: EnTranslations = {
   // App install banner (web smart banner)
   'appInstallBanner.tagline': "Continuer dans l'application",
 
-  // App install prompt (web secondary popup shown after interaction)
-  'appInstallPrompt.title': "Mieux dans l'application",
-  'appInstallPrompt.message': "Installez Indirimbo pour profiter de toute l'expérience",
-  'appInstallPrompt.install': 'Installer',
-  'appInstallPrompt.notNow': 'Plus tard',
+  // End-of-song install card (mobile web, shown inline after the lyrics)
+  'songEndCta.title': 'Vous aimez ce chant ?',
+  'songEndCta.description':
+    "Installez l'application pour le lire hors ligne, avec des centaines d'autres chants.",
+  'songEndCta.featureOffline': 'Chantez-le hors ligne, sans internet',
+  'songEndCta.featureAdFree': 'Totalement sans publicité',
+  'songEndCta.featureFavorites': 'Ajoutez-le à vos favoris',
+  'songEndCta.featureCollection': "Des centaines d'autres chants inclus",
+  'songEndCta.install': "Obtenir l'application sur {store}",
 };
