@@ -421,11 +421,15 @@ export const en = {
   // App install banner (web smart banner)
   'appInstallBanner.tagline': 'Continue in the app',
 
-  // App install prompt (web secondary popup shown after interaction)
-  'appInstallPrompt.title': 'Better in the app',
-  'appInstallPrompt.message': 'Install Indirimbo for the full experience',
-  'appInstallPrompt.install': 'Install',
-  'appInstallPrompt.notNow': 'Not now',
+  // End-of-song install card (mobile web, shown inline after the lyrics)
+  'songEndCta.title': 'Enjoying this song?',
+  'songEndCta.description':
+    'Install the app to read it offline, along with hundreds of other songs.',
+  'songEndCta.featureOffline': 'Sing it offline, no internet needed',
+  'songEndCta.featureAdFree': 'Completely ad-free',
+  'songEndCta.featureFavorites': 'Save it to your favorites',
+  'songEndCta.featureCollection': 'Hundreds more songs included',
+  'songEndCta.install': 'Get the app on {store}',
 } as const;
 
 export type TranslationKey = keyof typeof en;
