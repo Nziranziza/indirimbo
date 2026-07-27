@@ -1,12 +1,19 @@
 /**
- * Generates static HTML pages for playlists and categories at:
+ * Finalizes the static HTML page for each playlist and category at:
  *   dist/playlist/<name>/index.html
  *   dist/category/<slug>/index.html
  *
- * Each page is a copy of the built index.html with:
- *   - Playlist/category-specific OG meta tags (for WhatsApp/social crawlers)
+ * Expo's static export now prerenders each playlist/category route to real,
+ * visible HTML (the song list in #root) at dist/playlist/<name>.html and
+ * dist/category/<slug>.html — that server-rendered content is what gives these
+ * pages a fast LCP. This script takes each prerendered page and augments it with:
+ *   - Playlist/category-specific title + OG/Twitter meta tags (social crawlers)
+ *   - CollectionPage + BreadcrumbList JSON-LD
+ *   - A noscript block with the song list (no-JS / crawler fallback)
+ * then rewrites it to <name>/index.html (matching the canonical trailing-slash
+ * URLs) and removes the flat <name>.html. The prerendered #root is preserved.
  *
- * This script must run AFTER fix-web-paths.ts (so index.html is fully ready).
+ * This script must run AFTER fix-web-paths.ts.
  */
 
 import fs from 'node:fs';
@@ -26,14 +33,12 @@ const BASE_URL = 'https://indirimbo.rw';
 const OG_IMAGE = `${BASE_URL}/og-image.jpg`;
 const OG_IMAGE_KIRUNDI = `${BASE_URL}/og-image-kirundi.jpg`;
 const distDir = path.join(__dirname, '../dist');
-const indexPath = path.join(distDir, 'index.html');
-
-// Read the built & fixed index.html as our template
-const templateHtml = fs.readFileSync(indexPath, 'utf8');
+const MAX_MISSING_RATIO = 0.05;
 
 // --- helpers ----------------------------------------------------------------
 
 interface PageOptions {
+  baseHtml: string;
   title: string;
   ogTitle: string;
   description: string;
@@ -45,7 +50,7 @@ interface PageOptions {
   jsonLdTags?: string;
 }
 
-function generatePage({ title, ogTitle, description, canonicalUrl, keywords, ogImage, ogLocale, noscriptHtml, jsonLdTags }: PageOptions): string {
+function generatePage({ baseHtml, title, ogTitle, description, canonicalUrl, keywords, ogImage, ogLocale, noscriptHtml, jsonLdTags }: PageOptions): string {
   const escapedTitle = escapeHtml(title);
   const escapedOgTitle = escapeHtml(ogTitle);
   const escapedDescription = escapeHtml(description);
@@ -75,10 +80,17 @@ function generatePage({ title, ogTitle, description, canonicalUrl, keywords, ogI
   <link data-rh="true" rel="canonical" href="${canonicalUrl}" />
   <meta name="apple-itunes-app" content="app-id=6758376573" />`;
 
-  let html = templateHtml;
+  let html = baseHtml;
 
-  // Replace the title
-  html = html.replace(/<title[^>]*>.*?<\/title>/, `<title>${escapedTitle}</title>`);
+  // Fill in the (empty) prerendered title. Keep data-rh so react-helmet-async
+  // updates it in place on hydration instead of leaving a stale/duplicate. If the
+  // prerender has no <title> at all, inject one rather than silently shipping a
+  // title-less page.
+  const titleTag = `<title data-rh="true">${escapedTitle}</title>`;
+  const titleRegex = /<title[^>]*>[\s\S]*?<\/title>/;
+  html = titleRegex.test(html)
+    ? html.replace(titleRegex, titleTag)
+    : html.replace(/<head>/, `<head>${titleTag}`);
 
   // Remove existing default OG/Twitter/description/canonical/keywords/smart-banner meta tags
   // (attributes may appear in any order, including the leading data-rh marker).
@@ -126,6 +138,7 @@ function getRegion(playlistId: string): 'Burundian' | 'Rwandan' {
 // --- main -------------------------------------------------------------------
 
 let totalPages = 0;
+let missingPages = 0;
 
 // Generate playlist pages
 const playlists: Playlist[] = [
@@ -169,6 +182,15 @@ for (const playlist of playlists) {
   noscript += `<nav><a href="${BASE_URL}">Indirimbo</a></nav>`;
   noscript += `</article></noscript>`;
 
+  // Expo prerenders the playlist route to a flat <id>.html with real content.
+  const prerenderedPath = path.join(distDir, 'playlist', `${playlist.id}.html`);
+  if (!fs.existsSync(prerenderedPath)) {
+    console.warn(`⚠️  No prerendered page for playlist/${playlist.id} — skipping`);
+    missingPages++;
+    continue;
+  }
+  const baseHtml = fs.readFileSync(prerenderedPath, 'utf8');
+
   const dir = path.join(distDir, 'playlist', playlist.id);
   fs.mkdirSync(dir, { recursive: true });
 
@@ -200,6 +222,7 @@ for (const playlist of playlists) {
   });
 
   const html = generatePage({
+    baseHtml,
     title: playlist.seoTitle,
     ogTitle: playlist.seoTitle,
     description,
@@ -212,6 +235,7 @@ for (const playlist of playlists) {
   });
 
   fs.writeFileSync(path.join(dir, 'index.html'), html);
+  fs.rmSync(prerenderedPath);
   totalPages++;
 }
 
@@ -251,6 +275,15 @@ for (const { playlistId, playlistName, categories, songMap } of categoryPlaylist
     noscript += `<nav><a href="${BASE_URL}/playlist/${playlistId}">${escapeHtml(playlistName)}</a> | <a href="${BASE_URL}">Indirimbo</a></nav>`;
     noscript += `</article></noscript>`;
 
+    // Expo prerenders the category route to a flat <slug>.html with real content.
+    const prerenderedPath = path.join(distDir, 'category', `${category.slug}.html`);
+    if (!fs.existsSync(prerenderedPath)) {
+      console.warn(`⚠️  No prerendered page for category/${category.slug} — skipping`);
+      missingPages++;
+      continue;
+    }
+    const baseHtml = fs.readFileSync(prerenderedPath, 'utf8');
+
     const dir = path.join(distDir, 'category', category.slug);
     fs.mkdirSync(dir, { recursive: true });
 
@@ -282,6 +315,7 @@ for (const { playlistId, playlistName, categories, songMap } of categoryPlaylist
     });
 
     const html = generatePage({
+      baseHtml,
       title: `${category.name} Hymns — ${playlistName} | Indirimbo`,
       ogTitle: `${category.name} Hymns — ${playlistName} | Indirimbo`,
       description,
@@ -294,9 +328,22 @@ for (const { playlistId, playlistName, categories, songMap } of categoryPlaylist
     });
 
     fs.writeFileSync(path.join(dir, 'index.html'), html);
+    fs.rmSync(prerenderedPath);
     totalPages++;
   }
 }
 
+// A broken export (routes not matched by generateStaticParams, or a changed
+// output-path convention) would silently skip pages and still exit 0. Fail hard
+// when nothing was generated or an unexpected fraction is missing, so CI catches
+// a structurally broken build instead of shipping blank playlist/category pages.
+const expectedPages = totalPages + missingPages;
+if (expectedPages === 0 || missingPages / expectedPages > MAX_MISSING_RATIO) {
+  throw new Error(
+    `Playlist/category page generation aborted: ${missingPages}/${expectedPages} prerendered pages missing — the static export looks broken.`,
+  );
+}
+
 const totalCategories = categoryPlaylists.reduce((sum, p) => sum + p.categories.length, 0);
-console.log(`✅ Generated ${totalPages} static pages (${playlists.length} playlists + ${totalCategories} categories) with OG tags`);
+const missingSuffix = missingPages > 0 ? ` (${missingPages} missing prerenders skipped)` : '';
+console.log(`✅ Finalized ${totalPages} prerendered pages (${playlists.length} playlists + ${totalCategories} categories) with SEO meta + noscript${missingSuffix}`);
