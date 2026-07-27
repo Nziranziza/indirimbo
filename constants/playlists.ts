@@ -20,6 +20,14 @@ export const PLAYLISTS = {
     descriptionKey: 'playlist.cantiquesKirundi.description',
     icon: 'book.fill',
   },
+  // Hidden collection — never surfaced in search or on the home page. Songs are
+  // only reachable via a direct link or deep link. See hooks/use-songbooks.ts.
+  'sdah-kinyarwanda': {
+    id: 'sdah-kinyarwanda',
+    name: 'SDAH Kinyarwanda',
+    descriptionKey: 'playlist.sdah.description',
+    icon: 'book.fill',
+  },
 } as const satisfies Record<string, { id: string; name: string; descriptionKey: TranslationKey; icon: IconSymbolName }>;
 
 export type PlaylistId = keyof typeof PLAYLISTS;
@@ -37,6 +45,7 @@ const SONG_LABEL_BY_PLAYLIST: Record<PlaylistId, { preposition: string; shortNam
   gushimisha: { preposition: 'mu', shortName: 'Gushimisha Imana' },
   agakiza: { preposition: 'mu', shortName: 'Gakiza' },
   'cantiques-kirundi': { preposition: 'muri', shortName: 'Cantiques Kirundi' },
+  'sdah-kinyarwanda': { preposition: 'mu', shortName: 'SDAH Kinyarwanda' },
 };
 
 export function getSongTitleLabel(playlistId: string, songNumber: number | string): string {

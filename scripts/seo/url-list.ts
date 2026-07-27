@@ -7,6 +7,7 @@
 import { songs as gushimishaSongs } from '../../constants/gushimisha-songs';
 import { songs as agakizaSongs } from '../../constants/agakiza-songs';
 import { songs as kirundiSongs } from '../../constants/cantiques-kirundi-songs';
+import { songs as sdahSongs } from '../../constants/sdah-songs';
 import { gushimishaCategories } from '../../constants/gushimisha-categories';
 import { cantiquesKirundiCategories } from '../../constants/cantiques-kirundi-categories';
 
@@ -22,7 +23,7 @@ const STATIC_PATHS: readonly string[] = [
   '/terms-of-service/',
 ];
 
-const PLAYLIST_IDS = ['agakiza', 'gushimisha', 'cantiques-kirundi'] as const;
+const PLAYLIST_IDS = ['agakiza', 'gushimisha', 'cantiques-kirundi', 'sdah-kinyarwanda'] as const;
 
 export interface UrlGroups {
   readonly static: readonly string[];
@@ -43,6 +44,7 @@ export function buildUrlGroups(): UrlGroups {
     ...gushimishaSongs.map((s) => `${BASE_URL}/song/gushimisha/${encodeURIComponent(s.number)}/`),
     ...agakizaSongs.map((s) => `${BASE_URL}/song/agakiza/${encodeURIComponent(s.number)}/`),
     ...kirundiSongs.map((s) => `${BASE_URL}/song/cantiques-kirundi/${encodeURIComponent(s.number)}/`),
+    ...sdahSongs.map((s) => `${BASE_URL}/song/sdah-kinyarwanda/${encodeURIComponent(s.number)}/`),
   ];
 
   return { static: staticUrls, playlists: playlistUrls, categories: categoryUrls, songs: songUrls };

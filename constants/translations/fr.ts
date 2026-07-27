@@ -281,6 +281,7 @@ export const fr: EnTranslations = {
   'playlist.gushimisha.description': 'Chants de louange',
   'playlist.agakiza.description': 'Chants de salut',
   'playlist.cantiquesKirundi.description': 'Indirimbo zo Guhimbaza Imana',
+  'playlist.sdah.description': 'Indirimbo zo Guhimbaza Imana 500',
 
   // Song screen
   'song.verseLabel': 'Couplet {number}',

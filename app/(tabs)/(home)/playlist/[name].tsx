@@ -4,6 +4,7 @@ import type { IconSymbolName } from '@/components/ui/icon-symbol';
 import agakizaSongs from '@/constants/agakiza-songs';
 import gushimishaSongs from '@/constants/gushimisha-songs';
 import cantiquesKirundiSongs from '@/constants/cantiques-kirundi-songs';
+import sdahSongs from '@/constants/sdah-songs';
 import { PLAYLISTS, getPlaylistName, type PlaylistId } from '@/constants/playlists';
 import type { Song } from '@/constants/types';
 import { useEngagement } from '@/contexts/engagement-context';
@@ -21,6 +22,7 @@ const SONGS_BY_PLAYLIST: Record<string, Song[]> = {
   agakiza: agakizaSongs,
   gushimisha: gushimishaSongs,
   'cantiques-kirundi': cantiquesKirundiSongs,
+  'sdah-kinyarwanda': sdahSongs,
 };
 
 // Prerender one static HTML page per playlist so Expo emits real content for every

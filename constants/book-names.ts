@@ -5,6 +5,7 @@ export interface BookDefinition {
 }
 
 export const BOOKS: readonly BookDefinition[] = [
+  { id: 'advent-youth-sing', name: 'Advent Youth Sing', abbreviation: 'AYS.' },
   { id: 'alexanders-hymns', name: "Alexander's Hymns", abbreviation: 'AH.' },
   { id: 'billy-graham', name: 'Billy Graham Song Book', abbreviation: 'BG.' },
   {
@@ -29,6 +30,7 @@ export const BOOKS: readonly BookDefinition[] = [
   },
   { id: 'chants-de-victoire', name: 'Chants de Victoire', abbreviation: 'V.' },
   { id: 'chorus-book', name: 'Chorus Book', abbreviation: 'CSSM.' },
+  { id: 'christ-in-song', name: 'Christ in Song (1908)', abbreviation: 'CS.' },
   {
     id: 'christian-service-songs',
     name: 'Christian Service Songs',
@@ -40,7 +42,9 @@ export const BOOKS: readonly BookDefinition[] = [
     abbreviation: 'U.',
   },
   { id: 'golden-bells', name: 'Golden Bells', abbreviation: 'G.B.' },
+  { id: 'gospel-hymns', name: 'Gospel Hymns Nos. 1 to 6 Complete', abbreviation: 'GH.' },
   { id: 'hymnal-companion', name: 'Hymnal Companion', abbreviation: 'H.' },
+  { id: 'hymnes-et-louanges', name: 'Hymnes et Louanges (1933)', abbreviation: 'HL.' },
   {
     id: 'hymns-ancient-modern',
     name: 'Hymns Ancient and Modern (1924)',
@@ -67,10 +71,13 @@ export const BOOKS: readonly BookDefinition[] = [
   { id: 'reichs-liederbuch', name: 'Reichs-Liederbuch', abbreviation: 'R.' },
   {
     id: 'sacred-song-solos',
-    name: 'Sacred Song and Solos',
+    name: 'Sacred Songs and Solos',
     abbreviation: 'S.',
   },
   { id: 'segertoner', name: 'Segertoner', abbreviation: 'Sgt.' },
+  { id: 'select-songs-desire-worship', name: 'Select Songs for Desire and Worship', abbreviation: 'SS.' },
+  { id: 'sda-hymnal', name: 'The Seventh-day Adventist Hymnal (1985)', abbreviation: 'SDAH.' },
+  { id: 'sing-for-joy', name: 'Sing for Joy (1989)', abbreviation: 'SY.' },
   { id: 'songs-of-praise', name: 'Songs of Praise', abbreviation: 'SP.' },
   {
     id: 'sur-les-ailes-de-la-foi',
@@ -78,16 +85,13 @@ export const BOOKS: readonly BookDefinition[] = [
     abbreviation: 'F.',
   },
   { id: 'tabernacle-hymns', name: 'Tabernacle Hymns', abbreviation: 'T.H.' },
+  { id: 'church-hymnal', name: 'The Church Hymnal (1941)', abbreviation: 'CH.' },
 ];
 
-// Abbreviation-to-name lookup for code expansion via prefix replacement.
-//
-// Order: more specific prefixes first, single-letter codes last. Otherwise
-// `S.` would mangle `M.S.`, `H.` would mangle `R.H.`, etc.
-//
-// Trailing space in values: required when the source code has no space before
-// the number (e.g. `V.17` → `Chants de Victoire 17`). Codes that already have
-// a space in the data (e.g. `Sgt. 120`) use plain values.
+// Abbreviation → book name. expandBookCodes matches the longest abbreviation a
+// code begins with (a whole-abbreviation match at the front), so key order and
+// substrings are irrelevant, and re-joins the number with a single space (any
+// trailing space in a value here is trimmed on join).
 export const BOOK_CODE_LOOKUP: Record<string, string> = {
   // Notation variants for Segertoner
   'S.Sgt.': 'Segertoner',
@@ -123,7 +127,19 @@ export const BOOK_CODE_LOOKUP: Record<string, string> = {
   'K.': 'Keswick Hymn Book ',
   'L.': 'Louange et Prière ',
   'R.': 'Reichs-Liederbuch ',
-  'S.': 'Sacred Song and Solos ',
+  'S.': 'Sacred Songs and Solos ',
   'U.': 'Enyimba eyokutendereza Katonda ',
   'V.': 'Chants de Victoire ',
+
+  // SDAH collection — books unique to it. Alexander's Hymns (AH.), Songs of
+  // Praise (SP.) and Sacred Songs and Solos (S.) are shared with the songbooks
+  // above and reuse those keys.
+  'SDAH.': 'The Seventh-day Adventist Hymnal (1985)',
+  'CH.': 'The Church Hymnal (1941)',
+  'CS.': 'Christ in Song (1908)',
+  'HL.': 'Hymnes et Louanges (1933)',
+  'GH.': 'Gospel Hymns Nos. 1 to 6 Complete',
+  'AYS.': 'Advent Youth Sing',
+  'SY.': 'Sing for Joy (1989)',
+  'SS.': 'Select Songs for Desire and Worship',
 };

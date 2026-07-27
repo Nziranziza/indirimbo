@@ -13,6 +13,7 @@ import { SongNumberBadge } from "@/components/ui/song-number-badge";
 import agakizaSongs from "@/constants/agakiza-songs";
 import gushimishaSongs from "@/constants/gushimisha-songs";
 import cantiquesKirundiSongs from "@/constants/cantiques-kirundi-songs";
+import sdahSongs from "@/constants/sdah-songs";
 import { BOOK_CODE_LOOKUP } from "@/constants/book-names";
 import { getPlaylistName, getSongTitleLabel } from "@/constants/playlists";
 import type { Song } from "@/constants/types";
@@ -72,6 +73,7 @@ const SONGS_BY_PLAYLIST: Record<string, Song[]> = {
   agakiza: agakizaSongs,
   gushimisha: gushimishaSongs,
   'cantiques-kirundi': cantiquesKirundiSongs,
+  'sdah-kinyarwanda': sdahSongs,
 };
 
 // Prerender one static HTML page per song (all playlists) so Expo emits real
@@ -89,11 +91,21 @@ function normalizeBookCodes(codes: string): string {
 }
 
 function expandBookCodes(codes: string): string {
-  let result = normalizeBookCodes(codes);
-  for (const [abbr, full] of Object.entries(BOOK_CODE_LOOKUP)) {
-    result = result.replaceAll(abbr, full);
+  const normalized = normalizeBookCodes(codes);
+  // A reference is one code: an abbreviation followed by its number/locator.
+  // Match the longest abbreviation the code begins with — a whole-abbreviation
+  // match anchored at the front, so distinct codes like "AH" and "SDAH" are never
+  // confused — then re-join the book name and locator with a single space.
+  let key = "";
+  for (const abbreviation of Object.keys(BOOK_CODE_LOOKUP)) {
+    if (normalized.startsWith(abbreviation) && abbreviation.length > key.length) {
+      key = abbreviation;
+    }
   }
-  return result;
+  if (!key) return normalized;
+  const locator = normalized.slice(key.length).trimStart();
+  const full = BOOK_CODE_LOOKUP[key].trimEnd();
+  return locator ? `${full} ${locator}` : full;
 }
 
 interface SectionLongPressableProps {
