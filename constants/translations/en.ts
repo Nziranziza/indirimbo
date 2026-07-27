@@ -268,6 +268,7 @@ export const en = {
   'playlist.gushimisha.description': 'Songs of Praise',
   'playlist.agakiza.description': 'Songs of Salvation',
   'playlist.cantiquesKirundi.description': 'Indirimbo zo Guhimbaza Imana',
+  'playlist.sdah.description': 'Indirimbo zo Guhimbaza Imana 500',
 
   // Song screen
   'song.verseLabel': 'Verse {number}',

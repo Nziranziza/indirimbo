@@ -5,6 +5,7 @@ interface SongsContextValue {
   agakiza: Song[];
   gushimisha: Song[];
   cantiquesKirundi: Song[];
+  sdah: Song[];
   isLoaded: boolean;
 }
 
@@ -12,6 +13,7 @@ const SongsContext = createContext<SongsContextValue>({
   agakiza: [],
   gushimisha: [],
   cantiquesKirundi: [],
+  sdah: [],
   isLoaded: false,
 });
 
@@ -20,6 +22,7 @@ export function SongsProvider({ children }: { children: ReactNode }) {
     agakiza: [],
     gushimisha: [],
     cantiquesKirundi: [],
+    sdah: [],
     isLoaded: false,
   });
 
@@ -28,11 +31,13 @@ export function SongsProvider({ children }: { children: ReactNode }) {
       import('@/constants/agakiza-songs'),
       import('@/constants/gushimisha-songs'),
       import('@/constants/cantiques-kirundi-songs'),
-    ]).then(([agakizaModule, gushimishaModule, cantiquesKirundiModule]) => {
+      import('@/constants/sdah-songs'),
+    ]).then(([agakizaModule, gushimishaModule, cantiquesKirundiModule, sdahModule]) => {
       setSongs({
         agakiza: agakizaModule.default as Song[],
         gushimisha: gushimishaModule.default as Song[],
         cantiquesKirundi: cantiquesKirundiModule.default as Song[],
+        sdah: sdahModule.default as Song[],
         isLoaded: true,
       });
     }).catch(console.error);

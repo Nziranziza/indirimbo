@@ -22,6 +22,7 @@ import { fileURLToPath } from 'node:url';
 import { songs as gushimishaSongs } from '../constants/gushimisha-songs';
 import { songs as agakizaSongs } from '../constants/agakiza-songs';
 import { songs as kirundiSongs } from '../constants/cantiques-kirundi-songs';
+import { songs as sdahSongs } from '../constants/sdah-songs';
 import type { Song } from '../constants/types';
 import { gushimishaCategories } from '../constants/gushimisha-categories';
 import { cantiquesKirundiCategories } from '../constants/cantiques-kirundi-categories';
@@ -162,6 +163,13 @@ const playlists: Playlist[] = [
     seoTitle: 'Cantiques Kirundi — Burundian Worship Songs | Indirimbo',
     songs: kirundiSongs,
     keywords: 'cantiques kirundi, indirimbo zo guhimbaza imana, burundian hymns, worship songs, kirundi',
+  },
+  {
+    id: 'sdah-kinyarwanda',
+    name: 'SDAH Kinyarwanda',
+    seoTitle: 'SDAH Kinyarwanda — Indirimbo zo Guhimbaza Imana 500 | Indirimbo',
+    songs: sdahSongs,
+    keywords: 'sdah, indirimbo zo guhimbaza imana, seventh-day adventist hymnal, rwandan hymns, kinyarwanda',
   },
 ];
 

@@ -11,6 +11,7 @@ import { fileURLToPath } from 'node:url';
 import { songs as gushimishaSongs } from '../constants/gushimisha-songs';
 import { songs as agakizaSongs } from '../constants/agakiza-songs';
 import { songs as kirundiSongs } from '../constants/cantiques-kirundi-songs';
+import { songs as sdahSongs } from '../constants/sdah-songs';
 import { gushimishaCategories } from '../constants/gushimisha-categories';
 import { cantiquesKirundiCategories } from '../constants/cantiques-kirundi-categories';
 
@@ -47,7 +48,7 @@ for (const page of staticPages) {
 }
 
 // Add playlist pages
-const playlistIds = ['agakiza', 'gushimisha', 'cantiques-kirundi'];
+const playlistIds = ['agakiza', 'gushimisha', 'cantiques-kirundi', 'sdah-kinyarwanda'];
 for (const id of playlistIds) {
   xml += `  <url>
     <loc>${BASE_URL}/playlist/${id}/</loc>
@@ -75,6 +76,7 @@ const songPlaylists = [
   { slug: 'gushimisha', songs: gushimishaSongs },
   { slug: 'agakiza', songs: agakizaSongs },
   { slug: 'cantiques-kirundi', songs: kirundiSongs },
+  { slug: 'sdah-kinyarwanda', songs: sdahSongs },
 ];
 
 for (const { slug, songs } of songPlaylists) {
@@ -100,4 +102,4 @@ if (fs.existsSync(path.join(__dirname, '../dist'))) {
   fs.writeFileSync(distPath, xml);
 }
 
-console.log(`✅ Generated sitemap.xml with ${staticPages.length} static pages, ${playlistIds.length} playlists, ${allCategories.length} categories, ${gushimishaSongs.length} gushimisha songs, ${agakizaSongs.length} agakiza songs, and ${kirundiSongs.length} kirundi songs`);
+console.log(`✅ Generated sitemap.xml with ${staticPages.length} static pages, ${playlistIds.length} playlists, ${allCategories.length} categories, ${gushimishaSongs.length} gushimisha songs, ${agakizaSongs.length} agakiza songs, ${kirundiSongs.length} kirundi songs, and ${sdahSongs.length} sdah songs`);

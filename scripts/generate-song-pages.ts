@@ -21,6 +21,7 @@ import { fileURLToPath } from 'node:url';
 import { songs as gushimishaSongs } from '../constants/gushimisha-songs';
 import { songs as agakizaSongs } from '../constants/agakiza-songs';
 import { songs as kirundiSongs } from '../constants/cantiques-kirundi-songs';
+import { songs as sdahSongs } from '../constants/sdah-songs';
 import { gushimishaCategories, type SongCategory } from '../constants/gushimisha-categories';
 import { cantiquesKirundiCategories } from '../constants/cantiques-kirundi-categories';
 import { getSongTitleLabel } from '../constants/playlists';
@@ -250,6 +251,7 @@ const playlists = [
   { id: 'gushimisha', name: 'Gushimisha Imana', songs: gushimishaSongs },
   { id: 'agakiza', name: 'Agakiza', songs: agakizaSongs },
   { id: 'cantiques-kirundi', name: 'Cantiques Kirundi', songs: kirundiSongs },
+  { id: 'sdah-kinyarwanda', name: 'SDAH Kinyarwanda', songs: sdahSongs },
 ];
 
 let totalPages = 0;
