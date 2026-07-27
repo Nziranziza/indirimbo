@@ -1,5 +1,4 @@
-import { DarkTheme, DefaultTheme, ThemeProvider as NavigationThemeProvider } from 'expo-router';
-import { Stack, useNavigationContainerRef } from 'expo-router';
+import { DarkTheme, DefaultTheme, ThemeProvider as NavigationThemeProvider, Stack, useNavigationContainerRef } from 'expo-router';
 import Head from 'expo-router/head';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
@@ -134,10 +133,10 @@ function RootLayoutContent() {
           }}
         />
         <Stack.Screen
-          name="modal"
+          name="song-preview"
           options={{
             presentation: 'modal',
-            title: 'Modal',
+            headerShown: false,
             animation: 'slide_from_bottom',
             animationDuration: 300,
           }}

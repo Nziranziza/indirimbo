@@ -35,9 +35,11 @@ interface SongListScreenProps {
   source: 'playlist' | 'category';
   onShare?: () => void | Promise<void>;
   shareAccessibilityLabel?: string;
+  // Custom hero icon override (e.g. a bespoke SVG). Falls back to iconName.
+  renderIcon?: (size: number, color: string) => React.ReactNode;
 }
 
-export function SongListScreen({ title, iconName, songs, playlist, source, onShare, shareAccessibilityLabel }: SongListScreenProps) {
+export function SongListScreen({ title, iconName, songs, playlist, source, onShare, shareAccessibilityLabel, renderIcon }: SongListScreenProps) {
   const router = useRouter();
   const colors = useColors();
   const colorScheme = useColorScheme();
@@ -171,7 +173,9 @@ export function SongListScreen({ title, iconName, songs, playlist, source, onSha
         <Animated.View
           style={[styles.largeTitleContainer, { paddingTop: NAV_HEIGHT }, largeTitleAnimatedStyle]}>
           <View style={styles.heroIcon}>
-            <IconSymbol name={iconName} size={56} color={colors.text} />
+            {renderIcon
+              ? renderIcon(56, colors.text)
+              : <IconSymbol name={iconName} size={56} color={colors.text} />}
           </View>
           <Animated.Text style={[styles.largeTitle, { color: colors.text }]}>
             {title}

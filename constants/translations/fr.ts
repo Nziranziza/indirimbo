@@ -293,6 +293,8 @@ export const fr: EnTranslations = {
   'song.menu.copyChorus': 'Copier le refrain',
   'song.menu.shareVerse': 'Partager le couplet',
   'song.menu.shareChorus': 'Partager le refrain',
+  'songPreview.openFull': 'Ouvrir le chant complet',
+  'songPreview.closeA11y': 'Fermer',
 
   // Share dialog titles
   'share.dialog.song': 'Partager la chanson',
@@ -419,6 +421,8 @@ export const fr: EnTranslations = {
   'common.search.inputA11y': 'Rechercher des chansons',
   'common.search.clearA11y': 'Effacer la recherche',
   'common.song.shareA11y': 'Partager la chanson',
+  'common.song.favoriteAddA11y': 'Ajouter aux favoris',
+  'common.song.favoriteRemoveA11y': 'Retirer des favoris',
   'common.song.previousA11y': 'Chanson précédente',
   'common.song.nextA11y': 'Chanson suivante',
 

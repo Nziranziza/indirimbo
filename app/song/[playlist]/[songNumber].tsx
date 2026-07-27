@@ -5,19 +5,16 @@ import { FavoriteSuggestionTooltip } from "@/components/ui/favorite-suggestion-t
 import { IconSymbol } from "@/components/ui/icon-symbol";
 import { InAppAlert } from "@/components/ui/in-app-alert";
 import { LyricsContextMenu, type LyricsMenuAnchor } from "@/components/ui/lyrics-context-menu";
-import { LyricsContent } from "@/components/ui/lyrics-content";
+import { SongHeader } from "@/components/song/song-header";
+import { SongSection } from "@/components/song/song-section";
+import { SongReferences } from "@/components/song/song-references";
 import { SongEndCta } from "@/components/song-end-cta";
 import { SongHeatmap } from "@/components/ui/song-heatmap";
 import { SongNavigationBar } from "@/components/ui/song-navigation-bar";
-import { SongNumberBadge } from "@/components/ui/song-number-badge";
-import agakizaSongs from "@/constants/agakiza-songs";
-import gushimishaSongs from "@/constants/gushimisha-songs";
-import cantiquesKirundiSongs from "@/constants/cantiques-kirundi-songs";
-import sdahSongs from "@/constants/sdah-songs";
-import { BOOK_CODE_LOOKUP } from "@/constants/book-names";
+import { SONGS_BY_PLAYLIST, shouldShowVerseLabels } from "@/constants/song-collections";
 import { getPlaylistName, getSongTitleLabel } from "@/constants/playlists";
 import type { Song } from "@/constants/types";
-import { FONT_SIZES } from "@/constants/typography";
+import type { ReferenceLink } from "@/utils/reference-links";
 import { useEngagement, useBottomChrome } from "@/contexts/engagement-context";
 import { useColors } from "@/hooks/use-colors";
 import { useTranslation } from "@/hooks/use-translation";
@@ -65,47 +62,12 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 // Used to position floating overlays (alerts, prompts) above the nav bar.
 const NAV_BAR_HEIGHT = 16 + 48 + 16 + 1;
 
-// Resolve song data synchronously so the screen renders real lyrics during the
-// static prerender (and on first client render), instead of waiting on the async
-// SongsProvider — that's what puts the song title + lyrics into the served HTML
-// for a fast LCP, and keeps client hydration matching the prerendered output.
-const SONGS_BY_PLAYLIST: Record<string, Song[]> = {
-  agakiza: agakizaSongs,
-  gushimisha: gushimishaSongs,
-  'cantiques-kirundi': cantiquesKirundiSongs,
-  'sdah-kinyarwanda': sdahSongs,
-};
-
 // Prerender one static HTML page per song (all playlists) so Expo emits real
 // content for every /song/<playlist>/<number> route rather than a single shell.
 export function generateStaticParams(): { playlist: string; songNumber: string }[] {
   return Object.entries(SONGS_BY_PLAYLIST).flatMap(([playlist, songs]) =>
     songs.map((song) => ({ playlist, songNumber: String(song.number) })),
   );
-}
-
-function normalizeBookCodes(codes: string): string {
-  return codes
-    .replace(/([A-Z])\.\s+([A-Z])/g, "$1.$2")  // "G. B" → "G.B"
-    .replace(/([A-Z])\.([A-Z])(?![A-Za-z.])/g, "$1.$2.");  // "T.H" → "T.H.", "M.S" → "M.S." (but not "S.Sgt.")
-}
-
-function expandBookCodes(codes: string): string {
-  const normalized = normalizeBookCodes(codes);
-  // A reference is one code: an abbreviation followed by its number/locator.
-  // Match the longest abbreviation the code begins with — a whole-abbreviation
-  // match anchored at the front, so distinct codes like "AH" and "SDAH" are never
-  // confused — then re-join the book name and locator with a single space.
-  let key = "";
-  for (const abbreviation of Object.keys(BOOK_CODE_LOOKUP)) {
-    if (normalized.startsWith(abbreviation) && abbreviation.length > key.length) {
-      key = abbreviation;
-    }
-  }
-  if (!key) return normalized;
-  const locator = normalized.slice(key.length).trimStart();
-  const full = BOOK_CODE_LOOKUP[key].trimEnd();
-  return locator ? `${full} ${locator}` : full;
 }
 
 interface SectionLongPressableProps {
@@ -464,51 +426,25 @@ export default function SongScreen() {
     [currentSong, playlist, t],
   );
 
-  const fontSizeStyles = useMemo(() => FONT_SIZES[fontSize], [fontSize]);
+  const showVerseLabel = useMemo(() => shouldShowVerseLabels(currentSong), [currentSong]);
 
-  const renderSectionContent = useCallback((item: Song['body'][number], forPreview = false) => {
-    const sections = currentSong?.body?.filter((b) => b.type === 'verse' || b.type === 'chorus') ?? [];
-    const showVerseLabel = sections.length > 1;
-    return (
-      <ThemedView
-        style={[
-          item.type === "verse" ? styles.verseContainer : styles.chorusContainer,
-          item.type === "chorus" && { backgroundColor: colors.tint + "08" },
-          forPreview && styles.previewSectionOverride,
-          forPreview && item.type === "verse" && styles.previewVersePadding,
-        ]}
-      >
-        {item.type === "chorus" && (
-          <View style={[styles.chorusBar, { backgroundColor: colors.tint }]} />
-        )}
-        {item.type === "verse" && item.number && showVerseLabel && (
-          <ThemedView style={styles.verseHeader}>
-            <ThemedText style={[styles.verseLabel, { color: colors.icon }]} accessibilityRole="header" aria-level={2}>
-              {t('song.verseLabel', { number: item.number })}
-            </ThemedText>
-          </ThemedView>
-        )}
-        {item.type === "chorus" && (
-          <View style={styles.chorusHeader}>
-            <ThemedText style={[styles.chorusLabel, { color: colors.tint }]} accessibilityRole="header" aria-level={2}>
-              {t('song.chorusLabel')}
-            </ThemedText>
-          </View>
-        )}
-        <LyricsContent
-          content={item.content}
-          style={[
-            item.type === "verse" ? styles.verseContent : styles.chorusContent,
-            {
-              fontSize: item.type === "verse" ? fontSizeStyles.verse : fontSizeStyles.chorus,
-              lineHeight: fontSizeStyles.lineHeight,
-            },
-          ]}
-          tintColor={colors.tint}
-        />
-      </ThemedView>
-    );
-  }, [currentSong, colors, fontSizeStyles, t]);
+  const handleReferencePress = useCallback((link: ReferenceLink) => {
+    router.push({
+      pathname: '/song-preview',
+      params: { playlist: link.playlist, songNumber: link.songNumber },
+    });
+  }, [router]);
+
+  const handleBadgePress = useCallback(() => {
+    const fallback = { pathname: '/(tabs)/(home)/playlist/[name]' as const, params: { name: playlist } };
+    if (Platform.OS === 'web') {
+      router.replace(fallback);
+    } else if (router.canGoBack()) {
+      router.back();
+    } else {
+      router.replace(fallback);
+    }
+  }, [router, playlist]);
 
   const measureFavoriteButton = useCallback(() => {
     const buttonView = favoriteButtonRef.current;
@@ -584,64 +520,50 @@ export default function SongScreen() {
         keywords={`${currentSong.name}, indirimbo ya ${currentSong.number}, ${playlistTitle}, ${playlist === 'cantiques-kirundi' ? 'cantiques kirundi, indirimbo zo guhimbaza imana, burundian hymns' : "indirimbo, indirimbo zo mugitabo, rwandan hymns"}, worship songs`}
         playlist={playlist}
       />
-      <ThemedView style={[styles.header, { paddingTop: insets.top + 8 }]}>
-        <BackButton
-          color={colors.text}
-          style={styles.backButton}
-          fallbackHref={{ pathname: '/(tabs)/(home)/playlist/[name]', params: { name: playlist } }}
-        />
-        <TouchableOpacity
-          onPress={() => {
-            const fallback = { pathname: '/(tabs)/(home)/playlist/[name]' as const, params: { name: playlist } };
-            if (Platform.OS === 'web') {
-              router.replace(fallback);
-            } else {
-              if (router.canGoBack()) { router.back(); } else { router.replace(fallback); }
-            }
-          }}
-          activeOpacity={0.7}
-        >
-          <SongNumberBadge number={currentSong.number} size="large" style={styles.songNumberBadge} />
-        </TouchableOpacity>
-        <ThemedView style={styles.headerCenter}>
-          <ThemedText type="subtitle" style={styles.playlistLabel}>
-            {playlistTitle}
-          </ThemedText>
-          <View style={styles.titleRow}>
-            <ThemedText type="title" style={styles.songTitle} numberOfLines={1} accessibilityRole="header">
-              {currentSong.name}
-            </ThemedText>
+      <SongHeader
+        containerStyle={{ paddingTop: insets.top + 8 }}
+        number={currentSong.number}
+        playlistTitle={playlistTitle}
+        title={currentSong.name}
+        onBadgePress={handleBadgePress}
+        left={
+          <BackButton
+            color={colors.text}
+            style={styles.backButton}
+            fallbackHref={{ pathname: '/(tabs)/(home)/playlist/[name]', params: { name: playlist } }}
+          />
+        }
+        right={
+          <View style={[styles.headerActions, { borderColor: colors.icon + "30" }]}>
+            <TouchableOpacity
+              onPress={handleShare}
+              style={[styles.headerActionButton, { borderColor: colors.icon + "30" }]}
+              accessibilityLabel={t('common.song.shareA11y')}
+              accessibilityRole="button"
+              activeOpacity={0.7}
+              hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+            >
+              <IconSymbol name="square.and.arrow.up" size={22} color={colors.icon} />
+            </TouchableOpacity>
+            <TouchableOpacity
+              ref={favoriteButtonRef}
+              onLayout={measureFavoriteButton}
+              onPress={handleToggleFavorite}
+              style={styles.headerActionButton}
+              accessibilityLabel={isFav ? t('common.song.favoriteRemoveA11y') : t('common.song.favoriteAddA11y')}
+              accessibilityRole="button"
+              activeOpacity={0.7}
+              hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+            >
+              <IconSymbol
+                name={isFav ? "heart.fill" : "heart"}
+                size={22}
+                color={isFav ? "#FF3B30" : colors.icon}
+              />
+            </TouchableOpacity>
           </View>
-        </ThemedView>
-        <View style={[styles.headerActions, { borderColor: colors.icon + "30" }]}>
-          <TouchableOpacity
-            onPress={handleShare}
-            style={[styles.headerActionButton, { borderColor: colors.icon + "30" }]}
-            accessibilityLabel={t('common.song.shareA11y')}
-            accessibilityRole="button"
-            activeOpacity={0.7}
-            hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
-          >
-            <IconSymbol name="square.and.arrow.up" size={22} color={colors.icon} />
-          </TouchableOpacity>
-          <TouchableOpacity
-            ref={favoriteButtonRef as React.RefObject<View>}
-            onLayout={measureFavoriteButton}
-            onPress={handleToggleFavorite}
-            style={styles.headerActionButton}
-            accessibilityLabel={isFav ? "Remove from favorites" : "Add to favorites"}
-            accessibilityRole="button"
-            activeOpacity={0.7}
-            hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
-          >
-            <IconSymbol
-              name={isFav ? "heart.fill" : "heart"}
-              size={22}
-              color={isFav ? "#FF3B30" : colors.icon}
-            />
-          </TouchableOpacity>
-        </View>
-      </ThemedView>
+        }
+      />
 
       <View style={styles.contentContainer}>
         <Animated.ScrollView
@@ -667,23 +589,14 @@ export default function SongScreen() {
               viewRef={(ref) => { sectionRefs.current[index] = ref; }}
               onLayout={(event) => measureSection(index, event)}
             >
-              {renderSectionContent(item)}
+              <SongSection item={item} fontSize={fontSize} showVerseLabel={showVerseLabel} />
             </SectionLongPressable>
           )) || []}
-          {hasFooterContent && (
-            <View style={styles.referencesContainer}>
-              {currentSong.key && (
-                <ThemedText style={styles.referenceEntry}>
-                  Tonalité : {currentSong.key}
-                </ThemedText>
-              )}
-              {currentSong.references?.map((ref, i) => (
-                <ThemedText key={i} style={styles.referenceEntry}>
-                  {ref.title ? `${ref.title} ` : ''}{ref.codes ? (ref.title ? ref.codes : expandBookCodes(ref.codes)) : ''}
-                </ThemedText>
-              ))}
-            </View>
-          )}
+          <SongReferences
+            songKey={currentSong.key}
+            references={currentSong.references}
+            onReferencePress={handleReferencePress}
+          />
           <SongEndCta />
         </Animated.ScrollView>
       </View>
@@ -722,7 +635,14 @@ export default function SongScreen() {
         bottomInset={NAV_BAR_HEIGHT + insets.bottom}
         previewPaddingVertical={contextMenu?.sectionType === 'verse' ? 6 : 0}
         previewContent={contextMenu && currentSong.body[contextMenu.sectionIndex]
-          ? renderSectionContent(currentSong.body[contextMenu.sectionIndex], true)
+          ? (
+            <SongSection
+              item={currentSong.body[contextMenu.sectionIndex]}
+              fontSize={fontSize}
+              showVerseLabel={showVerseLabel}
+              forPreview
+            />
+          )
           : null}
         items={contextMenu ? [
           {
@@ -793,33 +713,6 @@ const styles = StyleSheet.create({
     borderRadius: 999,
     borderWidth: 1,
   },
-  headerCenter: {
-    flex: 1,
-  },
-  playlistLabel: {
-    fontSize: 12,
-    fontWeight: "500",
-    lineHeight: 14,
-    marginBottom: 2,
-    opacity: 0.7,
-  },
-  titleRow: {
-    flexDirection: "row",
-  },
-  songTitle: {
-    fontSize: 17,
-    lineHeight: 20,
-    flex: 1,
-  },
-  referencesContainer: {
-    marginTop: "auto",
-    paddingTop: 40,
-  },
-  referenceEntry: {
-    fontSize: 12,
-    lineHeight: 18,
-    opacity: 0.5,
-  },
   contentContainer: {
     flex: 1,
     position: "relative",
@@ -833,76 +726,8 @@ const styles = StyleSheet.create({
     paddingTop: 0,
     paddingBottom: 20,
   },
-  previewSectionOverride: {
-    marginTop: 0,
-    marginRight: 0,
-    marginBottom: 0,
-    marginLeft: 0,
-  },
-  previewVersePadding: {
-    paddingHorizontal: 20,
-  },
   scrollContentNoFooter: {
     paddingBottom: 100,
-  },
-  songNumberBadge: {
-    marginRight: 10,
-  },
-  verseContainer: {
-    marginBottom: 24,
-    overflow: "visible",
-  },
-  chorusContainer: {
-    marginBottom: 20,
-    marginLeft: -20,
-    marginRight: -20,
-    paddingLeft: 20,
-    paddingRight: 20,
-    paddingTop: 20,
-    paddingBottom: 20,
-    overflow: "visible",
-    position: "relative",
-  },
-  chorusBar: {
-    position: "absolute",
-    left: 1,
-    top: 0,
-    bottom: 0,
-    width: 4,
-  },
-  verseHeader: {
-    marginBottom: 10,
-  },
-  chorusHeader: {
-    marginBottom: 8,
-  },
-  verseLabel: {
-    fontSize: 11,
-    fontWeight: "600",
-    textTransform: "uppercase",
-    letterSpacing: 1.5,
-    opacity: 0.5,
-  },
-  chorusLabel: {
-    fontSize: 12,
-    fontWeight: "800",
-    textTransform: "uppercase",
-    letterSpacing: 2,
-  },
-  verseContent: {
-    fontSize: 17,
-    lineHeight: 30,
-    textAlign: "left",
-    letterSpacing: 0.1,
-    paddingRight: 5,
-  },
-  chorusContent: {
-    fontSize: 18,
-    lineHeight: 32,
-    textAlign: "left",
-    fontWeight: "400",
-    letterSpacing: 0.15,
-    paddingRight: 5,
   },
   emptyState: {
     flex: 1,

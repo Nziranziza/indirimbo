@@ -1,29 +1,15 @@
 import { PageHead } from '@/components/page-head';
 import { SongListScreen } from '@/components/song-list-screen';
 import type { IconSymbolName } from '@/components/ui/icon-symbol';
-import agakizaSongs from '@/constants/agakiza-songs';
-import gushimishaSongs from '@/constants/gushimisha-songs';
-import cantiquesKirundiSongs from '@/constants/cantiques-kirundi-songs';
-import sdahSongs from '@/constants/sdah-songs';
+import { SdaFlameIcon } from '@/components/ui/sda-flame-icon';
+import { SONGS_BY_PLAYLIST } from '@/constants/song-collections';
 import { PLAYLISTS, getPlaylistName, type PlaylistId } from '@/constants/playlists';
-import type { Song } from '@/constants/types';
 import { useEngagement } from '@/contexts/engagement-context';
 import { useTranslation } from '@/hooks/use-translation';
 import { trackEvent } from '@/utils/analytics';
 import { sharePlaylist } from '@/utils/share';
 import { useLocalSearchParams, usePathname } from 'expo-router';
 import { useCallback, useMemo } from 'react';
-
-// Resolve song data synchronously so the screen renders the real song list during
-// the static prerender (and on first client render) instead of waiting on the async
-// SongsProvider — that's what puts the list into the served HTML for a fast LCP and
-// keeps client hydration matching the prerendered output.
-const SONGS_BY_PLAYLIST: Record<string, Song[]> = {
-  agakiza: agakizaSongs,
-  gushimisha: gushimishaSongs,
-  'cantiques-kirundi': cantiquesKirundiSongs,
-  'sdah-kinyarwanda': sdahSongs,
-};
 
 // Prerender one static HTML page per playlist so Expo emits real content for every
 // /playlist/<name> route rather than a single shell.
@@ -93,6 +79,11 @@ export default function PlaylistScreen() {
         source="playlist"
         onShare={handleShare}
         shareAccessibilityLabel={t('songList.sharePlaylistA11y')}
+        renderIcon={
+          name === 'sdah-kinyarwanda'
+            ? (size, color) => <SdaFlameIcon size={size} color={color} />
+            : undefined
+        }
       />
     </>
   );
