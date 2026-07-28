@@ -280,6 +280,8 @@ export const en = {
   'song.menu.copyChorus': 'Copy chorus',
   'song.menu.shareVerse': 'Share verse',
   'song.menu.shareChorus': 'Share chorus',
+  'songPreview.openFull': 'Open full song',
+  'songPreview.closeA11y': 'Close',
 
   // Share dialog titles (system share sheet header on iOS)
   'share.dialog.song': 'Share song',
@@ -387,6 +389,8 @@ export const en = {
   'common.search.inputA11y': 'Search songs',
   'common.search.clearA11y': 'Clear search',
   'common.song.shareA11y': 'Share song',
+  'common.song.favoriteAddA11y': 'Add to favorites',
+  'common.song.favoriteRemoveA11y': 'Remove from favorites',
   'common.song.previousA11y': 'Previous song',
   'common.song.nextA11y': 'Next song',
 
