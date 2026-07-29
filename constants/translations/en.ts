@@ -393,6 +393,8 @@ export const en = {
   'common.song.favoriteRemoveA11y': 'Remove from favorites',
   'common.song.previousA11y': 'Previous song',
   'common.song.nextA11y': 'Next song',
+  'common.song.playAudioA11y': 'Play song audio',
+  'common.song.pauseAudioA11y': 'Pause song audio',
 
   // Common — update prompts
   'common.update.requiredTitle': 'Update Required',

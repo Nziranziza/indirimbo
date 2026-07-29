@@ -425,6 +425,8 @@ export const fr: EnTranslations = {
   'common.song.favoriteRemoveA11y': 'Retirer des favoris',
   'common.song.previousA11y': 'Chanson précédente',
   'common.song.nextA11y': 'Chanson suivante',
+  'common.song.playAudioA11y': "Écouter l'audio de la chanson",
+  'common.song.pauseAudioA11y': "Mettre en pause l'audio de la chanson",
 
   // Common — update prompts
   'common.update.requiredTitle': 'Mise à jour requise',

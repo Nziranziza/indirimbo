@@ -11,7 +11,8 @@ import { SongReferences } from "@/components/song/song-references";
 import { SongEndCta } from "@/components/song-end-cta";
 import { SongHeatmap } from "@/components/ui/song-heatmap";
 import { SongNavigationBar } from "@/components/ui/song-navigation-bar";
-import { SONGS_BY_PLAYLIST, shouldShowVerseLabels } from "@/constants/song-collections";
+import { SONGS_BY_PLAYLIST, countVerses, shouldShowVerseLabels } from "@/constants/song-collections";
+import { getPlaylistOgImageUrl } from "@/constants/og-images";
 import { getPlaylistName, getSongTitleLabel } from "@/constants/playlists";
 import type { Song } from "@/constants/types";
 import type { ReferenceLink } from "@/utils/reference-links";
@@ -33,6 +34,7 @@ import { trackEvent } from "@/utils/analytics";
 import { formatSectionForSharing } from "@/utils/format-song-text";
 import { heavyImpact, lightImpact } from "@/utils/haptics";
 import { shareSong, shareSongSection } from "@/utils/share";
+import { getSongAudioUrl, playsFullHymn } from "@/utils/song-audio";
 import { APP_UNIVERSAL_LINK_URL } from "@/constants/app-links";
 import * as Clipboard from "expo-clipboard";
 import { useLocalSearchParams, useRouter } from "expo-router";
@@ -134,11 +136,12 @@ function SectionLongPressable({
 
 export default function SongScreen() {
   const router = useRouter();
-  const { playlist, songNumber, source, direction } = useLocalSearchParams<{
+  const { playlist, songNumber, source, direction, resume } = useLocalSearchParams<{
     playlist: string;
     songNumber: string;
     source?: string;
     direction?: string;
+    resume?: string;
   }>();
   const [isFav, setIsFav] = useState(false);
   const [fontSize, setFontSize] = useState<FontSize>("medium");
@@ -164,7 +167,10 @@ export default function SongScreen() {
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();
 
-  const allSongs: Song[] = SONGS_BY_PLAYLIST[playlist ?? ''] ?? [];
+  const allSongs: Song[] = useMemo(
+    () => SONGS_BY_PLAYLIST[playlist ?? ''] ?? [],
+    [playlist],
+  );
 
   const currentSongNumber = songNumber || "1";
   let currentSong = allSongs.find((s) => String(s.number) === String(currentSongNumber));
@@ -464,6 +470,29 @@ export default function SongScreen() {
     });
   }, []);
 
+  // Playback rolls on through the collection: when a recording has played its
+  // passes, the next song that has one takes over, screen and all. Songs without a
+  // recording are skipped rather than ending the run, and it stops at the last one.
+  const handleAudioCompleted = useCallback(() => {
+    for (let index = currentIndex + 1; index < allSongs.length; index++) {
+      const candidate = allSongs[index];
+      if (!getSongAudioUrl(playlist, candidate.number)) continue;
+
+      setSectionPositions([]);
+      trackEvent('navigate_song', { direction: 'auto', playlist });
+      router.replace({
+        pathname: `/song/[playlist]/[songNumber]`,
+        params: {
+          playlist,
+          songNumber: String(candidate.number),
+          direction: 'forward',
+          resume: '1',
+        },
+      });
+      return;
+    }
+  }, [allSongs, currentIndex, playlist, router]);
+
   if (!currentSong || allSongs.length === 0) {
     return (
       <ThemedView style={styles.container}>
@@ -502,6 +531,13 @@ export default function SongScreen() {
       });
     }
   };
+
+  const audioUrl = getSongAudioUrl(playlist, currentSong.number);
+  // A single verse of melody repeats until the verses are done; a recording of the
+  // whole hymn already contains them, so it plays once.
+  const audioRepeatCount = playsFullHymn(playlist, currentSong.number)
+    ? 1
+    : countVerses(currentSong);
 
   const seoDescription = buildSongSeoDescription(currentSong);
 
@@ -626,6 +662,13 @@ export default function SongScreen() {
         onPrevious={handlePrevious}
         onNext={handleNext}
         bottomInset={insets.bottom}
+        audioUrl={audioUrl}
+        audioRepeatCount={audioRepeatCount}
+        audioTitle={`${currentSong.number}. ${currentSong.name}`}
+        audioArtist={getPlaylistName(playlist)}
+        audioArtworkUrl={getPlaylistOgImageUrl(playlist)}
+        audioStartPlaying={resume === '1'}
+        onAudioCompleted={handleAudioCompleted}
       />
 
       <LyricsContextMenu

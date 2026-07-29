@@ -8,6 +8,7 @@ import { getPlaylistName } from "@/constants/playlists";
 import { LinearGradient } from "expo-linear-gradient";
 import { findSong, shouldShowVerseLabels } from "@/constants/song-collections";
 import { useColors } from "@/hooks/use-colors";
+import { pauseSongAudio } from "@/hooks/use-song-audio";
 import { useTranslation } from "@/hooks/use-translation";
 import type { ReferenceLink } from "@/utils/reference-links";
 import { getFontSize, type FontSize } from "@/utils/storage";
@@ -62,9 +63,12 @@ export default function SongPreviewScreen() {
     [router],
   );
 
-  // Replace the modal with the full song screen underneath the previous song.
+  // Replace the modal with the full song screen underneath the previous song. That
+  // previous screen stays mounted, so its recording has to be stopped here — the
+  // reader is leaving that song, unlike when this modal merely opened over it.
   const handleOpenFull = useCallback(() => {
     if (!song || !playlist) return;
+    pauseSongAudio();
     router.replace({
       pathname: "/song/[playlist]/[songNumber]",
       params: { playlist, songNumber: String(song.number), source: "reference" },
