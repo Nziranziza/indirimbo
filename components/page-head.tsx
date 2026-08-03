@@ -1,10 +1,9 @@
+import { getPlaylistOgImageUrl } from '@/constants/og-images';
 import { useLanguage } from '@/contexts/language-context';
 import { useIsFocused } from 'expo-router';
 import Head from 'expo-router/head';
 
 const BASE_URL = 'https://indirimbo.rw';
-const OG_IMAGE = `${BASE_URL}/og-image.jpg`;
-const OG_IMAGE_KIRUNDI = `${BASE_URL}/og-image-kirundi.jpg`;
 
 interface PageHeadProps {
   readonly title: string;
@@ -23,7 +22,7 @@ export function PageHead({ title, description, canonicalPath, keywords, playlist
   const rawUrl = `${BASE_URL}${canonicalPath}`;
   const canonicalUrl = rawUrl.endsWith('/') ? rawUrl : `${rawUrl}/`;
   const isKirundi = playlist === 'cantiques-kirundi';
-  const ogImage = isKirundi ? OG_IMAGE_KIRUNDI : OG_IMAGE;
+  const ogImage = getPlaylistOgImageUrl(playlist);
   // Song pages keep their content language; static pages reflect the active UI language.
   const ogLocale = playlist
     ? (isKirundi ? 'rn_BI' : 'rw_RW')

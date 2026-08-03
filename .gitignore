@@ -54,4 +54,8 @@ eas-indirimbo-app-*.json
 # scripts and data files for song extraction
 /tools
 /bookreference
+
+# dev-only symlink to the local song recordings (tools/link-local-audio.sh).
+# The recordings themselves live in the separate indirimbo-audio repo.
+/public/audio
 .env.local

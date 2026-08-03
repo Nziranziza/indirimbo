@@ -1,6 +1,8 @@
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { IconSymbol } from '@/components/ui/icon-symbol';
+import { SongAudioButton } from '@/components/ui/song-audio-button';
+import { SONG_NAV_BUTTON_SIZE } from '@/constants/layout';
 import { useColors } from '@/hooks/use-colors';
 import { useTranslation } from '@/hooks/use-translation';
 import { StyleSheet, TouchableOpacity } from 'react-native';
@@ -11,6 +13,19 @@ interface SongNavigationBarProps {
   readonly onPrevious: () => void;
   readonly onNext: () => void;
   readonly bottomInset: number;
+  /** URL of the song's official recording, when one exists. */
+  readonly audioUrl?: string;
+  /** Passes the recording plays back to back — one per verse. */
+  readonly audioRepeatCount?: number;
+  /** Song title and collection, shown on the lock screen while playing. */
+  readonly audioTitle?: string;
+  readonly audioArtist?: string;
+  /** Collection artwork for the Android media card. */
+  readonly audioArtworkUrl?: string;
+  /** Playback carried over from the previous song, so start without a press. */
+  readonly audioStartPlaying?: boolean;
+  /** The recording finished every pass — used to roll on to the next song. */
+  readonly onAudioCompleted?: () => void;
 }
 
 export function SongNavigationBar({
@@ -19,6 +34,13 @@ export function SongNavigationBar({
   onPrevious,
   onNext,
   bottomInset,
+  audioUrl,
+  audioRepeatCount = 1,
+  audioTitle = '',
+  audioArtist = '',
+  audioArtworkUrl = '',
+  audioStartPlaying = false,
+  onAudioCompleted,
 }: SongNavigationBarProps) {
   const colors = useColors();
   const { t } = useTranslation();
@@ -55,11 +77,25 @@ export function SongNavigationBar({
         />
       </TouchableOpacity>
 
-      <ThemedView style={styles.songCounter}>
-        <ThemedText style={[styles.counterText, { color: colors.icon }]}>
-          {currentIndex + 1} / {totalSongs}
-        </ThemedText>
-      </ThemedView>
+      {/* Songs with a recording show the player; the rest keep the counter. */}
+      {audioUrl ? (
+        <SongAudioButton
+          key={audioUrl}
+          audioUrl={audioUrl}
+          repeatCount={audioRepeatCount}
+          title={audioTitle}
+          artist={audioArtist}
+          artworkUrl={audioArtworkUrl}
+          startPlaying={audioStartPlaying}
+          onCompleted={onAudioCompleted}
+        />
+      ) : (
+        <ThemedView style={styles.songCounter}>
+          <ThemedText style={[styles.counterText, { color: colors.icon }]}>
+            {currentIndex + 1} / {totalSongs}
+          </ThemedText>
+        </ThemedView>
+      )}
 
       <TouchableOpacity
         style={[
@@ -96,9 +132,9 @@ const styles = StyleSheet.create({
     zIndex: 10,
   },
   navButton: {
-    width: 48,
-    height: 48,
-    borderRadius: 24,
+    width: SONG_NAV_BUTTON_SIZE,
+    height: SONG_NAV_BUTTON_SIZE,
+    borderRadius: SONG_NAV_BUTTON_SIZE / 2,
     alignItems: 'center',
     justifyContent: 'center',
   },

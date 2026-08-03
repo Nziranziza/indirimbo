@@ -32,6 +32,14 @@ export function findSong(
 
 // Verse labels ("Verse 1", …) are only useful when a song has more than one
 // verse/chorus section. Shared by the song screen and the preview modal.
+// How many times a recording should play: once per verse, so a congregation can
+// sing the whole hymn to it. Choruses are excluded — they are sung within a verse
+// pass, not as an extra one. Never less than one pass.
+export function countVerses(song: Song | undefined): number {
+  const verses = song?.body?.filter((b) => b.type === "verse").length ?? 0;
+  return Math.max(1, verses);
+}
+
 export function shouldShowVerseLabels(song: Song | undefined): boolean {
   const sections = song?.body?.filter(
     (b) => b.type === "verse" || b.type === "chorus",

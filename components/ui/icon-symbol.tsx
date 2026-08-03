@@ -68,6 +68,7 @@ const MAPPING = {
   'exclamationmark.triangle': 'warning-amber',
   'link': 'link',
   'play.fill': 'play-arrow',
+  'pause.fill': 'pause',
   'chart.bar.fill': 'bar-chart',
   'clock': 'schedule',
   'clock.arrow.circlepath': 'history',

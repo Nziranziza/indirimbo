@@ -24,6 +24,7 @@
     },
     "android": {
       "package": "com.indirimbo.app",
+      "permissions": ["android.permission.POST_NOTIFICATIONS"],
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
         "foregroundImage": "./assets/images/android-icon-foreground.png",
@@ -108,7 +109,8 @@
           "organization": "indirimbo"
         }
       ],
-      "expo-status-bar"
+      "expo-status-bar",
+      "expo-audio"
     ],
     "updates": {
       "url": "https://u.expo.dev/42352c61-6285-46aa-9faa-ee33c490e5c7"
