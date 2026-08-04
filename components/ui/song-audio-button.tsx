@@ -1,11 +1,12 @@
-import { memo, useCallback, useMemo, useState } from 'react';
+import { memo, useCallback } from 'react';
 import { ActivityIndicator, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { IconSymbol, type IconSymbolName } from '@/components/ui/icon-symbol';
 import { SONG_NAV_BUTTON_SIZE } from '@/constants/layout';
+import { useSongTrackAudio } from '@/contexts/song-audio-context';
 import { useColors } from '@/hooks/use-colors';
-import { useSongAudio } from '@/hooks/use-song-audio';
 import { useTranslation } from '@/hooks/use-translation';
 import { lightImpact } from '@/utils/haptics';
+import type { SongAudioTrack } from '@/utils/song-audio';
 
 const ICON_SIZE = 26;
 const HIT_SLOP = { top: 12, bottom: 12, left: 12, right: 12 };
@@ -51,18 +52,7 @@ const AudioCircleButton = memo(function AudioCircleButton({
 });
 
 interface SongAudioButtonProps {
-  readonly audioUrl: string;
-  /** Passes to play back to back — one per verse. */
-  readonly repeatCount: number;
-  /** Shown on the lock screen and in the Android notification. */
-  readonly title: string;
-  readonly artist: string;
-  /** Collection artwork, used by Android's media card. */
-  readonly artworkUrl: string;
-  /** Start playing on mount — set when playback carried over from the last song. */
-  readonly startPlaying?: boolean;
-  /** Playback finished every pass, so the next song can take over. */
-  readonly onCompleted?: () => void;
+  readonly track: SongAudioTrack;
 }
 
 // Fills the navigation bar's top border as the track plays. Absolutely positioned
@@ -92,24 +82,17 @@ const SongAudioProgressLine = memo(function SongAudioProgressLine({
   );
 });
 
-// Owns the player, so it is mounted only once playback has been asked for.
-function SongAudioPlayer({
-  audioUrl,
-  repeatCount,
-  title,
-  artist,
-  artworkUrl,
-  onCompleted,
-}: SongAudioButtonProps) {
+/**
+ * Play/pause control for a song's official recording, shown in place of the song
+ * counter when a recording exists. Playback progress fills the navigation bar's
+ * top border, and the recording repeats once per verse.
+ *
+ * The player itself lives in SongAudioProvider, not here — this only shows and
+ * drives the state of one song within it.
+ */
+export function SongAudioButton({ track }: SongAudioButtonProps) {
   const { t } = useTranslation();
-  const metadata = useMemo(() => ({ title, artist, artworkUrl }), [title, artist, artworkUrl]);
-  const { isPlaying, isPreparing, hasError, progress, toggle } = useSongAudio(audioUrl, {
-    // The press that mounted this component is the play press.
-    playWhenReady: true,
-    repeatCount,
-    metadata,
-    onCompleted,
-  });
+  const { isPlaying, isPreparing, hasError, progress, toggle } = useSongTrackAudio(track);
 
   const iconName: IconSymbolName = hasError
     ? 'exclamationmark.triangle'
@@ -130,52 +113,6 @@ function SongAudioPlayer({
         isBusy={isPreparing && !hasError}
       />
     </>
-  );
-}
-
-/**
- * Play/pause control for a song's official recording, shown in place of the song
- * counter when a recording exists. Playback progress fills the navigation bar's
- * top border, and the recording repeats once per verse.
- *
- * The player mounts on the first press rather than on render: it starts
- * downloading the recording as soon as it exists, which would otherwise cost a
- * few hundred KB for every song opened, and it builds a DOM `Audio` element that
- * cannot be constructed while the web song pages are prerendered in Node.
- */
-export function SongAudioButton({
-  audioUrl,
-  repeatCount,
-  title,
-  artist,
-  artworkUrl,
-  startPlaying = false,
-  onCompleted,
-}: SongAudioButtonProps) {
-  const { t } = useTranslation();
-  const [hasStarted, setHasStarted] = useState(startPlaying);
-
-  const handleStart = useCallback(() => setHasStarted(true), []);
-
-  if (!hasStarted) {
-    return (
-      <AudioCircleButton
-        iconName="play.fill"
-        accessibilityLabel={t('common.song.playAudioA11y')}
-        onPress={handleStart}
-      />
-    );
-  }
-
-  return (
-    <SongAudioPlayer
-      audioUrl={audioUrl}
-      repeatCount={repeatCount}
-      title={title}
-      artist={artist}
-      artworkUrl={artworkUrl}
-      onCompleted={onCompleted}
-    />
   );
 }
 

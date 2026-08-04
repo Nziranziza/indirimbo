@@ -7,8 +7,8 @@ import { IconSymbol } from "@/components/ui/icon-symbol";
 import { getPlaylistName } from "@/constants/playlists";
 import { LinearGradient } from "expo-linear-gradient";
 import { findSong, shouldShowVerseLabels } from "@/constants/song-collections";
+import { useSongAudio, useSuspendSongAudioAdvance } from "@/contexts/song-audio-context";
 import { useColors } from "@/hooks/use-colors";
-import { pauseSongAudio } from "@/hooks/use-song-audio";
 import { useTranslation } from "@/hooks/use-translation";
 import type { ReferenceLink } from "@/utils/reference-links";
 import { getFontSize, type FontSize } from "@/utils/storage";
@@ -30,6 +30,10 @@ export default function SongPreviewScreen() {
   const colors = useColors();
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();
+  const { pause: pauseSongAudio } = useSongAudio();
+  // A reader with this song open is not asking for the next one: playback holds at
+  // the end of the song they opened it from until this modal goes away.
+  useSuspendSongAudioAdvance();
   const [fontSize, setFontSize] = useState<FontSize>("medium");
 
   useEffect(() => {
@@ -73,7 +77,7 @@ export default function SongPreviewScreen() {
       pathname: "/song/[playlist]/[songNumber]",
       params: { playlist, songNumber: String(song.number), source: "reference" },
     });
-  }, [router, song, playlist]);
+  }, [router, song, playlist, pauseSongAudio]);
 
   return (
     <ThemedView style={styles.container}>

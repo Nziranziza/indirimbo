@@ -12,6 +12,7 @@ import { WebShell } from '@/components/web/web-shell';
 import { EngagementProvider } from '@/contexts/engagement-context';
 import { LanguageProvider } from '@/contexts/language-context';
 import { SongbookPreferenceProvider } from '@/contexts/songbook-preference-context';
+import { SongAudioProvider } from '@/contexts/song-audio-context';
 import { SongsProvider } from '@/contexts/songs-context';
 import { ThemeProvider, useColorScheme } from '@/contexts/theme-context';
 import { UpdateCheckProvider } from '@/contexts/update-check-context';
@@ -180,7 +181,9 @@ function RootLayout() {
         <ThemeProvider>
         <UpdateCheckProvider>
         <EngagementProvider>
+        <SongAudioProvider>
           {Platform.OS === 'web' ? <WebShell>{content}</WebShell> : content}
+        </SongAudioProvider>
         </EngagementProvider>
         </UpdateCheckProvider>
         </ThemeProvider>
