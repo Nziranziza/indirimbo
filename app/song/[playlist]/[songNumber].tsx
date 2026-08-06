@@ -11,17 +11,18 @@ import { SongReferences } from "@/components/song/song-references";
 import { SongEndCta } from "@/components/song-end-cta";
 import { SongHeatmap } from "@/components/ui/song-heatmap";
 import { SongNavigationBar } from "@/components/ui/song-navigation-bar";
-import { SONGS_BY_PLAYLIST, countVerses, shouldShowVerseLabels } from "@/constants/song-collections";
-import { getPlaylistOgImageUrl } from "@/constants/og-images";
+import { SONGS_BY_PLAYLIST, shouldShowVerseLabels } from "@/constants/song-collections";
 import { getPlaylistName, getSongTitleLabel } from "@/constants/playlists";
 import type { Song } from "@/constants/types";
 import type { ReferenceLink } from "@/utils/reference-links";
 import { useEngagement, useBottomChrome } from "@/contexts/engagement-context";
+import { useSongAudio } from "@/contexts/song-audio-context";
 import { useColors } from "@/hooks/use-colors";
 import { useTranslation } from "@/hooks/use-translation";
 import { useFavoriteSuggestion } from "@/hooks/use-favorite-suggestion";
 import { useKirundiPinSuggestion } from "@/hooks/use-kirundi-pin-suggestion";
 import { useKeepAwake } from "@/hooks/use-keep-awake";
+import { useReturnToPlayingSong } from "@/hooks/use-return-to-playing-song";
 import {
   addFavorite,
   addRecentSong,
@@ -34,10 +35,10 @@ import { trackEvent } from "@/utils/analytics";
 import { formatSectionForSharing } from "@/utils/format-song-text";
 import { heavyImpact, lightImpact } from "@/utils/haptics";
 import { shareSong, shareSongSection } from "@/utils/share";
-import { getSongAudioUrl, playsFullHymn } from "@/utils/song-audio";
+import { getSongAudioTrack, type SongAudioTrack } from "@/utils/song-audio";
 import { APP_UNIVERSAL_LINK_URL } from "@/constants/app-links";
 import * as Clipboard from "expo-clipboard";
-import { useLocalSearchParams, useRouter } from "expo-router";
+import { useFocusEffect, useLocalSearchParams, useRouter } from "expo-router";
 import { PageHead } from "@/components/page-head";
 import { buildSongSeoDescription } from "@/utils/seo-description";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
@@ -136,12 +137,11 @@ function SectionLongPressable({
 
 export default function SongScreen() {
   const router = useRouter();
-  const { playlist, songNumber, source, direction, resume } = useLocalSearchParams<{
+  const { playlist, songNumber, source, direction } = useLocalSearchParams<{
     playlist: string;
     songNumber: string;
     source?: string;
     direction?: string;
-    resume?: string;
   }>();
   const [isFav, setIsFav] = useState(false);
   const [fontSize, setFontSize] = useState<FontSize>("medium");
@@ -188,6 +188,28 @@ export default function SongScreen() {
       0,
     );
   }, [currentSong]);
+
+  // The song's official recording, when it has one. Undefined leaves the nav bar
+  // showing the song counter instead of a player.
+  const audioSongNumber = currentSong?.number;
+  const audioTrack = useMemo(
+    () => getSongAudioTrack(playlist, audioSongNumber),
+    [playlist, audioSongNumber],
+  );
+
+  const { setAdvanceNavigator, clearAdvanceNavigator, pauseTrack } = useSongAudio();
+
+  // Coming back to this song — from the app's own background, or from a reference
+  // modal opened over it — lands on whatever is playing rather than what was left.
+  useReturnToPlayingSong(audioTrack);
+
+  // Leaving this song stops its recording. Playback that has already rolled on to
+  // another song is left alone — auto-advance replaces this screen, so its going
+  // away is not the reader walking out on the music.
+  useEffect(() => {
+    if (!audioTrack) return;
+    return () => pauseTrack(audioTrack);
+  }, [audioTrack, pauseTrack]);
 
   const { resetKeepAwake } = useKeepAwake(lineCount);
 
@@ -470,28 +492,31 @@ export default function SongScreen() {
     });
   }, []);
 
-  // Playback rolls on through the collection: when a recording has played its
-  // passes, the next song that has one takes over, screen and all. Songs without a
-  // recording are skipped rather than ending the run, and it stops at the last one.
-  const handleAudioCompleted = useCallback(() => {
-    for (let index = currentIndex + 1; index < allSongs.length; index++) {
-      const candidate = allSongs[index];
-      if (!getSongAudioUrl(playlist, candidate.number)) continue;
+  // Playback rolls on through the collection on its own (see SongAudioProvider);
+  // this only takes the reader along while this song is the one on screen. Left to
+  // its own devices — reader browsing elsewhere — the audio advances without
+  // yanking them back into the song stack.
+  useFocusEffect(
+    useCallback(() => {
+      const navigateToNextSong = (next: SongAudioTrack) => {
+        setSectionPositions([]);
+        trackEvent('navigate_song', { direction: 'auto', playlist: next.playlist });
+        router.replace({
+          pathname: `/song/[playlist]/[songNumber]`,
+          params: {
+            playlist: next.playlist,
+            songNumber: String(next.songNumber),
+            direction: 'forward',
+          },
+        });
+      };
 
-      setSectionPositions([]);
-      trackEvent('navigate_song', { direction: 'auto', playlist });
-      router.replace({
-        pathname: `/song/[playlist]/[songNumber]`,
-        params: {
-          playlist,
-          songNumber: String(candidate.number),
-          direction: 'forward',
-          resume: '1',
-        },
-      });
-      return;
-    }
-  }, [allSongs, currentIndex, playlist, router]);
+      setAdvanceNavigator(navigateToNextSong);
+      // Guarded, not cleared outright: the advance this screen just performed has
+      // already put the next song's screen in the slot by the time this runs.
+      return () => clearAdvanceNavigator(navigateToNextSong);
+    }, [setAdvanceNavigator, clearAdvanceNavigator, router]),
+  );
 
   if (!currentSong || allSongs.length === 0) {
     return (
@@ -531,13 +556,6 @@ export default function SongScreen() {
       });
     }
   };
-
-  const audioUrl = getSongAudioUrl(playlist, currentSong.number);
-  // A single verse of melody repeats until the verses are done; a recording of the
-  // whole hymn already contains them, so it plays once.
-  const audioRepeatCount = playsFullHymn(playlist, currentSong.number)
-    ? 1
-    : countVerses(currentSong);
 
   const seoDescription = buildSongSeoDescription(currentSong);
 
@@ -662,13 +680,7 @@ export default function SongScreen() {
         onPrevious={handlePrevious}
         onNext={handleNext}
         bottomInset={insets.bottom}
-        audioUrl={audioUrl}
-        audioRepeatCount={audioRepeatCount}
-        audioTitle={`${currentSong.number}. ${currentSong.name}`}
-        audioArtist={getPlaylistName(playlist)}
-        audioArtworkUrl={getPlaylistOgImageUrl(playlist)}
-        audioStartPlaying={resume === '1'}
-        onAudioCompleted={handleAudioCompleted}
+        audioTrack={audioTrack}
       />
 
       <LyricsContextMenu

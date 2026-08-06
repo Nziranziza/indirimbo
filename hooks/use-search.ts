@@ -1,8 +1,19 @@
 import type { Song } from '@/constants/types';
 import type { SnippetSection } from '@/utils/search-helpers';
-import { buildSnippetSections, collapseContractions, countWordCoverage, getMatchSnippet } from '@/utils/search-helpers';
+import { buildSnippetSections, collapseContractions, countWordCoverage, getMatchSnippet, isCoverageWord } from '@/utils/search-helpers';
 import type FuseType from 'fuse.js';
 import { useEffect, useMemo, useState } from 'react';
+
+// Fuse scores the whole corpus either way, so a wider pool buys no better
+// matches — it only feeds more fuzzy candidates into the coverage tiebreaker,
+// which is where the re-rank cost is.
+const SEARCH_CANDIDATE_LIMIT = 50;
+// How many ranked results we actually render.
+const SEARCH_RESULT_LIMIT = 10;
+// Fraction of the query's words a title must carry before it counts as a title
+// match for tiebreaking. Below this, a title sharing one common word with the
+// query would outrank the song that actually contains the searched lyric.
+const TITLE_MATCH_COVERAGE_RATIO = 0.75;
 
 interface FlatSong extends Song {
   readonly playlist: string;
@@ -21,6 +32,7 @@ export interface SearchResult {
   readonly rank: number;
   readonly score: number;
   readonly coverage: number;
+  readonly titleCoverage: number;
   readonly snippet: { label: string; snippet: string } | null;
 }
 
@@ -95,8 +107,14 @@ export function useSearch(allSongs: Record<string, Song[]>, query: string): UseS
 
     if (words.length === 0) return [];
 
-    const results = fuseInstance.search(trimmedQuery, { limit: 50 });
+    const results = fuseInstance.search(trimmedQuery, { limit: SEARCH_CANDIDATE_LIMIT });
     const collapsedWords = words.map(w => collapseContractions(w));
+    // Counted against the words coverage can actually score, not every word in
+    // the query: single-character words (`1` in `1 chorus`, kept above because a
+    // bare number is a valid song lookup) are never counted, so including them
+    // here would set a threshold no title could reach.
+    const countableWords = collapsedWords.filter(isCoverageWord).length;
+    const titleMatchThreshold = Math.ceil(countableWords * TITLE_MATCH_COVERAGE_RATIO);
 
     const ranked = results.map((r: { item: FlatSong; score?: number }) => {
       const item = r.item;
@@ -107,6 +125,13 @@ export function useSearch(allSongs: Record<string, Song[]>, query: string): UseS
 
       const coverageHaystack = `${item.searchTextCollapsed} ${item.nameCollapsed}`;
       const coverage = countWordCoverage(collapsedWords, coverageHaystack);
+      // Title coverage catches the match the rank buckets above cannot see: a
+      // title that carries the query words but not as one substring, because
+      // the book contracts what the user expanded (`Tugiy' i wacu` for
+      // `tugiye iwacu`). Collapsing can't bridge that — it removes the
+      // apostrophe without restoring the elided vowel.
+      const titleWordsMatched = countWordCoverage(collapsedWords, item.nameCollapsed);
+      const titleCoverage = titleWordsMatched >= titleMatchThreshold ? titleWordsMatched : 0;
 
       return {
         playlist: item.playlist,
@@ -114,18 +139,24 @@ export function useSearch(allSongs: Record<string, Song[]>, query: string): UseS
         rank,
         score: r.score ?? 1,
         coverage,
+        titleCoverage,
       };
     });
 
     ranked.sort((a, b) => {
       if (a.rank !== b.rank) return a.rank - b.rank;
       if (a.coverage !== b.coverage) return b.coverage - a.coverage;
+      // Body coverage saturates on short common words (`mu` matches inside
+      // `Zizamuke`), so it often ties across unrelated songs. Break those ties
+      // on the title before falling through to the Fuse score, which barely
+      // discriminates between full-corpus fuzzy matches.
+      if (a.titleCoverage !== b.titleCoverage) return b.titleCoverage - a.titleCoverage;
       return a.score - b.score;
     });
 
-    // Snippet generation is the heaviest per-result step, so run it only for
-    // the results we actually render — after ranking has picked the top 30.
-    return ranked.slice(0, 30).map(result => ({
+    // Snippets are only needed for the rows that render, so build them after
+    // ranking has picked the top ones rather than for every candidate.
+    return ranked.slice(0, SEARCH_RESULT_LIMIT).map(result => ({
       ...result,
       snippet: getMatchSnippet(result.song, words),
     }));

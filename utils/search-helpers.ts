@@ -58,6 +58,17 @@ function wordMatchesFuzzy(word: string, haystack: string, maxDist: number): bool
 }
 
 /**
+ * Whether a query word can contribute to coverage at all. One-character words
+ * are skipped: they near-match almost any haystack, so counting them would make
+ * coverage meaningless. Callers deriving a coverage threshold must filter with
+ * this too, or they ask for a score the count can never reach (a query like
+ * `1 chorus` raises the bar by a word that is never counted).
+ */
+export function isCoverageWord(word: string): boolean {
+  return word.length >= 2;
+}
+
+/**
  * Count how many query words have a near-match in the haystack. Used as the
  * primary tiebreaker so a song that fuzzy-matches all four words ranks above
  * a song that exact-matches only one.
@@ -65,7 +76,7 @@ function wordMatchesFuzzy(word: string, haystack: string, maxDist: number): bool
 export function countWordCoverage(words: string[], haystack: string): number {
   let count = 0;
   for (const w of words) {
-    if (w.length < 2) continue;
+    if (!isCoverageWord(w)) continue;
     // 1-edit fuzzy for words >= 3 chars covers Kinyarwanda contractions
     // where the user types the elided vowel (e.g. `ari` → source `ar`).
     const maxDist = w.length >= 3 ? 1 : 0;
@@ -120,14 +131,47 @@ export function buildSnippetSections(body: Song['body']): SnippetSection[] {
   });
 }
 
-function findMatchingLine(section: SnippetSection, words: string[], fuzzy: boolean): number {
+function countLiteralMatches(lowerLine: string, collapsedLine: string, words: string[]): number {
+  let count = 0;
+  for (const w of words) {
+    if (lowerLine.includes(w) || collapsedLine.includes(w)) count++;
+  }
+  return count;
+}
+
+/**
+ * Pick the line carrying the most query words, earliest winning a tie. Scoring
+ * every line instead of stopping at the first hit keeps the verse on screen
+ * consistent with the coverage tiebreaker that decided the result's rank —
+ * otherwise a multi-word query shows whichever verse happens to contain its
+ * most common word rather than the one that earned the match.
+ */
+function findBestLiteralLine(
+  sections: readonly SnippetSection[],
+  words: string[]
+): { section: SnippetSection; line: number } | null {
+  let best: { section: SnippetSection; line: number } | null = null;
+  let bestCount = 0;
+  for (const section of sections) {
+    const { lowerLines, collapsedLines } = section;
+    for (let i = 0; i < lowerLines.length; i++) {
+      const count = countLiteralMatches(lowerLines[i], collapsedLines[i], words);
+      // Strictly greater, so the earliest line wins any tie — which makes
+      // single-word queries behave exactly as a first-match scan would.
+      if (count > bestCount) {
+        bestCount = count;
+        best = { section, line: i };
+      }
+    }
+  }
+  return best;
+}
+
+function findFuzzyLine(section: SnippetSection, words: string[]): number {
   const { lowerLines, collapsedLines } = section;
   for (let i = 0; i < lowerLines.length; i++) {
-    const lowerLine = lowerLines[i];
-    const collapsedLine = collapsedLines[i];
     for (const w of words) {
-      if (lowerLine.includes(w) || collapsedLine.includes(w)) return i;
-      if (fuzzy && wordMatchesLineFuzzy(w, lowerLine, collapsedLine)) return i;
+      if (wordMatchesLineFuzzy(w, lowerLines[i], collapsedLines[i])) return i;
     }
   }
   return -1;
@@ -144,9 +188,17 @@ function buildSectionSnippet(section: SnippetSection, matchLine: number): { labe
   return { label, snippet };
 }
 
-function findSnippetInSections(sections: readonly SnippetSection[], words: string[], fuzzy: boolean) {
+/**
+ * Fuzzy fallback keeps its first-match early exit: it is only reached when no
+ * line matched literally anywhere, and wordMatchesFuzzy is the expensive
+ * sliding-window pass, so scoring every line here would multiply that cost.
+ */
+function findFuzzySnippet(
+  sections: readonly SnippetSection[],
+  words: string[]
+): { label: string; snippet: string } | null {
   for (const section of sections) {
-    const matchLine = findMatchingLine(section, words, fuzzy);
+    const matchLine = findFuzzyLine(section, words);
     if (matchLine !== -1) return buildSectionSnippet(section, matchLine);
   }
   return null;
@@ -167,10 +219,10 @@ export function getMatchSnippet(song: SnippetSong, words: string[]): { label: st
   const lowerName = song.lowerName ?? song.name.toLowerCase();
   const nameCollapsed = song.nameCollapsed ?? collapseContractions(lowerName);
 
-  const literal = findSnippetInSections(sections, words, false);
-  if (literal) return literal;
+  const literal = findBestLiteralLine(sections, words);
+  if (literal) return buildSectionSnippet(literal.section, literal.line);
 
-  const fuzzy = findSnippetInSections(sections, words, true);
+  const fuzzy = findFuzzySnippet(sections, words);
   if (fuzzy) return fuzzy;
 
   for (const w of words) {

@@ -1,6 +1,9 @@
 import { Platform, TurboModuleRegistry, type TurboModule } from 'react-native';
 import { AUDIO_BASE_URL, DEV_AUDIO_PATH } from '@/constants/audio';
 import { FULL_HYMN_RECORDINGS, SONG_RECORDINGS } from '@/constants/audio-manifest';
+import { getPlaylistOgImageUrl } from '@/constants/og-images';
+import { getPlaylistName } from '@/constants/playlists';
+import { SONGS_BY_PLAYLIST, countVerses, findSong } from '@/constants/song-collections';
 
 // A recording is named after the collection it came from, not the playlist it
 // plays for: songs that share a melody share one file. See
@@ -72,4 +75,65 @@ export function getSongAudioUrl(
   if (recording === undefined) return undefined;
 
   return `${audioBaseUrl()}/${recording}.mp3`;
+}
+
+/** One song's recording, with everything the OS needs to describe it. */
+export interface SongAudioTrack {
+  readonly playlist: string;
+  readonly songNumber: number | string;
+  readonly url: string;
+  /**
+   * Passes to play back to back. A single verse of melody repeats until the song's
+   * verses are done; a recording of the whole hymn already contains them.
+   */
+  readonly repeatCount: number;
+  /** What the lock screen and the Android notification show. */
+  readonly title: string;
+  readonly artist: string;
+  /** Collection artwork, used as the background of Android's media card. */
+  readonly artworkUrl: string;
+}
+
+/** The song's playable recording, or undefined when it has none. */
+export function getSongAudioTrack(
+  playlist: string | undefined,
+  songNumber: number | string | undefined,
+): SongAudioTrack | undefined {
+  const url = getSongAudioUrl(playlist, songNumber);
+  if (playlist === undefined || url === undefined) return undefined;
+
+  const song = findSong(playlist, songNumber);
+  if (!song) return undefined;
+
+  return {
+    playlist,
+    songNumber: song.number,
+    url,
+    repeatCount: playsFullHymn(playlist, song.number) ? 1 : countVerses(song),
+    title: `${song.number}. ${song.name}`,
+    artist: getPlaylistName(playlist),
+    artworkUrl: getPlaylistOgImageUrl(playlist),
+  };
+}
+
+/**
+ * The next song in the same collection that has a recording — what playback rolls
+ * on to when this one is done. Songs without a recording are skipped rather than
+ * ending the run; undefined means there is nothing left to play.
+ */
+export function getNextSongAudioTrack(track: SongAudioTrack): SongAudioTrack | undefined {
+  const songs = SONGS_BY_PLAYLIST[track.playlist] ?? [];
+  const index = songs.findIndex((song) => String(song.number) === String(track.songNumber));
+  if (index < 0) return undefined;
+
+  for (let next = index + 1; next < songs.length; next++) {
+    const nextTrack = getSongAudioTrack(track.playlist, songs[next].number);
+    if (nextTrack) return nextTrack;
+  }
+  return undefined;
+}
+
+/** Whether two tracks are the same song — not merely the same recording file. */
+export function isSameSongAudioTrack(a: SongAudioTrack, b: SongAudioTrack): boolean {
+  return a.playlist === b.playlist && String(a.songNumber) === String(b.songNumber);
 }

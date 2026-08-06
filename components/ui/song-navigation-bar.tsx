@@ -5,6 +5,7 @@ import { SongAudioButton } from '@/components/ui/song-audio-button';
 import { SONG_NAV_BUTTON_SIZE } from '@/constants/layout';
 import { useColors } from '@/hooks/use-colors';
 import { useTranslation } from '@/hooks/use-translation';
+import type { SongAudioTrack } from '@/utils/song-audio';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 
 interface SongNavigationBarProps {
@@ -13,19 +14,8 @@ interface SongNavigationBarProps {
   readonly onPrevious: () => void;
   readonly onNext: () => void;
   readonly bottomInset: number;
-  /** URL of the song's official recording, when one exists. */
-  readonly audioUrl?: string;
-  /** Passes the recording plays back to back — one per verse. */
-  readonly audioRepeatCount?: number;
-  /** Song title and collection, shown on the lock screen while playing. */
-  readonly audioTitle?: string;
-  readonly audioArtist?: string;
-  /** Collection artwork for the Android media card. */
-  readonly audioArtworkUrl?: string;
-  /** Playback carried over from the previous song, so start without a press. */
-  readonly audioStartPlaying?: boolean;
-  /** The recording finished every pass — used to roll on to the next song. */
-  readonly onAudioCompleted?: () => void;
+  /** The song's official recording, when one exists. */
+  readonly audioTrack?: SongAudioTrack;
 }
 
 export function SongNavigationBar({
@@ -34,13 +24,7 @@ export function SongNavigationBar({
   onPrevious,
   onNext,
   bottomInset,
-  audioUrl,
-  audioRepeatCount = 1,
-  audioTitle = '',
-  audioArtist = '',
-  audioArtworkUrl = '',
-  audioStartPlaying = false,
-  onAudioCompleted,
+  audioTrack,
 }: SongNavigationBarProps) {
   const colors = useColors();
   const { t } = useTranslation();
@@ -78,17 +62,8 @@ export function SongNavigationBar({
       </TouchableOpacity>
 
       {/* Songs with a recording show the player; the rest keep the counter. */}
-      {audioUrl ? (
-        <SongAudioButton
-          key={audioUrl}
-          audioUrl={audioUrl}
-          repeatCount={audioRepeatCount}
-          title={audioTitle}
-          artist={audioArtist}
-          artworkUrl={audioArtworkUrl}
-          startPlaying={audioStartPlaying}
-          onCompleted={onAudioCompleted}
-        />
+      {audioTrack ? (
+        <SongAudioButton track={audioTrack} />
       ) : (
         <ThemedView style={styles.songCounter}>
           <ThemedText style={[styles.counterText, { color: colors.icon }]}>
