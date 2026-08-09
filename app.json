@@ -2,7 +2,7 @@
   "expo": {
     "name": "Indirimbo",
     "slug": "indirimbo",
-    "version": "1.6.1",
+    "version": "1.7.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "indirimbo",
