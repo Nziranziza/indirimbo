@@ -228,7 +228,7 @@ const spaPages: Array<{
     path: 'about',
     title: 'About Indirimbo — The Rwandan & Burundian Hymnal App',
     description: 'Indirimbo brings Rwandan and Burundian church hymns to your fingertips — browse the Gushimisha Imana, Agakiza, and Cantiques Kirundi hymnbooks with full lyrics.',
-    keywords: 'about indirimbo, rwandan hymns app, gushimisha imana, agakiza',
+    keywords: 'about indirimbo, rwandan hymns app, gushimisha Imana, agakiza',
     noscriptHtml: `<noscript><article>
 <h1>About Indirimbo</h1>
 <p>Indirimbo brings the beloved hymns and worship songs of Rwandan churches to your fingertips. Whether you're leading worship, singing along at church, or practicing at home, Indirimbo is your perfect companion.</p>
@@ -411,7 +411,7 @@ const spaPages: Array<{
     path: 'download-kirundi',
     title: 'Download Indirimbo - Cantiques Kirundi & Rwandan Hymns App',
     description: 'Download Indirimbo for iOS and Android. Browse Cantiques Kirundi alongside Gushimisha Imana and Agakiza hymnbooks. Free on the App Store and Google Play.',
-    keywords: 'indirimbo download, cantiques kirundi app, burundian hymns app, indirimbo zo guhimbaza imana, kirundi worship songs',
+    keywords: 'indirimbo download, cantiques kirundi app, burundian hymns app, indirimbo zo guhimbaza Imana, kirundi worship songs',
     softwareApp: true,
     ogImage: `${BASE_URL}/og-image-kirundi.jpg`,
     ogLocale: 'rn_BI',

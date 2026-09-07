@@ -14,7 +14,7 @@ export default function DownloadKirundiScreen() {
         title="Download Indirimbo - Cantiques Kirundi & Kinyarwanda App"
         description="Download Indirimbo for iOS and Android. Browse Cantiques Kirundi alongside Gushimisha Imana and Agakiza hymnbooks. Free on the App Store and Google Play."
         canonicalPath="/download-kirundi"
-        keywords="indirimbo download, cantiques kirundi app, burundian hymns app, indirimbo zo guhimbaza imana, kirundi worship songs"
+        keywords="indirimbo download, cantiques kirundi app, burundian hymns app, indirimbo zo guhimbaza Imana, kirundi worship songs"
       />
       <DownloadPageBody variant="kirundi" />
     </>

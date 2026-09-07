@@ -74,7 +74,7 @@ html = injectEntryPreload(html);
 const HOMEPAGE_TITLE = "Indirimbo - z'Agakiza, Gushimisha Imana, na Cantiques Kirundi";
 const HOMEPAGE_DESCRIPTION = 'Browse and search Rwandan and Burundian church hymns from Agakiza, Gushimisha Imana, and Cantiques Kirundi hymnbooks. Find lyrics, save favorites, and share worship songs.';
 const HOMEPAGE_TWITTER_DESCRIPTION = 'Browse and search church hymns from Agakiza, Gushimisha Imana, and Cantiques Kirundi hymnbooks.';
-const HOMEPAGE_KEYWORDS = "indirimbo, agakiza, gushimisha imana, cantiques kirundi, indirimbo z'agakiza, indirimbo zo gushimisha imana, indirimbo zo guhimbaza imana, rwandan hymns, burundian hymns, worship songs, church hymns, kinyarwanda, kirundi, rwanda, burundi";
+const HOMEPAGE_KEYWORDS = "indirimbo, agakiza, gushimisha Imana, cantiques kirundi, indirimbo z'agakiza, indirimbo zo gushimisha Imana, indirimbo zo guhimbaza Imana, rwandan hymns, burundian hymns, worship songs, church hymns, kinyarwanda, kirundi, rwanda, burundi";
 
 // Replace empty title with default SEO title
 html = html.replace(

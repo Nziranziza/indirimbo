@@ -68,7 +68,7 @@ export default function PlaylistScreen() {
         title={`${playlistTitle} | Indirimbo`}
         description={`Browse all ${songs.length} songs in the ${playlistTitle} hymnbook. ${name === 'cantiques-kirundi' ? 'Burundian' : 'Rwandan'} church worship songs with full lyrics.`}
         canonicalPath={`/playlist/${name}/`}
-        keywords={`${playlistTitle}, indirimbo, ${name === 'agakiza' ? "agakiza, indirimbo z'agakiza" : name === 'cantiques-kirundi' ? "cantiques kirundi, indirimbo zo guhimbaza imana" : 'gushimisha imana, indirimbo zo gushimisha imana'}, ${name === 'cantiques-kirundi' ? 'burundian hymns' : 'rwandan hymns'}, worship songs`}
+        keywords={`${playlistTitle}, indirimbo, ${name === 'agakiza' ? "agakiza, indirimbo z'agakiza" : name === 'cantiques-kirundi' ? "cantiques kirundi, indirimbo zo guhimbaza Imana" : 'gushimisha Imana, indirimbo zo gushimisha Imana'}, ${name === 'cantiques-kirundi' ? 'burundian hymns' : 'rwandan hymns'}, worship songs`}
         playlist={name}
       />
       <SongListScreen

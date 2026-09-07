@@ -148,7 +148,7 @@ const playlists: Playlist[] = [
     name: 'Gushimisha Imana',
     seoTitle: 'Gushimisha Imana — Rwandan Worship Songs & Lyrics | Indirimbo',
     songs: gushimishaSongs,
-    keywords: 'gushimisha imana, indirimbo zo gushimisha imana, rwandan hymns, worship songs, kinyarwanda',
+    keywords: 'gushimisha Imana, indirimbo zo gushimisha Imana, rwandan hymns, worship songs, kinyarwanda',
   },
   {
     id: 'agakiza',
@@ -162,14 +162,14 @@ const playlists: Playlist[] = [
     name: 'Cantiques Kirundi',
     seoTitle: 'Cantiques Kirundi — Burundian Worship Songs | Indirimbo',
     songs: kirundiSongs,
-    keywords: 'cantiques kirundi, indirimbo zo guhimbaza imana, burundian hymns, worship songs, kirundi',
+    keywords: 'cantiques kirundi, indirimbo zo guhimbaza Imana, burundian hymns, worship songs, kirundi',
   },
   {
     id: 'sdah-kinyarwanda',
     name: 'SDAH Kinyarwanda',
     seoTitle: 'SDAH Kinyarwanda — Indirimbo zo Guhimbaza Imana 500 | Indirimbo',
     songs: sdahSongs,
-    keywords: 'sdah, indirimbo zo guhimbaza imana, seventh-day adventist hymnal, rwandan hymns, kinyarwanda',
+    keywords: 'sdah, indirimbo zo guhimbaza Imana, seventh-day adventist hymnal, rwandan hymns, kinyarwanda',
   },
 ];
 
