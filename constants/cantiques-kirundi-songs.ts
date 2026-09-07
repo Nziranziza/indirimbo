@@ -3480,7 +3480,7 @@ export const songs: Song[] = [
   },
   {
     "number": 105,
-    "name": "Ubuntu bg'imana",
+    "name": "Ubuntu bg'Imana",
     "url": "https://indirimbo.rw/song/cantiques-kirundi/105",
     "category": "GUSHINGA INTAHE",
     "references": [{"codes":"Tune G.B. 562"}],
@@ -3488,7 +3488,7 @@ export const songs: Song[] = [
       {
         "type": "verse",
         "number": 1,
-        "content": "Ubuntu bg'imana\nButangaje\nNi bgo bgankuyeko\nImigozi.\nMbe vyavuye ku ki?\nVyavuye ku kugomba\nKw' Imana yonyene\nYambohoye."
+        "content": "Ubuntu bg'Imana\nButangaje\nNi bgo bgankuyeko\nImigozi.\nMbe vyavuye ku ki?\nVyavuye ku kugomba\nKw' Imana yonyene\nYambohoye."
       },
       {
         "type": "verse",
@@ -6708,7 +6708,7 @@ export const songs: Song[] = [
       {
         "type": "verse",
         "number": 5,
-        "content": "Mushirek'ubu nyene, .\nMurwane, muneshe.\nMwizer' izina ryera,\nRirabakomeza.\nMaz' ivyo birwanishwa\nMubih' Umwami Yesu,\nMuzobon' amahoro\nY'imana mw ijuru."
+        "content": "Mushirek'ubu nyene, .\nMurwane, muneshe.\nMwizer' izina ryera,\nRirabakomeza.\nMaz' ivyo birwanishwa\nMubih' Umwami Yesu,\nMuzobon' amahoro\nY'Imana mw ijuru."
       }
     ]
   },
@@ -6837,7 +6837,7 @@ export const songs: Song[] = [
   },
   {
     "number": 206,
-    "name": "Har' umuntu w' imana yitwaDanyeli",
+    "name": "Har' umuntu w' Imana yitwa Danyeli",
     "url": "https://indirimbo.rw/song/cantiques-kirundi/206",
     "category": "IZ'INTAMBARA",
     "references": [{"title":"Dare to be a Daniel","codes":"G.B.510"},{"codes":"T.H.333"}],
@@ -6845,7 +6845,7 @@ export const songs: Song[] = [
       {
         "type": "verse",
         "number": 1,
-        "content": "Har' umuntu w' imana yitwaDanyeli,\nYarindutse gusenga naho vyob'urupfu."
+        "content": "Har' umuntu w' Imana yitwa Danyeli,\nYarindutse gusenga naho vyob'urupfu."
       },
       {
         "type": "chorus",
@@ -6984,7 +6984,7 @@ export const songs: Song[] = [
       },
       {
         "type": "chorus",
-        "content": "Ninjiy' Ahera cane Yesu yanteguriye,\nMpora nnyw' amazi meza y'isok' idakama,\nManu ni yo ndy' imisi yose,\nwa mutsima w'imana, Nagererey' Ahera cane."
+        "content": "Ninjiy' Ahera cane Yesu yanteguriye,\nMpora nnyw' amazi meza y'isok' idakama,\nManu ni yo ndy' imisi yose,\nwa mutsima w'Imana, Nagererey' Ahera cane."
       },
       {
         "type": "verse",

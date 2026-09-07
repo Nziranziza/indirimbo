@@ -571,7 +571,7 @@ export default function SongScreen() {
         title={`${currentSong.name} | ${getSongTitleLabel(playlist, currentSong.number)}`}
         description={seoDescription}
         canonicalPath={`/song/${playlist}/${currentSong.number}`}
-        keywords={`${currentSong.name}, indirimbo ya ${currentSong.number}, ${playlistTitle}, ${playlist === 'cantiques-kirundi' ? 'cantiques kirundi, indirimbo zo guhimbaza imana, burundian hymns' : "indirimbo, indirimbo zo mugitabo, rwandan hymns"}, worship songs`}
+        keywords={`${currentSong.name}, indirimbo ya ${currentSong.number}, ${playlistTitle}, ${playlist === 'cantiques-kirundi' ? 'cantiques kirundi, indirimbo zo guhimbaza Imana, burundian hymns' : "indirimbo, indirimbo zo mugitabo, rwandan hymns"}, worship songs`}
         playlist={playlist}
       />
       <SongHeader
