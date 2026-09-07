@@ -8,8 +8,8 @@ const restoreLangScript = `(function(){try{var v=localStorage.getItem('${LANGUAG
 const focusResetStyle = `input:focus,textarea:focus{outline:none;}`;
 
 // Microsoft Clarity — web-only session analytics. Gated off in dev by default
-// (like Aptabase in utils/analytics.web.ts) so local sessions aren't recorded;
-// set EXPO_PUBLIC_ENABLE_ANALYTICS_IN_DEV=true to opt in.
+// so local sessions aren't recorded; set EXPO_PUBLIC_ENABLE_ANALYTICS_IN_DEV=true
+// to opt in.
 const CLARITY_PROJECT_ID = 'xj6ux8ywhp';
 const isAnalyticsEnabled =
   !__DEV__ || process.env.EXPO_PUBLIC_ENABLE_ANALYTICS_IN_DEV === 'true';
