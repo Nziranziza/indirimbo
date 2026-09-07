@@ -1,27 +1,18 @@
-import { init, trackEvent as aptabaseTrackEvent } from '@aptabase/web';
-
-const APTABASE_APP_KEY = 'A-EU-6809558212';
-
-// Analytics are disabled in dev by default to avoid burning through Aptabase
-// quota. Set EXPO_PUBLIC_ENABLE_ANALYTICS_IN_DEV=true to track a test sample.
-const isAnalyticsEnabled = (): boolean =>
-  !__DEV__ || process.env.EXPO_PUBLIC_ENABLE_ANALYTICS_IN_DEV === 'true';
-
-let isInitialized = false;
-
+/**
+ * Analytics facade (web). Session analytics on web run through Microsoft
+ * Clarity, injected in app/+html.tsx; there is no event-level provider, so
+ * `trackEvent` is a no-op and exists so call sites stay in place for whichever
+ * provider comes next.
+ */
 export function initAnalytics(): void {
-  if (isInitialized || !isAnalyticsEnabled()) return;
-  init(APTABASE_APP_KEY);
-  isInitialized = true;
+  // No provider to initialize.
 }
 
 export function trackEvent(
-  eventName: string,
-  properties?: Record<string, string | number>,
+  _eventName: string,
+  _properties?: Record<string, string | number>,
 ): void {
-  if (!isAnalyticsEnabled()) return;
-  if (!isInitialized) initAnalytics();
-  aptabaseTrackEvent(eventName, properties);
+  // No provider to send to.
 }
 
 export async function trackAppUpdateIfChanged(): Promise<void> {

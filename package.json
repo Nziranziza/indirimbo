@@ -26,8 +26,6 @@
     "seo:verify-confirm": "tsx scripts/seo/verify-service-account.ts confirm"
   },
   "dependencies": {
-    "@aptabase/react-native": "^0.4.0",
-    "@aptabase/web": "^0.5.0",
     "@expo/vector-icons": "^15.0.3",
     "@react-native-async-storage/async-storage": "^2.2.0",
     "@react-native-segmented-control/segmented-control": "2.5.7",

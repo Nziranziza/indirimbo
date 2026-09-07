@@ -14,8 +14,8 @@ In the Cloudflare dashboard, create a Pages project connected to the `Nziranziza
 - **Build output directory:** `dist`
 - **Environment variable:** `NODE_VERSION = 20`
 
-No other build-time secrets are required. (The Aptabase analytics key is hardcoded, and the Sentry
-DSN lives only in the gitignored `.env.local`, so it is not part of the web build — set
+No other build-time secrets are required. (The Microsoft Clarity project ID is hardcoded, and the
+Sentry DSN lives only in the gitignored `.env.local`, so it is not part of the web build — set
 `EXPO_PUBLIC_SENTRY_DSN` in the project's env vars only if web crash reporting is wanted.)
 
 ## Automatic Deployment
