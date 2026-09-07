@@ -116,7 +116,8 @@
           "recordAudioAndroid": false,
           "microphonePermission": false
         }
-      ]
+      ],
+      "./plugins/with-r8-optimization"
     ],
     "updates": {
       "url": "https://u.expo.dev/42352c61-6285-46aa-9faa-ee33c490e5c7"
