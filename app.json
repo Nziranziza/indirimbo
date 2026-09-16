@@ -101,6 +101,7 @@
         }
       ],
       "expo-localization",
+      "./plugins/with-android-r8-optimization",
       [
         "@sentry/react-native/expo",
         {
